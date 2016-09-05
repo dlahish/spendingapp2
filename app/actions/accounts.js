@@ -1,7 +1,9 @@
 import { SET_CURRENT_USER } from './../constants'
 import {
   checkAuth,
-  currentUser
+  currentUser,
+  signin,
+  setAuth
 } from './../api/accounts'
 
 function setCurrentUser (user, isAuthed = true) {
@@ -20,6 +22,15 @@ export function fetchIfCurrentUser() {
         if (response.data) dispatch(setCurrentUser(response.data))
         else dispatch(setCurrentUser({}, false))
       })
+      .catch((err) => console.warn(err))
+  }
+}
+
+export function signinAndAuthUser (credentials) {
+  return function (dispatch) {
+    return signin(credentials)
+      .then((res) => setAuth(res))
+      .then((user) => dispatch(setCurrentUser(user)))
       .catch((err) => console.warn(err))
   }
 }
