@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER } from '../constants'
+import { SET_CURRENT_USER, REMOVE_CURRENT_USER } from '../constants'
 const initialState = {
   user: {},
   isAuthed: undefined
@@ -11,6 +11,12 @@ export default function accounts (state = initialState, action) {
         ...state,
         user: action.user,
         isAuthed: action.isAuthed
+      }
+    case REMOVE_CURRENT_USER:
+      return {
+        ...state,
+        user: {},
+        isAuthed: false
       }
     default:
       return state

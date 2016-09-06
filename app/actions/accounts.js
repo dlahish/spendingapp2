@@ -1,9 +1,11 @@
-import { SET_CURRENT_USER } from './../constants'
+import { SET_CURRENT_USER, REMOVE_CURRENT_USER } from './../constants'
 import {
   checkAuth,
   currentUser,
   signin,
-  setAuth
+  signup,
+  setAuth,
+  revokeAuth
 } from './../api/accounts'
 
 function setCurrentUser (user, isAuthed = true) {
@@ -14,7 +16,14 @@ function setCurrentUser (user, isAuthed = true) {
   }
 }
 
+function removeCurrentUser () {
+  return {
+    type: REMOVE_CURRENT_USER
+  }
+}
+
 export function fetchIfCurrentUser() {
+  console.log('fetchIfCurrentUser ----')
   return function(dispatch) {
     return checkAuth()
       .then((token) => currentUser(token))
@@ -29,8 +38,39 @@ export function fetchIfCurrentUser() {
 export function signinAndAuthUser (credentials) {
   return function (dispatch) {
     return signin(credentials)
+      // .then((res) => {
+      //   if (res.data.message) return dispatch(setCurrentUser({}, false))
+      //   else setAuth(res)
+      // })
       .then((res) => setAuth(res))
-      .then((user) => dispatch(setCurrentUser(user)))
+      .then((user) => {
+        console.log('SET AUTH RESPONSE ---' + user)
+        dispatch(setCurrentUser(user))
+      })
       .catch((err) => console.warn(err))
+  }
+}
+
+export function signupAndAuthUser (credentials) {
+  return function (dispatch) {
+    return signup(credentials)
+      .then((res) => {
+        console.log('SIGN UP RESPOSE -- ' + res.data)
+        setAuth(res)})
+      .then((token) => {
+        console.log('SET AUTH RESPONSE ---' + token)
+        dispatch(setCurrentUser(user))
+      })
+      .catch((err) => {
+        dispatch(setCurrentUser({}, false))
+        console.log(err)
+      })
+  }
+}
+
+export function logoutAndUnauthUser () {
+  return function (dispatch) {
+    return revokeAuth()
+      .then(() => dispatch(removeCurrentUser()))
   }
 }

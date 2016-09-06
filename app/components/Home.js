@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { GuestActions } from '../components'
+import { GuestActions, UserActions } from '../components'
 import * as accountActions from '../actions/accounts'
 
 class Home extends Component {
+  componentWillMount() {
+    console.log(AsyncStorage.getItem('spending-user-token'))
+  }
+
   componentDidMount = () => {
  		this.props.actions.account.fetchIfCurrentUser()
  	// 	this.props.actions.location.getAndSetCurrentLocation()

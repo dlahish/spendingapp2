@@ -3,7 +3,8 @@ import { View } from 'react-native'
 import { Router, Scene } from 'react-native-router-flux'
 import {
   Home,
-  Signin
+  Signin,
+  Signup
 } from '../components'
 
 export default function Routes() {
@@ -12,6 +13,7 @@ export default function Routes() {
       <Scene key="root">
         <Scene key="home" title="Home" component={Home} initial={true} hideNavBar={true} />
         <Scene key="signin" title="Signin" component={Signin} />
+        <Scene key="signup" title="Signup" component={Signup} />
       </Scene>
     </Router>
   )
