@@ -1,5 +1,5 @@
 import React from 'react';
-import { AccountForm } from '../components'
+import { SigninForm } from '../components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Actions } from 'react-native-router-flux'
@@ -17,7 +17,7 @@ function Signin (props) {
 	}
 
   return (
-    <AccountForm onSubmit={handleFormSubmit} authError={props.authError}/>
+    <SigninForm onSubmit={handleFormSubmit} authError={props.authError}/>
   )
 }
 

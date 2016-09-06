@@ -12,8 +12,8 @@ export default function Routes() {
     <Router>
       <Scene key="root">
         <Scene key="home" title="Home" component={Home} initial={true} hideNavBar={true} />
-        <Scene key="signin" title="Signin" component={Signin} />
-        <Scene key="signup" title="Signup" component={Signup} />
+        <Scene key="signin" title="Signin" component={Signin} hideNavBar={false} />
+        <Scene key="signup" title="Signup" component={Signup} hideNavBar={false} />
       </Scene>
     </Router>
   )

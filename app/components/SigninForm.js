@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { Actions } from 'react-native-router-flux'
 import Button from 'react-native-button'
 
 class AccountForm extends Component {
@@ -49,6 +50,11 @@ class AccountForm extends Component {
           onPress={this.onFormSubmit}>Submit
         </Button>
 
+        <Button style={styles.btnText}
+          containerStyle={[styles.btn, styles.bgBlue]}
+          onPress={Actions.signup}>Sign up
+        </Button>
+
       </View>
     )
   }
@@ -68,7 +74,8 @@ var styles = StyleSheet.create({
         backgroundColor:"#333",
         padding:8,
         borderRadius:6,
-        width:200
+        width:200,
+        margin: 8
     },
     input: {
         backgroundColor: "#fff",
@@ -76,7 +83,10 @@ var styles = StyleSheet.create({
         height: 40,
         marginBottom: 10,
         padding:10
-    }
+    },
+    bgBlue : {
+  		backgroundColor:"#3498db",
+  	},
 });
 
 export default AccountForm

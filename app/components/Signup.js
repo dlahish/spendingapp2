@@ -1,5 +1,5 @@
 import React from 'react';
-import { AccountForm } from '../components'
+import { SignupForm } from '../components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Actions } from 'react-native-router-flux'
@@ -13,7 +13,7 @@ function Signup (props) {
 	}
 
   return (
-    <AccountForm onSubmit={handleFormSubmit}/>
+    <SignupForm onSubmit={handleFormSubmit}/>
   )
 }
 
