@@ -7,17 +7,21 @@ import * as accountActionCreators from '../actions/accounts'
 
 function Signin (props) {
 
-	handleFormSubmit = (credentials) => {
+	handleFormSubmit = (credentials, authError) => {
+		console.log('handleFormSubmit ----')
+		console.log('authError - ' + authError)
 		props.signinAndAuthUser(credentials)
-			.then(() => Actions.home())
+			.then((authError) => {
+				if (!authError) Actions.home()
+			})
 	}
 
   return (
-    <AccountForm onSubmit={handleFormSubmit}/>
+    <AccountForm onSubmit={handleFormSubmit} authError={props.authError}/>
   )
 }
 
 export default connect(
-	(state) => ({}),
+	(state) => ({ authError: state.account.user.authError }),
 	(dispatch) => (bindActionCreators(accountActionCreators, dispatch))
 )(Signin)

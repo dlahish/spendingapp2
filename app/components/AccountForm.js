@@ -13,7 +13,7 @@ class AccountForm extends Component {
   }
 
   onFormSubmit = () => {
-    this.props.onSubmit(this.state)
+    this.props.onSubmit(this.state, this.props.authError)
   }
 
   onInputChange = (field, value) => {
@@ -41,6 +41,8 @@ class AccountForm extends Component {
           placeholder='Password'
           autoCapitalize='none'
           />
+
+        <Text>{this.props.authError}</Text>
 
         <Button style={styles.btnText}
           containerStyle={styles.btn}

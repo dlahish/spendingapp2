@@ -36,16 +36,13 @@ export function fetchIfCurrentUser() {
 }
 
 export function signinAndAuthUser (credentials) {
-  return function (dispatch) {
+  return function (dispatch, getState) {
     return signin(credentials)
-      // .then((res) => {
-      //   if (res.data.message) return dispatch(setCurrentUser({}, false))
-      //   else setAuth(res)
-      // })
       .then((res) => setAuth(res))
       .then((user) => {
         console.log('SET AUTH RESPONSE ---' + user)
         dispatch(setCurrentUser(user))
+        return getState().account.user.authError
       })
       .catch((err) => console.warn(err))
   }
