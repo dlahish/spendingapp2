@@ -40,9 +40,13 @@ export function signinAndAuthUser (credentials) {
     return signin(credentials)
       .then((res) => setAuth(res))
       .then((user) => {
-        console.log('SET AUTH RESPONSE ---' + user)
-        dispatch(setCurrentUser(user))
-        return getState().account.user.authError
+        if (user.authError) {
+          console.log('SET AUTH RESPONSE ---' + user)
+          dispatch(setCurrentUser(user, false))
+          return getState().account.user.authError
+        } else {
+          dispatch(setCurrentUser(user))
+        }
       })
       .catch((err) => console.warn(err))
   }
