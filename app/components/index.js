@@ -5,6 +5,8 @@ import SigninForm from './SigninForm'
 import SignupForm from './SignupForm'
 import UserActions from './UserActions'
 import Signup from './Signup'
+import TabIcon from './TabIcon'
+import TabView from './TabView'
 
 export {
   Home,
@@ -13,5 +15,7 @@ export {
   SignupForm,
   Signup,
   GuestActions,
-  UserActions
+  UserActions,
+  TabIcon,
+  TabView
 }

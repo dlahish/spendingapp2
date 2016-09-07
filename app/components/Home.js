@@ -5,28 +5,23 @@ import { bindActionCreators } from 'redux'
 import { GuestActions, UserActions } from '../components'
 import * as accountActions from '../actions/accounts'
 
+function getMonth() {
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+                      "July", "August", "September", "October", "November", "December"];
+  const d = new Date();
+  return monthNames[d.getMonth()]
+}
+
 class Home extends Component {
-  componentWillMount() {
-    console.log(AsyncStorage.getItem('spending-user-token'))
-  }
-
-  componentDidMount = () => {
- 		this.props.actions.account.fetchIfCurrentUser()
- 	// 	this.props.actions.location.getAndSetCurrentLocation()
- 	}
-
-  availableActions = (isAuthed) => {
-		if(isAuthed === true) return <UserActions handleLogout={this.props.actions.account.logoutAndUnauthUser} />
-		else if(isAuthed === false) return <GuestActions />
-		else return <Text>Loading...</Text>
-	}
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.heading}>Spending</Text>
-        <View>
-          {this.availableActions(this.props.isAuthed)}
+        <View style={styles.toolbar}>
+          <Text style={styles.monthTitle}>{getMonth()}</Text>
+        </View>
+        <View style={styles.content}>
+          <UserActions handleLogout={this.props.actions.account.logoutAndUnauthUser} />
         </View>
       </View>
     )
@@ -35,15 +30,50 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
   container: {
-		flex:1,
-		alignItems: "center",
-		justifyContent:"space-around",
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'stretch',
 		backgroundColor: '#f2f2f2',
 	},
-	heading: {
-		fontSize: 30,
-		fontWeight: "100",
-	}
+  toolbar: {
+    alignItems: 'center',
+    paddingTop:30,
+    paddingBottom:10,
+    backgroundColor: 'rgb(0, 153, 204)'
+  },
+  monthTitle: {
+    fontSize: 18,
+    textAlign:'center',
+    fontWeight:'bold',
+    color:'#fff',
+  },
+  content: {
+    flex: 9,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: '#eeccff',
+    paddingBottom: 60
+  },
+  messageBox:{
+    backgroundColor:'#ef553a',
+    width:300,
+    paddingTop:10,
+    paddingBottom:20,
+    paddingLeft:20,
+    paddingRight:20,
+    borderRadius:10
+  },
+  messageBoxTitleText:{
+    fontWeight:'bold',
+    color:'#fff',
+    textAlign:'center',
+    fontSize:20,
+    marginBottom:10
+  },
+  messageBoxBodyText:{
+    color:'#fff',
+    fontSize:16
+  }
 })
 
 export default connect(
