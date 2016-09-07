@@ -40,13 +40,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
-		backgroundColor: '#f2f2f2',
+		backgroundColor: '#f2f2f2'
 	},
   details: {
     flex: 1
   },
   actions: {
-    flex: 1
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-end'
   },
   toolbar: {
     alignItems: 'center',
@@ -57,35 +59,15 @@ const styles = StyleSheet.create({
   monthTitle: {
     fontSize: 18,
     textAlign:'center',
-    fontWeight:'bold',
+    fontWeight: '300',
     color:'#fff',
   },
   content: {
     flex: 9,
     justifyContent: 'flex-end',
-    alignItems: 'center',
-    backgroundColor: '#eeccff',
+    alignItems: 'stretch',
+    backgroundColor: '#f2f2f2',
     paddingBottom: 60
-  },
-  messageBox:{
-    backgroundColor:'#ef553a',
-    width:300,
-    paddingTop:10,
-    paddingBottom:20,
-    paddingLeft:20,
-    paddingRight:20,
-    borderRadius:10
-  },
-  messageBoxTitleText:{
-    fontWeight:'bold',
-    color:'#fff',
-    textAlign:'center',
-    fontSize:20,
-    marginBottom:10
-  },
-  messageBoxBodyText:{
-    color:'#fff',
-    fontSize:16
   }
 })
 
