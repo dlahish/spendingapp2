@@ -15,6 +15,7 @@ class AccountForm extends Component {
 
   onFormSubmit = () => {
     this.props.onSubmit(this.state, this.props.authError)
+    this.setState({ password: '' })
   }
 
   onInputChange = (field, value) => {

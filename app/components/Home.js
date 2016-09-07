@@ -95,7 +95,7 @@ export default connect(
   }),
   (dispatch) => ({
     actions: {
-      account: bindActionCreators(accountActions, dispatch)
+      account: bindActionCreators(accountActions, dispatch),
       data: bindActionCreators(dataActions, dispatch)
     }
   })

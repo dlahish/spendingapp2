@@ -53,17 +53,17 @@ export function signinAndAuthUser (credentials) {
 }
 
 export function signupAndAuthUser (credentials) {
-  return function (dispatch) {
+  return function (dispatch, getState) {
     return signup(credentials)
-      .then((res) => {
-        console.log('SIGN UP RESPOSE -- ' + res.data)
-        setAuth(res)})
-      .then((token) => {
-        console.log('SET AUTH RESPONSE ---' + token)
-        dispatch(setCurrentUser(user))
+      .then((res) => setAuth(res))
+      .then((data) => {
+        console.log(data)
+        console.log('SET AUTH RESPONSE ---')
+        dispatch(setCurrentUser(data))
       })
       .catch((err) => {
-        dispatch(setCurrentUser({}, false))
+        dispatch(setCurrentUser(err.response.data, false))
+        return getState().account.user.error
         console.log(err)
       })
   }

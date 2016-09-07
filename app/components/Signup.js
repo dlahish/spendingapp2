@@ -9,15 +9,18 @@ function Signup (props) {
 
 	handleFormSubmit = (credentials) => {
 		props.signupAndAuthUser(credentials)
-			.then(() => Actions.home())
+			.then((error) => {
+				if (!error) Actions.home()
+				else console.log('Hello from submit form - ' + error)
+			})
 	}
 
   return (
-    <SignupForm onSubmit={handleFormSubmit}/>
+    <SignupForm onSubmit={handleFormSubmit} authError={props.authError}/>
   )
 }
 
 export default connect(
-	(state) => ({}),
+	(state) => ({authError: state.account.user.error}),
 	(dispatch) => (bindActionCreators(accountActionCreators, dispatch))
 	)(Signup)

@@ -33,7 +33,7 @@ export function setAuth (res) {
     return { authError: res.data.message }
   } else {
     AsyncStorage.setItem('spending-user-token', res.data.token)
-    return res.data.token
+    return res
   }
 }
 
