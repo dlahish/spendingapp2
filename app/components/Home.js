@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { GuestActions, UserActions } from '../components'
+import { GuestActions, UserActions, NewTransaction, ShowDetails } from '../components'
 import * as accountActions from '../actions/accounts'
+import * as dataActions from '../actions/data'
+import Chart from 'react-native-chart'
 
 function getMonth() {
   const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -13,7 +15,6 @@ function getMonth() {
 }
 
 class Home extends Component {
-
   render() {
     return (
       <View style={styles.container}>
@@ -21,7 +22,13 @@ class Home extends Component {
           <Text style={styles.monthTitle}>{getMonth()}</Text>
         </View>
         <View style={styles.content}>
-          <UserActions handleLogout={this.props.actions.account.logoutAndUnauthUser} />
+          <View style={styles.details}>
+            <ShowDetails monthTotal={this.props.actions.data.getMonthTotal} />
+          </View>
+          <View style={styles.actions}>
+            <NewTransaction />
+            <UserActions handleLogout={this.props.actions.account.logoutAndUnauthUser} />
+          </View>
         </View>
       </View>
     )
@@ -35,6 +42,12 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
 		backgroundColor: '#f2f2f2',
 	},
+  details: {
+    flex: 1
+  },
+  actions: {
+    flex: 1
+  },
   toolbar: {
     alignItems: 'center',
     paddingTop:30,
@@ -83,6 +96,7 @@ export default connect(
   (dispatch) => ({
     actions: {
       account: bindActionCreators(accountActions, dispatch)
+      data: bindActionCreators(dataActions, dispatch)
     }
   })
 )(Home)

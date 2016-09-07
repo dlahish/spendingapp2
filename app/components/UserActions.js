@@ -8,10 +8,6 @@ export default function UserActions (props) {
 		<View style={styles.container}>
 			<Button
 				style={styles.btnText}
-				containerStyle={[styles.btn, styles.bgGreen]}
-				onPress={Actions.stores}>Stores Near Me</Button>
-			<Button
-				style={styles.btnText}
 				containerStyle={[styles.btn, styles.bgDark]}
 				onPress={props.handleLogout}>Logout</Button>
 		</View>
@@ -19,6 +15,9 @@ export default function UserActions (props) {
 }
 
 var styles = StyleSheet.create({
+	container: {
+		flex: 1
+	},
 	btnText: {
 		color: "#f2f2f2"
 	},

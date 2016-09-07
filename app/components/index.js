@@ -7,6 +7,8 @@ import UserActions from './UserActions'
 import Signup from './Signup'
 import TabIcon from './TabIcon'
 import TabView from './TabView'
+import NewTransaction from './NewTransaction'
+import ShowDetails from './ShowDetails'
 
 export {
   Home,
@@ -17,5 +19,7 @@ export {
   GuestActions,
   UserActions,
   TabIcon,
-  TabView
+  TabView,
+  NewTransaction,
+  ShowDetails
 }
