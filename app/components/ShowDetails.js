@@ -6,30 +6,37 @@ const data = {
   expense: 240
 }
 
-export default ShowDetails = (props) => {
-  return (
-    <View style={styles.container}>
+export default class ShowDetails extends Component {
+  displayText(text, type) {
+    // if (!text) console.log('DISPLAY TEXT - ' + text)
+    if (!text.income) return <Text>Loading...</Text>
+    else return <Text style={styles.amount}>
+                  {text[type]}
+                </Text>
+  }
 
-      <View style={styles.innerContainer}>
-        <Text style={styles.title}>
-          Income
-        </Text>
-        <Text style={styles.amount}>
-          {data.income}
-        </Text>
+  render() {
+    // this.displayText(this.props.monthBalance, 'income')
+    return (
+      <View style={styles.container}>
+
+        <View style={styles.innerContainer}>
+          <Text style={styles.title}>
+            Income
+          </Text>
+          {this.displayText(this.props.monthBalance, 'income')}
+        </View>
+
+        <View style={styles.innerContainer}>
+          <Text style={styles.title}>
+            Expense
+          </Text>
+          {this.displayText(this.props.monthBalance, 'income')}
+        </View>
+
       </View>
-
-      <View style={styles.innerContainer}>
-        <Text style={styles.title}>
-          Expense
-        </Text>
-        <Text style={styles.amount}>
-          {data.expense}
-        </Text>
-      </View>
-
-    </View>
-  )
+    )
+  }
 }
 
 const styles = StyleSheet.create({

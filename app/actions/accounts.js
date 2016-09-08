@@ -42,10 +42,10 @@ export function signinAndAuthUser (credentials) {
       .then((user) => {
         if (user.authError) {
           console.log('SET AUTH RESPONSE ---' + user)
-          dispatch(setCurrentUser(user, false))
+          dispatch(setCurrentUser(user.data, false))
           return getState().account.user.authError
         } else {
-          dispatch(setCurrentUser(user))
+          dispatch(setCurrentUser(user.data))
         }
       })
       .catch((err) => console.warn(err))

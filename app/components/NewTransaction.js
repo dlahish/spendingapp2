@@ -6,19 +6,6 @@ import { AsyncStorage } from 'react-native'
 
 class NewTransaction extends Component {
   onAddTransaction() {
-    // var myJSONObject = {"data": [
-    //     {"date": "01/02/2003"},
-    //     {"category": "General"},
-    //     {"amount": "240"},
-    //     {"notes": "Madame"}
-    //   ]
-    // };
-    var data = {
-      date: '01/02/2003',
-      category: 'General',
-      amount: 240,
-      notes: 'Madame'
-    };
     var token
     const getToken = AsyncStorage.getItem('spending-user-token')
     getToken.then((gettoken) => {
@@ -30,9 +17,9 @@ class NewTransaction extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          date: '01/02/2003',
+          date: '01/05/2016',
           category: 'General',
-          amount: 240,
+          amount: 540,
           notes: 'Madame'
         })
       })

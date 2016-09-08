@@ -14,8 +14,28 @@ function getMonth() {
   return monthNames[d.getMonth()]
 }
 
+function getMonthBalance(yearTotal) {
+  console.log('getMonthBalance')
+  console.log(yearTotal)
+  const month = new Date().getMonth()
+  if (yearTotal.length === 0) return {}
+  else return yearTotal[month]
+}
+
 class Home extends Component {
+  // componentWillMount() {
+  //   let currentYear = new Date().getFullYear()
+  //   console.log(currentYear)
+  //   this.props.actions.data.getYearTotal(currentYear)
+  // }
+  componentWillReceiveProps() {
+    let currentYear = new Date().getFullYear()
+    console.log(currentYear)
+    this.props.actions.data.getYearTotal(currentYear)
+  }
+
   render() {
+    const monthBalance = getMonthBalance(this.props.yearTotal)
     return (
       <View style={styles.container}>
         <View style={styles.toolbar}>
@@ -23,7 +43,7 @@ class Home extends Component {
         </View>
         <View style={styles.content}>
           <View style={styles.details}>
-            <ShowDetails monthTotal={this.props.actions.data.getMonthTotal} />
+            <ShowDetails monthBalance={monthBalance} />
           </View>
           <View style={styles.actions}>
             <NewTransaction />
@@ -73,7 +93,8 @@ const styles = StyleSheet.create({
 
 export default connect(
   (state) => ({
-    isAuthed: state.account.isAuthed
+    isAuthed: state.account.isAuthed,
+    yearTotal: state.data.yearTotal
   }),
   (dispatch) => ({
     actions: {
