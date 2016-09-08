@@ -2,35 +2,20 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { GuestActions, UserActions, NewTransaction, ShowDetails } from '../components'
+import { GuestActions, UserActions, NewTransaction, ShowDetails, HomeToolbar } from '../components'
 import * as accountActions from '../actions/accounts'
 import * as dataActions from '../actions/data'
 import Chart from 'react-native-chart'
 
-function getMonth() {
-  const monthNames = ["January", "February", "March", "April", "May", "June",
-                      "July", "August", "September", "October", "November", "December"];
-  const d = new Date();
-  return monthNames[d.getMonth()]
-}
-
 function getMonthBalance(yearTotal) {
-  console.log('getMonthBalance')
-  console.log(yearTotal)
-  const month = new Date().getMonth()
-  if (yearTotal.length === 0) return {}
-  else return yearTotal[month]
+  const currentMonth = new Date().getMonth()
+  if (yearTotal.length > 0) return yearTotal[currentMonth]
+  else return {}
 }
 
 class Home extends Component {
-  // componentWillMount() {
-  //   let currentYear = new Date().getFullYear()
-  //   console.log(currentYear)
-  //   this.props.actions.data.getYearTotal(currentYear)
-  // }
-  componentWillReceiveProps() {
+  componentWillMount() {
     let currentYear = new Date().getFullYear()
-    console.log(currentYear)
     this.props.actions.data.getYearTotal(currentYear)
   }
 
@@ -39,7 +24,7 @@ class Home extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.toolbar}>
-          <Text style={styles.monthTitle}>{getMonth()}</Text>
+          <HomeToolbar />
         </View>
         <View style={styles.content}>
           <View style={styles.details}>
@@ -75,12 +60,6 @@ const styles = StyleSheet.create({
     paddingTop:30,
     paddingBottom:10,
     backgroundColor: 'rgb(0, 153, 204)'
-  },
-  monthTitle: {
-    fontSize: 18,
-    textAlign:'center',
-    fontWeight: '300',
-    color:'#fff',
   },
   content: {
     flex: 9,

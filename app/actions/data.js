@@ -27,7 +27,7 @@ export function getYearTotal(year) {
       .then((token) => fetchYearTotal(token, year))
       .then((response) => {
         console.log('RESPONSE RESPONSE FROM FETCH YEAR TOTAL')
-        console.log(response)
+        console.log(response.data.data)
         dispatch(setYearTotal(response.data.data))
       })
       .catch((err) => {

@@ -9,6 +9,7 @@ import TabIcon from './TabIcon'
 import TabView from './TabView'
 import NewTransaction from './NewTransaction'
 import ShowDetails from './ShowDetails'
+import HomeToolbar from './HomeToolbar'
 
 export {
   Home,
@@ -21,5 +22,6 @@ export {
   TabIcon,
   TabView,
   NewTransaction,
-  ShowDetails
+  ShowDetails,
+  HomeToolbar
 }

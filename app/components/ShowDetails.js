@@ -7,16 +7,15 @@ const data = {
 }
 
 export default class ShowDetails extends Component {
-  displayText(text, type) {
-    // if (!text) console.log('DISPLAY TEXT - ' + text)
-    if (!text.income) return <Text>Loading...</Text>
-    else return <Text style={styles.amount}>
-                  {text[type]}
-                </Text>
+  displayText(monthBalance, type) {
+    if (monthBalance.hasOwnProperty([type])) {
+      return <Text style={styles.amount}>
+              {monthBalance[type]}
+              </Text>
+    } else { return <Text style={styles.loading}>Loading...</Text> }
   }
 
   render() {
-    // this.displayText(this.props.monthBalance, 'income')
     return (
       <View style={styles.container}>
 
@@ -66,5 +65,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     fontWeight: '500',
+  },
+  loading: {
+    flex: 1,
+    textAlign: 'center',
+    fontSize: 15,
+    fontWeight: '300',
   }
 })
