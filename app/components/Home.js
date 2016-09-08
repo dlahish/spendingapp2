@@ -2,16 +2,10 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { GuestActions, UserActions, NewTransaction, ShowDetails, HomeToolbar } from '../components'
+import { GuestActions, UserActions, NewTransaction, CurrentMonthTotal, HomeToolbar, addBorder, AddFavoriteTransaction } from '../components'
 import * as accountActions from '../actions/accounts'
 import * as dataActions from '../actions/data'
 import Chart from 'react-native-chart'
-
-// function getMonthBalance(yearTotal) {
-//   const currentMonth = new Date().getMonth()
-//   if (yearTotal.length > 0) return yearTotal[currentMonth]
-//   else return {}
-// }
 
 class Home extends Component {
   render() {
@@ -21,8 +15,13 @@ class Home extends Component {
           <HomeToolbar />
         </View>
         <View style={styles.content}>
-          <View style={styles.details}>
-            <ShowDetails getYearTotal={this.props.actions.data.getYearTotal} currentMonthTotal={this.props.currentMonthTotal}/>
+          <View style={[styles.main, addBorder(1, 'black')]}>
+            <View style={[styles.showMonthTotal, addBorder(1, 'black')]}>
+              <CurrentMonthTotal getYearTotal={this.props.actions.data.getYearTotal} currentMonthTotal={this.props.currentMonthTotal}/>
+            </View>
+            <View style={[styles.favoriteTransactions, addBorder(1, 'blue')]}>
+              {/* <AddFavoriteTransaction /> */}
+            </View>
           </View>
           <View style={styles.actions}>
             <NewTransaction getYearTotal={this.props.actions.data.getYearTotal} />
@@ -41,7 +40,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
 		backgroundColor: '#f2f2f2'
 	},
-  details: {
+  main: {
     flex: 1
   },
   actions: {
@@ -62,6 +61,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#f2f2f2',
     paddingTop: 20,
     paddingBottom: 60
+  },
+  favoriteTransactions: {
+    flex: 1
   }
 })
 

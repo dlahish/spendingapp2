@@ -9,7 +9,7 @@ function displayText(currentMonthTotal, type) {
   } else { return <Text style={styles.loading}>Loading...</Text> }
 }
 
-export default class ShowDetails extends Component {
+export default class CurrentMonthTotal extends Component {
   componentDidMount() {
     let currentYear = new Date().getFullYear()
     this.props.getYearTotal(currentYear)
