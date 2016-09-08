@@ -17,15 +17,16 @@ class NewTransaction extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          date: '01/05/2016',
+          date: '09/19/2016',
           category: 'General',
-          amount: 540,
+          amount: -1040,
           notes: 'Madame'
         })
       })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson)
+        let currentYear = new Date().getFullYear()
+        this.props.getYearTotal('2016')
       })
       .catch((error) => {
         console.error(error);
@@ -42,7 +43,7 @@ class NewTransaction extends Component {
         <Button
           style={styles.btnText}
           containerStyle={[styles.btn, styles.bgGreen]}
-          onPress={this.onAddTransaction}
+          onPress={this.onAddTransaction.bind(this)}
         >Add Transaction
         </Button>
       </View>

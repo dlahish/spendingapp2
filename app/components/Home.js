@@ -7,20 +7,14 @@ import * as accountActions from '../actions/accounts'
 import * as dataActions from '../actions/data'
 import Chart from 'react-native-chart'
 
-function getMonthBalance(yearTotal) {
-  const currentMonth = new Date().getMonth()
-  if (yearTotal.length > 0) return yearTotal[currentMonth]
-  else return {}
-}
+// function getMonthBalance(yearTotal) {
+//   const currentMonth = new Date().getMonth()
+//   if (yearTotal.length > 0) return yearTotal[currentMonth]
+//   else return {}
+// }
 
 class Home extends Component {
-  componentWillMount() {
-    let currentYear = new Date().getFullYear()
-    this.props.actions.data.getYearTotal(currentYear)
-  }
-
   render() {
-    const monthBalance = getMonthBalance(this.props.yearTotal)
     return (
       <View style={styles.container}>
         <View style={styles.toolbar}>
@@ -28,10 +22,10 @@ class Home extends Component {
         </View>
         <View style={styles.content}>
           <View style={styles.details}>
-            <ShowDetails monthBalance={monthBalance} />
+            <ShowDetails getYearTotal={this.props.actions.data.getYearTotal} currentMonthTotal={this.props.currentMonthTotal}/>
           </View>
           <View style={styles.actions}>
-            <NewTransaction />
+            <NewTransaction getYearTotal={this.props.actions.data.getYearTotal} />
             <UserActions handleLogout={this.props.actions.account.logoutAndUnauthUser} />
           </View>
         </View>
@@ -66,6 +60,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'stretch',
     backgroundColor: '#f2f2f2',
+    paddingTop: 20,
     paddingBottom: 60
   }
 })
@@ -73,7 +68,7 @@ const styles = StyleSheet.create({
 export default connect(
   (state) => ({
     isAuthed: state.account.isAuthed,
-    yearTotal: state.data.yearTotal
+    currentMonthTotal: state.data.currentMonthTotal
   }),
   (dispatch) => ({
     actions: {

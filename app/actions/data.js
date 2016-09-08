@@ -1,4 +1,4 @@
-import { SET_TOTAL_BALANCE, SET_YEAR_TOTAL } from './../constants'
+import { SET_TOTAL_BALANCE, SET_YEAR_TOTAL, SET_CURRENT_MONTH_TOTAL } from './../constants'
 import {
   fetchYearTotal
 } from '../api/data'
@@ -20,15 +20,23 @@ function setYearTotal(data) {
   }
 }
 
+function setCurrentMonthTotal(data) {
+  if (data.length > 0) {
+    const currentMonth = new Date().getMonth()
+    return {
+      type: SET_CURRENT_MONTH_TOTAL,
+      data: data[currentMonth]
+    }
+  }
+}
+
 export function getYearTotal(year) {
-  console.log('GET YEAR TOTAL -----')
   return function(dispatch) {
     return checkAuth()
       .then((token) => fetchYearTotal(token, year))
       .then((response) => {
-        console.log('RESPONSE RESPONSE FROM FETCH YEAR TOTAL')
-        console.log(response.data.data)
         dispatch(setYearTotal(response.data.data))
+        dispatch(setCurrentMonthTotal(response.data.data))
       })
       .catch((err) => {
         console.log(err)

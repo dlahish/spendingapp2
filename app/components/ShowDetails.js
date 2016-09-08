@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
-const data = {
-  income: 1200,
-  expense: 240
+function displayText(currentMonthTotal, type) {
+  if (currentMonthTotal.hasOwnProperty([type])) {
+    return <Text style={styles.amount}>
+            {currentMonthTotal[type]}
+            </Text>
+  } else { return <Text style={styles.loading}>Loading...</Text> }
 }
 
 export default class ShowDetails extends Component {
-  displayText(monthBalance, type) {
-    if (monthBalance.hasOwnProperty([type])) {
-      return <Text style={styles.amount}>
-              {monthBalance[type]}
-              </Text>
-    } else { return <Text style={styles.loading}>Loading...</Text> }
+  componentDidMount() {
+    let currentYear = new Date().getFullYear()
+    this.props.getYearTotal(currentYear)
   }
 
   render() {
@@ -23,14 +23,14 @@ export default class ShowDetails extends Component {
           <Text style={styles.title}>
             Income
           </Text>
-          {this.displayText(this.props.monthBalance, 'income')}
+          {displayText(this.props.currentMonthTotal, 'income')}
         </View>
 
         <View style={styles.innerContainer}>
           <Text style={styles.title}>
             Expense
           </Text>
-          {this.displayText(this.props.monthBalance, 'income')}
+          {displayText(this.props.currentMonthTotal, 'expenses')}
         </View>
 
       </View>
