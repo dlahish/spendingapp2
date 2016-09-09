@@ -9,7 +9,7 @@ export default (props) => {
       <Button
         style={styles.btnText}
         containerStyle={[styles.btn, styles.bgDark]}
-        onPress={() => props.onAddTransaction(props.transaction)}
+        onPress={() => props.addTransaction(props.transaction)}
       >Add
       </Button>
       <Text style={styles.transactionName}>

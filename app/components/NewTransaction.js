@@ -19,7 +19,7 @@ class NewTransaction extends Component {
         body: JSON.stringify({
           date: '09/02/2016',
           category: 'Madam',
-          amount: '240',
+          amount: '-240',
           notes: 'Night'
         })
       })

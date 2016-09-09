@@ -7,9 +7,6 @@ export function fetchTotalBalance(token) {
 }
 
 export function fetchYearTotal(token, year) {
-  console.log('FETCH YEAR TOTAL --')
-  console.log(token)
-  console.log(year)
   if (token === null) return {}
   return axios({
       url: `${BASE_URI}/getmonthstotal`,
@@ -18,14 +15,20 @@ export function fetchYearTotal(token, year) {
       contentType: 'application/json',
       data: { year }
   })
-    // .then(response => {
-    //   dispatch({
-    //     type: FETCH_MONTHS_TOTAL,
-    //     payload: response.data.data
-    //   });
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    //   dispatch(authError('Something went wrong with getMonthsTotal'));
-    // });
+}
+
+export function sendNewTransaction(token, transaction) {
+  if (token === null) return {}
+  return axios({
+    url: `${BASE_URI}/addrecord`,
+    method: 'post',
+    headers: { authorization: token },
+    contentType: 'application/json',
+    data: {
+      date: transaction.date,
+      category: transaction.category,
+      amount: transaction.amount,
+      notes: transaction.notes
+    }
+  })
 }

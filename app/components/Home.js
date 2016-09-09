@@ -16,15 +16,15 @@ import * as dataActions from '../actions/data'
 import Chart from 'react-native-chart'
 
 const incomeFavoriteTransactions = [
-  {name: 'Night', date: '09/10/2016', category: 'Madame', amount: 100, notes: ''},
+  {name: 'Night', date: '09/30/2016', category: 'Madame', amount: 100, notes: ''},
   {name: 'Day', date: '09/11/2016', category: 'Madame', amount: 120, notes: ''},
   {name: 'Tip', date: '09/12/2016', category: 'Madame', amount: 28, notes: ''}
 ]
 
 const expeseFavoriteTransactions = [
-  {name: 'Beer', date: '09/01/2016', category: 'Food', amount: 7, notes: ''},
-  {name: 'Coffee', date: '09/05/2016', category: 'Food', amount: 5, notes: ''},
-  {name: 'Train Ticket', date: '09/02/2016', category: 'General', amount: 70, notes: ''}
+  {name: 'Beer', date: '09/05/2016', category: 'Food', amount: -7, notes: ''},
+  {name: 'Coffee', date: '09/05/2016', category: 'Food', amount: -5, notes: ''},
+  {name: 'Train Ticket', date: '09/02/2016', category: 'General', amount: -70, notes: ''}
 ]
 
 class Home extends Component {
@@ -38,7 +38,7 @@ class Home extends Component {
           <View style={styles.main}>
             <CurrentMonthTotal getYearTotal={this.props.actions.data.getYearTotal} currentMonthTotal={this.props.currentMonthTotal}/>
             <FavoriteTransactions
-              onAddTransaction={this.props.actions.data.addNewTransaction}
+              addTransaction={this.props.actions.data.addNewTransaction}
               incomeFavoriteTransactions={incomeFavoriteTransactions}
               expeseFavoriteTransactions={expeseFavoriteTransactions}/>
           </View>

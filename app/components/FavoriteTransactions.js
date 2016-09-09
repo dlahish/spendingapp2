@@ -5,12 +5,12 @@ import { addBorder, FavoriteTransaction } from '../components'
 export default class FavoriteTransactions extends Component {
   handleAddTransaction(favoriteTransaction){
     console.log('handle transaction')
-    this.props.onAddTransaction(favoriteTransaction.name)
+    this.props.addTransaction(favoriteTransaction)
   }
 
   favoriteTransactions(favoriteTransactions) {
       return favoriteTransactions.map((transaction, i) =>
-        <FavoriteTransaction key={i} onAddTransaction={this.handleAddTransaction.bind(this)} transaction={transaction} />)
+        <FavoriteTransaction key={i} addTransaction={this.handleAddTransaction.bind(this)} transaction={transaction} />)
   }
 
   render() {

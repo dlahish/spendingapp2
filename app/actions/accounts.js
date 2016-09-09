@@ -41,8 +41,8 @@ export function signinAndAuthUser (credentials) {
       .then((res) => setAuth(res))
       .then((user) => {
         if (user.authError) {
-          console.log('SET AUTH RESPONSE ---' + user)
-          dispatch(setCurrentUser(user.data, false))
+          console.log('SET AUTH RESPONSE ---' + user.authError)
+          dispatch(setCurrentUser(user, false))
           return getState().account.user.authError
         } else {
           dispatch(setCurrentUser(user.data))
