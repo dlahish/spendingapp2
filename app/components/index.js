@@ -11,7 +11,8 @@ import NewTransaction from './NewTransaction'
 import CurrentMonthTotal from './CurrentMonthTotal'
 import HomeToolbar from './HomeToolbar'
 import addBorder from './addBorder'
-import AddFavoriteTransaction from './AddFavoriteTransaction'
+import FavoriteTransactions from './FavoriteTransactions'
+import FavoriteTransaction from './FavoriteTransaction'
 
 export {
   Home,
@@ -27,5 +28,6 @@ export {
   CurrentMonthTotal,
   HomeToolbar,
   addBorder,
-  AddFavoriteTransaction
+  FavoriteTransactions,
+  FavoriteTransaction
 }

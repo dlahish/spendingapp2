@@ -17,10 +17,10 @@ class NewTransaction extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          date: '09/19/2016',
-          category: 'General',
-          amount: -1040,
-          notes: 'Madame'
+          date: '09/02/2016',
+          category: 'Madam',
+          amount: '240',
+          notes: 'Night'
         })
       })
       .then((response) => response.json())

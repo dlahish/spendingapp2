@@ -40,7 +40,7 @@ export default class CurrentMonthTotal extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'row',
     alignItems: 'stretch',
     paddingTop: 10

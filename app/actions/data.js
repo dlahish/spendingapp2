@@ -58,3 +58,7 @@ export function getTotalBalance() {
       })
   }
 }
+
+export function addNewTransaction(say) {
+  console.log('Add New Transaction say ' + say)
+}

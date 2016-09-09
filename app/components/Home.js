@@ -2,10 +2,30 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { GuestActions, UserActions, NewTransaction, CurrentMonthTotal, HomeToolbar, addBorder, AddFavoriteTransaction } from '../components'
+import {
+  GuestActions,
+  UserActions,
+  NewTransaction,
+  CurrentMonthTotal,
+  HomeToolbar,
+  addBorder,
+  FavoriteTransactions
+} from '../components'
 import * as accountActions from '../actions/accounts'
 import * as dataActions from '../actions/data'
 import Chart from 'react-native-chart'
+
+const incomeFavoriteTransactions = [
+  {name: 'Night', date: '09/10/2016', category: 'Madame', amount: 100, notes: ''},
+  {name: 'Day', date: '09/11/2016', category: 'Madame', amount: 120, notes: ''},
+  {name: 'Tip', date: '09/12/2016', category: 'Madame', amount: 28, notes: ''}
+]
+
+const expeseFavoriteTransactions = [
+  {name: 'Beer', date: '09/01/2016', category: 'Food', amount: 7, notes: ''},
+  {name: 'Coffee', date: '09/05/2016', category: 'Food', amount: 5, notes: ''},
+  {name: 'Train Ticket', date: '09/02/2016', category: 'General', amount: 70, notes: ''}
+]
 
 class Home extends Component {
   render() {
@@ -15,13 +35,12 @@ class Home extends Component {
           <HomeToolbar />
         </View>
         <View style={styles.content}>
-          <View style={[styles.main, addBorder(1, 'black')]}>
-            <View style={[styles.showMonthTotal, addBorder(1, 'black')]}>
-              <CurrentMonthTotal getYearTotal={this.props.actions.data.getYearTotal} currentMonthTotal={this.props.currentMonthTotal}/>
-            </View>
-            <View style={[styles.favoriteTransactions, addBorder(1, 'blue')]}>
-              {/* <AddFavoriteTransaction /> */}
-            </View>
+          <View style={styles.main}>
+            <CurrentMonthTotal getYearTotal={this.props.actions.data.getYearTotal} currentMonthTotal={this.props.currentMonthTotal}/>
+            <FavoriteTransactions
+              onAddTransaction={this.props.actions.data.addNewTransaction}
+              incomeFavoriteTransactions={incomeFavoriteTransactions}
+              expeseFavoriteTransactions={expeseFavoriteTransactions}/>
           </View>
           <View style={styles.actions}>
             <NewTransaction getYearTotal={this.props.actions.data.getYearTotal} />
@@ -38,7 +57,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
-		backgroundColor: '#f2f2f2'
+		// backgroundColor: '#f2f2f2'
+    backgroundColor: '#FFF'
 	},
   main: {
     flex: 1
@@ -58,8 +78,8 @@ const styles = StyleSheet.create({
     flex: 9,
     justifyContent: 'flex-end',
     alignItems: 'stretch',
-    backgroundColor: '#f2f2f2',
-    paddingTop: 20,
+    // backgroundColor: '#f2f2f2',
+    paddingTop: 5,
     paddingBottom: 60
   },
   favoriteTransactions: {
