@@ -29,9 +29,9 @@ export default class FavoriteTransactions extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'row',
-    marginTop: 10
+    marginTop: 20
   },
   innerContainer: {
     flex: 1

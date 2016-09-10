@@ -43,32 +43,32 @@ const styles = StyleSheet.create({
     // flex: 1,
     flexDirection: 'row',
     alignItems: 'stretch',
-    paddingTop: 10
+    paddingTop: 10,
   },
   innerContainer: {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'stretch',
-    justifyContent: 'center'
+    // justifyContent: 'center'
   },
   title: {
     justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
     fontSize: 22,
     fontWeight: '500',
     color: 'rgb(0, 153, 204)',
-    textAlign: 'center',
+    // textAlign: 'center',
     paddingBottom: 5
   },
   amount: {
     flex: 1,
-    textAlign: 'center',
+    // textAlign: 'center',
     fontSize: 20,
     fontWeight: '500',
   },
   loading: {
     flex: 1,
-    textAlign: 'center',
+    // textAlign: 'center',
     fontSize: 15,
     fontWeight: '300',
   }

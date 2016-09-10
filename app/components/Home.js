@@ -9,11 +9,11 @@ import {
   CurrentMonthTotal,
   HomeToolbar,
   addBorder,
-  FavoriteTransactions
+  FavoriteTransactions,
+  AddTransactionButtons
 } from '../components'
 import * as accountActions from '../actions/accounts'
 import * as dataActions from '../actions/data'
-import Chart from 'react-native-chart'
 
 const incomeFavoriteTransactions = [
   {name: 'Night', date: '09/30/2016', category: 'Madame', amount: 100, notes: ''},
@@ -40,10 +40,11 @@ class Home extends Component {
             <FavoriteTransactions
               addTransaction={this.props.actions.data.addNewTransaction}
               incomeFavoriteTransactions={incomeFavoriteTransactions}
-              expeseFavoriteTransactions={expeseFavoriteTransactions}/>
+              expeseFavoriteTransactions={expeseFavoriteTransactions} />
+            <AddTransactionButtons />
           </View>
           <View style={styles.actions}>
-            <NewTransaction getYearTotal={this.props.actions.data.getYearTotal} />
+            {/* <NewTransaction getYearTotal={this.props.actions.data.getYearTotal} /> */}
             <UserActions handleLogout={this.props.actions.account.logoutAndUnauthUser} />
           </View>
         </View>
@@ -61,7 +62,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF'
 	},
   main: {
-    flex: 1
+    flex: 1,
+    paddingLeft: 20
   },
   actions: {
     flex: 1,

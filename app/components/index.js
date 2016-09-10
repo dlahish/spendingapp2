@@ -13,6 +13,7 @@ import HomeToolbar from './HomeToolbar'
 import addBorder from './addBorder'
 import FavoriteTransactions from './FavoriteTransactions'
 import FavoriteTransaction from './FavoriteTransaction'
+import AddTransactionButtons from './AddTransactionButtons'
 
 export {
   Home,
@@ -29,5 +30,6 @@ export {
   HomeToolbar,
   addBorder,
   FavoriteTransactions,
-  FavoriteTransaction
+  FavoriteTransaction,
+  AddTransactionButtons
 }
