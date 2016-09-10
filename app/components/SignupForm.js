@@ -53,7 +53,7 @@ class AccountForm extends Component {
 
         <Button style={styles.btnText}
           containerStyle={[styles.btn, styles.bgBlue]}
-          onPress={Actions.signin}>Sign in
+          onPress={Actions.pop}>Sign in
         </Button>
 
       </View>
