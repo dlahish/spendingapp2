@@ -18,6 +18,7 @@ import NewTransactionForm from './NewTransactionForm'
 import Button from './common/Button'
 import DatePicker from './common/DatePicker'
 import DatePickerModal from './DatePickerModal'
+import CategoryList from './CategoryList'
 
 export {
   Home,
@@ -39,5 +40,6 @@ export {
   NewTransactionForm,
   Button,
   DatePicker,
-  DatePickerModal
+  DatePickerModal,
+  CategoryList
 }

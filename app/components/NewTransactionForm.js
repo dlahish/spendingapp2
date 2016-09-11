@@ -1,16 +1,38 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, DatePickerIOS, TouchableHighlight, Modal } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  DatePickerIOS,
+  TouchableHighlight,
+  Modal,
+  ListView,
+  TouchableOpacity
+} from 'react-native'
 import Button from 'react-native-button'
 import { addBorder, DatePicker, DatePickerModal } from '../components'
+import { Actions } from 'react-native-router-flux'
 
 export default class NewTransactionForm extends Component {
-  state = {
-    date: new Date(),
-    amount: null,
-    category: null,
-    notes: null,
-    dateModalVisible: false,
-    timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60
+  constructor(props) {
+    super(props)
+    this.state = {
+      date: new Date(),
+      amount: null,
+      category: null,
+      notes: null,
+      dateModalVisible: false,
+      timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
+      dataSource: null
+    }
+  }
+
+  componentWillMount() {
+    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.setState({
+      dataSource: ds.cloneWithRows(['row 1', 'row 2']),
+    })
   }
 
   setModalVisible = (visible) => {
@@ -21,7 +43,15 @@ export default class NewTransactionForm extends Component {
     this.setState({ date: date })
   }
 
+  onInputChange = (field, value) => {
+    this.setState({
+      ...this.state,
+      [field]: value
+    })
+  }
+
   render() {
+    console.log(this.state)
     return (
       <View style={[styles.container, addBorder(3, 'red')]}>
         <View style={[styles.inputWrapper, addBorder(3, 'yellow')]}>
@@ -41,22 +71,24 @@ export default class NewTransactionForm extends Component {
           </Text>
           <TextInput style={styles.input}
             placeholder='Amount'
-            onChangeText={(value) => this.onInputChange('email', value)}
-            // value={this.state.email}
+            onChangeText={(value) => this.onInputChange('amount', value)}
+            value={this.state.Amount}
+            keyboardType='numeric'
             autoCapitalize='none'
             />
         </View>
 
         <View style={[styles.inputWrapper, addBorder(3, 'yellow')]}>
-          <Text style={styles.inputTitle}>
+          <Text style={styles.inputTitle} onPress={() => Actions.categoryList}>
             Category:
           </Text>
-          <TextInput style={styles.input}
-            placeholder='Category'
-            onChangeText={(value) => this.onInputChange('email', value)}
-            // value={this.state.email}
-            autoCapitalize='none'
-            />
+          <TouchableHighlight onPress={Actions.categoryList} style={styles.dateWrapper} >
+            <TextInput style={styles.date}
+              placeholder='Category'
+              editable={false}
+              autoCapitalize='none'
+              />
+          </TouchableHighlight>
         </View>
 
         <View style={[styles.inputWrapper, addBorder(3, 'yellow')]}>
@@ -65,7 +97,7 @@ export default class NewTransactionForm extends Component {
           </Text>
           <TextInput style={styles.input}
             placeholder='Notes'
-            onChangeText={(value) => this.onInputChange('email', value)}
+            onChangeText={(value) => this.onInputChange('notes', value)}
             // value={this.state.email}
             autoCapitalize='none'
             />

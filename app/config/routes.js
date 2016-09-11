@@ -11,7 +11,8 @@ import {
   Signup,
   TabIcon,
   TabView,
-  NewTransaction
+  NewTransaction,
+  CategoryList
 } from '../components'
 
 const RouterWithRedux = connect()(Router)
@@ -52,6 +53,7 @@ class Routes extends Component {
                 <Scene key="home" title="Home" hideNavBar={true} component={Home} icon={TabIcon} />
               </Scene>
               <Scene key="newTransaction" title="New Transaction" component={NewTransaction} hideNavBar/>
+              <Scene key="categoryList" title="Categories" component={CategoryList} hideNavBar={false}/>
             </Scene>
           </Scene>
         </Scene>
