@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import Button from 'react-native-button'
 
-class AccountForm extends Component {
+class SigninForm extends Component {
 
   constructor (props) {
     super(props)
@@ -90,4 +90,4 @@ var styles = StyleSheet.create({
   	},
 });
 
-export default AccountForm
+export default SigninForm

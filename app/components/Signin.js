@@ -8,8 +8,6 @@ import * as accountActionCreators from '../actions/accounts'
 function Signin (props) {
 
 	handleFormSubmit = (credentials, authError) => {
-		console.log('handleFormSubmit ----')
-		console.log('authError - ' + authError)
 		props.signinAndAuthUser(credentials)
 			.then((authError) => {
 				if (!authError) Actions.home()

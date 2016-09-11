@@ -14,6 +14,10 @@ import addBorder from './addBorder'
 import FavoriteTransactions from './FavoriteTransactions'
 import FavoriteTransaction from './FavoriteTransaction'
 import AddTransactionButtons from './AddTransactionButtons'
+import NewTransactionForm from './NewTransactionForm'
+import Button from './common/Button'
+import DatePicker from './common/DatePicker'
+import DatePickerModal from './DatePickerModal'
 
 export {
   Home,
@@ -31,5 +35,9 @@ export {
   addBorder,
   FavoriteTransactions,
   FavoriteTransaction,
-  AddTransactionButtons
+  AddTransactionButtons,
+  NewTransactionForm,
+  Button,
+  DatePicker,
+  DatePickerModal
 }

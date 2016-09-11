@@ -10,7 +10,8 @@ import {
   Signin,
   Signup,
   TabIcon,
-  TabView
+  TabView,
+  NewTransaction
 } from '../components'
 
 const RouterWithRedux = connect()(Router)
@@ -50,6 +51,7 @@ class Routes extends Component {
               <Scene key="tabbar" tabs={true} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                 <Scene key="home" title="Home" hideNavBar={true} component={Home} icon={TabIcon} />
               </Scene>
+              <Scene key="newTransaction" title="New Transaction" component={NewTransaction} hideNavBar/>
             </Scene>
           </Scene>
         </Scene>

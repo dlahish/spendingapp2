@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Button from 'react-native-button'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { Actions } from 'react-native-router-flux'
 
 export default () => {
   return (
@@ -10,6 +11,7 @@ export default () => {
         <Button
           style={styles.btnText}
   				containerStyle={[styles.btn, styles.bgGreen]}
+          onPress={Actions.newTransaction}
         >
           <Icon name="plus-circle" style={{fontSize: 15}}/>
           Income
@@ -19,6 +21,7 @@ export default () => {
         <Button
           style={styles.btnText}
           containerStyle={[styles.btn, styles.bgRed]}
+          onPress={Actions.newTransaction}
         >
           <Icon name="plus-circle" style={{fontSize: 15}}/>
           Expense
