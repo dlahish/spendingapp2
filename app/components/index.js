@@ -18,6 +18,7 @@ import Button from './common/Button'
 import DatePicker from './common/DatePicker'
 import DatePickerModal from './DatePickerModal'
 import CategoryList from './CategoryList'
+import NewTransactionNavBar from './NewTransactionNavBar'
 
 export {
   Home,
@@ -39,5 +40,6 @@ export {
   Button,
   DatePicker,
   DatePickerModal,
-  CategoryList
+  CategoryList,
+  NewTransactionNavBar
 }

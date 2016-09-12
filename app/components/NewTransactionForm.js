@@ -57,6 +57,7 @@ class NewTransactionForm extends Component {
   }
 
   render() {
+    console.log(this.state)
     return (
       <View style={[styles.container]}>
         <View style={[styles.inputWrapper]}>
@@ -80,7 +81,7 @@ class NewTransactionForm extends Component {
             value={this.state.Amount}
             keyboardType='numeric'
             autoCapitalize='none'
-            />
+          />
         </View>
 
         <View style={[styles.inputWrapper]}>

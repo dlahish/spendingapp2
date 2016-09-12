@@ -1,8 +1,10 @@
+import Icon from 'react-native-vector-icons/Ionicons'
+const homeIcon = (<Icon name="ios-home" size={26} />)
 import React, {
   PropTypes,
 } from 'react';
 import {
-  Text,
+  Text, View
 } from 'react-native';
 
 const propTypes = {
@@ -11,11 +13,9 @@ const propTypes = {
 };
 
 const TabIcon = (props) => (
-  <Text
-    style={{ color: props.selected ? 'red' : 'black' }}
-  >
-    {props.title}
-  </Text>
+  <View>
+    {homeIcon}
+  </View>
 );
 
 TabIcon.propTypes = propTypes;
