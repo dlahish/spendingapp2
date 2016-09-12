@@ -1,4 +1,4 @@
-import { SET_TOTAL_BALANCE, SET_YEAR_TOTAL, SET_CURRENT_MONTH_TOTAL } from './../constants'
+import { SET_TOTAL_BALANCE, SET_YEAR_TOTAL, SET_CURRENT_MONTH_TOTAL, SET_CURRENT_MONTH } from './../constants'
 import {
   fetchYearTotal,
   sendNewTransaction
@@ -73,5 +73,15 @@ export function addNewTransaction(transaction) {
       .catch((err) => {
         console.log(err)
       })
+  }
+}
+
+export function setCurrentMonth() {
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+                      "July", "August", "September", "October", "November", "December"];
+  const d = new Date();
+  return {
+    type: SET_CURRENT_MONTH,
+    currentMonth: monthNames[d.getMonth()]
   }
 }

@@ -1,4 +1,4 @@
-import { SET_YEAR_TOTAL, SET_CURRENT_MONTH_TOTAL, REMOVE_CURRENT_USER } from '../constants'
+import { SET_YEAR_TOTAL, SET_CURRENT_MONTH_TOTAL, REMOVE_CURRENT_USER, SET_CURRENT_MONTH } from '../constants'
 
 const initialState = {
   currentMonthTotal: {
@@ -16,6 +16,8 @@ export default function accounts (state = initialState, action) {
       return { ...state, yearTotal: action.data}
     case REMOVE_CURRENT_USER:
       return initialState
+    case SET_CURRENT_MONTH:
+      return { ...state, currentMonth: action.currentMonth}
     default:
       return state
   }

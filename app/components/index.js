@@ -9,7 +9,6 @@ import TabIcon from './TabIcon'
 import TabView from './TabView'
 import NewTransaction from './NewTransaction'
 import CurrentMonthTotal from './CurrentMonthTotal'
-import HomeToolbar from './HomeToolbar'
 import addBorder from './addBorder'
 import FavoriteTransactions from './FavoriteTransactions'
 import FavoriteTransaction from './FavoriteTransaction'
@@ -32,7 +31,6 @@ export {
   TabView,
   NewTransaction,
   CurrentMonthTotal,
-  HomeToolbar,
   addBorder,
   FavoriteTransactions,
   FavoriteTransaction,

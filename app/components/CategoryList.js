@@ -1,4 +1,8 @@
 import React, { Component, PropTypes} from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as formActionCreators from '../actions/form'
+import { Actions } from 'react-native-router-flux'
 import {
   View,
   ScrollView,
@@ -23,25 +27,29 @@ import { addBorder } from '../components'
 
 const CategoryRow = (props) => {
   return (
-    <TouchableOpacity onPress={() => props.handleCategoryPress(props.category)}>
-      <View style={styles.categoryWrapper}>
+    <TouchableOpacity onPress={() => props.onCategorySelect(props.category)}>
+      <View style={styles.row}>
         {myIcon}
-        <Text style={styles.category}>
-          {props.category}
-        </Text>
+        <View style={styles.categoryWrapper}>
+          <Text style={styles.category}>
+            {props.category}
+          </Text>
+        </View>
       </View>
     </TouchableOpacity>
   )
 }
 
-export default class CategoryList extends Component {
+class CategoryList extends Component {
   renderCategories(categories) {
     return categories.map((category,i) =>
-      <CategoryRow handleCategoryPress={this.handleCategoryPress} category={category} key={i}/>)
+      <CategoryRow onCategorySelect={() => this.handleCategoryPress(category)} category={category} key={i}/>)
   }
 
   handleCategoryPress(category) {
     console.log(category)
+    this.props.setNewCategory(category)
+    Actions.pop()
   }
 
   render () {
@@ -60,17 +68,25 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 64,
   },
-  categoryWrapper: {
+  row: {
     flex: 1,
     flexDirection: 'row',
-    borderBottomColor: 'gray',
-    borderBottomWidth: 1,
     paddingBottom: 5,
     paddingTop: 5,
     paddingLeft: 15
   },
+  categoryWrapper: {
+    flex: 1,
+    marginLeft: 15,
+    borderBottomColor: 'gray',
+    borderBottomWidth: 1
+  },
   category: {
-    fontSize: 20,
-    paddingLeft: 15
+    fontSize: 20
   }
 })
+
+export default connect(
+	(state) => ({}),
+	(dispatch) => (bindActionCreators(formActionCreators, dispatch))
+)(CategoryList)

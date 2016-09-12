@@ -7,7 +7,6 @@ import {
   UserActions,
   NewTransaction,
   CurrentMonthTotal,
-  HomeToolbar,
   addBorder,
   FavoriteTransactions,
   AddTransactionButtons
@@ -31,9 +30,6 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.toolbar}>
-          <HomeToolbar />
-        </View>
         <View style={styles.content}>
           <View style={styles.main}>
             <CurrentMonthTotal getYearTotal={this.props.actions.data.getYearTotal} currentMonthTotal={this.props.currentMonthTotal}/>
@@ -58,7 +54,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
-		// backgroundColor: '#f2f2f2'
+		paddingTop: 64,
     backgroundColor: '#FFF'
 	},
   main: {
