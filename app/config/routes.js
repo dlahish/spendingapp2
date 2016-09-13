@@ -59,13 +59,14 @@ class Routes extends Component {
             </Scene>
             <Scene key="authed">
               <Scene key="tabbar" tabs={true} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
-                <Scene key="home" component={Home} icon={TabIcon} title={this.props.currentMonth}/>
+                <Scene key="home" component={Home} icon={TabIcon} title={this.props.currentMonth} />
               </Scene>
               <Scene
                 key="newTransaction"
                 title="New Transaction"
                 component={NewTransaction}
                 hideNavBar={true}
+                type={ActionConst.RESET}
               />
               <Scene key="categoryList"  title="Categories" component={CategoryList} />
             </Scene>

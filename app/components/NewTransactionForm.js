@@ -19,45 +19,26 @@ class NewTransactionForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      date: new Date(),
-      amount: null,
-      category: 'Category',
-      categoryColor: 'gray',
-      notes: null,
       dateModalVisible: false,
       timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
       dataSource: null
     }
   }
 
-  componentWillMount() {
-    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.setState({
-      dataSource: ds.cloneWithRows(['row 1', 'row 2']),
-    })
-  }
+  // componentWillMount() {
+  //   let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+  //   this.setState({
+  //     dataSource: ds.cloneWithRows(['row 1', 'row 2']),
+  //   })
+  // }
+  //
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({category: nextProps.newCategory, categoryColor: 'black'})
-  }
-
+  //
   setModalVisible = (visible) => {
     this.setState({ dateModalVisible: visible })
   }
 
-  onDateChange = (date) => {
-    this.setState({ date: date })
-  }
-
-  onInputChange = (field, value) => {
-    this.setState({
-      ...this.state,
-      [field]: value
-    })
-  }
-
   render() {
-    console.log(this.state)
     return (
       <View style={[styles.container]}>
         <View style={[styles.inputWrapper]}>
@@ -66,7 +47,7 @@ class NewTransactionForm extends Component {
           </Text>
           <TouchableHighlight onPress={this.setModalVisible.bind(this, true)} style={styles.touchableHighlight} >
             <Text style={styles.date}>
-              {this.state.date.toLocaleDateString('en-GB')}
+              {this.props.date.toLocaleDateString('en-GB')}
             </Text>
           </TouchableHighlight>
         </View>
@@ -77,8 +58,8 @@ class NewTransactionForm extends Component {
           </Text>
           <TextInput style={styles.input}
             placeholder='Amount'
-            onChangeText={(value) => this.onInputChange('amount', value)}
-            value={this.state.Amount}
+            onChangeText={(value) => this.props.onInputChange('amount', value)}
+            value={this.props.amount}
             keyboardType='numeric'
             autoCapitalize='none'
           />
@@ -92,8 +73,8 @@ class NewTransactionForm extends Component {
             onPress={Actions.categoryList}
             style={[styles.touchableHighlight, {padding: 0}]}
           >
-            <Text style={[styles.categoryPlaceHolder, {color: this.state.categoryColor}]}>
-              {this.state.category}
+            <Text style={[styles.categoryPlaceHolder, {color: this.props.categoryColor}]}>
+              {this.props.category}
             </Text>
           </TouchableHighlight>
         </View>
@@ -104,20 +85,25 @@ class NewTransactionForm extends Component {
           </Text>
           <TextInput style={[styles.input, {paddingTop: 4}]}
             placeholder='Notes'
-            onChangeText={(value) => this.onInputChange('notes', value)}
-            value={this.state.email}
+            onChangeText={(value) => this.props.onInputChange('notes', value)}
+            value={this.props.notes}
             multiline = {true}
             numberOfLines = {4}
             maxLength = {40}
             autoCapitalize='none'
             />
         </View>
+        {this.props.error.length > 0 ?
+          <View style={[styles.errorWrapper]}>
+            <Text style={[styles.error]}>{this.props.error}</Text>
+          </View> : <View></View>
+        }
         <DatePickerModal
           setModalVisible={this.setModalVisible}
           modalVisible={this.state.dateModalVisible}
-          date={this.state.date}
+          date={this.props.date}
           timeZoneOffsetInHours={this.state.timeZoneOffsetInHours}
-          onDateChange={this.onDateChange}
+          onDateChange={this.props.onDateChange}
         />
       </View>
     )
@@ -127,9 +113,10 @@ class NewTransactionForm extends Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'flex-start',
     alignItems: 'stretch',
-    backgroundColor: "#f2f2f2"
+    backgroundColor: "#f2f2f2",
+    paddingTop: 20
   },
   input: {
     flex: 2,
@@ -185,6 +172,19 @@ var styles = StyleSheet.create({
     opacity: 0.6,
     fontWeight: '500',
     paddingTop: 10
+  },
+  errorWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 10
+  },
+  error: {
+    // backgroundColor: "#fff",
+    color: 'red',
+    fontSize: 20,
+    marginBottom: 10,
+    padding:10
   }
 })
 

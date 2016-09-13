@@ -6,7 +6,7 @@ export default NewTransactionNavBar = (props) =>
   <View style={styles.container}>
     <TouchableHighlight
       style={styles.button}
-      onPress={() => props.onPress()}
+      onPress={() => props.onCancelPress()}
     >
       <Text style={styles.buttonText}>
         Cancel
@@ -17,7 +17,7 @@ export default NewTransactionNavBar = (props) =>
     </View>
     <TouchableHighlight
         style={styles.button}
-        onPress={() => props.onPress()}
+        onPress={() => props.onSaveNewTransaction ()}
       >
         <Text style={styles.buttonText}>
           Save
