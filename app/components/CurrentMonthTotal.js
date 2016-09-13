@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 function displayText(currentMonthTotal, type) {
@@ -38,9 +38,13 @@ export default class CurrentMonthTotal extends Component {
   }
 }
 
+CurrentMonthTotal.propTypes = {
+  getYearTotal: PropTypes.func.isRequired,
+  currentMonthTotal: PropTypes.object
+}
+
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     flexDirection: 'row',
     alignItems: 'stretch',
     paddingTop: 10,
@@ -49,26 +53,21 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'stretch',
-    // justifyContent: 'center'
   },
   title: {
     justifyContent: 'center',
-    // alignItems: 'center',
     fontSize: 22,
     fontWeight: '500',
     color: 'rgb(0, 153, 204)',
-    // textAlign: 'center',
     paddingBottom: 5
   },
   amount: {
     flex: 1,
-    // textAlign: 'center',
     fontSize: 20,
     fontWeight: '500',
   },
   loading: {
     flex: 1,
-    // textAlign: 'center',
     fontSize: 15,
     fontWeight: '300',
   }

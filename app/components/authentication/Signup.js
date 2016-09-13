@@ -1,9 +1,9 @@
 import React from 'react';
-import { SignupForm } from '../components'
+import { SignupForm } from '../../components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Actions } from 'react-native-router-flux'
-import * as accountActionCreators from '../actions/accounts'
+import * as accountActionCreators from '../../actions/accounts'
 
 function Signup (props) {
 

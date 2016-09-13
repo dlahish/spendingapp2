@@ -7,6 +7,7 @@ import { Actions } from 'react-native-router-flux'
 export default () => {
   return (
     <View style={styles.container}>
+
       <View style={styles.buttonContainer}>
         <Button
           style={styles.btnText}
@@ -17,6 +18,7 @@ export default () => {
           Income
         </Button>
       </View>
+
       <View style={styles.buttonContainer}>
         <Button
           style={styles.btnText}
@@ -27,6 +29,7 @@ export default () => {
           Expense
         </Button>
       </View>
+
     </View>
   )
 }
@@ -39,7 +42,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1
-    //alignItems: 'center'
   },
   btnText: {
 		color: 'black',

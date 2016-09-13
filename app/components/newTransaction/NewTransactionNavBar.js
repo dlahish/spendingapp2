@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View, StyleSheet, TouchableHighlight } from 'react-native'
-import { addBorder } from '../components'
+import { addBorder } from '../../components'
 
 export default NewTransactionNavBar = (props) =>
   <View style={styles.container}>

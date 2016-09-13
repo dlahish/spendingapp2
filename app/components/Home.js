@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { View, Text, StyleSheet, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -30,20 +30,24 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.content}>
           <View style={styles.main}>
-            <CurrentMonthTotal getYearTotal={this.props.actions.data.getYearTotal} currentMonthTotal={this.props.currentMonthTotal}/>
+            <CurrentMonthTotal
+              getYearTotal={this.props.actions.data.getYearTotal}
+              currentMonthTotal={this.props.currentMonthTotal}
+            />
+
             <FavoriteTransactions
               addTransaction={this.props.actions.data.addNewTransaction}
               incomeFavoriteTransactions={incomeFavoriteTransactions}
-              expeseFavoriteTransactions={expeseFavoriteTransactions} />
+              expeseFavoriteTransactions={expeseFavoriteTransactions}
+            />
+
             <AddTransactionButtons />
           </View>
+          
           <View style={styles.actions}>
-            {/* <NewTransaction getYearTotal={this.props.actions.data.getYearTotal} /> */}
             <UserActions handleLogout={this.props.actions.account.logoutAndUnauthUser} />
           </View>
-        </View>
       </View>
     )
   }
@@ -58,7 +62,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF'
 	},
   main: {
-    flex: 1,
+    flex: 3,
     paddingLeft: 20
   },
   actions: {
@@ -72,18 +76,15 @@ const styles = StyleSheet.create({
     paddingBottom:10,
     backgroundColor: 'rgb(0, 153, 204)'
   },
-  content: {
-    flex: 9,
-    justifyContent: 'flex-end',
-    alignItems: 'stretch',
-    // backgroundColor: '#f2f2f2',
-    paddingTop: 5,
-    paddingBottom: 60
-  },
   favoriteTransactions: {
     flex: 1
   }
 })
+
+Home.propTypes = {
+  isAuthed: PropTypes.bool.isRequired,
+  currentMonthTotal: PropTypes.object
+}
 
 export default connect(
   (state) => ({

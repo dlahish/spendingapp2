@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import {
   View,
@@ -12,7 +12,7 @@ import {
   TouchableOpacity
 } from 'react-native'
 import Button from 'react-native-button'
-import { addBorder, DatePicker, DatePickerModal } from '../components'
+import { addBorder, DatePicker, DatePickerModal } from '../../components'
 import { Actions } from 'react-native-router-flux'
 
 class NewTransactionForm extends Component {
@@ -25,15 +25,6 @@ class NewTransactionForm extends Component {
     }
   }
 
-  // componentWillMount() {
-  //   let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-  //   this.setState({
-  //     dataSource: ds.cloneWithRows(['row 1', 'row 2']),
-  //   })
-  // }
-  //
-
-  //
   setModalVisible = (visible) => {
     this.setState({ dateModalVisible: visible })
   }
@@ -180,13 +171,22 @@ var styles = StyleSheet.create({
     marginBottom: 10
   },
   error: {
-    // backgroundColor: "#fff",
     color: 'red',
     fontSize: 20,
     marginBottom: 10,
     padding:10
   }
 })
+
+NewTransactionForm.propTypes = {
+  date: PropTypes.object,
+  amount: PropTypes.number,
+  category: PropTypes.string,
+  notes: PropTypes.string,
+  error: PropTypes.string,
+  onDateChange: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+}
 
 export default connect(
   (state) => ({newCategory: state.form.category})

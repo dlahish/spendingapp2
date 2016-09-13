@@ -1,11 +1,11 @@
-import React, {Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Button from 'react-native-button'
-import { NewTransactionForm, NewTransactionNavBar, addBorder } from '../components'
+import { NewTransactionForm, NewTransactionNavBar, addBorder } from '../../components'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as dataActionCreators from '../actions/data'
+import * as dataActionCreators from '../../actions/data'
 
 class NewTransaction extends Component {
   constructor(props) {
@@ -65,10 +65,12 @@ class NewTransaction extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <View style={styles.container}>
-        <NewTransactionNavBar onCancelPress={this.onCancelPress} onSaveNewTransaction={this.onSaveNewTransaction}/>
+        <NewTransactionNavBar
+          onCancelPress={this.onCancelPress}
+          onSaveNewTransaction={this.onSaveNewTransaction}
+        />
         <NewTransactionForm
           date={this.state.date}
           amount={this.state.amount}
@@ -81,6 +83,10 @@ class NewTransaction extends Component {
       </View>
     )
   }
+}
+
+NewTransaction.propTypes = {
+  newCategory: PropTypes.object
 }
 
 var styles = StyleSheet.create({

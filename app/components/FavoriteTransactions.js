@@ -1,35 +1,43 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { addBorder, FavoriteTransaction } from '../components'
 
 export default class FavoriteTransactions extends Component {
   handleAddTransaction(favoriteTransaction){
-    console.log('handle transaction')
     this.props.addTransaction(favoriteTransaction)
   }
 
-  favoriteTransactions(favoriteTransactions) {
+  renderFavoriteTransactions(favoriteTransactions) {
       return favoriteTransactions.map((transaction, i) =>
-        <FavoriteTransaction key={i} addTransaction={this.handleAddTransaction.bind(this)} transaction={transaction} />)
+        <FavoriteTransaction
+          key={i}
+          addTransaction={this.handleAddTransaction.bind(this)}
+          transaction={transaction}
+        />)
   }
 
   render() {
     return (
       <View style={[styles.container]}>
         <View style={[styles.innerContainer]}>
-          {this.favoriteTransactions(this.props.incomeFavoriteTransactions)}
+          {this.renderFavoriteTransactions(this.props.incomeFavoriteTransactions)}
         </View>
         <View style={[styles.innerContainer]}>
-          {this.favoriteTransactions(this.props.expeseFavoriteTransactions)}
+          {this.renderFavoriteTransactions(this.props.expeseFavoriteTransactions)}
         </View>
       </View>
     )
   }
 }
 
+FavoriteTransactions.propTypes = {
+  addTransaction: PropTypes.func.isRequired,
+  incomeFavoriteTransactions: PropTypes.array.isRequired,
+  expeseFavoriteTransactions: PropTypes.array.isRequired
+}
+
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     flexDirection: 'row',
     marginTop: 20
   },
