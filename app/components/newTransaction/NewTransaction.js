@@ -1,7 +1,15 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  LayoutAnimation,
+  Keyboard,
+  Dimensions
+} from 'react-native'
 import Button from 'react-native-button'
-import { NewTransactionForm, NewTransactionNavBar, addBorder } from '../../components'
+import { NewTransactionForm, CustomNavBar, addBorder } from '../../components'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -14,10 +22,43 @@ class NewTransaction extends Component {
       date: new Date(),
       amount: null,
       category: 'Category',
-      categoryColor: 'gray',
+      categoryColor: '#BBBBBB',
       notes: null,
-      error: ''
+      error: '',
+      visibleHeight: null,
+      windowHeight: null
     }
+  }
+
+  componentWillMount () {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow)
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide)
+    const height = Dimensions.get('window').height
+    this.setState({windowHeight: height, visibleHeight: height})
+  }
+
+  componentWillUnmount () {
+    this.keyboardDidShowListener.remove()
+    this.keyboardDidHideListener.remove()
+  }
+
+  keyboardDidShow = (e) => {
+    // Animation types easeInEaseOut/linear/spring
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring)
+    let newSize = this.state.visibleHeight - e.endCoordinates.height
+    this.setState({
+      visibleHeight: newSize
+    })
+    _scrollView.scrollTo({y: 80});
+  }
+
+  keyboardDidHide = (e) => {
+    // Animation types easeInEaseOut/linear/spring
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+    this.setState({
+      visibleHeight: this.state.windowHeight
+    })
+    _scrollView.scrollTo({y: 0});
   }
 
   componentWillReceiveProps(nextProps) {
@@ -66,32 +107,40 @@ class NewTransaction extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <NewTransactionNavBar
-          onCancelPress={this.onCancelPress}
-          onSaveNewTransaction={this.onSaveNewTransaction}
+      <View style={[styles.container, {height: this.state.visibleHeight}]}>
+        <CustomNavBar
+          onLeftPress={this.onCancelPress}
+          onRightPress={this.onSaveNewTransaction}
+          title='New Transaction'
+          leftButton='Cancel'
+          rightButton='Save'
         />
-        <NewTransactionForm
-          date={this.state.date}
-          amount={this.state.amount}
-          category={this.state.category}
-          notes={this.state.notes}
-          error={this.state.error}
-          onDateChange={this.onDateChange}
-          onInputChange={this.onInputChange}
-        />
+        <ScrollView
+          keyboardDismissMode='interactive'
+          keyboardShouldPersistTaps={false}
+          ref={(scrollView) => { _scrollView = scrollView }}
+        >
+          <NewTransactionForm
+            date={this.state.date}
+            amount={this.state.amount}
+            category={this.state.category}
+            notes={this.state.notes}
+            error={this.state.error}
+            onDateChange={this.onDateChange}
+            onInputChange={this.onInputChange}
+          />
+        </ScrollView>
       </View>
     )
   }
 }
 
 NewTransaction.propTypes = {
-  newCategory: PropTypes.object
+  newCategory: PropTypes.string
 }
 
 var styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'stretch'
   }
 })

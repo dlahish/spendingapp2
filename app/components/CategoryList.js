@@ -19,9 +19,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons'
 const myIcon = (<Icon name="ios-add-circle" size={26} />)
 
-const categories = ['General', 'Coffee', 'Beer/Wine', 'Eating Out', 'Grocery', 'Shopping',
-'General', 'Coffee', 'Beer/Wine', 'Eating Out', 'Grocery', 'Shopping','General', 'Coffee', 'Beer/Wine', 'Eating Out', 'Grocery', 'Shopping',
-'General', 'Coffee', 'Beer/Wine', 'Eating Out', 'Grocery', 'Shopping','General', 'Coffee', 'Beer/Wine', 'Eating Out', 'Grocery', 'Shopping']
+const categories = ['General', 'Coffee', 'Beer/Wine', 'Eating Out', 'Grocery', 'Shopping']
 
 import { addBorder } from '../components'
 
@@ -66,7 +64,7 @@ class CategoryList extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 64,
+    paddingTop: 74
   },
   row: {
     flex: 1,

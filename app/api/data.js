@@ -17,7 +17,7 @@ export function fetchYearTotal(token, year) {
   })
 }
 
-export function sendNewTransaction(token, transaction) {
+export function saveNewTransaction(token, transaction) {
   if (token === null) return {}
   return axios({
     url: `${BASE_URI}/addrecord`,
@@ -30,5 +30,25 @@ export function sendNewTransaction(token, transaction) {
       amount: transaction.amount,
       notes: transaction.notes
     }
+  })
+}
+
+export function saveNewCategory(token, category) {
+  if (token === null) return {}
+  return axios({
+    url: `${BASE_URI}/addnewcategory`,
+    method: 'post',
+    headers: { authorization: token },
+    contentType: 'application/json',
+    data: { category: category }
+  })
+}
+
+export function fetchCategories(token) {
+  return axios({
+    url: `${BASE_URI}/fetchcategories`,
+    method: 'get',
+    headers: { authorization: token },
+    contentType: 'application/json'
   })
 }

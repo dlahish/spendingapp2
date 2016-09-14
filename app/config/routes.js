@@ -13,7 +13,9 @@ import {
   TabIcon,
   TabView,
   NewTransaction,
-  CategoryList
+  CategoryList,
+  Transactions,
+  Categories
 } from '../components'
 
 const RouterWithRedux = connect()(Router)
@@ -30,10 +32,11 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   tabBarStyle: {
-    backgroundColor: '#eee',
+    // backgroundColor: '#eee',
+    backgroundColor: 'green',
   },
   tabBarSelectedItemStyle: {
-    backgroundColor: '#ddd',
+    // backgroundColor: 'green',
   }
 })
 
@@ -60,6 +63,8 @@ class Routes extends Component {
             <Scene key="authed">
               <Scene key="tabbar" tabs={true} tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}>
                 <Scene key="home" component={Home} icon={TabIcon} title={this.props.currentMonth} />
+                <Scene key="transactions" component={Transactions} icon={TabIcon} title='Transactions' />
+                <Scene key="categories" component={Categories} icon={TabIcon} title='Categories' hideNavBar={true}/>
               </Scene>
               <Scene
                 key="newTransaction"
@@ -68,7 +73,13 @@ class Routes extends Component {
                 hideNavBar={true}
                 type={ActionConst.RESET}
               />
-              <Scene key="categoryList"  title="Categories" component={CategoryList} />
+              <Scene
+                key="categoryList"
+                title="Categories"
+                component={CategoryList}
+                hideNavBar={false}
+                hideBackImage={true}
+              />
             </Scene>
           </Scene>
         </Scene>

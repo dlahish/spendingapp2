@@ -53,6 +53,9 @@ class NewTransactionForm extends Component {
             value={this.props.amount}
             keyboardType='numeric'
             autoCapitalize='none'
+            multiline={true}
+            numberOfLines = {1}
+            maxLength = {6}
           />
         </View>
 
@@ -106,7 +109,8 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    backgroundColor: "#f2f2f2",
+    // backgroundColor: "#f2f2f2",
+    backgroundColor: "#FFF",
     paddingTop: 20
   },
   input: {
@@ -114,7 +118,9 @@ var styles = StyleSheet.create({
     backgroundColor: "#fff",
     fontSize: 20,
     marginBottom: 10,
-    padding:10
+    padding:10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#828287'
   },
   inputTitle: {
     flex: 1,
@@ -150,18 +156,22 @@ var styles = StyleSheet.create({
     backgroundColor: "#fff",
     marginBottom: 10,
     padding:10,
-    paddingRight: 0
+    paddingRight: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: '#828287'
   },
   date: {
     flex: 1,
     fontWeight: '600',
-    fontSize: 20
+    fontSize: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#828287'
   },
   categoryPlaceHolder: {
     flex: 1,
     fontSize: 20,
-    opacity: 0.6,
-    fontWeight: '500',
+    opacity: 0.5,
+    fontWeight: '400',
     paddingTop: 10
   },
   errorWrapper: {
@@ -180,7 +190,7 @@ var styles = StyleSheet.create({
 
 NewTransactionForm.propTypes = {
   date: PropTypes.object,
-  amount: PropTypes.number,
+  amount: PropTypes.string,
   category: PropTypes.string,
   notes: PropTypes.string,
   error: PropTypes.string,

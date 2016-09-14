@@ -1,7 +1,15 @@
-import { SET_TOTAL_BALANCE, SET_YEAR_TOTAL, SET_CURRENT_MONTH_TOTAL, SET_CURRENT_MONTH } from './../constants'
+import {
+  SET_TOTAL_BALANCE,
+  SET_YEAR_TOTAL,
+  SET_CURRENT_MONTH_TOTAL,
+  SET_CURRENT_MONTH,
+  SET_CATEGORIES
+} from './../constants'
 import {
   fetchYearTotal,
-  sendNewTransaction
+  saveNewTransaction,
+  saveNewCategory,
+  fetchCategories
 } from '../api/data'
 import {
   checkAuth
@@ -31,12 +39,18 @@ function setCurrentMonthTotal(data) {
   }
 }
 
+function setCategories(categories) {
+  return {
+    type: SET_CATEGORIES,
+    categories
+  }
+}
+
 export function getYearTotal(year) {
   return function(dispatch) {
     return checkAuth()
       .then((token) => fetchYearTotal(token, year))
       .then((response) => {
-        console.log('GET YEAR TOTAL REESPONSE - ' + response.data.data[8].expenses)
         dispatch(setYearTotal(response.data.data))
         dispatch(setCurrentMonthTotal(response.data.data))
       })
@@ -64,9 +78,8 @@ export function getTotalBalance() {
 export function addNewTransaction(transaction) {
   return function(dispatch) {
     return checkAuth()
-      .then((token) => sendNewTransaction(token, transaction))
+      .then((token) => saveNewTransaction(token, transaction))
       .then((response) => {
-        console.log(response.data.message)
         let currentYear = new Date().getFullYear()
         dispatch(getYearTotal(currentYear))
       })
@@ -83,5 +96,27 @@ export function setCurrentMonth() {
   return {
     type: SET_CURRENT_MONTH,
     currentMonth: monthNames[d.getMonth()]
+  }
+}
+
+export function addNewCategory(category) {
+  return function(dispatch) {
+    return checkAuth()
+      .then((token) => saveNewCategory(token, category))
+      .then((response) => {
+        dispatch(getCategories())
+      })
+      .catch((err) => console.log(err))
+  }
+}
+
+export function getCategories() {
+  return function(dispatch) {
+    return checkAuth()
+      .then((token) => fetchCategories(token))
+      .then((response) => {
+        dispatch(setCategories(response.data.categories))
+      })
+      .catch((err) => console.log(err))
   }
 }
