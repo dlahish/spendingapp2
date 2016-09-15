@@ -21,6 +21,8 @@ import CategoryList from './CategoryList'
 import Transactions from './Transactions'
 import Categories from './Categories'
 import CustomNavBar from './common/CustomNavBar'
+import NewCategory from './NewCategory'
+import NewCategoryForm from './NewCategoryForm'
 
 export {
   Home,
@@ -45,5 +47,7 @@ export {
   CategoryList,
   Transactions,
   Categories,
-  CustomNavBar
+  CustomNavBar,
+  NewCategory,
+  NewCategoryForm
 }

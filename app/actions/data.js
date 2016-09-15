@@ -3,13 +3,15 @@ import {
   SET_YEAR_TOTAL,
   SET_CURRENT_MONTH_TOTAL,
   SET_CURRENT_MONTH,
-  SET_CATEGORIES
+  SET_CATEGORIES,
+  SET_YEAR_TRANSACTIONS
 } from './../constants'
 import {
   fetchYearTotal,
   saveNewTransaction,
   saveNewCategory,
-  fetchCategories
+  fetchCategories,
+  fetchTransactions
 } from '../api/data'
 import {
   checkAuth
@@ -43,6 +45,25 @@ function setCategories(categories) {
   return {
     type: SET_CATEGORIES,
     categories
+  }
+}
+
+function setYearlyTransactions(response, year) {
+  console.log(response.data)
+  return {
+    type: SET_YEAR_TRANSACTIONS,
+    data: response.data.data,
+    year
+  }
+}
+
+export function getTransactions(year) {
+  return function(dispatch) {
+    return checkAuth()
+      .then((token) => fetchTransactions(token, year))
+      .then((response) => dispatch(setYearlyTransactions(response, year)))
+      .catch((err) => console.log(err))
+
   }
 }
 

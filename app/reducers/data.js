@@ -3,7 +3,8 @@ import {
   SET_CURRENT_MONTH_TOTAL,
   REMOVE_CURRENT_USER,
   SET_CURRENT_MONTH,
-  SET_CATEGORIES
+  SET_CATEGORIES,
+  SET_YEAR_TRANSACTIONS
 } from '../constants'
 
 const initialState = {
@@ -12,7 +13,8 @@ const initialState = {
     income: 0
   },
   yearTotal: [],
-  categories: []
+  categories: [],
+  transactions: {}
 }
 
 export default function accounts (state = initialState, action) {
@@ -27,6 +29,9 @@ export default function accounts (state = initialState, action) {
       return { ...state, currentMonth: action.currentMonth }
     case SET_CATEGORIES:
       return { ...state, categories: action.categories }
+    case SET_YEAR_TRANSACTIONS:
+      const nextTransactions = { ...state.transactions, [action.year]: action.data }
+      return { ...state, transactions: nextTransactions }
     default:
       return state
   }

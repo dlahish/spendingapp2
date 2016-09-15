@@ -19,7 +19,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons'
 const myIcon = (<Icon name="ios-add-circle" size={26} />)
 
-const categories = ['General', 'Coffee', 'Beer/Wine', 'Eating Out', 'Grocery', 'Shopping']
+// const categories = ['General', 'Coffee', 'Beer/Wine', 'Eating Out', 'Grocery', 'Shopping']
 
 import { addBorder } from '../components'
 
@@ -51,10 +51,12 @@ class CategoryList extends Component {
   }
 
   render () {
+    console.log('CategoryList ---')
+    console.log(this.props.categories)
     return (
       <ScrollView>
         <View style={styles.container}>
-          {this.renderCategories(categories)}
+          {this.renderCategories(this.props.categories)}
         </View>
       </ScrollView>
     )
@@ -85,6 +87,6 @@ const styles = StyleSheet.create({
 })
 
 export default connect(
-	(state) => ({}),
+	(state) => ({ categories: state.data.categories }),
 	(dispatch) => (bindActionCreators(formActionCreators, dispatch))
 )(CategoryList)

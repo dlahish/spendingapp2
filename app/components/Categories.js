@@ -6,22 +6,20 @@ import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as dataActionCreators from '../actions/data'
+import Button from 'react-native-button'
 
 const plusIcon = (<Icon name='plus' size={26} color='#FFF' />)
 const plusIconBlack = (<Icon name='plus' size={22} color='#CCC' />)
-
-categoryRow = (category, i) =>
-  <View style={styles.categoryRow} key={i}>
-    <View style={styles.icon}>{plusIconBlack}</View>
-    <Text style={styles.text}>{category}</Text>
-  </View>
-
-
-function renderCategories(categories) {
-  return categories.map((category, i) => categoryRow(category, i))
-}
+const plusIconBlackDisabled = (<Icon name='plus' size={26} color='#BBBBBB' />)
+const editIcon = (<Icon name='minus-circle' size={22} color='red' />)
 
 class Categories extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      deleteOptionOn: false
+    }
+  }
   componentDidMount() {
     this.props.getCategories()
   }
@@ -31,18 +29,29 @@ class Categories extends Component {
     this.props.addNewCategory('Clothes')
   }
 
+  onDeleteCategory = () => {
+    this.setState({ deleteOptionOn: !this.state.deleteOptionOn})
+  }
+
+  categoryRow = (category, i, editMode) =>
+    <View style={styles.categoryRow} key={i}>
+      {editMode ? <Button onPress={() => this.onDeleteCategory()}><View style={styles.icon}>{editIcon}</View></Button>
+                : <View style={styles.icon}>{plusIconBlack}</View>}
+      <Text style={styles.text}>{category}</Text>
+      {this.state.deleteOptionOn ? <Text>Delete</Text> : <View></View>}
+    </View>
+
+
+  renderCategories(categories, editMode) {
+    return categories.map((category, i) => this.categoryRow(category, i, editMode))
+  }
+
   render() {
+    const editMode = this.props.editMode
     return (
       <View style={styles.container}>
-        <CustomNavBar
-          onLeftPress={() => {}}
-          onRightPress={() => this.onAddNewCategory()}
-          title='Categories'
-          leftButton='Edit'
-          rightButton={plusIcon}
-        />
         <ScrollView>
-          {renderCategories(this.props.categories)}
+          {this.renderCategories(this.props.categories, editMode)}
         </ScrollView>
       </View>
     )
@@ -51,7 +60,8 @@ class Categories extends Component {
 
 const styles = {
   container: {
-    flex: 1
+    flex: 1,
+    paddingTop: 64,
   },
   categoryRow: {
     flexDirection: 'row',

@@ -52,3 +52,26 @@ export function fetchCategories(token) {
     contentType: 'application/json'
   })
 }
+
+export function fetchTransactions(token, year) {
+  return axios({
+    url: `${BASE_URI}/getdata`,
+    method: 'post',
+    headers: { authorization: token },
+    contentType: 'application/json',
+    data: {
+      startDate: `01/01/${year}`,
+      endDate: `12/31/${year}`
+    }
+  })
+}
+
+// export function fetchTransactions(token, year) {
+//   return axios({
+//     url: `${BASE_URI}/getmonthstotal`,
+//     method: 'post',
+//     headers: { authorization: token },
+//     contentType: 'application/json',
+//     data: { year: year }
+//   })
+// }
