@@ -49,6 +49,7 @@ function setCategories(categories) {
 }
 
 function setYearlyTransactions(response, year) {
+  console.log('setYearlyTransactions response ----')
   console.log(response.data)
   return {
     type: SET_YEAR_TRANSACTIONS,
@@ -103,6 +104,7 @@ export function addNewTransaction(transaction) {
       .then((response) => {
         let currentYear = new Date().getFullYear()
         dispatch(getYearTotal(currentYear))
+        dispatch(getTransactions('2016'))
       })
       .catch((err) => {
         console.log(err)

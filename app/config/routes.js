@@ -69,7 +69,7 @@ class Routes extends Component {
               <Scene key="signup" title="Signup" component={Signup} />
             </Scene>
             <Scene key="authed">
-              <Scene key="tabbar" tabs={true} tabBarStyle={styles.tabBar}>
+              <Scene key="tabbar" tabs={true} tabBarStyle={styles.tabBar} type={ActionConst.RESET}>
                 <Scene key="home" component={Home} icon={TabIcon} title={this.props.currentMonth} />
                 <Scene key="transactions"
                   component={connect(state =>

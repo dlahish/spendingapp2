@@ -64,7 +64,7 @@ class NewTransactionForm extends Component {
             Category:
           </Text>
           <TouchableHighlight
-            onPress={Actions.categoryList}
+            onPress={() => Actions.categoryList({categoryType: this.props.categoryType})}
             style={[styles.touchableHighlight, {padding: 0}]}
           >
             <Text style={[styles.categoryPlaceHolder, {color: this.props.categoryColor}]}>

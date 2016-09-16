@@ -18,6 +18,11 @@ function renderTransactions(transactions) {
   return transactions.map((transaction, i) => transactionRow(transaction, i))
 }
 
+function setAmountColor(type) {
+  if (type === 'Income') return {color: 'green'}
+  else return {color: 'red'}
+}
+
 function transactionRow(transaction, i) {
   const transactionMonth = new Date(transaction.date)
   return (
@@ -27,7 +32,7 @@ function transactionRow(transaction, i) {
           {transaction.notes ? <Text style={styles.text}>{transaction.notes}</Text> : <Text style={styles.text}>{transaction.category}</Text>}
         </View>
         <View style={styles.amount}>
-          <Text style={styles.text}>{transaction.amount}</Text>
+          <Text style={[styles.text, setAmountColor(transaction.type)]}>{transaction.amount}</Text>
         </View>
       </View>
       <View>
@@ -64,6 +69,7 @@ const styles = {
   container: {
     flex: 1,
     paddingTop: 64,
+    paddingBottom: 50
   },
   monthHeader: {
     justifyContent: 'center',

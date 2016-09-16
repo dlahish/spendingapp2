@@ -10,20 +10,27 @@ class NewCategory extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      categoryName: ''
+      category: {
+        name: '',
+        type: 'Income'
+      }
     }
   }
 
-  onInputChange = (value) => {
-    this.setState({ categoryName: value })
+  onInputChange = (field, value) => {
+    this.setState({
+      ...this.state,
+      category: {...this.state.category, [field]:value}
+     })
   }
 
   onSaveNewCategory = () => {
-    this.props.addNewCategory(this.state.categoryName)
+    this.props.addNewCategory(this.state.category)
     Actions.pop()
   }
 
   render() {
+    console.log(this.state)
     return (
       <View style={styles.container}>
         <CustomNavBar
@@ -34,7 +41,7 @@ class NewCategory extends Component {
           leftButton='Cancel'
           rightButton='Save'
         />
-        <NewCategoryForm onInputChange={this.onInputChange}/>
+        <NewCategoryForm onInputChange={this.onInputChange} categoryType={this.state.category.type}/>
       </View>
     )
   }

@@ -25,6 +25,7 @@ class NewTransaction extends Component {
       categoryColor: '#BBBBBB',
       notes: null,
       error: '',
+      type: '',
       visibleHeight: null,
       windowHeight: null
     }
@@ -62,7 +63,11 @@ class NewTransaction extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({category: nextProps.newCategory, categoryColor: 'black'})
+    this.setState({
+      category: nextProps.newCategory,
+      categoryColor: 'black',
+      type: nextProps.categoryType
+    })
   }
 
   onDateChange = (date) => {
@@ -82,11 +87,15 @@ class NewTransaction extends Component {
     } else if (this.state.amount === null || this.state.amount.length === 0) {
       this.setState({error: 'Please enter an amount'})
     } else {
+      let newAmount
+      if (this.state.type === 'Expense') { newAmount = this.state.amount * -1 }
+      else { newAmount = this.state.amount }
       const transaction = {
         date: this.state.date,
-        amount: this.state.amount,
+        amount: newAmount,
         category: this.state.category,
         notes: this.state.notes,
+        type: this.state.type
       }
       this.props.addNewTransaction(transaction)
       Actions.tabbar()
@@ -101,7 +110,8 @@ class NewTransaction extends Component {
       category: 'Category',
       categoryColor: 'gray',
       notes: '',
-      error: ''
+      error: '',
+      type: 'Income'
     })
   }
 
@@ -124,8 +134,10 @@ class NewTransaction extends Component {
             date={this.state.date}
             amount={this.state.amount}
             category={this.state.category}
+            categoryType={this.props.categoryType}
             notes={this.state.notes}
             error={this.state.error}
+            type={this.state.type}
             onDateChange={this.onDateChange}
             onInputChange={this.onInputChange}
           />

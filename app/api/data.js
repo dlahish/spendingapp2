@@ -1,5 +1,6 @@
 import axios from 'axios'
 const BASE_URI = `https://spendingapi2.herokuapp.com`
+// const BASE_URI = `http://192.168.0.104:3090`
 
 export function fetchTotalBalance(token) {
   if (token === null) return {}
@@ -19,6 +20,8 @@ export function fetchYearTotal(token, year) {
 
 export function saveNewTransaction(token, transaction) {
   if (token === null) return {}
+  console.log('save new transaction --')
+  console.log(transaction)
   return axios({
     url: `${BASE_URI}/addrecord`,
     method: 'post',
@@ -28,7 +31,8 @@ export function saveNewTransaction(token, transaction) {
       date: transaction.date,
       category: transaction.category,
       amount: transaction.amount,
-      notes: transaction.notes
+      notes: transaction.notes,
+      type: transaction.type
     }
   })
 }
