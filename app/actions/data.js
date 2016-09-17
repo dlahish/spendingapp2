@@ -42,11 +42,6 @@ function setCurrentMonthTotal(data) {
 }
 
 function setCategories(categories) {
-  if (categories.length === 0) {
-    categories = [
-      { name: 'General', type: 'Income' },
-      { name: 'General', type: 'Expense' } ]
-  }
   return {
     type: SET_CATEGORIES,
     categories
