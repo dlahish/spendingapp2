@@ -64,12 +64,12 @@ class Routes extends Component {
             selector={(props) => props.isAuthed ? 'authed' : 'authentication'}
             tabs={true}
           >
-            <Scene key="authentication">
+            <Scene key="authentication" >
               <Scene key="signin" title="Signin" component={Signin} />
               <Scene key="signup" title="Signup" component={Signup} />
             </Scene>
             <Scene key="authed">
-              <Scene key="tabbar" tabs={true} tabBarStyle={styles.tabBar}>
+              <Scene key="tabbar" tabs={true} tabBarStyle={styles.tabBar} type={ActionConst.RESET}>
                 <Scene key="home" component={Home} icon={TabIcon} title={this.props.currentMonth} />
                 <Scene key="transactions"
                   component={connect(state =>

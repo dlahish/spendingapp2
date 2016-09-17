@@ -30,7 +30,7 @@ const CategoryRow = (props) => {
         {myIcon}
         <View style={styles.categoryWrapper}>
           <Text style={styles.category}>
-            {props.category}
+            {props.category.name}
           </Text>
         </View>
       </View>
@@ -40,13 +40,14 @@ const CategoryRow = (props) => {
 
 class CategoryList extends Component {
   renderCategories(categories) {
-    return categories.map((category,i) =>
+    let filteredCategories = categories.filter((category) => category.type === this.props.categoryType)
+    return filteredCategories.map((category,i) =>
       <CategoryRow onCategorySelect={() => this.handleCategoryPress(category)} category={category} key={i}/>)
   }
 
   handleCategoryPress(category) {
     console.log(category)
-    this.props.setNewCategory(category)
+    this.props.setNewCategory(category.name)
     Actions.pop()
   }
 

@@ -12,7 +12,7 @@ export default () => {
         <Button
           style={styles.btnText}
   				containerStyle={[styles.btn, styles.bgGreen]}
-          onPress={Actions.newTransaction}
+          onPress={() => Actions.newTransaction({categoryType: 'Income'})}
         >
           <Icon name="plus-circle" style={{fontSize: 15}}/>
           Income
@@ -23,7 +23,7 @@ export default () => {
         <Button
           style={styles.btnText}
           containerStyle={[styles.btn, styles.bgRed]}
-          onPress={Actions.newTransaction}
+          onPress={() => Actions.newTransaction({categoryType: 'Expense'})}
         >
           <Icon name="plus-circle" style={{fontSize: 15}}/>
           Expense

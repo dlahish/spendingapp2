@@ -2,6 +2,7 @@ import axios from 'axios'
 import { AsyncStorage } from 'react-native'
 
 const BASE_URI = `https://spendingapi2.herokuapp.com`
+// const BASE_URI = `http://192.168.0.104:3090`
 
 export function checkAuth() {
   console.log('CHECK AUTH ACTION ---')

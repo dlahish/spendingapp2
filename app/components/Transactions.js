@@ -10,12 +10,20 @@ function getVisibleTransactions(transactions, month) {
   sortDownDate = (a, b) => a.date > b.date ? 1 : a.date < b.date ? -1 : 0
   sortUpDate = (a, b) => a.date < b.date ? 1 : a.date > b.date ? -1 : 0
 
-  const filteredTransactions = transactions.filter(monthFilter)
-  return filteredTransactions.sort((a,b) => sortUpDate(a,b))
+  if (transactions === undefined) { return [] }
+  else {
+    const filteredTransactions = transactions.filter(monthFilter)
+    return filteredTransactions.sort((a,b) => sortUpDate(a,b))
+  }
 }
 
 function renderTransactions(transactions) {
   return transactions.map((transaction, i) => transactionRow(transaction, i))
+}
+
+function setAmountColor(type) {
+  if (type === 'Income') return {color: 'green'}
+  else return {color: 'red'}
 }
 
 function transactionRow(transaction, i) {
@@ -27,7 +35,7 @@ function transactionRow(transaction, i) {
           {transaction.notes ? <Text style={styles.text}>{transaction.notes}</Text> : <Text style={styles.text}>{transaction.category}</Text>}
         </View>
         <View style={styles.amount}>
-          <Text style={styles.text}>{transaction.amount}</Text>
+          <Text style={[styles.text, setAmountColor(transaction.type)]}>{transaction.amount}</Text>
         </View>
       </View>
       <View>
@@ -64,6 +72,7 @@ const styles = {
   container: {
     flex: 1,
     paddingTop: 64,
+    paddingBottom: 50
   },
   monthHeader: {
     justifyContent: 'center',
