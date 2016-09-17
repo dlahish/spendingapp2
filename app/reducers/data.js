@@ -8,13 +8,11 @@ import {
 } from '../constants'
 
 const initialState = {
-  currentMonthTotal: {
-    expenses: 0,
-    income: 0
-  },
+  currentMonthTotal: {},
   yearTotal: [],
   categories: [],
-  transactions: {}
+  transactions: {},
+  currentMonth: ''
 }
 
 export default function accounts (state = initialState, action) {

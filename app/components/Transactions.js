@@ -46,6 +46,11 @@ function transactionRow(transaction, i) {
 }
 
 export default class Transactions extends Component {
+  // componentDidMount() {
+  //   const { dispatch } = this.props
+  //   dispatch(getTransactions('2016'))
+  // }
+
   render() {
     const currentMonth = new Date().getMonth()
     const currentYear = new Date().getFullYear()

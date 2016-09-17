@@ -7,6 +7,7 @@ import {
   setAuth,
   revokeAuth
 } from './../api/accounts'
+import { Actions } from 'react-native-router-flux'
 
 function setCurrentUser (user, isAuthed = true) {
   return {
@@ -23,7 +24,7 @@ function removeCurrentUser () {
 }
 
 export function fetchIfCurrentUser() {
-  console.log('fetchIfCurrentUser ----')
+  console.log('fetchIfCurrentUser --------------------------------')
   return function(dispatch) {
     return checkAuth()
       .then((token) => currentUser(token))
@@ -42,6 +43,7 @@ export function signinAndAuthUser (credentials) {
       .then((user) => {
         if (user.authError) {
           console.log('SET AUTH RESPONSE ---' + user.authError)
+          Actions.pop()
           dispatch(setCurrentUser(user, false))
           return getState().account.user.authError
         } else {

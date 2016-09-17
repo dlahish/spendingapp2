@@ -31,7 +31,7 @@ export default class FavoriteTransactions extends Component {
 }
 
 FavoriteTransactions.propTypes = {
-  addTransaction: PropTypes.func.isRequired,
+  // addTransaction: PropTypes.func.isRequired,
   incomeFavoriteTransactions: PropTypes.array.isRequired,
   expeseFavoriteTransactions: PropTypes.array.isRequired
 }

@@ -10,10 +10,10 @@ function displayText(currentMonthTotal, type) {
 }
 
 export default class CurrentMonthTotal extends Component {
-  componentDidMount() {
-    let currentYear = new Date().getFullYear()
-    this.props.getYearTotal(currentYear)
-  }
+  // componentDidMount() {
+  //   let currentYear = new Date().getFullYear()
+  //   this.props.getYearTotal(currentYear)
+  // }
 
   render() {
     return (
@@ -39,7 +39,7 @@ export default class CurrentMonthTotal extends Component {
 }
 
 CurrentMonthTotal.propTypes = {
-  getYearTotal: PropTypes.func.isRequired,
+  // getYearTotal: PropTypes.func.isRequired,
   currentMonthTotal: PropTypes.object
 }
 
