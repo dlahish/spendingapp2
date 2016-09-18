@@ -41,6 +41,7 @@ class Home extends Component {
       this.props.actions.data.getTransactions(currentYear)
       this.props.actions.data.getYearTotal()
       this.props.actions.data.getCategories()
+      this.props.actions.data.setCurrentMonth()
 
     }
   }
