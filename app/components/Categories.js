@@ -23,7 +23,7 @@ class Categories extends Component {
     super(props)
     this.state = {
       deleteOptionOn: false,
-      categoryType: 'Income'
+      displayCategoryType: 'Income'
     }
   }
   componentDidMount() {
@@ -31,7 +31,7 @@ class Categories extends Component {
   }
 
   onInputChange(type) {
-    this.setState({ categoryType: type})
+    this.setState({ displayCategoryType: type})
   }
 
   onDeleteCategory = () => {
@@ -47,16 +47,16 @@ class Categories extends Component {
     </View>
 
 
-  renderCategories(categories, categoryType, editMode) {
-    let filteredCategories = categories.filter((category) => category.type === categoryType)
+  renderCategories(categories, displayCategoryType, editMode) {
+    let filteredCategories = categories.filter((category) => category.type === displayCategoryType)
     return filteredCategories.map((category, i) => this.categoryRow(category, i, editMode))
   }
 
   render() {
-    const editMode = this.props.editMode
     let incomeSelected, expenseSelected
-    if (this.state.categoryType === 'Income') { incomeSelected = true, expenseSelected = false }
+    if (this.state.displayCategoryType === 'Income') { incomeSelected = true, expenseSelected = false }
     else { incomeSelected = false, expenseSelected = true }
+
     return (
       <View style={styles.container}>
         <View style={[styles.typeWrapper]}>
@@ -74,7 +74,7 @@ class Categories extends Component {
             </TouchableHighlight>
         </View>
         <ScrollView>
-          {this.renderCategories(this.props.categories, this.state.categoryType, editMode)}
+          {this.renderCategories(this.props.categories, this.state.displayCategoryType, this.props.editMode)}
         </ScrollView>
       </View>
     )
@@ -114,6 +114,10 @@ const styles = {
     paddingTop: 5,
     paddingBottom: 5
   }
+}
+
+Categories.propType = {
+  categories: PropTypes.array
 }
 
 export default connect(

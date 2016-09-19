@@ -45,32 +45,25 @@ function transactionRow(transaction, i) {
   )
 }
 
-export default class Transactions extends Component {
-  // componentDidMount() {
-  //   const { dispatch } = this.props
-  //   dispatch(getTransactions('2016'))
-  // }
+export default Transactions = (props) => {
+  const currentMonthIndex = new Date().getMonth()
+  const currentYear = new Date().getFullYear()
+  const VisibleTransactions = getVisibleTransactions(props.transactions[currentYear], currentMonthIndex)
 
-  render() {
-    const currentMonth = new Date().getMonth()
-    const currentYear = new Date().getFullYear()
-    const VisibleTransactions = getVisibleTransactions(this.props.transactions[currentYear], currentMonth)
-
-    return (
-      <View style={styles.container}>
-        <View style={styles.monthHeader}>
-          <View style={styles.monthWrapper}>
-            <Text style={styles.monthText}>
-              {this.props.currentMonth}
-            </Text>
-          </View>
+  return (
+    <View style={styles.container}>
+      <View style={styles.monthHeader}>
+        <View style={styles.monthWrapper}>
+          <Text style={styles.monthText}>
+            {props.currentMonth}
+          </Text>
         </View>
-        <ScrollView>
-          {renderTransactions(VisibleTransactions)}
-        </ScrollView>
       </View>
-    )
-  }
+      <ScrollView>
+        {renderTransactions(VisibleTransactions)}
+      </ScrollView>
+    </View>
+  )
 }
 
 const styles = {

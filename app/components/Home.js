@@ -54,11 +54,11 @@ class Home extends Component {
               currentMonthTotal={this.props.currentMonthTotal}
             />
 
-            <FavoriteTransactions
+            {/* <FavoriteTransactions
               addTransaction={this.props.actions.data.addNewTransaction}
               incomeFavoriteTransactions={incomeFavoriteTransactions}
               expeseFavoriteTransactions={expeseFavoriteTransactions}
-            />
+            /> */}
 
             <AddTransactionButtons />
           </View>

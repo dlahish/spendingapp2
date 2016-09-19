@@ -19,8 +19,6 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons'
 const myIcon = (<Icon name="ios-add-circle" size={26} />)
 
-// const categories = ['General', 'Coffee', 'Beer/Wine', 'Eating Out', 'Grocery', 'Shopping']
-
 import { addBorder } from '../components'
 
 const CategoryRow = (props) => {
@@ -46,14 +44,11 @@ class CategoryList extends Component {
   }
 
   handleCategoryPress(category) {
-    console.log(category)
     this.props.setNewCategory(category.name)
     Actions.pop()
   }
 
   render () {
-    console.log('CategoryList ---')
-    console.log(this.props.categories)
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -86,6 +81,10 @@ const styles = StyleSheet.create({
     fontSize: 20
   }
 })
+
+CategoryList.propTypes = {
+  categories: PropTypes.array
+}
 
 export default connect(
 	(state) => ({ categories: state.data.categories }),

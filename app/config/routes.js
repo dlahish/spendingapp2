@@ -41,10 +41,8 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontWeight: '600'
   },
-  tabBarStyle: {
-  },
-  tabBarSelectedItemStyle: {
-  }
+  tabBarStyle: {},
+  tabBarSelectedItemStyle: {}
 })
 
 class Routes extends Component {
@@ -66,19 +64,14 @@ class Routes extends Component {
             <Scene key="signin" title="Signin" component={Signin} />
             <Scene key="signup" title="Signup" component={Signup} />
           </Scene>
+
           <Scene key="authed">
             <Scene key="tabbar" tabs={true} tabBarStyle={styles.tabBar}>
-              <Scene
-                key="home"
-                component={Home}
-                icon={TabIcon}
-                title={this.props.currentMonth}
-              />
+              <Scene key="home" component={Home} icon={TabIcon} title={this.props.currentMonth} />
               <Scene key="transactions"
                 component={connect(state =>
                   ({transactions: state.data.transactions,
-                    currentMonth: state.data.currentMonth}),
-                  (dispatch => ({dispatch})))(Transactions)}
+                    currentMonth: state.data.currentMonth}))(Transactions)}
                 icon={TabIcon}
                 title='Transactions'
               />

@@ -69,7 +69,6 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     marginBottom: 10,
-    // paddingLeft: 10
   },
   inputTitle: {
     flex: 1,
@@ -91,9 +90,6 @@ var styles = StyleSheet.create({
   },
   typeWrapper: {
     flexDirection: 'row',
-    // alignItems: 'stretch',
-    // paddingRight: 30,
-    // paddingLeft: 30,
     marginBottom: 20,
     borderColor: 'black',
     borderWidth: 1,
@@ -105,10 +101,6 @@ var styles = StyleSheet.create({
     borderRadius: 5
 
   }
-  // expense: {
-  //   flex: 1,
-  //   alignItems: 'center'
-  // }
 })
 
 NewCategoryForm.propTypes = {

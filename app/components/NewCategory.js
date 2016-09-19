@@ -30,12 +30,10 @@ class NewCategory extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <View style={styles.container}>
         <CustomNavBar
           onLeftPress={Actions.pop}
-          // onRightPress={() => this.onAddNewCategory()}
           onRightPress={this.onSaveNewCategory}
           title='New Category'
           leftButton='Cancel'
