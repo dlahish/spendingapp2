@@ -90,7 +90,7 @@ class Routes extends Component {
                 <Scene key="viewCategoties" hideTabBar={false}/>
                 <Scene key="editCategory"
                   leftTitle='Done'
-                  onLeft={() => Actions.viewCategoties({editMode: false})}
+                  onLeft={() => Actions.viewCategoties({editMode: false, deleteButtonWidth: 0, selectedCategoryIndex: null})}
                   rightTitle={plusIconBlackDisabled}
                   onRight={() => {}}
                   hideTabBar={true}
