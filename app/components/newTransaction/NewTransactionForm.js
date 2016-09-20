@@ -29,6 +29,11 @@ class NewTransactionForm extends Component {
     this.setState({ dateModalVisible: visible })
   }
 
+  setCategoryColor = (category) => {
+    if (category === 'Category') return 0.5
+    else return 1
+  }
+
   render() {
     return (
       <View style={[styles.container]}>
@@ -67,7 +72,7 @@ class NewTransactionForm extends Component {
             onPress={() => Actions.categoryList({categoryType: this.props.categoryType})}
             style={[styles.touchableHighlight, {padding: 0}]}
           >
-            <Text style={[styles.categoryPlaceHolder, {color: this.props.categoryColor}]}>
+            <Text style={[styles.categoryPlaceHolder, {opacity: this.setCategoryColor(this.props.category)}]}>
               {this.props.category}
             </Text>
           </TouchableHighlight>

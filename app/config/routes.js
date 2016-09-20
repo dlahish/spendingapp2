@@ -25,6 +25,7 @@ const plusIconBlackDisabled = (<Icon name='plus' size={26} color='#BBBBBB' />)
 
 const RouterWithRedux = connect()(Router)
 
+// import styles from '../styles/routes'
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
     alignItems: 'center',
@@ -110,6 +111,8 @@ class Routes extends Component {
               hideNavBar={false}
               hideBackImage={true}
               onBack={() => {}}
+              rightTitle={plusIcon}
+              onRight={() => Actions.newCategory()}
             />
             <Scene
               key="newCategory"

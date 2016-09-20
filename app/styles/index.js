@@ -1,5 +1,5 @@
-import routes from './routes'
+import routes as routesStyles from './routes'
 
 export {
-  routes
+  routesStyles
 }

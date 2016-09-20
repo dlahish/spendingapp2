@@ -11,7 +11,6 @@ import {
   TouchableOpacity,
   Image,
   Keyboard,
-  LayoutAnimation,
   Dimensions,
   StyleSheet
 } from 'react-native'

@@ -1,9 +1,14 @@
-import { SET_NEW_CATEGORY } from '../constants'
+import { SET_NEW_CATEGORY, CLEAR_FORM } from '../constants'
 
 export function setNewCategory(category) {
-  console.log('set new category - ' + category)
   return {
     type: SET_NEW_CATEGORY,
     category
+  }
+}
+
+export function clearForm() {
+  return {
+    type: CLEAR_FORM
   }
 }

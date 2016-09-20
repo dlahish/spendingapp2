@@ -14,6 +14,7 @@ import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as dataActionCreators from '../../actions/data'
+import * as formActionCreators from '../../actions/form'
 
 class NewTransaction extends Component {
   constructor(props) {
@@ -22,7 +23,6 @@ class NewTransaction extends Component {
       date: new Date(),
       amount: null,
       category: 'Category',
-      categoryColor: '#BBBBBB',
       notes: null,
       error: '',
       type: '',
@@ -35,7 +35,10 @@ class NewTransaction extends Component {
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow)
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide)
     const height = Dimensions.get('window').height
-    this.setState({windowHeight: height, visibleHeight: height})
+    this.setState({
+      windowHeight: height,
+      visibleHeight: height
+    })
   }
 
   componentWillUnmount () {
@@ -65,7 +68,6 @@ class NewTransaction extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       category: nextProps.newCategory,
-      categoryColor: 'black',
       type: nextProps.categoryType
     })
   }
@@ -82,7 +84,7 @@ class NewTransaction extends Component {
   }
 
   onSaveNewTransaction = () => {
-    if (this.state.categoryColor === 'gray') {
+    if (this.state.category === 'Category') {
       this.setState({error: 'Category must be selected'})
     } else if (this.state.amount === null || this.state.amount.length === 0) {
       this.setState({error: 'Please enter an amount'})
@@ -97,22 +99,22 @@ class NewTransaction extends Component {
         notes: this.state.notes,
         type: this.state.type
       }
-      this.props.addNewTransaction(transaction)
+      this.props.actions.data.addNewTransaction(transaction)
       Actions.tabbar()
     }
   }
 
   onCancelPress = () => {
-    Actions.tabbar()
     this.setState({
       date: new Date(),
       amount: '',
       category: 'Category',
-      categoryColor: 'gray',
       notes: '',
       error: '',
       type: 'Income'
     })
+    this.props.actions.form.clearForm()
+    Actions.tabbar()
   }
 
   render() {
@@ -159,5 +161,10 @@ var styles = StyleSheet.create({
 
 export default connect(
   (state) => ({newCategory: state.form.category}),
-  (dispatch) => (bindActionCreators(dataActionCreators, dispatch))
+  (dispatch) => ({
+    actions: {
+      data: bindActionCreators(dataActionCreators, dispatch),
+      form: bindActionCreators(formActionCreators, dispatch)
+    }
+  })
 )(NewTransaction)

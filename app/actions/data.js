@@ -49,8 +49,6 @@ function setCategories(categories) {
 }
 
 function setYearlyTransactions(response, year) {
-  console.log('setYearlyTransactions response ----')
-  console.log(response.data)
   return {
     type: SET_YEAR_TRANSACTIONS,
     data: response.data.data,

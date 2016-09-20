@@ -24,7 +24,6 @@ function removeCurrentUser () {
 }
 
 export function fetchIfCurrentUser() {
-  console.log('fetchIfCurrentUser --------------------------------')
   return function(dispatch) {
     return checkAuth()
       .then((token) => currentUser(token))
@@ -42,7 +41,6 @@ export function signinAndAuthUser (credentials) {
       .then((res) => setAuth(res))
       .then((user) => {
         if (user.authError) {
-          console.log('SET AUTH RESPONSE ---' + user.authError)
           Actions.pop()
           dispatch(setCurrentUser(user, false))
           return getState().account.user.authError
@@ -59,8 +57,6 @@ export function signupAndAuthUser (credentials) {
     return signup(credentials)
       .then((res) => setAuth(res))
       .then((data) => {
-        console.log(data)
-        console.log('SET AUTH RESPONSE ---')
         dispatch(setCurrentUser(data))
       })
       .catch((err) => {
