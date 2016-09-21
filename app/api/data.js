@@ -7,6 +7,17 @@ export function fetchTotalBalance(token) {
   return axios.get(`${BASE_URI}/gettotal`, { headers: { authorization: token }})
 }
 
+export function deleteCategory(token, category) {
+  if (token === null) return {}
+  return axios({
+    url: `${BASE_URI}/deletecategory`,
+    method: 'post',
+    headers: { authorization: token },
+    contentType: 'application/json',
+    data: { category }
+  })
+}
+
 export function fetchYearTotal(token, year) {
   if (token === null) return {}
   return axios({

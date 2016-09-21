@@ -102,6 +102,7 @@ class Categories extends Component {
 
   onDeleteCategory = (category) => {
     console.log('ON DELETE CATEGORY -- name -- ' + category.name)
+    this.props.removeCategory(category)
   }
 
 

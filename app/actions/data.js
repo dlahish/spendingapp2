@@ -11,7 +11,8 @@ import {
   saveNewTransaction,
   saveNewCategory,
   fetchCategories,
-  fetchTransactions
+  fetchTransactions,
+  deleteCategory
 } from '../api/data'
 import {
   checkAuth
@@ -63,6 +64,18 @@ export function getTransactions(year) {
       .then((response) => dispatch(setYearlyTransactions(response, year)))
       .catch((err) => console.log(err))
 
+  }
+}
+
+export function removeCategory(category) {
+  return function(dispatch) {
+    return checkAuth()
+      .then((token) => deleteCategory(token, category))
+      .then((response) => {
+        console.log('DELETE RESPONSE - ' + response.data.message)
+        dispatch(getCategories())
+      })
+      .catch((err) => console.log(err))
   }
 }
 
