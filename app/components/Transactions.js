@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, TouchableHighlight } from 'react-native'
 import { getTransactions } from '../actions/data'
+import { Actions } from 'react-native-router-flux'
+import { ItemRow } from '../components'
 
 function getVisibleTransactions(transactions, month) {
   monthFilter = (transaction) => {
@@ -17,10 +19,6 @@ function getVisibleTransactions(transactions, month) {
   }
 }
 
-function renderTransactions(transactions) {
-  return transactions.map((transaction, i) => transactionRow(transaction, i))
-}
-
 function setAmountColor(type) {
   if (type === 'Income') return {color: 'green'}
   else return {color: 'red'}
@@ -29,41 +27,80 @@ function setAmountColor(type) {
 function transactionRow(transaction, i) {
   const transactionMonth = new Date(transaction.date)
   return (
-    <View style={styles.transactionRow} key={i}>
-      <View style={styles.nameAndAmount}>
-        <View style={styles.name}>
-          {transaction.notes ? <Text style={styles.text}>{transaction.notes}</Text> : <Text style={styles.text}>{transaction.category}</Text>}
+    <TouchableHighlight key={i}>
+      <View style={styles.transactionRow}>
+        <View style={styles.nameAndAmount}>
+          <View style={styles.name}>
+            {transaction.notes
+              ? <Text style={styles.text}>{transaction.notes}</Text>
+              : <Text style={styles.text}>{transaction.category}</Text>}
+          </View>
+          <View style={styles.amount}>
+            <Text style={[styles.text, setAmountColor(transaction.type)]}>{transaction.amount}</Text>
+          </View>
         </View>
-        <View style={styles.amount}>
-          <Text style={[styles.text, setAmountColor(transaction.type)]}>{transaction.amount}</Text>
+        <View>
+          <Text style={styles.date}>{transactionMonth.toLocaleDateString('en-GB')}</Text>
         </View>
       </View>
-      <View>
-        <Text style={styles.date}>{transactionMonth.toLocaleDateString('en-GB')}</Text>
-      </View>
-    </View>
+    </TouchableHighlight>
   )
 }
 
-export default Transactions = (props) => {
-  const currentMonthIndex = new Date().getMonth()
-  const currentYear = new Date().getFullYear()
-  const VisibleTransactions = getVisibleTransactions(props.transactions[currentYear], currentMonthIndex)
+export default class Transactions extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      selectedItemIndex: null
+    }
+  }
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.monthHeader}>
-        <View style={styles.monthWrapper}>
-          <Text style={styles.monthText}>
-            {props.currentMonth}
-          </Text>
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.selectedItemIndex) this.setState({selectedItemIndex: null})
+  }
+
+  onSelecetItem = (itemIndex, selected) => {
+    const selectedItemIndex = this.state.selectedItemIndex
+    if (this.props.editMode) {
+      if (selected) this.setState({ selectedItemIndex: null})
+      else if (selectedItemIndex !== null && itemIndex !== selectedItemIndex) this.setState({ selectedItemIndex: null})
+      else this.setState({ selectedItemIndex: itemIndex })
+    }
+  }
+
+  render() {
+    const currentMonthIndex = new Date().getMonth()
+    const currentYear = new Date().getFullYear()
+    const VisibleTransactions = getVisibleTransactions(this.props.transactions[currentYear], currentMonthIndex)
+
+    return (
+      <View style={styles.container}>
+        <View style={styles.monthHeader}>
+          <View style={styles.monthWrapper}>
+            <Text style={styles.monthText}>
+              {this.props.currentMonth}
+            </Text>
+          </View>
         </View>
+        <ScrollView>
+            {VisibleTransactions.map((transaction, i) =>
+              <ItemRow
+                key={i}
+                itemIndex={i}
+                editMode={this.props.editMode}
+                selected={i === this.state.selectedItemIndex ? true : false}
+                item={transaction}
+                mainText={transaction.category}
+                rightText={transaction.amount}
+                secondaryText={new Date(transaction.date).toLocaleDateString('en-GB')}
+                onSelecetItem={this.onSelecetItem}
+                onDeleteItem={() => {}}
+              />
+            )}
+        </ScrollView>
       </View>
-      <ScrollView>
-        {renderTransactions(VisibleTransactions)}
-      </ScrollView>
-    </View>
-  )
+    )
+  }
 }
 
 const styles = {

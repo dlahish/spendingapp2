@@ -23,6 +23,9 @@ import Categories from './Categories'
 import CustomNavBar from './common/CustomNavBar'
 import NewCategory from './NewCategory'
 import NewCategoryForm from './NewCategoryForm'
+import Settings from './Settings'
+import Transaction from './Transaction'
+import ItemRow from './common/ItemRow'
 
 export {
   Home,
@@ -49,5 +52,8 @@ export {
   Categories,
   CustomNavBar,
   NewCategory,
-  NewCategoryForm
+  NewCategoryForm,
+  Settings,
+  Transaction,
+  ItemRow
 }

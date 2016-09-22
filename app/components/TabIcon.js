@@ -17,6 +17,7 @@ function getIconName(sceneKey) {
     case 'home': return 'ios-home'
     case 'transactions': return 'ios-paper'
     case 'categories': return 'ios-pricetags'
+    case 'settings': return 'ios-settings'
     default: return 'ios-home'
   }
 }

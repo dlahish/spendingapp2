@@ -72,7 +72,6 @@ export function removeCategory(category) {
     return checkAuth()
       .then((token) => deleteCategory(token, category))
       .then((response) => {
-        console.log('DELETE RESPONSE - ' + response.data.message)
         dispatch(getCategories())
       })
       .catch((err) => console.log(err))

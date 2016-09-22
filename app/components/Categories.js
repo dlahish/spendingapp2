@@ -100,11 +100,6 @@ class Categories extends Component {
     }
   }
 
-  onDeleteCategory = (category) => {
-    console.log('ON DELETE CATEGORY -- name -- ' + category.name)
-    this.props.removeCategory(category)
-  }
-
 
   renderCategories(categories, displayCategoryType, editMode) {
     let filteredCategories = categories.filter((category) => category.type === displayCategoryType)
@@ -117,7 +112,7 @@ class Categories extends Component {
         showIcon={this.state.showIcon}
         deleteButtonWidth={this.state.deleteButtonWidth}
         onSelecetCategory={this.onSelecetCategory}
-        onDeleteCategory={this.onDeleteCategory}
+        onDeleteCategory={() => this.props.removeCategory(category)}
         selectedCategoryIndex={this.state.selectedCategoryIndex}
       />)
   }

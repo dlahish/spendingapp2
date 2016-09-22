@@ -17,7 +17,9 @@ import {
   CategoryList,
   Transactions,
   Categories,
-  NewCategory
+  NewCategory,
+  Settings,
+  Transaction
 } from '../components'
 import Icon from 'react-native-vector-icons/FontAwesome'
 const plusIcon = (<Icon name='plus' size={26} color='#FFF' />)
@@ -75,7 +77,22 @@ class Routes extends Component {
                     currentMonth: state.data.currentMonth}))(Transactions)}
                 icon={TabIcon}
                 title='Transactions'
-              />
+                leftTitle='Edit'
+                leftButtonStyle={{paddingTop: 10}}
+                leftButtonTextStyle={{color: '#FFF'}}
+                onLeft={() => Actions.editTransactions({editMode: true, selectedItemIndex: false})}
+              >
+                <Scene key="viewTransactions" />
+                <Scene key="editTransactions"
+                  leftTitle='Done'
+                  onLeft={() => Actions.viewTransactions({
+                    editMode: false,
+                    selectedItemIndex: false})}
+                  rightTitle={plusIconBlackDisabled}
+                  onRight={() => {}}
+                  hideTabBar={true}
+                />
+              </Scene>
               <Scene
                 key="categories"
                 component={Categories}
@@ -96,6 +113,7 @@ class Routes extends Component {
                   hideTabBar={true}
                 />
               </Scene>
+              <Scene key="settings" component={Settings} icon={TabIcon} title='Settings' />
             </Scene>
             <Scene
               key="newTransaction"
@@ -110,7 +128,9 @@ class Routes extends Component {
               component={CategoryList}
               hideNavBar={false}
               hideBackImage={true}
-              onBack={() => {}}
+              backTitle='Back'
+              backButtonTextStyle={{color: 'white'}}
+              onBack={() => Actions.pop()}
               rightTitle={plusIcon}
               onRight={() => Actions.newCategory()}
             />
