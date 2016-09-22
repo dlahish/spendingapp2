@@ -7,7 +7,7 @@ import {
   TouchableHighlight,
   LayoutAnimation
 } from 'react-native'
-import { CustomNavBar } from '../components'
+import { CustomNavBar, CategorySelector, ItemRow } from '../components'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
@@ -19,11 +19,6 @@ const plusIcon = (<Icon name='plus' size={26} color='#FFF' />)
 const plusIconBlack = (<Icon name='plus' size={22} color='#CCC' />)
 const plusIconBlackDisabled = (<Icon name='plus' size={26} color='#BBBBBB' />)
 const editIcon = (<Icon name='minus-circle' size={22} color='red' />)
-
-function isSelected(selected) {
-  if (selected) return {backgroundColor: '#BBB'}
-  else return {backgroundColor: '#FFF'}
-}
 
 const CategoryRow = (props) =>
   <View style={styles.categoryRow}>
@@ -59,7 +54,8 @@ class Categories extends Component {
       displayCategoryType: 'Income',
       deleteButtonWidth: 0,
       selectedCategoryIndex: null,
-      showIcon: true
+      showIcon: true,
+      categoryType: 'Income'
     }
   }
 
@@ -78,8 +74,8 @@ class Categories extends Component {
     this.props.getCategories()
   }
 
-  onInputChange(type) {
-    this.setState({ displayCategoryType: type })
+  onTypeChange = (type) => {
+    this.setState({ categoryType: type })
   }
 
   onSelecetCategory = (categoryIndex) => {
@@ -101,8 +97,8 @@ class Categories extends Component {
   }
 
 
-  renderCategories(categories, displayCategoryType, editMode) {
-    let filteredCategories = categories.filter((category) => category.type === displayCategoryType)
+  renderCategories(categories, categoryType, editMode) {
+    let filteredCategories = categories.filter((category) => category.type === categoryType)
     return filteredCategories.map((category, i) =>
       <CategoryRow
         category={category}
@@ -119,27 +115,18 @@ class Categories extends Component {
 
   render() {
     let incomeSelected, expenseSelected
-    if (this.state.displayCategoryType === 'Income') { incomeSelected = true, expenseSelected = false }
+    if (this.state.categoryType === 'Income') { incomeSelected = true, expenseSelected = false }
     else { incomeSelected = false, expenseSelected = true }
 
     return (
       <View style={styles.container}>
-        <View style={[styles.categoryTypeWrapper]}>
-            <TouchableHighlight
-              style={[styles.categoryTypeButton, isSelected(incomeSelected)]}
-              onPress={()=> this.onInputChange('Income')}
-            >
-              <Text>Income</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
-              style={[styles.categoryTypeButton, isSelected(expenseSelected)]}
-              onPress={() => this.onInputChange('Expense')}
-            >
-              <Text>Expense</Text>
-            </TouchableHighlight>
-        </View>
+        <CategorySelector
+          incomeSelected={incomeSelected}
+          expenseSelected={expenseSelected}
+          onTypeChange={this.onTypeChange}
+        />
         <ScrollView>
-          {this.renderCategories(this.props.categories, this.state.displayCategoryType, this.props.editMode)}
+          {this.renderCategories(this.props.categories, this.state.categoryType, this.props.editMode)}
         </ScrollView>
       </View>
     )
@@ -170,21 +157,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center'
   },
-  icon: {
-
-  },
-  categoryTypeWrapper: {
-    flexDirection: 'row',
-    marginBottom: 20,
-    borderColor: 'black',
-    borderWidth: 1
-  },
-  categoryTypeButton: {
-    flex:1,
-    alignItems: 'center',
-    paddingTop: 5,
-    paddingBottom: 5
-  },
+  icon: {},
   deleteWrapper: {
     width: 0,
     backgroundColor: 'red',

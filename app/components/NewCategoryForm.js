@@ -38,6 +38,7 @@ export default class NewCategoryForm extends Component {
               <Text>Expense</Text>
             </TouchableHighlight>
         </View>
+
         <View style={[styles.inputWrapper]}>
           <Text style={styles.inputTitle}>
             Name:
@@ -47,6 +48,8 @@ export default class NewCategoryForm extends Component {
             onChangeText={(value) => this.props.onInputChange('name', value)}
             value={this.props.amount}
             maxLength = {10}
+            multiline={true}
+            numberOfLines = {1}
           />
         </View>
       </View>
@@ -99,7 +102,6 @@ var styles = StyleSheet.create({
     flex:1,
     alignItems: 'center',
     borderRadius: 5
-
   }
 })
 

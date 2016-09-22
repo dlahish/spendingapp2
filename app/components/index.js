@@ -26,6 +26,7 @@ import NewCategoryForm from './NewCategoryForm'
 import Settings from './Settings'
 import Transaction from './Transaction'
 import ItemRow from './common/ItemRow'
+import CategorySelector from './CategorySelector'
 
 export {
   Home,
@@ -55,5 +56,6 @@ export {
   NewCategoryForm,
   Settings,
   Transaction,
-  ItemRow
+  ItemRow,
+  CategorySelector
 }

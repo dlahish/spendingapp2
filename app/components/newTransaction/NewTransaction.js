@@ -6,10 +6,11 @@ import {
   ScrollView,
   LayoutAnimation,
   Keyboard,
-  Dimensions
+  Dimensions,
+  TouchableHighlight
 } from 'react-native'
 import Button from 'react-native-button'
-import { NewTransactionForm, CustomNavBar, addBorder } from '../../components'
+import { NewTransactionForm, CustomNavBar, addBorder, CategorySelector } from '../../components'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -27,7 +28,8 @@ class NewTransaction extends Component {
       error: '',
       type: '',
       visibleHeight: null,
-      windowHeight: null
+      windowHeight: null,
+      categoryType: 'Income'
     }
   }
 
@@ -37,7 +39,8 @@ class NewTransaction extends Component {
     const height = Dimensions.get('window').height
     this.setState({
       windowHeight: height,
-      visibleHeight: height
+      visibleHeight: height,
+      categoryType: this.props.categoryType
     })
   }
 
@@ -68,7 +71,8 @@ class NewTransaction extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       category: nextProps.newCategory,
-      type: nextProps.categoryType
+      type: nextProps.categoryType,
+      categoryType: nextProps.categoryType
     })
   }
 
@@ -117,7 +121,15 @@ class NewTransaction extends Component {
     Actions.tabbar()
   }
 
+  onTypeChange = (type) => {
+    this.setState({ categoryType: type })
+  }
+
   render() {
+    let incomeSelected, expenseSelected
+    if (this.state.categoryType === 'Income') { incomeSelected = true, expenseSelected = false }
+    else { incomeSelected = false, expenseSelected = true }
+
     return (
       <View style={[styles.container, {height: this.state.visibleHeight}]}>
         <CustomNavBar
@@ -126,6 +138,11 @@ class NewTransaction extends Component {
           title='New Transaction'
           leftButton='Cancel'
           rightButton='Save'
+        />
+        <CategorySelector
+          incomeSelected={incomeSelected}
+          expenseSelected={expenseSelected}
+          onTypeChange={this.onTypeChange}
         />
         <ScrollView
           keyboardDismissMode='interactive'
@@ -136,7 +153,7 @@ class NewTransaction extends Component {
             date={this.state.date}
             amount={this.state.amount}
             category={this.state.category}
-            categoryType={this.props.categoryType}
+            categoryType={this.state.categoryType}
             notes={this.state.notes}
             error={this.state.error}
             type={this.state.type}
