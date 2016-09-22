@@ -12,7 +12,8 @@ import {
   saveNewCategory,
   fetchCategories,
   fetchTransactions,
-  deleteCategory
+  deleteCategory,
+  deleteTransaction
 } from '../api/data'
 import {
   checkAuth
@@ -54,6 +55,18 @@ function setYearlyTransactions(response, year) {
     type: SET_YEAR_TRANSACTIONS,
     data: response.data.data,
     year
+  }
+}
+
+export function removeTransaction(transaction) {
+  return function(dispatch) {
+    return checkAuth()
+      .then((token) => deleteTransaction(token, transaction))
+      .then((response) => {
+        let currentYear = new Date().getFullYear()
+        dispatch(getTransactions(currentYear))
+      })
+      .catch((err) => console.log(err))
   }
 }
 

@@ -19,6 +19,7 @@ export default class ItemRow extends Component {
       selected,
       mainText,
       rightText,
+      rightTextStyle,
       secondaryText,
       onSelecetItem,
       onDeleteItem } = this.props
@@ -49,7 +50,7 @@ export default class ItemRow extends Component {
                   <Text style={styles.mainText}>{mainText}</Text>
                 </View>
                 <View>
-                  <Text style={[styles.mainText, styles.rightText]}>{rightText}</Text>
+                  <Text style={[styles.mainText, rightTextStyle]}>{rightText}</Text>
                 </View>
               </View>
               <View>
@@ -101,9 +102,7 @@ export default class ItemRow extends Component {
     },
     itemTypeWrapper: {
       flexDirection: 'row',
-      marginBottom: 20,
-      borderColor: 'black',
-      borderWidth: 1
+      marginBottom: 20
     },
     itemTypeButton: {
       flex:1,

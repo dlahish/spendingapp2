@@ -24,27 +24,9 @@ function setAmountColor(type) {
   else return {color: 'red'}
 }
 
-function transactionRow(transaction, i) {
-  const transactionMonth = new Date(transaction.date)
-  return (
-    <TouchableHighlight key={i}>
-      <View style={styles.transactionRow}>
-        <View style={styles.nameAndAmount}>
-          <View style={styles.name}>
-            {transaction.notes
-              ? <Text style={styles.text}>{transaction.notes}</Text>
-              : <Text style={styles.text}>{transaction.category}</Text>}
-          </View>
-          <View style={styles.amount}>
-            <Text style={[styles.text, setAmountColor(transaction.type)]}>{transaction.amount}</Text>
-          </View>
-        </View>
-        <View>
-          <Text style={styles.date}>{transactionMonth.toLocaleDateString('en-GB')}</Text>
-        </View>
-      </View>
-    </TouchableHighlight>
-  )
+function setMainText(transaction) {
+  if (transaction.notes) return transaction.notes
+  else return transaction.category
 }
 
 export default class Transactions extends Component {
@@ -57,6 +39,7 @@ export default class Transactions extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (!this.props.selectedItemIndex) this.setState({selectedItemIndex: null})
+
   }
 
   onSelecetItem = (itemIndex, selected) => {
@@ -66,6 +49,11 @@ export default class Transactions extends Component {
       else if (selectedItemIndex !== null && itemIndex !== selectedItemIndex) this.setState({ selectedItemIndex: null})
       else this.setState({ selectedItemIndex: itemIndex })
     }
+  }
+
+  onDeleteItem = (item) => {
+    console.log('ON DELETE ITEM')
+    console.log(item)
   }
 
   render() {
@@ -90,11 +78,12 @@ export default class Transactions extends Component {
                 editMode={this.props.editMode}
                 selected={i === this.state.selectedItemIndex ? true : false}
                 item={transaction}
-                mainText={transaction.category}
+                mainText={setMainText(transaction)}
                 rightText={transaction.amount}
+                rightTextStyle={setAmountColor(transaction.type)}
                 secondaryText={new Date(transaction.date).toLocaleDateString('en-GB')}
                 onSelecetItem={this.onSelecetItem}
-                onDeleteItem={() => {}}
+                onDeleteItem={this.props.removeTransaction}
               />
             )}
         </ScrollView>

@@ -18,6 +18,17 @@ export function deleteCategory(token, category) {
   })
 }
 
+export function deleteTransaction(token, transaction) {
+  if (token === null) return {}
+  return axios({
+    url: `${BASE_URI}/deleterecord`,
+    method: 'post',
+    headers: { authorization: token },
+    contentType: 'application/json',
+    data: { idToDelete: transaction._id }
+  })
+}
+
 export function fetchYearTotal(token, year) {
   if (token === null) return {}
   return axios({

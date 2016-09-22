@@ -75,6 +75,7 @@ class Routes extends Component {
                 component={connect(state =>
                   ({transactions: state.data.transactions,
                     currentMonth: state.data.currentMonth}))(Transactions)}
+                removeTransaction={this.props.actions.data.removeTransaction}
                 icon={TabIcon}
                 title='Transactions'
                 leftTitle='Edit'
