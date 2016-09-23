@@ -36,11 +36,25 @@ class NewTransaction extends Component {
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow)
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide)
     const height = Dimensions.get('window').height
-    this.setState({
-      windowHeight: height,
-      visibleHeight: height,
-      categoryType: this.props.categoryType
-    })
+    if (this.props.isEdit) {
+      const tempDate = new Date(this.props.transaction.date)
+      const tempAmount = Math.abs(this.props.transaction.amount).toString()
+      this.setState({
+        windowHeight: height,
+        visibleHeight: height,
+        date: tempDate,
+        amount: tempAmount,
+        category: this.props.transaction.category,
+        notes: this.props.transaction.notes,
+        categoryType: this.props.transaction.type
+      })
+    } else {
+      this.setState({
+        windowHeight: height,
+        visibleHeight: height,
+        categoryType: this.props.categoryType
+      })
+    }
   }
 
   componentWillUnmount () {
@@ -68,11 +82,6 @@ class NewTransaction extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('NEW TRANSACTION _ COMPONENT WILL RECEIVE PROPS -----')
-    console.log('props')
-    console.log(this.props)
-    console.log('nextProps')
-    console.log(nextProps)
     this.setState({
       category: nextProps.newCategory,
       categoryType: nextProps.categoryType
@@ -130,7 +139,8 @@ class NewTransaction extends Component {
       categoryType: ''
     })
     this.props.actions.form.clearForm()
-    Actions.tabbar()
+    if (this.props.isEdit) Actions.viewTransactions({isEdit: false})
+    else Actions.tabbar()
   }
 
   onTypeChange = (type) => {
@@ -141,9 +151,7 @@ class NewTransaction extends Component {
     let incomeSelected, expenseSelected
     if (this.state.categoryType === 'Income') { incomeSelected = true, expenseSelected = false }
     else { incomeSelected = false, expenseSelected = true }
-    console.log('NEW STRANSACTION - RENDER ---------')
-    console.log('this.state')
-    console.log(this.state)
+
     return (
       <View style={[styles.container, {height: this.state.visibleHeight}]}>
         <CustomNavBar

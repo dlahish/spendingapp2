@@ -41,7 +41,7 @@ export default class Transactions extends Component {
     if (!this.props.selectedItemIndex) this.setState({selectedItemIndex: null})
   }
 
-  onSelecetItem = (itemIndex, selected) => {
+  onSelecetItem = (itemIndex, selected, transaction) => {
     const selectedItemIndex = this.state.selectedItemIndex
     if (this.props.editMode) {
         if (selected) this.setState({ selectedItemIndex: null})
@@ -49,7 +49,8 @@ export default class Transactions extends Component {
         else this.setState({ selectedItemIndex: itemIndex })
     } else {
         console.log('ItemRow was clicked!!!!')
-        Actions.newTransaction({key: 'editNewTransaction'})
+        console.log(transaction)
+        Actions.newTransaction({isEdit: true, transaction})
     }
   }
 

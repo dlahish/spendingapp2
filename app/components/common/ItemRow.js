@@ -33,7 +33,7 @@ export default class ItemRow extends Component {
             ? <View></View>
             : editMode ?
               <View style={styles.iconWrapper}>
-                <Button onPress={() => onSelecetItem(itemIndex, selected)}>
+                <Button onPress={() => onSelecetItem(itemIndex, selected, item)}>
                   <View>{editIcon}</View>
                 </Button>
               </View>
@@ -41,7 +41,7 @@ export default class ItemRow extends Component {
 
           <TouchableHighlight
             style={styles.textWrapper}
-            onPress={() => onSelecetItem(itemIndex, selected)}
+            onPress={() => onSelecetItem(itemIndex, selected, item)}
             underlayColor='#FFF'
           >
             <View>
