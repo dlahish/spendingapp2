@@ -11,11 +11,12 @@ import {
 } from 'react-native'
 
 import { NewTransactionForm, CustomNavBar, addBorder, CategorySelector } from '../../components'
-import { Actions } from 'react-native-router-flux'
+import { Actions, ActionConst } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as dataActionCreators from '../../actions/data'
 import * as formActionCreators from '../../actions/form'
+import Button from 'react-native-button'
 
 class NewTransaction extends Component {
   constructor(props) {
@@ -124,7 +125,7 @@ class NewTransaction extends Component {
         error: '',
         categoryType: ''
       })
-      Actions.tabbar()
+      Actions.pop()
     }
   }
 
@@ -139,8 +140,7 @@ class NewTransaction extends Component {
       categoryType: ''
     })
     this.props.actions.form.clearForm()
-    if (this.props.isEdit) Actions.viewTransactions({isEdit: false})
-    else Actions.tabbar()
+    Actions.pop()
   }
 
   onTypeChange = (type) => {
@@ -182,6 +182,14 @@ class NewTransaction extends Component {
             onDateChange={this.onDateChange}
             onInputChange={this.onInputChange}
           />
+          {this.props.isEdit
+            ? <View style={{alignItems: 'center'}}>
+                <Button style={styles.btnText}
+                  containerStyle={styles.btn}
+                  onPress={() => {}}>Delete transaction
+                </Button>
+              </View>
+            : <View></View>}
         </ScrollView>
       </View>
     )
@@ -194,7 +202,20 @@ NewTransaction.propTypes = {
 
 var styles = StyleSheet.create({
   container: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'stretch'
+  },
+  btnText: {
+    color: "#f2f2f2"
+  },
+  btn: {
+    backgroundColor:"red",
+    padding:4,
+    borderRadius: 5,
+    width:200,
+    margin: 8,
+    marginLeft: 15,
   }
 })
 

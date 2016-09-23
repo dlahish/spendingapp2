@@ -123,7 +123,6 @@ class Routes extends Component {
               key="newTransaction"
               component={NewTransaction}
               hideNavBar={true}
-              type={ActionConst.RESET}
               title="New Transaction"
             />
             <Scene
