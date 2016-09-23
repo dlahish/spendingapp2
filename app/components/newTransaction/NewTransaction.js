@@ -9,7 +9,7 @@ import {
   Dimensions,
   TouchableHighlight
 } from 'react-native'
-import Button from 'react-native-button'
+
 import { NewTransactionForm, CustomNavBar, addBorder, CategorySelector } from '../../components'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'

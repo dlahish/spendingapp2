@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as formActionCreators from '../actions/form'
 import { Actions } from 'react-native-router-flux'
+import Button from 'react-native-button'
 import {
   View,
   ScrollView,
@@ -17,8 +18,6 @@ import {
 
 import Icon from 'react-native-vector-icons/Ionicons'
 const myIcon = (<Icon name="ios-add-circle" size={26} />)
-
-import { addBorder } from '../components'
 
 const CategoryRow = (props) => {
   return (
@@ -53,6 +52,10 @@ class CategoryList extends Component {
         <View style={styles.container}>
           {this.renderCategories(this.props.categories)}
         </View>
+        <Button style={styles.btnText}
+          containerStyle={styles.btn}
+          onPress={() => Actions.newCategory()}>Add Category
+        </Button>
       </ScrollView>
     )
   }
@@ -78,6 +81,17 @@ const styles = StyleSheet.create({
   },
   category: {
     fontSize: 20
+  },
+  btnText: {
+    color: "#f2f2f2"
+  },
+  btn: {
+    backgroundColor:"#555",
+    padding:4,
+    borderRadius: 6,
+    width:150,
+    margin: 8,
+    marginLeft: 15,
   }
 })
 

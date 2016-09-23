@@ -29,6 +29,10 @@ class NewCategory extends Component {
     Actions.pop()
   }
 
+  onTypeChange = (type) => {
+    this.setState({ category: {type: type }})
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -39,7 +43,11 @@ class NewCategory extends Component {
           leftButton='Cancel'
           rightButton='Save'
         />
-        <NewCategoryForm onInputChange={this.onInputChange} categoryType={this.state.category.type}/>
+        <NewCategoryForm
+          onInputChange={this.onInputChange}
+          categoryType={this.state.category.type}
+          onTypeChange={this.onTypeChange}
+        />
       </View>
     )
   }

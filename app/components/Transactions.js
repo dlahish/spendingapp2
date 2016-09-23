@@ -39,7 +39,6 @@ export default class Transactions extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (!this.props.selectedItemIndex) this.setState({selectedItemIndex: null})
-
   }
 
   onSelecetItem = (itemIndex, selected) => {

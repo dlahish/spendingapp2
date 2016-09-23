@@ -10,7 +10,7 @@ function isSelected(selected, type) {
     if (selected) return {backgroundColor: '#BBB'}
     else return {backgroundColor: '#FFF'}
   } else {
-    if (selected) return {fontWeight: 'bold'}
+    if (selected) return {fontSize: 17, fontWeight: 'bold'}
   }
 }
 

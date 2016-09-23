@@ -26,7 +26,7 @@ import NewCategoryForm from './NewCategoryForm'
 import Settings from './Settings'
 import Transaction from './Transaction'
 import ItemRow from './common/ItemRow'
-import CategorySelector from './CategorySelector'
+import CategorySelector from './common/CategorySelector'
 
 export {
   Home,
