@@ -26,10 +26,9 @@ class NewTransaction extends Component {
       category: 'Category',
       notes: null,
       error: '',
-      type: '',
       visibleHeight: null,
       windowHeight: null,
-      categoryType: 'Income'
+      categoryType: ''
     }
   }
 
@@ -69,9 +68,13 @@ class NewTransaction extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('NEW TRANSACTION _ COMPONENT WILL RECEIVE PROPS -----')
+    console.log('props')
+    console.log(this.props)
+    console.log('nextProps')
+    console.log(nextProps)
     this.setState({
       category: nextProps.newCategory,
-      type: nextProps.categoryType,
       categoryType: nextProps.categoryType
     })
   }
@@ -101,9 +104,17 @@ class NewTransaction extends Component {
         amount: newAmount,
         category: this.state.category,
         notes: this.state.notes,
-        type: this.state.type
+        type: this.state.categoryType
       }
       this.props.actions.data.addNewTransaction(transaction)
+      this.setState({
+        date: new Date(),
+        amount: '',
+        category: 'Category',
+        notes: '',
+        error: '',
+        categoryType: ''
+      })
       Actions.tabbar()
     }
   }
@@ -115,7 +126,8 @@ class NewTransaction extends Component {
       category: 'Category',
       notes: '',
       error: '',
-      type: 'Income'
+      type: '',
+      categoryType: ''
     })
     this.props.actions.form.clearForm()
     Actions.tabbar()
@@ -129,7 +141,9 @@ class NewTransaction extends Component {
     let incomeSelected, expenseSelected
     if (this.state.categoryType === 'Income') { incomeSelected = true, expenseSelected = false }
     else { incomeSelected = false, expenseSelected = true }
-
+    console.log('NEW STRANSACTION - RENDER ---------')
+    console.log('this.state')
+    console.log(this.state)
     return (
       <View style={[styles.container, {height: this.state.visibleHeight}]}>
         <CustomNavBar

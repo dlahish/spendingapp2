@@ -65,6 +65,7 @@ export function removeTransaction(transaction) {
       .then((response) => {
         let currentYear = new Date().getFullYear()
         dispatch(getTransactions(currentYear))
+        dispatch(getYearTotal(currentYear))
       })
       .catch((err) => console.log(err))
   }

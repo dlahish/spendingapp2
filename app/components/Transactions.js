@@ -44,15 +44,13 @@ export default class Transactions extends Component {
   onSelecetItem = (itemIndex, selected) => {
     const selectedItemIndex = this.state.selectedItemIndex
     if (this.props.editMode) {
-      if (selected) this.setState({ selectedItemIndex: null})
-      else if (selectedItemIndex !== null && itemIndex !== selectedItemIndex) this.setState({ selectedItemIndex: null})
-      else this.setState({ selectedItemIndex: itemIndex })
+        if (selected) this.setState({ selectedItemIndex: null})
+        else if (selectedItemIndex !== null && itemIndex !== selectedItemIndex) this.setState({ selectedItemIndex: null})
+        else this.setState({ selectedItemIndex: itemIndex })
+    } else {
+        console.log('ItemRow was clicked!!!!')
+        Actions.newTransaction({key: 'editNewTransaction'})
     }
-  }
-
-  onDeleteItem = (item) => {
-    console.log('ON DELETE ITEM')
-    console.log(item)
   }
 
   render() {
