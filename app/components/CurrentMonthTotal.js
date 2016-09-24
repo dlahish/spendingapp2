@@ -1,21 +1,20 @@
 import React, { Component, PropTypes } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import I18n from 'react-native-i18n'
+import ReactNativeI18n from 'react-native-i18n'
+const deviceLocale = ReactNativeI18n.locale
 
 function displayText(currentMonthTotal, type) {
   if (currentMonthTotal.hasOwnProperty([type])) {
     return <Text style={styles.amount}>
-            {currentMonthTotal[type]}
+            {I18n.toCurrency(currentMonthTotal[type], {unit: null})}
             </Text>
   } else { return <Text style={styles.loading}>Loading...</Text> }
 }
 
 export default class CurrentMonthTotal extends Component {
-  // componentDidMount() {
-  //   let currentYear = new Date().getFullYear()
-  //   this.props.getYearTotal(currentYear)
-  // }
-
   render() {
+    console.log(deviceLocale)
     return (
       <View style={styles.container}>
 
@@ -72,3 +71,24 @@ const styles = StyleSheet.create({
     fontWeight: '300',
   }
 })
+
+I18n.fallbacks = true
+
+I18n.translations = {
+  en: {
+    greeting: 'Hi!'
+  },
+  [deviceLocale]: {
+    number: {
+      currency: {
+        format: {
+          format: "%u %n",
+          unit: "USD",
+          delimiter: ".",
+          separator: ",",
+          precision: 2
+        }
+      }
+    }
+  }
+}

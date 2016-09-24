@@ -31,6 +31,7 @@
 		9B6211671D83F8D500F2B6D0 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B62115F1D83F8D500F2B6D0 /* MaterialIcons.ttf */; };
 		9B6211681D83F8D500F2B6D0 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B6211601D83F8D500F2B6D0 /* Octicons.ttf */; };
 		9B6211691D83F8D500F2B6D0 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B6211611D83F8D500F2B6D0 /* Zocial.ttf */; };
+		9BD1AF4C1D96D7D100366CD1 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BD1AF481D96D7C600366CD1 /* libRNI18n.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,20 @@
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
 		};
+		9BD1AF471D96D7C600366CD1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9BD1AF371D96D7C600366CD1 /* RNI18n.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CDD7BF781B2D5125006FDA75;
+			remoteInfo = RNI18n;
+		};
+		9BD1AF491D96D7C600366CD1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9BD1AF371D96D7C600366CD1 /* RNI18n.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CDD7BF831B2D5126006FDA75;
+			remoteInfo = RNI18nTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -159,6 +174,7 @@
 		9B6211601D83F8D500F2B6D0 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		9B6211611D83F8D500F2B6D0 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
 		9B6211751D8404C900F2B6D0 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		9BD1AF371D96D7C600366CD1 /* RNI18n.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNI18n.xcodeproj; path = "../node_modules/react-native-i18n/RNI18n.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +190,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BD1AF4C1D96D7D100366CD1 /* libRNI18n.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -304,6 +321,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				9BD1AF371D96D7C600366CD1 /* RNI18n.xcodeproj */,
 				9B6211751D8404C900F2B6D0 /* RNVectorIcons.xcodeproj */,
 				107ECEAF1D802B43001A925A /* ART.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -371,6 +389,15 @@
 			isa = PBXGroup;
 			children = (
 				9B62117A1D8404CA00F2B6D0 /* libRNVectorIcons.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9BD1AF381D96D7C600366CD1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9BD1AF481D96D7C600366CD1 /* libRNI18n.a */,
+				9BD1AF4A1D96D7C600366CD1 /* RNI18nTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -486,6 +513,10 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
+					ProductGroup = 9BD1AF381D96D7C600366CD1 /* Products */;
+					ProjectRef = 9BD1AF371D96D7C600366CD1 /* RNI18n.xcodeproj */;
+				},
+				{
 					ProductGroup = 9B6211761D8404C900F2B6D0 /* Products */;
 					ProjectRef = 9B6211751D8404C900F2B6D0 /* RNVectorIcons.xcodeproj */;
 				},
@@ -581,6 +612,20 @@
 			fileType = archive.ar;
 			path = libRNVectorIcons.a;
 			remoteRef = 9B6211791D8404CA00F2B6D0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9BD1AF481D96D7C600366CD1 /* libRNI18n.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNI18n.a;
+			remoteRef = 9BD1AF471D96D7C600366CD1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9BD1AF4A1D96D7C600366CD1 /* RNI18nTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RNI18nTests.xctest;
+			remoteRef = 9BD1AF491D96D7C600366CD1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
