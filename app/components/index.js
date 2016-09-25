@@ -27,6 +27,7 @@ import Settings from './Settings'
 import Transaction from './Transaction'
 import ItemRow from './common/ItemRow'
 import CategorySelector from './common/CategorySelector'
+import CurrencySymbols from './CurrencySymbols'
 
 export {
   Home,
@@ -57,5 +58,6 @@ export {
   Settings,
   Transaction,
   ItemRow,
-  CategorySelector
+  CategorySelector,
+  CurrencySymbols
 }

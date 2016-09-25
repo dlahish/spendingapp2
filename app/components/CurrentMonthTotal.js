@@ -4,12 +4,18 @@ import I18n from 'react-native-i18n'
 import ReactNativeI18n from 'react-native-i18n'
 const deviceLocale = ReactNativeI18n.locale
 
-function displayText(currentMonthTotal, type) {
+function displayText(currentMonthTotal, type, currencySymbol) {
   if (currentMonthTotal.hasOwnProperty([type])) {
     return <Text style={styles.amount}>
-            {I18n.toCurrency(currentMonthTotal[type], {unit: null})}
+            {I18n.toCurrency(currentMonthTotal[type], {unit: getSymbol(currencySymbol), format: "%u %n"})}
             </Text>
   } else { return <Text style={styles.loading}>Loading...</Text> }
+}
+
+function getSymbol(symbol) {
+  if (symbol === 'default') return null
+  if (typeof symbol === 'number') return String.fromCharCode(symbol)
+  else return symbol
 }
 
 export default class CurrentMonthTotal extends Component {
@@ -22,14 +28,14 @@ export default class CurrentMonthTotal extends Component {
           <Text style={styles.title}>
             Income
           </Text>
-          {displayText(this.props.currentMonthTotal, 'income')}
+          {displayText(this.props.currentMonthTotal, 'income', this.props.currencySymbol)}
         </View>
 
         <View style={styles.innerContainer}>
           <Text style={styles.title}>
             Expense
           </Text>
-          {displayText(this.props.currentMonthTotal, 'expenses')}
+          {displayText(this.props.currentMonthTotal, 'expenses', this.props.currencySymbol)}
         </View>
 
       </View>
@@ -77,18 +83,18 @@ I18n.fallbacks = true
 I18n.translations = {
   en: {
     greeting: 'Hi!'
-  },
-  [deviceLocale]: {
-    number: {
-      currency: {
-        format: {
-          format: "%u %n",
-          unit: "USD",
-          delimiter: ".",
-          separator: ",",
-          precision: 2
-        }
-      }
-    }
   }
+  // [deviceLocale]: {
+  //   number: {
+  //     currency: {
+  //       format: {
+  //         format: "%u %n",
+  //         unit: "USD",
+  //         delimiter: ".",
+  //         separator: ",",
+  //         precision: 2
+  //       }
+  //     }
+  //   }
+  // }
 }

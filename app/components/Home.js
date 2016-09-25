@@ -50,6 +50,7 @@ class Home extends Component {
           <View style={styles.main}>
             <CurrentMonthTotal
               currentMonthTotal={this.props.currentMonthTotal}
+              currencySymbol={this.props.currencySymbol}
             />
 
             {/* <FavoriteTransactions
@@ -109,7 +110,8 @@ export default connect(
     yearTotal: state.data.yearTotal,
     categories: state.data.categories,
     transactions: state.data.transactions,
-    currentMonth: state.data.currentMonth
+    currentMonth: state.data.currentMonth,
+    currencySymbol: state.settings.currencySymbol
   }),
   (dispatch) => ({
     actions: {

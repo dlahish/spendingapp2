@@ -9,7 +9,7 @@ const initialState = {
 export default function settings (state = initialState, action) {
   switch (action.type) {
     case SET_CURRENCY_SYMBOL:
-      return { ...state, currencySymbol: action.currencySymbol }
+      return { ...state, currencySymbol: action.symbol }
     default:
       return state
   }

@@ -42,8 +42,6 @@ class CategoryList extends Component {
   }
 
   handleCategoryPress(category) {
-    console.log('handle category press --------')
-    console.log(category)
     this.props.setNewCategory(category.name)
     Actions.pop({categoryType: category.type})
   }
