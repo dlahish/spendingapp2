@@ -61,6 +61,13 @@ class Categories extends Component {
 
     return (
       <View style={styles.container}>
+        <CustomNavBar
+          onLeftPress={() => Actions.editCategory({editMode: true, hideNavBar: false})}
+          onRightPress={() => Actions.newCategory({categoryType: this.state.categoryType})}
+          title='Categories'
+          leftButton='Edit'
+          rightButton={plusIcon}
+        />
         <CategorySelector
           incomeSelected={incomeSelected}
           expenseSelected={expenseSelected}
@@ -87,8 +94,7 @@ class Categories extends Component {
 
 const styles = {
   container: {
-    flex: 1,
-    paddingTop: 64,
+    flex: 1
   },
   categoryRow: {
     flexDirection: 'row',

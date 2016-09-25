@@ -17,6 +17,10 @@ class NewCategory extends Component {
     }
   }
 
+  componentDidMount() {
+    this.setState({category: {type: this.props.categoryType }})
+  }
+
   onInputChange = (field, value) => {
     this.setState({
       ...this.state,

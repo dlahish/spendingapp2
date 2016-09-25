@@ -4,6 +4,9 @@ import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as settingsActionCreators from '../actions/settings'
+import Icon from 'react-native-vector-icons/FontAwesome'
+const smallRightArrow = (<Icon name='angle-right' size={22} />)
+import { UserActions, addBorder } from '../components'
 
 SettingLine = (props) => {
   return (
@@ -12,8 +15,9 @@ SettingLine = (props) => {
         <View>
           <Text style={styles.text}>{props.subject}</Text>
         </View>
-        <View>
+        <View style={{flexDirection: 'row'}}>
           <Text style={styles.text}>{props.value}</Text>
+          <View>{smallRightArrow}</View>
         </View>
       </View>
     </TouchableHighlight>
@@ -28,19 +32,30 @@ function getSymbol(symbol) {
 class Settings extends Component {
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <SettingLine
-          subject='Currency Symbol'
-          value={getSymbol(this.props.currencySymbol)}
-          setCurrencySymbol={this.props.setCurrencySymbol}/>
-      </ScrollView>
+      <View style={{flex: 1}}>
+        <View>
+          <ScrollView style={styles.scrollView}>
+            <SettingLine
+              subject='Currency Symbol'
+              value={getSymbol(this.props.currencySymbol)}
+              setCurrencySymbol={this.props.actions.settings.setCurrencySymbol}/>
+          </ScrollView>
+        </View>
+
+        <View style={[styles.actionsWrapper, addBorder(2, 'black')]}>
+          <View style={styles.actions}>
+            <UserActions handleLogout={this.props.actions.account.logoutAndUnauthUser} />
+          </View>
+        </View>
+
+      </View>
+
     )
   }
 }
 
 const styles = {
-  container: {
-    flex: 1,
+  scrollView: {
     marginTop: 64
   },
   settingLine: {
@@ -53,11 +68,26 @@ const styles = {
     paddingBottom: 5
   },
   text: {
-    fontSize: 20
+    fontSize: 20,
+    paddingRight: 10
+  },
+  actionsWrapper: {
+    flex: 1,
+    paddingBottom: 60,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  actions: {
+    // alignItems: 'center',
+    // justifyContent: 'flex-end'
   }
 }
 
 export default connect(
   (state) => ({ currencySymbol: state.settings.currencySymbol }),
-  (dispatch) => (bindActionCreators(settingsActionCreators, dispatch))
+  (dispatch) => ({
+    actions: {
+      settings: bindActionCreators(settingsActionCreators, dispatch),
+      account:  bindActionCreators(settingsActionCreators, dispatch)
+    }})
 )(Settings)

@@ -28,7 +28,7 @@ export default CurrencySymbols = (props) => {
 
 const styles = {
   container: {
-    marginTop: 84
+    marginTop: 64
   },
   symbolLine: {
     backgroundColor: '#eee',

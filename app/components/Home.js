@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux'
 import { Actions } from 'react-native-router-flux'
 import {
   GuestActions,
-  UserActions,
   NewTransaction,
   CurrentMonthTotal,
   addBorder,
@@ -60,10 +59,6 @@ class Home extends Component {
             /> */}
 
             <AddTransactionButtons />
-          </View>
-
-          <View style={styles.actions}>
-            <UserActions handleLogout={this.props.actions.account.logoutAndUnauthUser} />
           </View>
       </View>
     )

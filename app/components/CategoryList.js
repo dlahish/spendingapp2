@@ -54,7 +54,7 @@ class CategoryList extends Component {
         </View>
         <Button style={styles.btnText}
           containerStyle={styles.btn}
-          onPress={() => Actions.newCategory()}>Add Category
+          onPress={() => Actions.newCategory({categoryType: this.props.categoryType})}>Add Category
         </Button>
       </ScrollView>
     )

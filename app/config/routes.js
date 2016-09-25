@@ -103,11 +103,12 @@ class Routes extends Component {
                 component={Categories}
                 icon={TabIcon}
                 title='Categories'
-                leftTitle='Edit'
-                leftButtonTextStyle={{color: '#FFF'}}
-                onLeft={() => Actions.editCategory({editMode: true})}
-                rightTitle={plusIcon}
-                onRight={() => Actions.newCategory()}
+                hideNavBar={true}
+                // leftTitle='Edit'
+                // leftButtonTextStyle={{color: '#FFF'}}
+                // onLeft={() => Actions.editCategory({editMode: true})}
+                // rightTitle={plusIcon}
+                // onRight={() => Actions.newCategory()}
               >
                 <Scene key="viewCategoties" hideTabBar={false}/>
                 <Scene key="editCategory"
