@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, StyleSheet, AsyncStorage } from 'react-native'
+import { View, Text, TouchableHighlight, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Actions } from 'react-native-router-flux'
-import Button from 'react-native-button'
 import {
   GuestActions,
   NewTransaction,
@@ -15,18 +14,6 @@ import {
 } from '../components'
 import * as accountActions from '../actions/accounts'
 import * as dataActions from '../actions/data'
-
-const incomeFavoriteTransactions = [
-  {name: 'Night', date: '09/30/2016', category: 'Madame', amount: 100, notes: ''},
-  {name: 'Day', date: '09/11/2016', category: 'Madame', amount: 120, notes: ''},
-  {name: 'Tip', date: '09/12/2016', category: 'Madame', amount: 28, notes: ''}
-]
-
-const expeseFavoriteTransactions = [
-  {name: 'Beer', date: '09/05/2016', category: 'Food', amount: -7, notes: ''},
-  {name: 'Coffee', date: '09/05/2016', category: 'Food', amount: -5, notes: ''},
-  {name: 'Train Ticket', date: '09/02/2016', category: 'General', amount: -70, notes: 'September'}
-]
 
 SummeryLine = (leftText, rightText) => {
   return (
@@ -47,6 +34,7 @@ class Home extends Component {
     this.props.actions.data.getTransactions(currentYear)
     this.props.actions.data.getYearTotal()
     this.props.actions.data.getCategories()
+    this.props.actions.data.getFavoriteTransactions()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -55,28 +43,25 @@ class Home extends Component {
       this.props.actions.data.getTransactions(currentYear)
       this.props.actions.data.getYearTotal()
       this.props.actions.data.getCategories()
+      this.props.actions.data.getFavoriteTransactions()
     }
   }
 
-  renderFavoriteTransactions = (favTransaction) => {
-    const favTransactionText = `${favTransaction.category}, ${favTransaction.amount}, ${favTransaction.notes}`
+  renderFavoriteTransactions = (favTransaction, i) => {
+    let favTransactionText
+    if (favTransaction.notes === null) favTransactionText = `${favTransaction.category}, ${favTransaction.amount}`
+    else favTransactionText = `${favTransaction.category}, ${favTransaction.amount}, ${favTransaction.notes}`
     return (
-      <View style={styles.favTransactionWrapper}>
+      <View style={styles.favTransactionWrapper} key={i}>
         <View style={styles.buttonWrapper}>
-          <Button
-            style={styles.btnText}
-            containerStyle={[styles.btn, styles.bgGreen]}
-            // onPress={props.handleLogout}
-          >Add
-          </Button>
+          <TouchableHighlight>
+            <View style={styles.buttonWrapper}>
+              <Text style={styles.favTransactionText}>Add</Text>
+            </View>
+          </TouchableHighlight>
         </View>
-        <View style={styles.favTransactionText}>
-          <Button
-            // style={styles.btnText}
-            containerStyle={[]}
-            // onPress={props.handleLogout}
-          >{favTransactionText}
-          </Button>
+        <View style={styles.favTransactionTextWrapper}>
+          <Text style={styles.favTransactionText}>{favTransactionText}</Text>
         </View>
       </View>
     )
@@ -85,9 +70,9 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={[styles.main, addBorder(2, 'black')]}>
+        <View style={styles.main}>
 
-          <View style={[styles.monthSummary, addBorder(2, 'green')]}>
+          <View style={styles.monthSummary}>
             <View style={styles.monthArrows}>
               <ChangeMonthArrows />
             </View>
@@ -99,12 +84,14 @@ class Home extends Component {
             </View>
           </View>
 
-          <View style={[styles.favoriteTransactions, addBorder(2, 'red')]}>
+          <View style={styles.favoriteTransactions}>
             <View>
-              <Text style={{fontSize: 20}}>Favorite Transactions</Text>
+              <Text style={{fontSize: 20, paddingBottom: 10}}>Favorite Transactions</Text>
             </View>
             <View>
-              {this.renderFavoriteTransactions({name: 'Train Ticket', date: '09/02/2016', category: 'General', amount: -70, notes: 'September'})}
+              {this.props.favoriteTransactions.map((transaction, i) => {
+                return this.renderFavoriteTransactions(transaction, i)
+              })}
             </View>
           </View>
 
@@ -126,9 +113,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'stretch',
 		paddingTop: 64,
-    paddingBottom: 55,
-    paddingLeft: 15,
-    paddingRight: 15,
+    paddingBottom: 85,
     backgroundColor: '#FFF'
 	},
   main: {
@@ -136,10 +121,17 @@ const styles = StyleSheet.create({
   },
   monthSummary: {
     flex: 1,
-    paddingTop: 3
+    paddingTop: 3,
+    borderBottomWidth: 1,
+    borderBottomColor: '#BBB',
+    paddingLeft: 15,
+    paddingRight: 15
   },
   favoriteTransactions: {
-    flex: 2
+    flex: 2,
+    paddingTop: 10,
+    paddingLeft: 15,
+    paddingRight: 15
   },
   addTransactionButtons: {
     flex: 1,
@@ -152,23 +144,33 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   favTransactionWrapper: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginTop: 3,
+    marginBottom: 3
+  },
+  favTransactionTextWrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    paddingLeft: 5,
+    paddingRight: 5,
+    backgroundColor: '#BBB',
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5,
+    paddingTop: 2,
+    paddingBottom: 2
   },
   favTransactionText: {
-    flexDirection: 'row'
+    fontSize: 20
   },
-  btnText: {
-		color: "#f2f2f2"
-	},
-	btn: {
-		width: 50,
-		// padding:8,
-		// borderRadius:6,
-		// margin:8
-	},
-  bgGreen: {
-		backgroundColor:"#2ecc71",
-	}
+  buttonWrapper: {
+    backgroundColor: '#2ecc71',
+    paddingLeft: 5,
+    paddingRight: 5,
+    paddingTop: 2,
+    paddingBottom: 2,
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5
+  }
 })
 
 Home.propTypes = {
@@ -184,7 +186,8 @@ export default connect(
     categories: state.data.categories,
     transactions: state.data.transactions,
     currentMonth: state.data.currentMonth,
-    currencySymbol: state.settings.currencySymbol
+    currencySymbol: state.settings.currencySymbol,
+    favoriteTransactions: state.data.favoriteTransactions
   }),
   (dispatch) => ({
     actions: {

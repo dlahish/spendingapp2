@@ -126,9 +126,12 @@ class Routes extends Component {
               key="newTransaction"
               component={NewTransaction}
               hideNavBar={true}
-              title="New Transaction"
               removeTransaction={this.props.actions.data.removeTransaction}
-            />
+              title="New Transaction"
+            >
+              <Scene key="viewNewTransaction" hideTabBar={true} />
+              <Scene key="newFavoriteTransaction" hideTabBar={true} />
+            </Scene>
             <Scene
               key="categoryList"
               title="Categories"

@@ -1,6 +1,11 @@
 import axios from 'axios'
 const BASE_URI = `https://spendingapi2.herokuapp.com`
 // const BASE_URI = `http://192.168.0.104:3090`
+import DB from '../config/localDB'
+
+export function saveNewFavoriteTransaction(transaction) {
+  return DB.favoriteTransactions.add(transaction)
+}
 
 export function fetchTotalBalance(token) {
   if (token === null) return {}

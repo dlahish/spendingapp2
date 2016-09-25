@@ -1,10 +1,12 @@
+import DB from '../config/localDB'
 import {
   SET_TOTAL_BALANCE,
   SET_YEAR_TOTAL,
   SET_CURRENT_MONTH_TOTAL,
   SET_CURRENT_MONTH,
   SET_CATEGORIES,
-  SET_YEAR_TRANSACTIONS
+  SET_YEAR_TRANSACTIONS,
+  SET_NEW_FAV_TRANSACTION
 } from './../constants'
 import {
   fetchYearTotal,
@@ -13,7 +15,8 @@ import {
   fetchCategories,
   fetchTransactions,
   deleteCategory,
-  deleteTransaction
+  deleteTransaction,
+  saveNewFavoriteTransaction
 } from '../api/data'
 import {
   checkAuth
@@ -55,6 +58,30 @@ function setYearlyTransactions(response, year) {
     type: SET_YEAR_TRANSACTIONS,
     data: response.data.data,
     year
+  }
+}
+
+function setNewFavoriteTransaction(transaction) {
+  return {
+    type: SET_NEW_FAV_TRANSACTION,
+    transaction
+  }
+}
+
+export function getFavoriteTransactions() {
+  return function(dispatch) {
+    return DB.favoriteTransactions.find()
+      .then(response => dispatch(setNewFavoriteTransaction(response)));
+  }
+}
+
+export function addNewFavoriteTransaction(transaction) {
+  return function(dispatch) {
+    return saveNewFavoriteTransaction(transaction)
+      .then(() => {
+        dispatch(setNewFavoriteTransaction(transaction))
+      })
+      .catch((err) => console.log(err))
   }
 }
 

@@ -4,7 +4,8 @@ import {
   REMOVE_CURRENT_USER,
   SET_CURRENT_MONTH,
   SET_CATEGORIES,
-  SET_YEAR_TRANSACTIONS
+  SET_YEAR_TRANSACTIONS,
+  SET_NEW_FAV_TRANSACTION
 } from '../constants'
 
 const initialState = {
@@ -12,7 +13,8 @@ const initialState = {
   yearTotal: [],
   categories: [],
   transactions: {},
-  currentMonth: ''
+  currentMonth: '',
+  favoriteTransactions: []
 }
 
 export default function accounts (state = initialState, action) {
@@ -30,6 +32,8 @@ export default function accounts (state = initialState, action) {
     case SET_YEAR_TRANSACTIONS:
       const nextTransactions = { ...state.transactions, [action.year]: action.data }
       return { ...state, transactions: nextTransactions }
+    case SET_NEW_FAV_TRANSACTION:
+      return { ...state, favoriteTransactions: state.favoriteTransactions.concat(action.transaction)}
     default:
       return state
   }

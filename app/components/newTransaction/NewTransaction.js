@@ -116,7 +116,12 @@ class NewTransaction extends Component {
         notes: this.state.notes,
         type: this.state.categoryType
       }
-      this.props.actions.data.addNewTransaction(transaction)
+      if (this.props.title === 'New Transaction') {
+        this.props.actions.data.addNewTransaction(transaction)
+      } else {
+        this.props.actions.data.addNewFavoriteTransaction(transaction)
+      }
+
       this.setState({
         date: new Date(),
         amount: '',
@@ -162,7 +167,7 @@ class NewTransaction extends Component {
         <CustomNavBar
           onLeftPress={this.onCancelPress}
           onRightPress={this.onSaveNewTransaction}
-          title='New Transaction'
+          title={this.props.title}
           leftButton='Cancel'
           rightButton='Save'
         />
