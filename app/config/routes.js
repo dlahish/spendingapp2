@@ -75,7 +75,8 @@ class Routes extends Component {
               <Scene key="transactions"
                 component={connect(state =>
                   ({transactions: state.data.transactions,
-                    currentMonth: state.data.currentMonth}))(Transactions)}
+                    currentMonth: state.data.currentMonth,
+                    currencySymbol: state.settings.currencySymbol}))(Transactions)}
                 removeTransaction={this.props.actions.data.removeTransaction}
                 icon={TabIcon}
                 title='Transactions'

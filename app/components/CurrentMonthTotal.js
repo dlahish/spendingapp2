@@ -7,7 +7,10 @@ const deviceLocale = ReactNativeI18n.locale
 function displayText(currentMonthTotal, type, currencySymbol) {
   if (currentMonthTotal.hasOwnProperty([type])) {
     return <Text style={styles.amount}>
-            {I18n.toCurrency(currentMonthTotal[type], {unit: getSymbol(currencySymbol), format: "%u %n"})}
+            {I18n.toCurrency(currentMonthTotal[type], {
+              unit: getSymbol(currencySymbol),
+              format: "%u %n",
+              precision: 0})}
             </Text>
   } else { return <Text style={styles.loading}>Loading...</Text> }
 }

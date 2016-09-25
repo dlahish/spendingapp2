@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableHighlight } from 'react-native'
 import { getTransactions } from '../actions/data'
 import { Actions } from 'react-native-router-flux'
 import { ItemRow } from '../components'
+import I18n from 'react-native-i18n'
 
 function getVisibleTransactions(transactions, month) {
   monthFilter = (transaction) => {
@@ -29,6 +30,12 @@ function setMainText(transaction) {
   else return transaction.category
 }
 
+function getSymbol(symbol) {
+  if (symbol === 'default') return null
+  if (typeof symbol === 'number') return String.fromCharCode(symbol)
+  else return symbol
+}
+
 export default class Transactions extends Component {
   constructor(props) {
     super(props)
@@ -48,8 +55,6 @@ export default class Transactions extends Component {
         else if (selectedItemIndex !== null && itemIndex !== selectedItemIndex) this.setState({ selectedItemIndex: null})
         else this.setState({ selectedItemIndex: itemIndex })
     } else {
-        console.log('ItemRow was clicked!!!!')
-        console.log(transaction)
         Actions.newTransaction({isEdit: true, transaction})
     }
   }
@@ -77,7 +82,12 @@ export default class Transactions extends Component {
                 selected={i === this.state.selectedItemIndex ? true : false}
                 item={transaction}
                 mainText={setMainText(transaction)}
-                rightText={transaction.amount}
+                // rightText={transaction.amount}
+                rightText={I18n.toCurrency(Math.abs(transaction.amount),
+                  {unit: getSymbol(this.props.currencySymbol),
+                  format: "%u %n",
+                  sign_first: false,
+                  precision: 0})}
                 rightTextStyle={setAmountColor(transaction.type)}
                 secondaryText={new Date(transaction.date).toLocaleDateString('en-GB')}
                 onSelecetItem={this.onSelecetItem}

@@ -32,8 +32,8 @@ const styles = {
   },
   symbolLine: {
     backgroundColor: '#eee',
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
     paddingTop: 5,
     paddingBottom: 5,
     borderBottomColor: '#000',

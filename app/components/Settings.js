@@ -47,8 +47,8 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: '#eee',
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
     paddingTop: 5,
     paddingBottom: 5
   },

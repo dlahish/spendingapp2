@@ -53,9 +53,11 @@ export default class ItemRow extends Component {
                   <Text style={[styles.mainText, rightTextStyle]}>{rightText}</Text>
                 </View>
               </View>
-              <View>
-                <Text style={styles.secondaryText}>{secondaryText}</Text>
-              </View>
+              {secondaryText
+                ? <View>
+                    <Text style={styles.secondaryText}>{secondaryText}</Text>
+                  </View>
+                : <View style={{paddingBottom: 2}}></View>}
             </View>
           </TouchableHighlight>
         </View>

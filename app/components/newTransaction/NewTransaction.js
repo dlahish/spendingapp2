@@ -107,7 +107,7 @@ class NewTransaction extends Component {
       this.setState({error: 'Please enter an amount'})
     } else {
       let newAmount
-      if (this.state.type === 'Expense') { newAmount = this.state.amount * -1 }
+      if (this.state.categoryType === 'Expense') { newAmount = this.state.amount * -1 }
       else { newAmount = this.state.amount }
       const transaction = {
         date: this.state.date,
