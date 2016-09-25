@@ -147,6 +147,11 @@ class NewTransaction extends Component {
     this.setState({ categoryType: type })
   }
 
+  onDeleteTransaction = () => {
+    this.props.removeTransaction(this.props.transaction)
+    Actions.pop()
+  }
+
   render() {
     let incomeSelected, expenseSelected
     if (this.state.categoryType === 'Income') { incomeSelected = true, expenseSelected = false }
@@ -186,7 +191,7 @@ class NewTransaction extends Component {
             ? <View style={{alignItems: 'center'}}>
                 <Button style={styles.btnText}
                   containerStyle={styles.btn}
-                  onPress={() => {}}>Delete transaction
+                  onPress={this.onDeleteTransaction}>Delete transaction
                 </Button>
               </View>
             : <View></View>}

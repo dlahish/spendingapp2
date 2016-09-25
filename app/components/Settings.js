@@ -4,6 +4,7 @@ import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as settingsActionCreators from '../actions/settings'
+import * as accountActions from '../actions/accounts'
 import Icon from 'react-native-vector-icons/FontAwesome'
 const smallRightArrow = (<Icon name='angle-right' size={22} />)
 import { UserActions, addBorder } from '../components'
@@ -42,7 +43,7 @@ class Settings extends Component {
           </ScrollView>
         </View>
 
-        <View style={[styles.actionsWrapper, addBorder(2, 'black')]}>
+        <View style={styles.actionsWrapper}>
           <View style={styles.actions}>
             <UserActions handleLogout={this.props.actions.account.logoutAndUnauthUser} />
           </View>
@@ -88,6 +89,6 @@ export default connect(
   (dispatch) => ({
     actions: {
       settings: bindActionCreators(settingsActionCreators, dispatch),
-      account:  bindActionCreators(settingsActionCreators, dispatch)
+      account:  bindActionCreators(accountActions, dispatch)
     }})
 )(Settings)
