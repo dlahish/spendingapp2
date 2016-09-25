@@ -11,7 +11,7 @@ import { UserActions, addBorder } from '../components'
 
 SettingLine = (props) => {
   return (
-    <TouchableHighlight onPress={() => Actions.currencySymbols({setCurrencySymbol: props.setCurrencySymbol})}>
+    <TouchableHighlight onPress={() => props.onPress()}>
       <View style={styles.settingLine}>
         <View>
           <Text style={styles.text}>{props.subject}</Text>
@@ -37,9 +37,15 @@ class Settings extends Component {
         <View>
           <ScrollView style={styles.scrollView}>
             <SettingLine
-              subject='Currency Symbol'
+              subject='Currency symbol'
               value={getSymbol(this.props.currencySymbol)}
-              setCurrencySymbol={this.props.actions.settings.setCurrencySymbol}/>
+              onPress={() =>
+                Actions.currencySymbols({setCurrencySymbol: this.props.actions.settings.setCurrencySymbol})}
+            />
+            <SettingLine
+              subject='Setup favorite transaction'
+              onPress={() => Actions.setFavoriteTransactions}
+            />
           </ScrollView>
         </View>
 
@@ -66,7 +72,8 @@ const styles = {
     paddingLeft: 15,
     paddingRight: 15,
     paddingTop: 5,
-    paddingBottom: 5
+    paddingBottom: 5,
+    marginBottom: 10
   },
   text: {
     fontSize: 20,

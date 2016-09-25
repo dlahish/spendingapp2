@@ -13,7 +13,7 @@ import CurrentMonthTotal from './CurrentMonthTotal'
 import addBorder from './addBorder'
 import FavoriteTransactions from './FavoriteTransactions'
 import FavoriteTransaction from './FavoriteTransaction'
-import AddTransactionButtons from './AddTransactionButtons'
+import AddTransactionButtons from './homeScene/AddTransactionButtons'
 import Button from './common/Button'
 import DatePicker from './common/DatePicker'
 import DatePickerModal from './DatePickerModal'
@@ -28,6 +28,7 @@ import Transaction from './Transaction'
 import ItemRow from './common/ItemRow'
 import CategorySelector from './common/CategorySelector'
 import CurrencySymbols from './CurrencySymbols'
+import ChangeMonthArrows from './homeScene/ChangeMonthArrows'
 
 export {
   Home,
@@ -59,5 +60,6 @@ export {
   Transaction,
   ItemRow,
   CategorySelector,
-  CurrencySymbols
+  CurrencySymbols,
+  ChangeMonthArrows
 }

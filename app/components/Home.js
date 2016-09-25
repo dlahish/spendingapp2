@@ -3,13 +3,15 @@ import { View, Text, StyleSheet, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Actions } from 'react-native-router-flux'
+import Button from 'react-native-button'
 import {
   GuestActions,
   NewTransaction,
   CurrentMonthTotal,
   addBorder,
   FavoriteTransactions,
-  AddTransactionButtons
+  AddTransactionButtons,
+  ChangeMonthArrows
 } from '../components'
 import * as accountActions from '../actions/accounts'
 import * as dataActions from '../actions/data'
@@ -23,8 +25,21 @@ const incomeFavoriteTransactions = [
 const expeseFavoriteTransactions = [
   {name: 'Beer', date: '09/05/2016', category: 'Food', amount: -7, notes: ''},
   {name: 'Coffee', date: '09/05/2016', category: 'Food', amount: -5, notes: ''},
-  {name: 'Train Ticket', date: '09/02/2016', category: 'General', amount: -70, notes: ''}
+  {name: 'Train Ticket', date: '09/02/2016', category: 'General', amount: -70, notes: 'September'}
 ]
+
+SummeryLine = (leftText, rightText) => {
+  return (
+    <View style={styles.summeryLineWrapper}>
+      <View><Text>{leftText}</Text></View>
+      <View><Text>{rightText}</Text></View>
+    </View>
+  )
+}
+
+function getFavTransactionText(favTransaction) {
+  return `${favTransaction.category}, ${favTransaction.amount}, ${favTransaction.notes}`
+}
 
 class Home extends Component {
   componentDidMount() {
@@ -43,23 +58,63 @@ class Home extends Component {
     }
   }
 
+  renderFavoriteTransactions = (favTransaction) => {
+    const favTransactionText = `${favTransaction.category}, ${favTransaction.amount}, ${favTransaction.notes}`
+    return (
+      <View style={styles.favTransactionWrapper}>
+        <View style={styles.buttonWrapper}>
+          <Button
+            style={styles.btnText}
+            containerStyle={[styles.btn, styles.bgGreen]}
+            // onPress={props.handleLogout}
+          >Add
+          </Button>
+        </View>
+        <View style={styles.favTransactionText}>
+          <Button
+            // style={styles.btnText}
+            containerStyle={[]}
+            // onPress={props.handleLogout}
+          >{favTransactionText}
+          </Button>
+        </View>
+      </View>
+    )
+  }
+
   render() {
     return (
       <View style={styles.container}>
-          <View style={styles.main}>
-            <CurrentMonthTotal
-              currentMonthTotal={this.props.currentMonthTotal}
-              currencySymbol={this.props.currencySymbol}
-            />
+        <View style={[styles.main, addBorder(2, 'black')]}>
 
-            {/* <FavoriteTransactions
-              addTransaction={this.props.actions.data.addNewTransaction}
-              incomeFavoriteTransactions={incomeFavoriteTransactions}
-              expeseFavoriteTransactions={expeseFavoriteTransactions}
-            /> */}
+          <View style={[styles.monthSummary, addBorder(2, 'green')]}>
+            <View style={styles.monthArrows}>
+              <ChangeMonthArrows />
+            </View>
+            <View style={styles.summary}>
+              <CurrentMonthTotal
+                currentMonthTotal={this.props.currentMonthTotal}
+                currencySymbol={this.props.currencySymbol}
+              />
+            </View>
+          </View>
 
+          <View style={[styles.favoriteTransactions, addBorder(2, 'red')]}>
+            <View>
+              <Text style={{fontSize: 20}}>Favorite Transactions</Text>
+            </View>
+            <View>
+              {this.renderFavoriteTransactions({name: 'Train Ticket', date: '09/02/2016', category: 'General', amount: -70, notes: 'September'})}
+            </View>
+          </View>
+
+        </View>
+
+        <View style={styles.addTransactionButtonsWrapper}>
+          <View style={styles.addTransactionButtons}>
             <AddTransactionButtons />
           </View>
+        </View>
       </View>
     )
   }
@@ -71,26 +126,49 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'stretch',
 		paddingTop: 64,
+    paddingBottom: 55,
+    paddingLeft: 15,
+    paddingRight: 15,
     backgroundColor: '#FFF'
 	},
   main: {
-    flex: 3,
-    paddingLeft: 20
+    flex: 1
   },
-  actions: {
+  monthSummary: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-end'
-  },
-  toolbar: {
-    alignItems: 'center',
-    paddingTop:30,
-    paddingBottom:10,
-    backgroundColor: 'rgb(0, 153, 204)'
+    paddingTop: 3
   },
   favoriteTransactions: {
-    flex: 1
-  }
+    flex: 2
+  },
+  addTransactionButtons: {
+    flex: 1,
+    paddingTop: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  summeryLineWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  favTransactionWrapper: {
+    flexDirection: 'row'
+  },
+  favTransactionText: {
+    flexDirection: 'row'
+  },
+  btnText: {
+		color: "#f2f2f2"
+	},
+	btn: {
+		width: 50,
+		// padding:8,
+		// borderRadius:6,
+		// margin:8
+	},
+  bgGreen: {
+		backgroundColor:"#2ecc71",
+	}
 })
 
 Home.propTypes = {

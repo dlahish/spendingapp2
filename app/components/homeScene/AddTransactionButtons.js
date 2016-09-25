@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import Button from 'react-native-button'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Actions } from 'react-native-router-flux'
+import { addBorder } from '../../components'
 
 export default () => {
   return (
@@ -36,12 +37,12 @@ export default () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'row',
-    marginTop: 20
+    flexDirection: 'row'
   },
   buttonContainer: {
-    flex: 1
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   btnText: {
 		color: 'black',

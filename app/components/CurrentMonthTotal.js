@@ -5,12 +5,23 @@ import ReactNativeI18n from 'react-native-i18n'
 const deviceLocale = ReactNativeI18n.locale
 
 function displayText(currentMonthTotal, type, currencySymbol) {
+  if (type === 'balance') {
+    let balance = currentMonthTotal.income - currentMonthTotal.expenses
+    return <Text style={styles.amount}>
+            {I18n.toCurrency(balance, {
+              unit: getSymbol(currencySymbol),
+              format: "%u %n",
+              precision: 0,
+              sign_first: false})}
+            </Text>
+  }
   if (currentMonthTotal.hasOwnProperty([type])) {
     return <Text style={styles.amount}>
             {I18n.toCurrency(currentMonthTotal[type], {
               unit: getSymbol(currencySymbol),
               format: "%u %n",
-              precision: 0})}
+              precision: 0,
+              sign_first: false})}
             </Text>
   } else { return <Text style={styles.loading}>Loading...</Text> }
 }
@@ -23,7 +34,6 @@ function getSymbol(symbol) {
 
 export default class CurrentMonthTotal extends Component {
   render() {
-    console.log(deviceLocale)
     return (
       <View style={styles.container}>
 
@@ -31,14 +41,29 @@ export default class CurrentMonthTotal extends Component {
           <Text style={styles.title}>
             Income
           </Text>
-          {displayText(this.props.currentMonthTotal, 'income', this.props.currencySymbol)}
+          <View>
+            {displayText(this.props.currentMonthTotal, 'income', this.props.currencySymbol)}
+          </View>
         </View>
 
         <View style={styles.innerContainer}>
           <Text style={styles.title}>
             Expense
           </Text>
-          {displayText(this.props.currentMonthTotal, 'expenses', this.props.currencySymbol)}
+          <View>
+            {displayText(this.props.currentMonthTotal, 'expenses', this.props.currencySymbol)}
+          </View>
+        </View>
+
+        <View style={styles.line}></View>
+
+        <View style={styles.innerContainer}>
+          <Text style={styles.title}>
+            Balance
+          </Text>
+          <View>
+            {displayText(this.props.currentMonthTotal, 'balance', this.props.currencySymbol)}
+          </View>
         </View>
 
       </View>
@@ -53,20 +78,20 @@ CurrentMonthTotal.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    paddingTop: 10,
+    flex: 1
   },
   innerContainer: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'stretch',
+    justifyContent: 'space-between',
+    marginBottom: 5
   },
   title: {
     justifyContent: 'center',
     fontSize: 22,
     fontWeight: '500',
-    color: 'rgb(0, 153, 204)',
+    // color: 'rgb(0, 153, 204)',
     paddingBottom: 5
   },
   amount: {
@@ -78,6 +103,11 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 15,
     fontWeight: '300',
+  },
+  line: {
+    height: 1,
+    backgroundColor: '#b3b3b3',
+    marginBottom: 10
   }
 })
 
