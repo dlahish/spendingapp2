@@ -7,6 +7,10 @@ export function saveNewFavoriteTransaction(transaction) {
   return DB.favoriteTransactions.add(transaction)
 }
 
+export function deleteFavoriteTransaction(transaction) {
+  return DB.favoriteTransactions.removeById(transaction._id)
+}
+
 export function fetchTotalBalance(token) {
   if (token === null) return {}
   return axios.get(`${BASE_URI}/gettotal`, { headers: { authorization: token }})

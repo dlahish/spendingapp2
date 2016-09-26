@@ -16,7 +16,8 @@ import {
   fetchTransactions,
   deleteCategory,
   deleteTransaction,
-  saveNewFavoriteTransaction
+  saveNewFavoriteTransaction,
+  deleteFavoriteTransaction
 } from '../api/data'
 import {
   checkAuth
@@ -68,10 +69,19 @@ function setNewFavoriteTransaction(transaction) {
   }
 }
 
+export function removeNewFavoriteTransaction(transaction) {
+  return function(dispatch) {
+    return deleteFavoriteTransaction(transaction)
+      .then(() => dispatch(getFavoriteTransactions()))
+      .catch((err) => console.log(err))
+  }
+}
+
 export function getFavoriteTransactions() {
   return function(dispatch) {
     return DB.favoriteTransactions.find()
-      .then(response => dispatch(setNewFavoriteTransaction(response)));
+      .then(response => dispatch(setNewFavoriteTransaction(response)))
+      .catch((err) => console.log(err))
   }
 }
 

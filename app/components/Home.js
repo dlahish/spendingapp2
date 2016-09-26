@@ -49,7 +49,7 @@ class Home extends Component {
 
   renderFavoriteTransactions = (favTransaction, i) => {
     let favTransactionText
-    if (favTransaction.notes === null) favTransactionText = `${favTransaction.category}, ${favTransaction.amount}`
+    if (!favTransaction.notes) favTransactionText = `${favTransaction.category}, ${favTransaction.amount}`
     else favTransactionText = `${favTransaction.category}, ${favTransaction.amount}, ${favTransaction.notes}`
     return (
       <View style={styles.favTransactionWrapper} key={i}>
@@ -156,11 +156,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#BBB',
     borderTopRightRadius: 5,
     borderBottomRightRadius: 5,
-    paddingTop: 2,
+    paddingTop: 4,
     paddingBottom: 2
   },
   favTransactionText: {
-    fontSize: 20
+    fontSize: 22
   },
   buttonWrapper: {
     backgroundColor: '#2ecc71',

@@ -44,7 +44,11 @@ class Settings extends Component {
             />
             <SettingLine
               subject='Setup favorite transaction'
-              onPress={() => Actions.newTransaction({title: 'New Favorite Transaction', categoryType: 'Income'})}
+              onPress={() => Actions.newTransaction({
+                title: 'New Favorite Transaction',
+                categoryType: 'Income',
+                isEdit: true
+              })}
             />
           </ScrollView>
         </View>

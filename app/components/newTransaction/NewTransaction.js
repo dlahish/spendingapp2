@@ -37,7 +37,13 @@ class NewTransaction extends Component {
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow)
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide)
     const height = Dimensions.get('window').height
-    if (this.props.isEdit) {
+    if (this.props.isEdit && this.props.title === 'New Favorite Transaction' || !this.props.isEdit) {
+      this.setState({
+        windowHeight: height,
+        visibleHeight: height,
+        categoryType: this.props.categoryType
+      })
+    } else {
       const tempDate = new Date(this.props.transaction.date)
       const tempAmount = Math.abs(this.props.transaction.amount).toString()
       this.setState({
@@ -48,12 +54,6 @@ class NewTransaction extends Component {
         category: this.props.transaction.category,
         notes: this.props.transaction.notes,
         categoryType: this.props.transaction.type
-      })
-    } else {
-      this.setState({
-        windowHeight: height,
-        visibleHeight: height,
-        categoryType: this.props.categoryType
       })
     }
   }
@@ -153,8 +153,12 @@ class NewTransaction extends Component {
   }
 
   onDeleteTransaction = () => {
-    this.props.removeTransaction(this.props.transaction)
-    Actions.pop()
+    if (this.props.title === 'New Transaction') {
+      this.props.removeTransaction(this.props.transaction)
+      Actions.pop()
+    } else {
+      this.props.actions.data.removeNewFavoriteTransaction(transaction)
+    }
   }
 
   render() {
