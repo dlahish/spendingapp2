@@ -20,7 +20,8 @@ import {
   NewCategory,
   Settings,
   Transaction,
-  CurrencySymbols
+  CurrencySymbols,
+  FavoriteTransactions
 } from '../components'
 import Icon from 'react-native-vector-icons/FontAwesome'
 const plusIcon = (<Icon name='plus' size={26} color='#FFF' />)
@@ -85,7 +86,7 @@ class Routes extends Component {
                 leftButtonTextStyle={{color: '#FFF'}}
                 onLeft={() => Actions.editTransactions({editMode: true, selectedItemIndex: false})}
                 rightTitle={plusIcon}
-                onRight={() => Actions.newTransaction({categoryType: 'Expense'})}
+                onRight={() => Actions.newTransaction()}
               >
                 <Scene key="viewTransactions" />
                 <Scene key="editTransactions"
@@ -156,6 +157,16 @@ class Routes extends Component {
               component={CurrencySymbols}
               hideNavBar={false}
             />
+            <Scene
+              key="favoriteTransactions"
+              component={connect(state =>
+                ({favoriteTransactions: state.data.favoriteTransactions}))(FavoriteTransactions)}
+              removeTransaction={this.props.actions.data.removeFavoriteTransaction}
+              hideNavBar={true}
+            >
+              <Scene key="viewFavoriteTransactions" />
+              <Scene key="editFavoriteTransactions" />
+            </Scene>
           </Scene>
         </Scene>
       </RouterWithRedux>

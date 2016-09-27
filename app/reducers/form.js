@@ -2,7 +2,7 @@ import { SET_NEW_CATEGORY, CLEAR_FORM, SET_CATEGORY_TYPE } from '../constants'
 
 const initialState = {
   category: 'Category',
-  categoryType: ''
+  categoryType: 'Income'
 }
 
 export default function accounts (state = initialState, action) {

@@ -18,7 +18,6 @@ export default AddTransactionButtons = (props) => {
         <Button
           style={styles.btnText}
   				containerStyle={[styles.btn, styles.bgGreen]}
-          // onPress={() => Actions.newTransaction({categoryType: 'Income'})}
           onPress={() => this.handleButtonPress('Income')}
         >
           <Icon name="plus-circle" style={{fontSize: 15}}/>
@@ -30,7 +29,6 @@ export default AddTransactionButtons = (props) => {
         <Button
           style={styles.btnText}
           containerStyle={[styles.btn, styles.bgRed]}
-          // onPress={() => Actions.newTransaction({categoryType: 'Expense'})}
           onPress={() => this.handleButtonPress('Expense')}
         >
           <Icon name="plus-circle" style={{fontSize: 15}}/>

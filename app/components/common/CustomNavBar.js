@@ -3,25 +3,37 @@ import { Text, View, StyleSheet, TouchableHighlight } from 'react-native'
 
 export default CustomNavBar = (props) =>
   <View style={styles.container}>
-    <TouchableHighlight
-      style={styles.button}
-      onPress={() => props.onLeftPress()}
-    >
-      <Text style={styles.buttonText}>
-        {props.leftButton}
-      </Text>
-    </TouchableHighlight>
+    <View style={styles.leftSection}>
+      <TouchableHighlight
+        style={styles.button}
+        onPress={() => props.onLeftPress()}
+      >
+        <Text style={[styles.buttonText, {paddingRight: 20}]}>
+          {props.leftButton}
+        </Text>
+      </TouchableHighlight>
+      <TouchableHighlight
+        style={styles.button}
+        onPress={() => props.onSecondLeftPress()}
+      >
+        <Text style={styles.buttonText}>
+          {props.secondLeftButton}
+        </Text>
+      </TouchableHighlight>
+    </View>
     <View style={styles.titleWrapper}>
       <Text style={styles.title}>{props.title}</Text>
     </View>
-    <TouchableHighlight
-        style={styles.button}
-        onPress={() => props.onRightPress()}
-      >
-        <Text style={styles.buttonText}>
-          {props.rightButton}
-        </Text>
-    </TouchableHighlight>
+    <View style={styles.rightSection}>
+      <TouchableHighlight
+          style={styles.button}
+          onPress={() => props.onRightPress()}
+        >
+          <Text style={styles.buttonText}>
+            {props.rightButton}
+          </Text>
+      </TouchableHighlight>
+    </View>
   </View>
 
 CustomNavBar.propTypes = {
@@ -40,9 +52,20 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderBottomColor: '#828287'
   },
-  titleWrapper: {
-    marginTop: 20,
+  leftSection: {
     flex: 1,
+    flexDirection: 'row',
+    paddingLeft: 8
+  },
+  rightSection: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingRight: 8
+  },
+  titleWrapper: {
+    paddingTop: 20,
+    flex: 2,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -51,12 +74,10 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 18,
     fontWeight: '500',
-    width: 180,
     alignSelf: 'center',
   },
   button: {
-    marginTop: 20,
-    width: 70,
+    paddingTop: 20,
     justifyContent: 'center',
     alignItems: 'center'
   },
