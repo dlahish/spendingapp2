@@ -14,6 +14,7 @@ import {
 } from '../components'
 import * as accountActions from '../actions/accounts'
 import * as dataActions from '../actions/data'
+import * as formActions from '../actions/form'
 
 SummeryLine = (leftText, rightText) => {
   return (
@@ -99,7 +100,7 @@ class Home extends Component {
 
         <View style={styles.addTransactionButtonsWrapper}>
           <View style={styles.addTransactionButtons}>
-            <AddTransactionButtons />
+            <AddTransactionButtons dispatch={this.props.dispatch} setCategoryType={this.props.actions.form.setCategoryType}/>
           </View>
         </View>
       </View>
@@ -192,7 +193,8 @@ export default connect(
   (dispatch) => ({
     actions: {
       account: bindActionCreators(accountActions, dispatch),
-      data: bindActionCreators(dataActions, dispatch)
+      data: bindActionCreators(dataActions, dispatch),
+      form: bindActionCreators(formActions, dispatch)
     }
   })
 )(Home)

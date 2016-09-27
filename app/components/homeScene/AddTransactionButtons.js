@@ -5,7 +5,12 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { Actions } from 'react-native-router-flux'
 import { addBorder } from '../../components'
 
-export default () => {
+export default AddTransactionButtons = (props) => {
+  handleButtonPress = (categoryType) => {
+    props.setCategoryType(categoryType)
+    Actions.newTransaction()
+  }
+
   return (
     <View style={styles.container}>
 
@@ -13,7 +18,8 @@ export default () => {
         <Button
           style={styles.btnText}
   				containerStyle={[styles.btn, styles.bgGreen]}
-          onPress={() => Actions.newTransaction({categoryType: 'Income'})}
+          // onPress={() => Actions.newTransaction({categoryType: 'Income'})}
+          onPress={() => this.handleButtonPress('Income')}
         >
           <Icon name="plus-circle" style={{fontSize: 15}}/>
           Income
@@ -24,7 +30,8 @@ export default () => {
         <Button
           style={styles.btnText}
           containerStyle={[styles.btn, styles.bgRed]}
-          onPress={() => Actions.newTransaction({categoryType: 'Expense'})}
+          // onPress={() => Actions.newTransaction({categoryType: 'Expense'})}
+          onPress={() => this.handleButtonPress('Expense')}
         >
           <Icon name="plus-circle" style={{fontSize: 15}}/>
           Expense

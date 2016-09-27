@@ -148,8 +148,9 @@ class NewTransaction extends Component {
     Actions.pop()
   }
 
-  onTypeChange = (type) => {
-    this.setState({ categoryType: type })
+  onTypeChange = (categoryType) => {
+    // this.setState({ categoryType: type })
+    this.props.actions.form.setCategoryType(categoryType)
   }
 
   onDeleteTransaction = () => {
@@ -234,7 +235,9 @@ var styles = StyleSheet.create({
 })
 
 export default connect(
-  (state) => ({newCategory: state.form.category}),
+  (state) => ({
+    newCategory: state.form.category,
+    categoryType: state.form.categoryType}),
   (dispatch) => ({
     actions: {
       data: bindActionCreators(dataActionCreators, dispatch),
