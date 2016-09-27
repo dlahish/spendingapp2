@@ -6,7 +6,7 @@ import {
   SET_CURRENT_MONTH,
   SET_CATEGORIES,
   SET_YEAR_TRANSACTIONS,
-  SET_NEW_FAV_TRANSACTION
+  SET_FAVORITE_TRANSACTIONS
 } from './../constants'
 import {
   fetchYearTotal,
@@ -16,7 +16,7 @@ import {
   fetchTransactions,
   deleteCategory,
   deleteTransaction,
-  saveNewFavoriteTransaction,
+  saveFavoriteTransaction,
   deleteFavoriteTransaction
 } from '../api/data'
 import {
@@ -62,14 +62,14 @@ function setYearlyTransactions(response, year) {
   }
 }
 
-function setNewFavoriteTransaction(transaction) {
+function setFavoriteTransactions(transactions) {
   return {
-    type: SET_NEW_FAV_TRANSACTION,
-    transaction
+    type: SET_FAVORITE_TRANSACTIONS,
+    transactions
   }
 }
 
-export function removeNewFavoriteTransaction(transaction) {
+export function removeFavoriteTransaction(transaction) {
   return function(dispatch) {
     return deleteFavoriteTransaction(transaction)
       .then(() => dispatch(getFavoriteTransactions()))
@@ -80,16 +80,16 @@ export function removeNewFavoriteTransaction(transaction) {
 export function getFavoriteTransactions() {
   return function(dispatch) {
     return DB.favoriteTransactions.find()
-      .then(response => dispatch(setNewFavoriteTransaction(response)))
+      .then(response => dispatch(setFavoriteTransactions(response)))
       .catch((err) => console.log(err))
   }
 }
 
-export function addNewFavoriteTransaction(transaction) {
+export function addFavoriteTransaction(transaction) {
   return function(dispatch) {
-    return saveNewFavoriteTransaction(transaction)
+    return saveFavoriteTransaction(transaction)
       .then(() => {
-        dispatch(setNewFavoriteTransaction(transaction))
+        dispatch(getFavoriteTransactions())
       })
       .catch((err) => console.log(err))
   }

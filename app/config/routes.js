@@ -161,7 +161,7 @@ class Routes extends Component {
               key="favoriteTransactions"
               component={connect(state =>
                 ({favoriteTransactions: state.data.favoriteTransactions}))(FavoriteTransactions)}
-              removeTransaction={this.props.actions.data.removeFavoriteTransaction}
+              removeFavoriteTransaction={this.props.actions.data.removeFavoriteTransaction}
               hideNavBar={true}
             >
               <Scene key="viewFavoriteTransactions" />

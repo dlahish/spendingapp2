@@ -60,7 +60,7 @@ export default class FavoriteTransaction extends Component {
       return <CustomNavBar
         onLeftPress={() => Actions.pop()}
         onSecondLeftPress={() => Actions.editFavoriteTransactions({editMode: true})}
-        onRightPress={() => Actions.newTransaction()}
+        onRightPress={() => Actions.newTransaction({title: 'New Favorite Transaction'})}
         title='Favorite Transaction'
         leftButton='Back'
         secondLeftButton='Edit'
@@ -93,7 +93,7 @@ export default class FavoriteTransaction extends Component {
                 rightTextStyle={setAmountColor(transaction.type)}
                 secondaryText={transaction.notes}
                 onSelecetItem={this.onSelecetItem}
-                onDeleteItem={this.props.removeTransaction}
+                onDeleteItem={this.props.removeFavoriteTransaction}
               />
             )}
         </ScrollView>

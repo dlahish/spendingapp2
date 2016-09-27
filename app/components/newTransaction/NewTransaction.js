@@ -119,7 +119,7 @@ class NewTransaction extends Component {
       if (this.props.title === 'New Transaction') {
         this.props.actions.data.addNewTransaction(transaction)
       } else {
-        this.props.actions.data.addNewFavoriteTransaction(transaction)
+        this.props.actions.data.addFavoriteTransaction(transaction)
       }
 
       this.setState({

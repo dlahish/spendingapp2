@@ -5,7 +5,7 @@ import {
   SET_CURRENT_MONTH,
   SET_CATEGORIES,
   SET_YEAR_TRANSACTIONS,
-  SET_NEW_FAV_TRANSACTION
+  SET_FAVORITE_TRANSACTIONS
 } from '../constants'
 
 const initialState = {
@@ -32,8 +32,8 @@ export default function accounts (state = initialState, action) {
     case SET_YEAR_TRANSACTIONS:
       const nextTransactions = { ...state.transactions, [action.year]: action.data }
       return { ...state, transactions: nextTransactions }
-    case SET_NEW_FAV_TRANSACTION:
-      return { ...state, favoriteTransactions: state.favoriteTransactions.concat(action.transaction)}
+    case SET_FAVORITE_TRANSACTIONS:
+      return { ...state, favoriteTransactions: action.transactions }
     default:
       return state
   }
