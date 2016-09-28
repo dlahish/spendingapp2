@@ -15,6 +15,7 @@ import {
 import * as accountActions from '../actions/accounts'
 import * as dataActions from '../actions/data'
 import * as formActions from '../actions/form'
+import * as settingsActions from '../actions/settings'
 
 SummeryLine = (leftText, rightText) => {
   return (
@@ -46,6 +47,7 @@ class Home extends Component {
     this.props.actions.data.getYearTotal()
     this.props.actions.data.getCategories()
     this.props.actions.data.getFavoriteTransactions()
+    this.props.actions.settings.getCurrencySymbol()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -55,6 +57,7 @@ class Home extends Component {
       this.props.actions.data.getYearTotal()
       this.props.actions.data.getCategories()
       this.props.actions.data.getFavoriteTransactions()
+      this.props.actions.settings.getCurrencySymbol()
     }
   }
 
@@ -215,7 +218,8 @@ export default connect(
     actions: {
       account: bindActionCreators(accountActions, dispatch),
       data: bindActionCreators(dataActions, dispatch),
-      form: bindActionCreators(formActions, dispatch)
+      form: bindActionCreators(formActions, dispatch),
+      settings: bindActionCreators(settingsActions, dispatch)
     }
   })
 )(Home)

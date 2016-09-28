@@ -11,6 +11,14 @@ export function deleteFavoriteTransaction(transaction) {
   return DB.favoriteTransactions.removeById(transaction._id)
 }
 
+export function saveCurrancySymbolToLocalDB(symbol) {
+  return DB.currencySymbol.updateById({symbol}, 1)
+}
+
+export function fetchCurrencySymbol() {
+  return DB.currencySymbol.find()
+}
+
 export function fetchTotalBalance(token) {
   if (token === null) return {}
   return axios.get(`${BASE_URI}/gettotal`, { headers: { authorization: token }})

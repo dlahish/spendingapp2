@@ -40,7 +40,7 @@ class Settings extends Component {
               subject='Currency symbol'
               value={getSymbol(this.props.currencySymbol)}
               onPress={() =>
-                Actions.currencySymbols({setCurrencySymbol: this.props.actions.settings.setCurrencySymbol})}
+                Actions.currencySymbols({saveCurrancySymbol: this.props.actions.settings.saveCurrancySymbol})}
             />
             <SettingLine
               subject='Setup favorite transaction'
