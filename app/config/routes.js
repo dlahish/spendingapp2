@@ -58,7 +58,11 @@ class Routes extends Component {
 
   render() {
     return (
-      <RouterWithRedux navigationBarStyle={styles.navBar} titleStyle={styles.navBarTitleStlye}>
+      <RouterWithRedux
+        navigationBarStyle={styles.navBar}
+        titleStyle={styles.navBarTitleStlye}
+        leftButtonIconStyle={{tintColor: '#FFF'}}
+      >
         <Scene
           key="root"
           component={connect(state => ({isAuthed: state.account.isAuthed}))(Switch)}
@@ -156,6 +160,7 @@ class Routes extends Component {
               title="Currency Symbols"
               component={CurrencySymbols}
               hideNavBar={false}
+              leftButtonIconStyle={{tintColor: '#FFF'}}
             />
             <Scene
               key="favoriteTransactions"
