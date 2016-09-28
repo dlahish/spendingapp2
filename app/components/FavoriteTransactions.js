@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { View, Text, ScrollView, TouchableHighlight } from 'react-native'
 import { getTransactions } from '../actions/data'
 import { Actions } from 'react-native-router-flux'
-import { ItemRow } from '../components'
+import { ItemRow, MessageModal } from '../components'
 import I18n from 'react-native-i18n'
 import Icon from 'react-native-vector-icons/FontAwesome'
 const plusIcon = (<Icon name='plus' size={26} color='#FFF' />)
@@ -28,7 +28,8 @@ export default class FavoriteTransaction extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedItemIndex: null
+      selectedItemIndex: null,
+      errorModalVisible: false
     }
   }
 
@@ -47,11 +48,19 @@ export default class FavoriteTransaction extends Component {
     }
   }
 
+  onPlusIconPress = () => {
+    if (this.props.favoriteTransactions.length >= 5) {
+      this.setModalVisible(true)
+    } else {
+      Actions.newTransaction({title: 'New Favorite Transaction'})
+    }
+  }
+
   getCustomNavBar = (editMode) => {
     if (editMode) {
       return <CustomNavBar
         onLeftPress={() => Actions.viewFavoriteTransactions({editMode: false})}
-        onRightPress={() => Actions.newTransaction()}
+        onRightPress={() => {}}
         title='Favorite Transaction'
         leftButton='Done'
         rightButton={plusIconBlackDisabled}
@@ -60,7 +69,7 @@ export default class FavoriteTransaction extends Component {
       return <CustomNavBar
         onLeftPress={() => Actions.pop()}
         onSecondLeftPress={() => Actions.editFavoriteTransactions({editMode: true})}
-        onRightPress={() => Actions.newTransaction({title: 'New Favorite Transaction'})}
+        onRightPress={() => this.onPlusIconPress()}
         title='Favorite Transaction'
         leftButton='Back'
         secondLeftButton='Edit'
@@ -69,12 +78,21 @@ export default class FavoriteTransaction extends Component {
     }
   }
 
+  setModalVisible = (visible) => {
+    this.setState({ errorModalVisible: visible })
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <View>
           {this.getCustomNavBar(this.props.editMode)}
         </View>
+        <MessageModal
+          setModalVisible={this.setModalVisible}
+          modalVisible={this.state.errorModalVisible}
+          text='Max 5 favorite transactions allowed'
+        />
         <ScrollView>
             {this.props.favoriteTransactions !== null ? this.props.favoriteTransactions.map((transaction, i) =>
               <ItemRow
@@ -98,6 +116,7 @@ export default class FavoriteTransaction extends Component {
                   <Text style={styles.message}>Press the plus icon to add your favorite Transactions</Text>
                 </View>}
         </ScrollView>
+
       </View>
     )
   }

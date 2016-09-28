@@ -8,7 +8,7 @@ export default CustomNavBar = (props) =>
         style={styles.button}
         onPress={() => props.onLeftPress()}
       >
-        <Text style={[styles.buttonText, {paddingRight: 20}]}>
+        <Text style={[styles.buttonText, {paddingRight: 10}]}>
           {props.leftButton}
         </Text>
       </TouchableHighlight>

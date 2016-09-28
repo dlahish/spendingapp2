@@ -115,7 +115,6 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    // backgroundColor: "#f2f2f2",
     backgroundColor: "#FFF",
     paddingTop: 20
   },
