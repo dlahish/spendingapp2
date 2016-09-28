@@ -89,14 +89,14 @@ const styles = StyleSheet.create({
   },
   title: {
     justifyContent: 'center',
-    fontSize: 22,
+    fontSize: 15,
     fontWeight: '500',
     // color: 'rgb(0, 153, 204)',
     paddingBottom: 5
   },
   amount: {
     flex: 1,
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: '500',
   },
   loading: {

@@ -26,10 +26,6 @@ SummeryLine = (leftText, rightText) => {
   )
 }
 
-// function getFavTransactionText(favTransaction) {
-//   return `${favTransaction.category}, ${favTransaction.amount}, ${favTransaction.notes}`
-// }
-
 function getFavortieTransactionText(favTransaction) {
   if (!favTransaction.notes) return `${favTransaction.category}, ${favTransaction.amount}`
   else return `${favTransaction.category}, ${favTransaction.amount}, ${favTransaction.notes}`
@@ -108,7 +104,7 @@ class Home extends Component {
 
           <View style={styles.favoriteTransactions}>
             <View>
-              <Text style={{fontSize: 20, paddingBottom: 10}}>Favorite Transactions</Text>
+              <Text style={{fontSize: 15, paddingBottom: 10}}>Favorite Transactions</Text>
             </View>
             <View>
               {this.props.favoriteTransactions !== null
@@ -137,7 +133,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'stretch',
 		paddingTop: 64,
-    paddingBottom: 85,
+    paddingBottom: 65,
     backgroundColor: '#FFF'
 	},
   main: {
@@ -150,6 +146,9 @@ const styles = StyleSheet.create({
     borderBottomColor: '#BBB',
     paddingLeft: 15,
     paddingRight: 15
+  },
+  summary: {
+    flex: 1
   },
   favoriteTransactions: {
     flex: 2,
@@ -184,7 +183,7 @@ const styles = StyleSheet.create({
     paddingBottom: 2
   },
   favTransactionText: {
-    fontSize: 22,
+    fontSize: 15,
     flex: 0.5
   },
   buttonWrapper: {

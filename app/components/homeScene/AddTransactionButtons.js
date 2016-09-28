@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
 		color: 'black',
-    fontSize: 20,
+    fontSize: 15,
     paddingLeft: 10
 	},
 	btn: {
