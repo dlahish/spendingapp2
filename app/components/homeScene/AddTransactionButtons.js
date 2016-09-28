@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Button from 'react-native-button'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -38,6 +38,10 @@ export default AddTransactionButtons = (props) => {
 
     </View>
   )
+}
+
+AddTransactionButtons.propTypes = {
+  setCategoryType: PropTypes.func.isRequired
 }
 
 const styles = StyleSheet.create({

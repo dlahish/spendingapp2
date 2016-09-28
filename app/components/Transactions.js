@@ -82,7 +82,6 @@ export default class Transactions extends Component {
                 selected={i === this.state.selectedItemIndex ? true : false}
                 item={transaction}
                 mainText={setMainText(transaction)}
-                // rightText={transaction.amount}
                 rightText={I18n.toCurrency(Math.abs(transaction.amount),
                   {unit: getSymbol(this.props.currencySymbol),
                   format: "%u %n",

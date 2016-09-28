@@ -8,7 +8,6 @@ import {
   NewTransaction,
   CurrentMonthTotal,
   addBorder,
-  FavoriteTransactions,
   AddTransactionButtons,
   ChangeMonthArrows
 } from '../components'
@@ -16,15 +15,6 @@ import * as accountActions from '../actions/accounts'
 import * as dataActions from '../actions/data'
 import * as formActions from '../actions/form'
 import * as settingsActions from '../actions/settings'
-
-SummeryLine = (leftText, rightText) => {
-  return (
-    <View style={styles.summeryLineWrapper}>
-      <View><Text>{leftText}</Text></View>
-      <View><Text>{rightText}</Text></View>
-    </View>
-  )
-}
 
 function getFavortieTransactionText(favTransaction) {
   if (!favTransaction.notes) return `${favTransaction.category}, ${favTransaction.amount}`
@@ -36,8 +26,51 @@ function getAddButtonColor(favTransaction) {
   else return '#ff4d4d'
 }
 
+SummeryLine = (leftText, rightText) => {
+  return (
+    <View style={styles.summeryLineWrapper}>
+      <View><Text>{leftText}</Text></View>
+      <View><Text>{rightText}</Text></View>
+    </View>
+  )
+}
+
+FavoriteTransactions = (props) => {
+  return (
+    <View>
+      {props.favoriteTransactions !== null
+        ? props.favoriteTransactions.map((transaction, i) => {
+            return renderFavoriteTransactions(transaction, i)
+          })
+        : <View><Text style={{opacity: 0.6}}>Go to settings to add your favorite Transactions</Text></View>}
+    </View>
+  )
+}
+
+renderFavoriteTransactions = (favTransaction, i) => {
+  const favTransactionText = getFavortieTransactionText(favTransaction)
+  const addButtonColor = getAddButtonColor(favTransaction)
+  return (
+    <View style={styles.favTransactionWrapper} key={i}>
+      <View style={[styles.buttonWrapper, {backgroundColor: addButtonColor}]}>
+        <TouchableHighlight onPress={() => this.onAddNewFavortieTransaction(favTransaction)}>
+          <View style={[styles.buttonWrapper, {backgroundColor: addButtonColor}]}>
+            <Text style={styles.favTransactionText}>Add</Text>
+          </View>
+        </TouchableHighlight>
+      </View>
+      <View style={styles.favTransactionTextWrapper}>
+        <Text
+          numberOfLines={1}
+          style={styles.favTransactionText}>{favTransactionText}
+        </Text>
+      </View>
+    </View>
+  )
+}
+
 class Home extends Component {
-  componentDidMount() {
+  loadingActions = () => {
     let currentYear = new Date().getFullYear()
     this.props.actions.data.getTransactions(currentYear)
     this.props.actions.data.getYearTotal()
@@ -46,37 +79,14 @@ class Home extends Component {
     this.props.actions.settings.getCurrencySymbol()
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.isAuthed === false && nextProps.isAuthed) {
-      let currentYear = new Date().getFullYear()
-      this.props.actions.data.getTransactions(currentYear)
-      this.props.actions.data.getYearTotal()
-      this.props.actions.data.getCategories()
-      this.props.actions.data.getFavoriteTransactions()
-      this.props.actions.settings.getCurrencySymbol()
-    }
+  componentDidMount() {
+    this.loadingActions()
   }
 
-  renderFavoriteTransactions = (favTransaction, i) => {
-    const favTransactionText = getFavortieTransactionText(favTransaction)
-    const addButtonColor = getAddButtonColor(favTransaction)
-    return (
-      <View style={styles.favTransactionWrapper} key={i}>
-        <View style={[styles.buttonWrapper, {backgroundColor: addButtonColor}]}>
-          <TouchableHighlight onPress={() => this.onAddNewFavortieTransaction(favTransaction)}>
-            <View style={[styles.buttonWrapper, {backgroundColor: addButtonColor}]}>
-              <Text style={styles.favTransactionText}>Add</Text>
-            </View>
-          </TouchableHighlight>
-        </View>
-        <View style={styles.favTransactionTextWrapper}>
-          <Text
-            numberOfLines={1}
-            style={styles.favTransactionText}>{favTransactionText}
-          </Text>
-        </View>
-      </View>
-    )
+  componentWillReceiveProps(nextProps) {
+    if (this.props.isAuthed === false && nextProps.isAuthed) {
+      this.loadingActions()
+    }
   }
 
   onAddNewFavortieTransaction = (favTransaction) => {
@@ -106,26 +116,43 @@ class Home extends Component {
             <View>
               <Text style={{fontSize: 15, paddingBottom: 10}}>Favorite Transactions</Text>
             </View>
-            <View>
-              {this.props.favoriteTransactions !== null
-                ? this.props.favoriteTransactions.map((transaction, i) => {
-                    return this.renderFavoriteTransactions(transaction, i)
-                  })
-                : <View><Text style={{opacity: 0.6}}>Go to settings to add your favorite Transactions</Text></View>}
-            </View>
+            <FavoriteTransactions favoriteTransactions={this.props.favoriteTransactions}/>
           </View>
 
         </View>
 
         <View style={styles.addTransactionButtonsWrapper}>
-          <View style={styles.addTransactionButtons}>
-            <AddTransactionButtons dispatch={this.props.dispatch} setCategoryType={this.props.actions.form.setCategoryType}/>
-          </View>
+            <AddTransactionButtons setCategoryType={this.props.actions.form.setCategoryType}/>
         </View>
+
       </View>
     )
   }
 }
+
+Home.propTypes = {
+  currentMonthTotal: PropTypes.object,
+  isAuthed: PropTypes.bool.isRequired,
+  currencySymbol: PropTypes.string,
+  favoriteTransactions: PropTypes.array
+}
+
+export default connect(
+  (state) => ({
+    isAuthed: state.account.isAuthed,
+    currentMonthTotal: state.data.currentMonthTotal,
+    currencySymbol: state.settings.currencySymbol,
+    favoriteTransactions: state.data.favoriteTransactions
+  }),
+  (dispatch) => ({
+    actions: {
+      account: bindActionCreators(accountActions, dispatch),
+      data: bindActionCreators(dataActions, dispatch),
+      form: bindActionCreators(formActions, dispatch),
+      settings: bindActionCreators(settingsActions, dispatch)
+    }
+  })
+)(Home)
 
 const styles = StyleSheet.create({
   container: {
@@ -155,12 +182,6 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingLeft: 15,
     paddingRight: 15
-  },
-  addTransactionButtons: {
-    flex: 1,
-    paddingTop: 5,
-    justifyContent: 'center',
-    alignItems: 'center'
   },
   summeryLineWrapper: {
     flexDirection: 'row',
@@ -196,29 +217,3 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 5
   }
 })
-
-Home.propTypes = {
-  currentMonthTotal: PropTypes.object
-}
-
-export default connect(
-  (state) => ({
-    isAuthed: state.account.isAuthed,
-    currentMonth: state.data.currentMonth,
-    currentMonthTotal: state.data.currentMonthTotal,
-    yearTotal: state.data.yearTotal,
-    categories: state.data.categories,
-    transactions: state.data.transactions,
-    currentMonth: state.data.currentMonth,
-    currencySymbol: state.settings.currencySymbol,
-    favoriteTransactions: state.data.favoriteTransactions
-  }),
-  (dispatch) => ({
-    actions: {
-      account: bindActionCreators(accountActions, dispatch),
-      data: bindActionCreators(dataActions, dispatch),
-      form: bindActionCreators(formActions, dispatch),
-      settings: bindActionCreators(settingsActions, dispatch)
-    }
-  })
-)(Home)

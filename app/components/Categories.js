@@ -105,7 +105,6 @@ const styles = {
   },
   textWrapper: {
     flex: 1,
-    // paddingBottom: 20
   },
   text: {
     fontSize: 22

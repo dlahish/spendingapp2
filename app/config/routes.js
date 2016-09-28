@@ -45,9 +45,7 @@ const styles = StyleSheet.create({
   navBarTitleStlye: {
     color: '#FFF',
     fontWeight: '600'
-  },
-  tabBarStyle: {},
-  tabBarSelectedItemStyle: {}
+  }
 })
 
 class Routes extends Component {
@@ -109,11 +107,6 @@ class Routes extends Component {
                 icon={TabIcon}
                 title='Categories'
                 hideNavBar={true}
-                // leftTitle='Edit'
-                // leftButtonTextStyle={{color: '#FFF'}}
-                // onLeft={() => Actions.editCategory({editMode: true})}
-                // rightTitle={plusIcon}
-                // onRight={() => Actions.newCategory()}
               >
                 <Scene key="viewCategoties" hideTabBar={false}/>
                 <Scene key="editCategory"
