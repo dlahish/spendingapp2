@@ -25,8 +25,18 @@ SummeryLine = (leftText, rightText) => {
   )
 }
 
-function getFavTransactionText(favTransaction) {
-  return `${favTransaction.category}, ${favTransaction.amount}, ${favTransaction.notes}`
+// function getFavTransactionText(favTransaction) {
+//   return `${favTransaction.category}, ${favTransaction.amount}, ${favTransaction.notes}`
+// }
+
+function getFavortieTransactionText(favTransaction) {
+  if (!favTransaction.notes) return `${favTransaction.category}, ${favTransaction.amount}`
+  else return `${favTransaction.category}, ${favTransaction.amount}, ${favTransaction.notes}`
+}
+
+function getAddButtonColor(favTransaction) {
+  if (favTransaction.amount > 0) return '#2ecc71'
+  else return '#ff4d4d'
 }
 
 class Home extends Component {
@@ -49,23 +59,31 @@ class Home extends Component {
   }
 
   renderFavoriteTransactions = (favTransaction, i) => {
-    let favTransactionText
-    if (!favTransaction.notes) favTransactionText = `${favTransaction.category}, ${favTransaction.amount}`
-    else favTransactionText = `${favTransaction.category}, ${favTransaction.amount}, ${favTransaction.notes}`
+    const favTransactionText = getFavortieTransactionText(favTransaction)
+    const addButtonColor = getAddButtonColor(favTransaction)
     return (
       <View style={styles.favTransactionWrapper} key={i}>
-        <View style={styles.buttonWrapper}>
-          <TouchableHighlight>
-            <View style={styles.buttonWrapper}>
+        <View style={[styles.buttonWrapper, {backgroundColor: addButtonColor}]}>
+          <TouchableHighlight onPress={() => this.onAddNewFavortieTransaction(favTransaction)}>
+            <View style={[styles.buttonWrapper, {backgroundColor: addButtonColor}]}>
               <Text style={styles.favTransactionText}>Add</Text>
             </View>
           </TouchableHighlight>
         </View>
         <View style={styles.favTransactionTextWrapper}>
-          <Text style={styles.favTransactionText}>{favTransactionText}</Text>
+          <Text
+            numberOfLines={1}
+            style={styles.favTransactionText}>{favTransactionText}
+          </Text>
         </View>
       </View>
     )
+  }
+
+  onAddNewFavortieTransaction = (favTransaction) => {
+    delete favTransaction['_id'];
+    console.log(favTransaction)
+    this.props.actions.data.addNewFavoriteTransaction(favTransaction)
   }
 
   render() {
@@ -90,9 +108,11 @@ class Home extends Component {
               <Text style={{fontSize: 20, paddingBottom: 10}}>Favorite Transactions</Text>
             </View>
             <View>
-              {this.props.favoriteTransactions.map((transaction, i) => {
-                return this.renderFavoriteTransactions(transaction, i)
-              })}
+              {this.props.favoriteTransactions !== null
+                ? this.props.favoriteTransactions.map((transaction, i) => {
+                    return this.renderFavoriteTransactions(transaction, i)
+                  })
+                : <View><Text style={{opacity: 0.6}}>Go to settings to add your favorite Transactions</Text></View>}
             </View>
           </View>
 
@@ -161,7 +181,8 @@ const styles = StyleSheet.create({
     paddingBottom: 2
   },
   favTransactionText: {
-    fontSize: 22
+    fontSize: 22,
+    flex: 0.5
   },
   buttonWrapper: {
     backgroundColor: '#2ecc71',

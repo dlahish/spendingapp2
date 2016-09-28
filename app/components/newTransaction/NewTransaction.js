@@ -196,6 +196,7 @@ class NewTransaction extends Component {
             type={this.state.type}
             onDateChange={this.onDateChange}
             onInputChange={this.onInputChange}
+            title={this.props.title}
           />
           {this.props.isEdit
             ? <View style={{alignItems: 'center'}}>

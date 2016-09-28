@@ -37,16 +37,17 @@ class NewTransactionForm extends Component {
   render() {
     return (
       <View style={[styles.container]}>
-        <View style={[styles.inputWrapper]}>
-          <Text style={styles.inputTitle}>
-            Date:
-          </Text>
-          <TouchableHighlight onPress={this.setModalVisible.bind(this, true)} style={styles.touchableHighlight} >
-            <Text style={styles.date}>
-              {this.props.date.toLocaleDateString('en-GB')}
-            </Text>
-          </TouchableHighlight>
-        </View>
+        {this.props.title !== 'New Favorite Transaction'
+          ? <View style={[styles.inputWrapper]}>
+              <Text style={styles.inputTitle}>
+                Date:
+              </Text>
+              <TouchableHighlight onPress={this.setModalVisible.bind(this, true)} style={styles.touchableHighlight} >
+                <Text style={styles.date}>
+                  {this.props.date.toLocaleDateString('en-GB')}
+                </Text>
+              </TouchableHighlight>
+            </View> :<View></View>}
 
         <View style={[styles.inputWrapper]}>
           <Text style={styles.inputTitle}>

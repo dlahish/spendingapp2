@@ -76,7 +76,7 @@ export default class FavoriteTransaction extends Component {
           {this.getCustomNavBar(this.props.editMode)}
         </View>
         <ScrollView>
-            {this.props.favoriteTransactions.map((transaction, i) =>
+            {this.props.favoriteTransactions !== null ? this.props.favoriteTransactions.map((transaction, i) =>
               <ItemRow
                 key={i}
                 itemIndex={i}
@@ -84,7 +84,6 @@ export default class FavoriteTransaction extends Component {
                 selected={i === this.state.selectedItemIndex ? true : false}
                 item={transaction}
                 mainText={transaction.category}
-                // rightText={transaction.amount}
                 rightText={I18n.toCurrency(Math.abs(transaction.amount),
                   {unit: getSymbol(this.props.currencySymbol),
                   format: "%u %n",
@@ -94,8 +93,10 @@ export default class FavoriteTransaction extends Component {
                 secondaryText={transaction.notes}
                 onSelecetItem={this.onSelecetItem}
                 onDeleteItem={this.props.removeFavoriteTransaction}
-              />
-            )}
+              />)
+              : <View>
+                  <Text style={styles.message}>Press the plus icon to add your favorite Transactions</Text>
+                </View>}
         </ScrollView>
       </View>
     )
@@ -147,5 +148,10 @@ const styles = {
     paddingRight: 10,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  message: {
+    opacity: 0.6,
+    paddingTop: 10,
+    paddingLeft: 10
   }
 }

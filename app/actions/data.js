@@ -69,6 +69,16 @@ function setFavoriteTransactions(transactions) {
   }
 }
 
+export function addNewFavoriteTransaction(favTransaction) {
+  return function(dispatch) {
+    const date = new Date()
+    favTransaction = { ...favTransaction, date: date }
+    console.log('add new favorite transaction ------')
+    console.log(favTransaction)
+    dispatch(addNewTransaction(favTransaction))
+  }
+}
+
 export function removeFavoriteTransaction(transaction) {
   return function(dispatch) {
     return deleteFavoriteTransaction(transaction)
@@ -159,6 +169,7 @@ export function getTotalBalance() {
 }
 
 export function addNewTransaction(transaction) {
+  console.log('ADD NEW TRANSACTION -------')
   return function(dispatch) {
     return checkAuth()
       .then((token) => saveNewTransaction(token, transaction))
