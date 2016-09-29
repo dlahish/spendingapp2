@@ -1,3 +1,5 @@
+'use strict'
+
 import React, { Component, PropTypes } from 'react'
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
@@ -16,15 +18,6 @@ import * as accountActions from '../actions/accounts'
 import * as dataActions from '../actions/data'
 import * as formActions from '../actions/form'
 import * as settingsActions from '../actions/settings'
-
-SummeryLine = (leftText, rightText) => {
-  return (
-    <View style={styles.summeryLineWrapper}>
-      <View><Text>{leftText}</Text></View>
-      <View><Text>{rightText}</Text></View>
-    </View>
-  )
-}
 
 class Home extends Component {
   loadingActions = () => {
@@ -142,9 +135,5 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingLeft: 15,
     paddingRight: 15
-  },
-  summeryLineWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
   }
 })

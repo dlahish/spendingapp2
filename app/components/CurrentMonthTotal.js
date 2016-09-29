@@ -1,8 +1,10 @@
+'use strict'
+
 import React, { Component, PropTypes } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import I18n from 'react-native-i18n'
 import ReactNativeI18n from 'react-native-i18n'
-const deviceLocale = ReactNativeI18n.locale
+// const deviceLocale = ReactNativeI18n.locale
 
 function displayText(currentMonthTotal, type, currencySymbol) {
   if (type === 'balance') {
@@ -108,6 +110,10 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: '#b3b3b3',
     marginBottom: 10
+  },
+  summeryLineWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   }
 })
 
