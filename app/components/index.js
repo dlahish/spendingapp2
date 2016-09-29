@@ -29,6 +29,7 @@ import ItemRow from './common/ItemRow'
 import CategorySelector from './common/CategorySelector'
 import CurrencySymbols from './CurrencySymbols'
 import ChangeMonthArrows from './homeScene/ChangeMonthArrows'
+import DisplayFavoriteTransactions from './homeScene/DisplayFavoriteTransactions'
 import MessageModal from './common/MessageModal'
 
 export {
@@ -63,5 +64,6 @@ export {
   CategorySelector,
   CurrencySymbols,
   ChangeMonthArrows,
-  MessageModal
+  MessageModal,
+  DisplayFavoriteTransactions
 }
