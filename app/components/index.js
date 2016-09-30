@@ -31,6 +31,7 @@ import CurrencySymbols from './CurrencySymbols'
 import ChangeMonthArrows from './homeScene/ChangeMonthArrows'
 import DisplayFavoriteTransactions from './homeScene/DisplayFavoriteTransactions'
 import MessageModal from './common/MessageModal'
+import Loader from './common/Loader'
 
 export {
   Home,
@@ -65,5 +66,6 @@ export {
   CurrencySymbols,
   ChangeMonthArrows,
   MessageModal,
-  DisplayFavoriteTransactions
+  DisplayFavoriteTransactions,
+  Loader
 }

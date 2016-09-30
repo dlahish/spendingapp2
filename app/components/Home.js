@@ -20,24 +20,12 @@ import * as formActions from '../actions/form'
 import * as settingsActions from '../actions/settings'
 
 class Home extends Component {
-  loadingActions = () => {
-    let currentYear = new Date().getFullYear()
-    this.props.actions.data.getTransactions(currentYear)
-    this.props.actions.data.getYearTotal()
-    this.props.actions.data.getCategories()
-    this.props.actions.data.getFavoriteTransactions()
-    this.props.actions.settings.getCurrencySymbol()
-  }
 
-  componentDidMount() {
-    this.loadingActions()
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.isAuthed === false && nextProps.isAuthed) {
-      this.loadingActions()
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.isAuthed === false && nextProps.isAuthed) {
+  //     this.loadingActions()
+  //   }
+  // }
 
   onAddNewFavortieTransaction = (favTransaction) => {
     delete favTransaction['_id'];
@@ -87,12 +75,14 @@ Home.propTypes = {
   currentMonthTotal: PropTypes.object,
   isAuthed: PropTypes.bool.isRequired,
   currencySymbol: PropTypes.string,
-  favoriteTransactions: PropTypes.array
+  favoriteTransactions: PropTypes.array,
+  token: PropTypes.string
 }
 
 export default connect(
   (state) => ({
     isAuthed: state.account.isAuthed,
+    token: state.account.token,
     currentMonthTotal: state.data.currentMonthTotal,
     currencySymbol: state.settings.currencySymbol,
     favoriteTransactions: state.data.favoriteTransactions

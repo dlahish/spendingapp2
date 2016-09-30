@@ -4,11 +4,13 @@ import routes from './routes'
 import data from './data'
 import form from './form'
 import settings from './settings'
+import storage from './storage'
 
 export default combineReducers({
   account,
   routes,
   data,
   form,
+  storage,
   settings
 })

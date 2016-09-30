@@ -3,7 +3,7 @@ import { SigninForm } from '../../components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Actions } from 'react-native-router-flux'
-import * as accountActionCreators from '../../actions/accounts'
+import * as accountAction from '../../actions/accounts'
 
 function Signin (props) {
 
@@ -21,5 +21,5 @@ function Signin (props) {
 
 export default connect(
 	(state) => ({ authError: state.account.user.authError }),
-	(dispatch) => (bindActionCreators(accountActionCreators, dispatch))
+	(dispatch) => (bindActionCreators(accountAction, dispatch))
 )(Signin)

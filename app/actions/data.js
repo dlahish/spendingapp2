@@ -19,9 +19,6 @@ import {
   saveFavoriteTransaction,
   deleteFavoriteTransaction
 } from '../api/data'
-import {
-  checkAuth
-} from '../api/accounts'
 
 function setTotalBalance(data) {
   return {
@@ -118,10 +115,19 @@ export function removeTransaction(transaction) {
   }
 }
 
-export function getTransactions(year) {
+// export function getTransactions(year) {
+//   return function(dispatch) {
+//     return checkAuth()
+//       .then((token) => fetchTransactions(token, year))
+//       .then((response) => dispatch(setYearlyTransactions(response, year)))
+//       .catch((err) => console.log(err))
+//
+//   }
+// }
+
+export function getTransactions(year, token) {
   return function(dispatch) {
-    return checkAuth()
-      .then((token) => fetchTransactions(token, year))
+    fetchTransactions(token, year)
       .then((response) => dispatch(setYearlyTransactions(response, year)))
       .catch((err) => console.log(err))
 
@@ -139,11 +145,13 @@ export function removeCategory(category) {
   }
 }
 
-export function getYearTotal(year) {
+export function getYearTotal(year, token) {
+  console.log('GET YEAR TOTAL ------')
   return function(dispatch) {
-    return checkAuth()
-      .then((token) => fetchYearTotal(token, year))
+    return fetchYearTotal(token, year)
       .then((response) => {
+        console.log('RESPONSE --------')
+        console.log(response)
         dispatch(setYearTotal(response.data.data))
         dispatch(setCurrentMonthTotal(response.data.data))
       })
@@ -205,10 +213,9 @@ export function addNewCategory(category) {
   }
 }
 
-export function getCategories() {
+export function getCategories(token) {
   return function(dispatch) {
-    return checkAuth()
-      .then((token) => fetchCategories(token))
+    fetchCategories(token)
       .then((response) => {
         dispatch(setCategories(response.data.categories))
       })
