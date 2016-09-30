@@ -66,6 +66,10 @@ function setFavoriteTransactions(transactions) {
   }
 }
 
+function getToken(state) {
+  return state.account.token
+}
+
 export function addNewFavoriteTransaction(favTransaction) {
   return function(dispatch) {
     const date = new Date()
@@ -103,27 +107,17 @@ export function addFavoriteTransaction(transaction) {
 }
 
 export function removeTransaction(transaction) {
-  return function(dispatch) {
-    return checkAuth()
-      .then((token) => deleteTransaction(token, transaction))
+  return function(dispatch, getState) {
+    const token = getToken(getState())
+    deleteTransaction(token, transaction)
       .then((response) => {
         let currentYear = new Date().getFullYear()
         dispatch(getTransactions(currentYear))
-        dispatch(getYearTotal(currentYear))
+        dispatch(getYearTotal(currentYear, token))
       })
       .catch((err) => console.log(err))
   }
 }
-
-// export function getTransactions(year) {
-//   return function(dispatch) {
-//     return checkAuth()
-//       .then((token) => fetchTransactions(token, year))
-//       .then((response) => dispatch(setYearlyTransactions(response, year)))
-//       .catch((err) => console.log(err))
-//
-//   }
-// }
 
 export function getTransactions(year, token) {
   return function(dispatch) {
@@ -135,9 +129,9 @@ export function getTransactions(year, token) {
 }
 
 export function removeCategory(category) {
-  return function(dispatch) {
-    return checkAuth()
-      .then((token) => deleteCategory(token, category))
+  return function(dispatch, getState) {
+    const token = getToken(getState())
+    deleteCategory(token, category)
       .then((response) => {
         dispatch(getCategories())
       })
@@ -146,12 +140,9 @@ export function removeCategory(category) {
 }
 
 export function getYearTotal(year, token) {
-  console.log('GET YEAR TOTAL ------')
   return function(dispatch) {
     return fetchYearTotal(token, year)
       .then((response) => {
-        console.log('RESPONSE --------')
-        console.log(response)
         dispatch(setYearTotal(response.data.data))
         dispatch(setCurrentMonthTotal(response.data.data))
       })
@@ -163,9 +154,9 @@ export function getYearTotal(year, token) {
 }
 
 export function getTotalBalance() {
-  return function(dispatch) {
-    return checkAuth()
-      .then((token) => fetchTotalBalance(token))
+  return function(dispatch, getState) {
+    const token = getToken(getState())
+    fetchTotalBalance(token)
       .then((response) => {
         dispatch(setTotalBalance(response))
       })
@@ -177,13 +168,14 @@ export function getTotalBalance() {
 }
 
 export function addNewTransaction(transaction) {
-  console.log('ADD NEW TRANSACTION -------')
-  return function(dispatch) {
-    return checkAuth()
-      .then((token) => saveNewTransaction(token, transaction))
+  return function(dispatch, getState) {
+    const token = getToken(getState())
+    console.log('ADD NEW TRANSACTION ------')
+    console.log(token)
+    saveNewTransaction(token, transaction)
       .then((response) => {
         let currentYear = new Date().getFullYear()
-        dispatch(getYearTotal(currentYear))
+        dispatch(getYearTotal(currentYear, token))
         dispatch(getTransactions('2016'))
       })
       .catch((err) => {
@@ -203,9 +195,9 @@ export function setCurrentMonth() {
 }
 
 export function addNewCategory(category) {
-  return function(dispatch) {
-    return checkAuth()
-      .then((token) => saveNewCategory(token, category))
+  return function(dispatch, getState) {
+    const token = getToken(getState())
+    saveNewCategory(token, category)
       .then((response) => {
         dispatch(getCategories())
       })
