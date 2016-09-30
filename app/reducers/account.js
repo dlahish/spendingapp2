@@ -1,9 +1,9 @@
 import { SET_TOKEN, SET_AUTH_ERROR, REMOVE_CURRENT_USER } from '../constants'
 import {REHYDRATE} from 'redux-persist/constants'
 const initialState = {
-  user: {},
-  authError: '',
-  isAuthed: undefined
+  token: undefined,
+  isAuthed: undefined,
+  authError: ''
 }
 
 export default function accounts (state = initialState, action) {
@@ -12,7 +12,8 @@ export default function accounts (state = initialState, action) {
       return {
         ...state,
         token: action.token,
-        isAuthed: action.isAuthed
+        isAuthed: action.isAuthed,
+        authError: ''
       }
     case SET_AUTH_ERROR:
       return {

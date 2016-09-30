@@ -160,7 +160,8 @@ export default connect(
   (state) => ({
     currentMonth: state.data.currentMonth,
     token: state.account.token,
-    loading: !state.storage.storageLoaded}),
+    loading: !state.storage.storageLoaded
+  }),
   (dispatch) => ({
     actions: {
       account: bindActionCreators(accountActions, dispatch),

@@ -1,4 +1,4 @@
-import {persistStore, autoRehydrate} from 'redux-persist'
+import {persistStore, autoRehydrate, purgeStoredState} from 'redux-persist'
 import {applyMiddleware, createStore, compose} from 'redux'
 import {AsyncStorage} from 'react-native'
 import thunk from 'redux-thunk'
@@ -12,6 +12,12 @@ const store = createStore(rootReducer, compose(
 	autoRehydrate()
 ));
 
-persistStore(store, {storage: AsyncStorage});
+persistStore(store, {storage: AsyncStorage})
+
+// purgeStoredState({storage: AsyncStorage}).then(() => {
+//   console.log('purge of someReducer completed')
+// }).catch(() => {
+//   console.log('purge of someReducer failed')
+// })
 
 export default store;

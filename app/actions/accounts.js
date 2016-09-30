@@ -41,7 +41,7 @@ function setToken(token, isAuthed = true) {
   }
 }
 
-function setAuthError(message) {
+export function setAuthError(message) {
   return {
     type: SET_AUTH_ERROR,
     message
@@ -56,18 +56,6 @@ export function checkIfAuthed() {
   }
 }
 
-// export function fetchIfCurrentUser() {
-//   return function(dispatch) {
-//     return checkAuth()
-//       .then((token) => currentUser(token))
-//       .then(response => {
-//         if (response.data) dispatch(setCurrentUser(response.data))
-//         else dispatch(setCurrentUser({}, false))
-//       })
-//       .catch((err) => console.warn(err))
-//   }
-// }
-
 export function signinAndAuthUser (credentials) {
   return function (dispatch) {
     return signin(credentials)
@@ -75,45 +63,46 @@ export function signinAndAuthUser (credentials) {
         if (res.data.message) {
           dispatch(setAuthError(res.data.message))
         } else {
-          const token = res.data.token
-          loadingActions(dispatch, token)
+          loadingActions(dispatch, res.data.token)
         }
       })
       .catch((err) => console.warn(err))
   }
 }
 
-// export function signinAndAuthUser (credentials) {
-//   return function (dispatch, getState) {
-//     return signin(credentials)
-//       .then((res) => setAuth(res))
-//       .then((user) => {
-//         if (user.authError) {
-//           Actions.pop()
-//           dispatch(setCurrentUser(user, false))
-//           return getState().account.user.authError
-//         } else {
-//           dispatch(setCurrentUser(user.data))
-//         }
-//       })
-//       .catch((err) => console.warn(err))
-//   }
-// }
-
 export function signupAndAuthUser (credentials) {
-  return function (dispatch, getState) {
+  return function (dispatch) {
     return signup(credentials)
-      .then((res) => setAuth(res))
-      .then((data) => {
-        dispatch(setCurrentUser(data))
+      .then((res) => {
+        console.log('SIGN UP AND AUTH USER -------')
+        console.log(res.data)
+        if (res.data.message) {
+          dispatch(setAuthError(res.data.message))
+        } else {
+          loadingActions(dispatch, res.data.token)
+        }
       })
       .catch((err) => {
-        dispatch(setCurrentUser(err.response.data, false))
-        return getState().account.user.error
+        dispatch(setAuthError(err.response.data.error))
         console.log(err)
       })
   }
 }
+
+// export function signupAndAuthUser (credentials) {
+//   return function (dispatch, getState) {
+//     return signup(credentials)
+//       .then((res) => setAuth(res))
+//       .then((data) => {
+//         dispatch(setCurrentUser(data))
+//       })
+//       .catch((err) => {
+//         dispatch(setCurrentUser(err.response.data, false))
+//         return getState().account.user.error
+//         console.log(err)
+//       })
+//   }
+// }
 
 export function logoutAndUnauthUser () {
   return function (dispatch) {

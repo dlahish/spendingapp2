@@ -25,6 +25,11 @@ class SigninForm extends Component {
     })
   }
 
+  onSignupPress = () => {
+    this.props.setAuthError('')
+    Actions.signup()
+  }
+
   render () {
     return (
       <View style={styles.container}>
@@ -53,7 +58,7 @@ class SigninForm extends Component {
 
         <Button style={styles.btnText}
           containerStyle={[styles.btn, styles.bgBlue]}
-          onPress={Actions.signup}>Sign up
+          onPress={() => this.onSignupPress()}>Sign up
         </Button>
 
       </View>

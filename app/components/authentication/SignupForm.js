@@ -25,6 +25,11 @@ class AccountForm extends Component {
     })
   }
 
+  onSigninPress = () => {
+    this.props.setAuthError('')
+    Actions.pop()
+  }
+
   render () {
     return (
       <View style={styles.container}>
@@ -53,7 +58,7 @@ class AccountForm extends Component {
 
         <Button style={styles.btnText}
           containerStyle={[styles.btn, styles.bgBlue]}
-          onPress={Actions.pop}>Sign in
+          onPress={() => this.onSigninPress()}>Sign in
         </Button>
 
       </View>

@@ -3,7 +3,7 @@ import { SigninForm } from '../../components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Actions } from 'react-native-router-flux'
-import * as accountAction from '../../actions/accounts'
+import * as accountActions from '../../actions/accounts'
 
 function Signin (props) {
 
@@ -15,11 +15,14 @@ function Signin (props) {
 	}
 
   return (
-    <SigninForm onSubmit={handleFormSubmit} authError={props.authError}/>
+    <SigninForm
+			onSubmit={handleFormSubmit}
+			authError={props.authError}
+			setAuthError={props.setAuthError}/>
   )
 }
 
 export default connect(
-	(state) => ({ authError: state.account.user.authError }),
-	(dispatch) => (bindActionCreators(accountAction, dispatch))
+	(state) => ({ authError: state.account.authError }),
+	(dispatch) => (bindActionCreators(accountActions, dispatch))
 )(Signin)

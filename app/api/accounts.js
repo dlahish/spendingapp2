@@ -48,7 +48,7 @@ export function setAuth (res) {
   if (res.data.message) {
     return { authError: res.data.message }
   } else {
-    return { token: red.data.token }
+    return { token: res.data.token }
     return res
   }
 }
