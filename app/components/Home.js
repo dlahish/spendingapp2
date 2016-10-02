@@ -21,12 +21,6 @@ import * as settingsActions from '../actions/settings'
 
 class Home extends Component {
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.props.isAuthed === false && nextProps.isAuthed) {
-  //     this.loadingActions()
-  //   }
-  // }
-
   onAddNewFavortieTransaction = (favTransaction) => {
     delete favTransaction['_id'];
     console.log(favTransaction)
@@ -74,7 +68,7 @@ class Home extends Component {
 Home.propTypes = {
   currentMonthTotal: PropTypes.object,
   isAuthed: PropTypes.bool.isRequired,
-  currencySymbol: PropTypes.string,
+  currencySymbol: PropTypes.node,
   favoriteTransactions: PropTypes.array,
   token: PropTypes.string
 }

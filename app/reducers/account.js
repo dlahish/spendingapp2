@@ -21,6 +21,10 @@ export default function accounts (state = initialState, action) {
         authError: action.message,
         isAuthed: false
       }
+    case REHYDRATE:
+      var incoming = action.payload.myReducer
+      if (incoming) return {...state, ...incoming, specialKey: processSpecial(incoming.specialKey)}
+      return state
     default:
       return state
   }

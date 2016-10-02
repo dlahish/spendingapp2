@@ -1,3 +1,4 @@
+import { REHYDRATE } from 'redux-persist/constants'
 import { SET_NEW_CATEGORY, CLEAR_FORM, SET_CATEGORY_TYPE } from '../constants'
 
 const initialState = {
@@ -13,6 +14,10 @@ export default function accounts (state = initialState, action) {
       return { ...state, categoryType: action.categoryType}
     case CLEAR_FORM:
       return initialState
+    case REHYDRATE:
+      var incoming = action.payload.myReducer
+      if (incoming) return {...state, ...incoming, specialKey: processSpecial(incoming.specialKey)}
+      return state
     default:
       return state
   }

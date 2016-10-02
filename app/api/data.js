@@ -77,6 +77,7 @@ export function saveNewTransaction(token, transaction) {
 }
 
 export function saveNewCategory(token, category) {
+  console.log('SAVE NEW CATEGORY ----')
   if (token === null) return {}
   return axios({
     url: `${BASE_URI}/addnewcategory`,

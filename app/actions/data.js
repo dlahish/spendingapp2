@@ -112,7 +112,7 @@ export function removeTransaction(transaction) {
     deleteTransaction(token, transaction)
       .then((response) => {
         let currentYear = new Date().getFullYear()
-        dispatch(getTransactions(currentYear))
+        dispatch(getTransactions(currentYear, token))
         dispatch(getYearTotal(currentYear, token))
       })
       .catch((err) => console.log(err))
@@ -133,7 +133,7 @@ export function removeCategory(category) {
     const token = getToken(getState())
     deleteCategory(token, category)
       .then((response) => {
-        dispatch(getCategories())
+        dispatch(getCategories(token))
       })
       .catch((err) => console.log(err))
   }
@@ -176,7 +176,7 @@ export function addNewTransaction(transaction) {
       .then((response) => {
         let currentYear = new Date().getFullYear()
         dispatch(getYearTotal(currentYear, token))
-        dispatch(getTransactions('2016'))
+        dispatch(getTransactions('2016', token))
       })
       .catch((err) => {
         console.log(err)
@@ -196,10 +196,12 @@ export function setCurrentMonth() {
 
 export function addNewCategory(category) {
   return function(dispatch, getState) {
+    console.log('ADD NEW CATEGORY ----')
     const token = getToken(getState())
+    console.log(token)
     saveNewCategory(token, category)
       .then((response) => {
-        dispatch(getCategories())
+        dispatch(getCategories(token))
       })
       .catch((err) => console.log(err))
   }

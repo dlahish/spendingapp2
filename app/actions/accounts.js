@@ -1,4 +1,6 @@
 import { REMOVE_CURRENT_USER, SET_TOKEN, SET_AUTH_ERROR } from './../constants'
+import { purgeStoredState } from 'redux-persist'
+import { AsyncStorage } from 'react-native'
 import { getCurrencySymbol } from './settings'
 import {
   currentUser,
@@ -63,6 +65,8 @@ export function signinAndAuthUser (credentials) {
         if (res.data.message) {
           dispatch(setAuthError(res.data.message))
         } else {
+          console.log('SIGN IN AND AUTH USER ----')
+          console.log(res.data.token)
           loadingActions(dispatch, res.data.token)
         }
       })
@@ -89,23 +93,13 @@ export function signupAndAuthUser (credentials) {
   }
 }
 
-// export function signupAndAuthUser (credentials) {
-//   return function (dispatch, getState) {
-//     return signup(credentials)
-//       .then((res) => setAuth(res))
-//       .then((data) => {
-//         dispatch(setCurrentUser(data))
-//       })
-//       .catch((err) => {
-//         dispatch(setCurrentUser(err.response.data, false))
-//         return getState().account.user.error
-//         console.log(err)
-//       })
-//   }
-// }
-
 export function logoutAndUnauthUser () {
   return function (dispatch) {
     dispatch(setToken('', false))
+    purgeStoredState({storage: AsyncStorage}).then(() => {
+      console.log('purge of someReducer completed')
+    }).catch(() => {
+      console.log('purge of someReducer failed')
+    })
   }
 }

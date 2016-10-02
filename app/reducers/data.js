@@ -1,3 +1,4 @@
+import { REHYDRATE } from 'redux-persist/constants'
 import {
   SET_YEAR_TOTAL,
   SET_CURRENT_MONTH_TOTAL,
@@ -34,6 +35,10 @@ export default function accounts (state = initialState, action) {
       return { ...state, transactions: nextTransactions }
     case SET_FAVORITE_TRANSACTIONS:
       return { ...state, favoriteTransactions: action.transactions }
+    case REHYDRATE:
+      var incoming = action.payload.myReducer
+      if (incoming) return {...state, ...incoming, specialKey: processSpecial(incoming.specialKey)}
+      return state
     default:
       return state
   }
