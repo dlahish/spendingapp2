@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native'
+import ListItem from '../common/ListItem'
 
 export default DisplayFavoriteTransactions = (props) => {
   return (
@@ -20,23 +21,31 @@ DisplayFavoriteTransactions.propTypes = {
 
 renderFavoriteTransactions = (favTransaction, i, onAddNewFavortieTransaction) => {
   const favTransactionText = getFavortieTransactionText(favTransaction)
-  const addButtonColor = getAddButtonColor(favTransaction)
+  // const addButtonColor = getAddButtonColor(favTransaction)
+  const iconColor = getAddButtonColor(favTransaction)
   return (
-    <View style={styles.favTransactionWrapper} key={i}>
-      <View style={[styles.buttonWrapper, {backgroundColor: addButtonColor}]}>
-        <TouchableHighlight onPress={() => onAddNewFavortieTransaction(favTransaction)}>
-          <View style={[styles.buttonWrapper, {backgroundColor: addButtonColor}]}>
-            <Text style={styles.favTransactionText}>Add</Text>
-          </View>
-        </TouchableHighlight>
-      </View>
-      <View style={styles.favTransactionTextWrapper}>
-        <Text
-          numberOfLines={1}
-          style={styles.favTransactionText}>{favTransactionText}
-        </Text>
-      </View>
-    </View>
+      <ListItem
+        key={i}
+        icon='plus'
+        iconColor={iconColor}
+        text={favTransactionText}
+        onPress={() => onAddNewFavortieTransaction(favTransaction)}
+      />
+    // <View style={styles.favTransactionWrapper} key={i}>
+    //   <View style={[styles.buttonWrapper, {backgroundColor: addButtonColor}]}>
+    //     <TouchableHighlight onPress={() => onAddNewFavortieTransaction(favTransaction)}>
+    //       <View style={[styles.buttonWrapper, {backgroundColor: addButtonColor}]}>
+    //         <Text style={styles.favTransactionText}>Add</Text>
+    //       </View>
+    //     </TouchableHighlight>
+    //   </View>
+    //   <View style={styles.favTransactionTextWrapper}>
+    //     <Text
+    //       numberOfLines={1}
+    //       style={styles.favTransactionText}>{favTransactionText}
+    //     </Text>
+    //   </View>
+    // </View>
   )
 }
 

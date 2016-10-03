@@ -57,11 +57,13 @@ class Home extends Component {
               />
             </View>
           </View>
-
+          <View style={styles.presetTransactionsTitleWrapper}>
+            <Text style={{fontSize: 17, fontWeight: '500'}}>Preset Transactions</Text>
+          </View>
           <View style={styles.favoriteTransactions}>
-            <View>
-              <Text style={{fontSize: 15, paddingBottom: 10}}>Favorite Transactions</Text>
-            </View>
+            {/* <View style={styles.presetTransactionsTitleWrapper}>
+              <Text style={{fontSize: 15, paddingBottom: 10}}>Preset Transactions</Text>
+            </View> */}
             <DisplayFavoriteTransactions
               favoriteTransactions={this.props.favoriteTransactions}
               onAddNewFavortieTransaction={this.onAddNewFavortieTransaction}
@@ -136,5 +138,12 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingLeft: 15,
     paddingRight: 15
+  },
+  presetTransactionsTitleWrapper: {
+    backgroundColor: '#BBB',
+    paddingLeft: 15,
+    justifyContent: 'center',
+    paddingTop: 3,
+    paddingBottom: 3
   }
 })
