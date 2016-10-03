@@ -81,25 +81,21 @@ export default class ItemRow extends Component {
     container: {
       flex: 1,
       flexDirection: 'row',
-      // paddingTop: 2,
-      // paddingBottom: 2
+      paddingTop: 2,
+      paddingBottom: 2
     },
     itemRow: {
       flexDirection: 'row',
+      borderBottomColor: 'gray',
+      borderBottomWidth: 1,
       paddingLeft: 10
     },
     textWrapper: {
       flex: 1,
-      borderBottomColor: '#c8c7cc',
-      borderBottomWidth: 0.5,
-      paddingTop: 8,
-      paddingRight: 15,
-      paddingBottom: 8
+      paddingRight: 10
     },
     mainText: {
-      color: '#333',
-      fontSize: 17,
-      fontWeight: '400'
+      fontSize: 22
     },
     iconWrapper: {
       paddingRight: 10,
@@ -108,7 +104,7 @@ export default class ItemRow extends Component {
     },
     itemTypeWrapper: {
       flexDirection: 'row',
-      marginBottom: 15
+      marginBottom: 20
     },
     itemTypeButton: {
       flex:1,
