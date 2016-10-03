@@ -46,6 +46,7 @@ function setCurrentMonthTotal(data, currentMonthIndex) {
 }
 
 export function setMonth(type, currentMonthIndex, yearTotal, transactions) {
+  console.log('SET MONTH --------')
   return function(dispatch) {
     if (type === 'next' && currentMonthIndex === 11) { return }
     if (type === 'previous' && currentMonthIndex === 0) { return }
@@ -84,7 +85,6 @@ function setFavoriteTransactions(transactions) {
 }
 
 function setVisibleTransactions(transactions) {
-  console.log('Set VISIBLE TRANSACTIONS ------')
   return {
     type: SET_VISIBLE_TRANSACTIONS,
     transactions
@@ -97,9 +97,6 @@ function getToken(state) {
 
 export function getVisibleTransactions(transactions, currentMonthIndex) {
   return function(dispatch) {
-    console.log('get visible transations ------')
-    console.log(transactions)
-    console.log(currentMonthIndex)
     monthFilter = (transaction) => {
       const transactionMonth = new Date(transaction.date).getMonth()
       return transactionMonth === currentMonthIndex
@@ -113,8 +110,6 @@ export function getVisibleTransactions(transactions, currentMonthIndex) {
       const filteredTransactions = transactions.filter(monthFilter)
       visibleTransactions = filteredTransactions.sort((a,b) => sortUpDate(a,b))
     }
-    console.log('visibleTransactions ----')
-    console.log(visibleTransactions)
     dispatch((setVisibleTransactions(visibleTransactions)))
   }
 }
@@ -169,8 +164,6 @@ export function removeTransaction(transaction) {
 }
 
 export function getTransactions(year, token, currentMonthIndex = new Date().getMonth()) {
-  console.log('get transactions ---')
-  console.log(currentMonthIndex)
   return function(dispatch) {
     fetchTransactions(token, year)
       .then((response) => {

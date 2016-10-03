@@ -1,25 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import { View, Text, ScrollView, TouchableHighlight } from 'react-native'
 import { getTransactions } from '../actions/data'
+import { bindActionCreators } from 'redux'
+import * as dataActions from '../actions/data'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
-import { ItemRow } from '../components'
+import { ItemRow, ChangeMonthArrows } from '../components'
 import I18n from 'react-native-i18n'
-
-// function getVisibleTransactions(transactions, month) {
-//   monthFilter = (transaction) => {
-//     const transactionMonth = new Date(transaction.date).getMonth()
-//     return transactionMonth === month
-//   }
-//   sortDownDate = (a, b) => a.date > b.date ? 1 : a.date < b.date ? -1 : 0
-//   sortUpDate = (a, b) => a.date < b.date ? 1 : a.date > b.date ? -1 : 0
-//
-//   if (transactions === undefined) { return [] }
-//   else {
-//     const filteredTransactions = transactions.filter(monthFilter)
-//     return filteredTransactions.sort((a,b) => sortUpDate(a,b))
-//   }
-// }
 
 function setAmountColor(type) {
   if (type === 'Income') return {color: 'green'}
@@ -61,10 +48,6 @@ class Transactions extends Component {
   }
 
   render() {
-    // const currentMonthIndex = new Date().getMonth()
-    // const currentYear = new Date().getFullYear()
-    // const VisibleTransactions = getVisibleTransactions(this.props.transactions[currentYear], currentMonthIndex)
-
     return (
       <View style={styles.container}>
         <View style={styles.monthHeader}>
@@ -72,6 +55,19 @@ class Transactions extends Component {
             <Text style={styles.monthText}>
               {this.props.currentMonthName}
             </Text>
+          </View>
+          <View style={styles.monthArrows}>
+            <ChangeMonthArrows
+              onPressLeft={() =>
+                this.props.actions.data.setMonth('previous',
+                                                  this.props.currentMonthIndex,
+                                                  this.props.yearTotal,
+                                                  this.props.transactions)}
+              onPressRight={() => this.props.actions.data.setMonth('next',
+                                                                    this.props.currentMonthIndex,
+                                                                    this.props.yearTotal,
+                                                                    this.props.transactions)}
+            />
           </View>
         </View>
         <ScrollView>
@@ -101,11 +97,19 @@ class Transactions extends Component {
 }
 
 export default connect(
-  (state) =>
-    ({transactions: state.data.transactions,
-      visibleTransactions: state.data.visibleTransactions,
-      currentMonthName: state.data.currentMonthName,
-      currencySymbol: state.settings.currencySymbol}))(Transactions)
+  (state) => ({
+    transactions: state.data.transactions['2016'],
+    visibleTransactions: state.data.visibleTransactions,
+    currentMonthName: state.data.currentMonthName,
+    currentMonthIndex: state.data.currentMonthIndex,
+    yearTotal: state.data.yearTotal,
+    currencySymbol: state.settings.currencySymbol
+  }),
+  (dispatch) => ({
+    actions: {
+      data: bindActionCreators(dataActions, dispatch)
+    }
+  }))(Transactions)
 
 const styles = {
   container: {

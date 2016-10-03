@@ -130,6 +130,7 @@ class NewTransaction extends Component {
         error: '',
         categoryType: ''
       })
+      this.props.actions.form.clearForm()
       Actions.pop()
     }
   }
@@ -190,7 +191,7 @@ class NewTransaction extends Component {
             date={this.state.date}
             amount={this.state.amount}
             category={this.state.category}
-            categoryType={this.state.categoryType}
+            categoryType={this.props.categoryType}
             notes={this.state.notes}
             error={this.state.error}
             type={this.state.type}
