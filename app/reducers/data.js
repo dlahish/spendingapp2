@@ -6,7 +6,8 @@ import {
   SET_CURRENT_MONTH,
   SET_CATEGORIES,
   SET_YEAR_TRANSACTIONS,
-  SET_FAVORITE_TRANSACTIONS
+  SET_FAVORITE_TRANSACTIONS,
+  SET_VISIBLE_TRANSACTIONS
 } from '../constants'
 
 const initialState = {
@@ -14,8 +15,10 @@ const initialState = {
   yearTotal: [],
   categories: [],
   transactions: {},
-  currentMonth: '',
-  favoriteTransactions: []
+  currentMonthName: '',
+  currentMonthIndex: null,
+  favoriteTransactions: [],
+  visibleTransactions: []
 }
 
 export default function accounts (state = initialState, action) {
@@ -27,7 +30,9 @@ export default function accounts (state = initialState, action) {
     case REMOVE_CURRENT_USER:
       return initialState
     case SET_CURRENT_MONTH:
-      return { ...state, currentMonth: action.currentMonth }
+      return { ...state,
+        currentMonthName: action.currentMonthName,
+        currentMonthIndex: action.currentMonthIndex}
     case SET_CATEGORIES:
       return { ...state, categories: action.categories }
     case SET_YEAR_TRANSACTIONS:
@@ -35,6 +40,8 @@ export default function accounts (state = initialState, action) {
       return { ...state, transactions: nextTransactions }
     case SET_FAVORITE_TRANSACTIONS:
       return { ...state, favoriteTransactions: action.transactions }
+    case SET_VISIBLE_TRANSACTIONS:
+      return { ...state, visibleTransactions: action.transactions }
     case REHYDRATE:
       var incoming = action.payload.myReducer
       if (incoming) return {...state, ...incoming, specialKey: processSpecial(incoming.specialKey)}

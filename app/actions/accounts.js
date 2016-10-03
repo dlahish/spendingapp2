@@ -20,7 +20,6 @@ import {
 
 function loadingActions(dispatch, token) {
   let currentYear = new Date().getFullYear()
-  dispatch(setCurrentMonth())
   dispatch(setToken(token))
   dispatch(getTransactions(currentYear, token))
   dispatch(getYearTotal(currentYear, token))
@@ -51,7 +50,6 @@ export function setAuthError(message) {
 }
 
 export function checkIfAuthed() {
-  console.log('CHECK IF AUTHED ----')
   return function(dispatch, getState) {
     const state = getState()
     console.log(state)
@@ -65,8 +63,6 @@ export function signinAndAuthUser (credentials) {
         if (res.data.message) {
           dispatch(setAuthError(res.data.message))
         } else {
-          console.log('SIGN IN AND AUTH USER ----')
-          console.log(res.data.token)
           loadingActions(dispatch, res.data.token)
         }
       })
@@ -78,8 +74,6 @@ export function signupAndAuthUser (credentials) {
   return function (dispatch) {
     return signup(credentials)
       .then((res) => {
-        console.log('SIGN UP AND AUTH USER -------')
-        console.log(res.data)
         if (res.data.message) {
           dispatch(setAuthError(res.data.message))
         } else {

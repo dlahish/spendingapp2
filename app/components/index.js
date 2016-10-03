@@ -24,7 +24,6 @@ import CustomNavBar from './common/CustomNavBar'
 import NewCategory from './NewCategory'
 import NewCategoryForm from './NewCategoryForm'
 import Settings from './Settings'
-import Transaction from './Transaction'
 import ItemRow from './common/ItemRow'
 import CategorySelector from './common/CategorySelector'
 import CurrencySymbols from './CurrencySymbols'
@@ -60,7 +59,6 @@ export {
   NewCategory,
   NewCategoryForm,
   Settings,
-  Transaction,
   ItemRow,
   CategorySelector,
   CurrencySymbols,

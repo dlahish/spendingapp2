@@ -22,19 +22,33 @@ import * as settingsActions from '../actions/settings'
 class Home extends Component {
 
   onAddNewFavortieTransaction = (favTransaction) => {
-    delete favTransaction['_id'];
-    console.log(favTransaction)
+    delete favTransaction['_id']
     this.props.actions.data.addNewFavoriteTransaction(favTransaction)
   }
 
   render() {
     return (
       <View style={styles.container}>
+        <CustomNavBar
+          onLeftPress={() => {}}
+          onRightPress={() => {}}
+          title={this.props.currentMonthName}
+        />
         <View style={styles.main}>
 
           <View style={styles.monthSummary}>
             <View style={styles.monthArrows}>
-              <ChangeMonthArrows />
+              <ChangeMonthArrows
+                onPressLeft={() =>
+                  this.props.actions.data.setMonth('previous',
+                                                    this.props.currentMonthIndex,
+                                                    this.props.yearTotal,
+                                                    this.props.transactions)}
+                onPressRight={() => this.props.actions.data.setMonth('next',
+                                                                      this.props.currentMonthIndex,
+                                                                      this.props.yearTotal,
+                                                                      this.props.transactions)}
+              />
             </View>
             <View style={styles.summary}>
               <CurrentMonthTotal
@@ -78,8 +92,12 @@ export default connect(
     isAuthed: state.account.isAuthed,
     token: state.account.token,
     currentMonthTotal: state.data.currentMonthTotal,
+    currentMonthIndex: state.data.currentMonthIndex,
+    currentMonthName: state.data.currentMonthName,
     currencySymbol: state.settings.currencySymbol,
-    favoriteTransactions: state.data.favoriteTransactions
+    favoriteTransactions: state.data.favoriteTransactions,
+    yearTotal: state.data.yearTotal,
+    transactions: state.data.transactions['2016']
   }),
   (dispatch) => ({
     actions: {
@@ -96,7 +114,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
-		paddingTop: 64,
     paddingBottom: 65,
     backgroundColor: '#FFF'
 	},
