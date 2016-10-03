@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { View, Text, ScrollView, TouchableHighlight } from 'react-native'
 import { getTransactions } from '../actions/data'
+import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import { ItemRow } from '../components'
 import I18n from 'react-native-i18n'
@@ -36,7 +37,7 @@ function getSymbol(symbol) {
   else return symbol
 }
 
-export default class Transactions extends Component {
+class Transactions extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -60,8 +61,8 @@ export default class Transactions extends Component {
   }
 
   render() {
-    const currentMonthIndex = new Date().getMonth()
-    const currentYear = new Date().getFullYear()
+    // const currentMonthIndex = new Date().getMonth()
+    // const currentYear = new Date().getFullYear()
     // const VisibleTransactions = getVisibleTransactions(this.props.transactions[currentYear], currentMonthIndex)
 
     return (
@@ -98,6 +99,13 @@ export default class Transactions extends Component {
     )
   }
 }
+
+export default connect(
+  (state) =>
+    ({transactions: state.data.transactions,
+      visibleTransactions: state.data.visibleTransactions,
+      currentMonthName: state.data.currentMonthName,
+      currencySymbol: state.settings.currencySymbol}))(Transactions)
 
 const styles = {
   container: {

@@ -47,6 +47,8 @@ function setCurrentMonthTotal(data, currentMonthIndex) {
 
 export function setMonth(type, currentMonthIndex, yearTotal, transactions) {
   return function(dispatch) {
+    if (type === 'next' && currentMonthIndex === 11) { return }
+    if (type === 'previous' && currentMonthIndex === 0) { return }
     if (type === 'next' && currentMonthIndex < 11) {
       dispatch(setCurrentMonth(currentMonthIndex + 1))
       dispatch(setCurrentMonthTotal(yearTotal, currentMonthIndex + 1))
@@ -82,6 +84,7 @@ function setFavoriteTransactions(transactions) {
 }
 
 function setVisibleTransactions(transactions) {
+  console.log('Set VISIBLE TRANSACTIONS ------')
   return {
     type: SET_VISIBLE_TRANSACTIONS,
     transactions
@@ -94,6 +97,9 @@ function getToken(state) {
 
 export function getVisibleTransactions(transactions, currentMonthIndex) {
   return function(dispatch) {
+    console.log('get visible transations ------')
+    console.log(transactions)
+    console.log(currentMonthIndex)
     monthFilter = (transaction) => {
       const transactionMonth = new Date(transaction.date).getMonth()
       return transactionMonth === currentMonthIndex
@@ -107,6 +113,8 @@ export function getVisibleTransactions(transactions, currentMonthIndex) {
       const filteredTransactions = transactions.filter(monthFilter)
       visibleTransactions = filteredTransactions.sort((a,b) => sortUpDate(a,b))
     }
+    console.log('visibleTransactions ----')
+    console.log(visibleTransactions)
     dispatch((setVisibleTransactions(visibleTransactions)))
   }
 }
@@ -147,11 +155,13 @@ export function addFavoriteTransaction(transaction) {
 
 export function removeTransaction(transaction) {
   return function(dispatch, getState) {
+    const state = getState()
+    currentMonthIndex = state.data.currentMonthIndex
     const token = getToken(getState())
     deleteTransaction(token, transaction)
       .then((response) => {
         let currentYear = new Date().getFullYear()
-        dispatch(getTransactions(currentYear, token))
+        dispatch(getTransactions(currentYear, token, currentMonthIndex))
         dispatch(getYearTotal(currentYear, token))
       })
       .catch((err) => console.log(err))
@@ -159,11 +169,13 @@ export function removeTransaction(transaction) {
 }
 
 export function getTransactions(year, token, currentMonthIndex = new Date().getMonth()) {
+  console.log('get transactions ---')
+  console.log(currentMonthIndex)
   return function(dispatch) {
     fetchTransactions(token, year)
       .then((response) => {
         dispatch(setYearlyTransactions(response, year))
-        getVisibleTransactions(response, currentMonthIndex)
+        dispatch(getVisibleTransactions(response.data.data, currentMonthIndex))
       })
       .catch((err) => console.log(err))
 
@@ -214,11 +226,13 @@ export function getTotalBalance() {
 export function addNewTransaction(transaction) {
   return function(dispatch, getState) {
     const token = getToken(getState())
+    const state = getState()
+    const currentMonthIndex = state.data.currentMonthIndex
     saveNewTransaction(token, transaction)
       .then((response) => {
         let currentYear = new Date().getFullYear()
         dispatch(getYearTotal(currentYear, token))
-        dispatch(getTransactions('2016', token))
+        dispatch(getTransactions('2016', token, currentMonthIndex))
       })
       .catch((err) => {
         console.log(err)

@@ -66,11 +66,7 @@ class Routes extends Component {
                     hideNavBar={true}
                   />
                   <Scene key="transactions"
-                    component={connect(state =>
-                      ({transactions: state.data.transactions,
-                        visibleTransactions: state.data.visibleTransactions,
-                        currentMonthName: this.props.currentMonthName,
-                        currencySymbol: state.settings.currencySymbol}))(Transactions)}
+                    component={Transactions}
                     removeTransaction={this.props.actions.data.removeTransaction}
                     icon={TabIcon}
                     title='Transactions'
@@ -165,7 +161,6 @@ class Routes extends Component {
 
 export default connect(
   (state) => ({
-    currentMonthName: state.data.currentMonthName,
     token: state.account.token,
     loading: !state.storage.storageLoaded
   }),
