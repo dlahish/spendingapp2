@@ -14,7 +14,6 @@ export function clearForm() {
 }
 
 export function setCategoryType(categoryType) {
-  console.log('lalalalalalalaal')
   return {
     type: SET_CATEGORY_TYPE,
     categoryType

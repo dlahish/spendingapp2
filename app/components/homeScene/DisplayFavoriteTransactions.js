@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native'
-import ListItem from '../common/ListItem'
+import { ListItem } from '../../components'
 
 renderFavoriteTransactions = (favTransaction, i, onAddNewFavortieTransaction) => {
   const favTransactionText = getFavortieTransactionText(favTransaction)

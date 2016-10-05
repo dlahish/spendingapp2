@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import { Text, View, StyleSheet, ScrollView, TouchableHighlight } from 'react-native'
 import { Actions } from 'react-native-router-flux'
+import { ListItem } from '../components'
 
 symbols = ['default',36,8364,8362,163,'CHF']
 
@@ -18,9 +19,20 @@ export default CurrencySymbols = (props) => {
   return (
     <ScrollView style={styles.container}>
       {symbols.map((symbol,i) =>
-        <TouchableHighlight style={styles.symbolLine} key={i} onPress={() => this.onSymbolPress(symbol)}>
-          <Text style={{fontSize: 20}}>{getSymbol(symbol)}</Text>
-        </TouchableHighlight>
+        <View style={styles.liContainer} key={i}>
+          <View style={styles.li}>
+            <TouchableHighlight onPress={() => this.onSymbolPress(symbol)}>
+              <Text style={styles.liText}>{getSymbol(symbol)}</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+        // <ListItem
+        //   key={i}
+        //   icon='plus'
+        //   // iconColor={iconColor}
+        //   text={getSymbol(symbol)}
+        //   onPress={() => this.onSymbolPress(symbol)}
+        // />
       )}
     </ScrollView>
   )
@@ -28,15 +40,28 @@ export default CurrencySymbols = (props) => {
 
 const styles = {
   container: {
-    marginTop: 64
+    marginTop: 64,
+    backgroundColor: '#EFEFF4',
+    paddingTop: 15
   },
-  symbolLine: {
-    backgroundColor: '#eee',
-    paddingLeft: 15,
+  li: {
+    borderBottomColor: '#c8c7cc',
+    borderBottomWidth: 0.5,
+    paddingTop: 15,
     paddingRight: 15,
-    paddingTop: 5,
-    paddingBottom: 5,
-    borderBottomColor: '#000',
-    borderBottomWidth: 0.5
+    paddingBottom: 15,
+  },
+  liContainer: {
+    backgroundColor: '#fff',
+    flex: 1,
+    paddingLeft: 0,
+    paddingLeft: 15
+  },
+  liText: {
+    color: '#333',
+    fontSize: 17,
+    fontWeight: '400',
+    marginBottom: -3.5,
+    marginTop: -3.5,
   }
 }

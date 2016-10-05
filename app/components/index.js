@@ -31,6 +31,7 @@ import ChangeMonthArrows from './homeScene/ChangeMonthArrows'
 import DisplayFavoriteTransactions from './homeScene/DisplayFavoriteTransactions'
 import MessageModal from './common/MessageModal'
 import Loader from './common/Loader'
+import ListItem from './common/ListItem'
 
 export {
   Home,
@@ -65,5 +66,6 @@ export {
   ChangeMonthArrows,
   MessageModal,
   DisplayFavoriteTransactions,
-  Loader
+  Loader,
+  ListItem
 }

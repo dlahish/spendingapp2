@@ -59,8 +59,6 @@ export function fetchYearTotal(token, year) {
 
 export function saveNewTransaction(token, transaction) {
   if (token === null) return {}
-  console.log('save new transaction --')
-  console.log(transaction)
   return axios({
     url: `${BASE_URI}/addrecord`,
     method: 'post',
@@ -77,7 +75,6 @@ export function saveNewTransaction(token, transaction) {
 }
 
 export function saveNewCategory(token, category) {
-  console.log('SAVE NEW CATEGORY ----')
   if (token === null) return {}
   return axios({
     url: `${BASE_URI}/addnewcategory`,
@@ -109,13 +106,3 @@ export function fetchTransactions(token, year) {
     }
   })
 }
-
-// export function fetchTransactions(token, year) {
-//   return axios({
-//     url: `${BASE_URI}/getmonthstotal`,
-//     method: 'post',
-//     headers: { authorization: token },
-//     contentType: 'application/json',
-//     data: { year: year }
-//   })
-// }

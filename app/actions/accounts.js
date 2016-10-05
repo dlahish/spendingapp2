@@ -24,8 +24,6 @@ function loadingActions(dispatch, token) {
   dispatch(getTransactions(currentYear, token))
   dispatch(getYearTotal(currentYear, token))
   dispatch(getCategories(token))
-  // dispatch(getFavoriteTransactions())
-  // dispatch(getCurrencySymbol())
 }
 
 function removeCurrentUser () {
@@ -52,7 +50,6 @@ export function setAuthError(message) {
 export function checkIfAuthed() {
   return function(dispatch, getState) {
     const state = getState()
-    console.log(state)
   }
 }
 
