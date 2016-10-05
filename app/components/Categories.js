@@ -62,11 +62,13 @@ class Categories extends Component {
     return (
       <View style={styles.container}>
         <CustomNavBar
-          onLeftPress={() => Actions.editCategory({editMode: true, hideNavBar: false})}
+          onSecondLeftPress={() => Actions.editCategory({editMode: true, hideNavBar: false})}
           onRightPress={() => Actions.newCategory({categoryType: this.state.categoryType})}
           title='Categories'
-          leftButton='Edit'
+          secondLeftButton='Edit'
           rightButton={plusIcon}
+          leftButton='Back'
+          onLeftPress={() => Actions.pop()}
         />
         <CategorySelector
           incomeSelected={incomeSelected}

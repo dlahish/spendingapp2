@@ -26,10 +26,18 @@ var Listitem = React.createClass({
     if (p.indent > -1) styleLiContainer.push([{ paddingLeft: p.indent }])
 
     var listitemChild = <Text style={[styles.liText, p.styleText]}>{p.text}</Text>
+    var listitemInfo = <Text style={[styles.liText, p.styleInfo]}>{p.info}</Text>
 
     if (p.children) var listitemChild = <View>{p.children}</View>
 
-    var listitem = <View style={[styles.li, p.style]}>{listitemChild}</View>
+    var listitem = <View style={[styles.li, p.style]}>
+                     <View>
+                        {listitemChild}
+                     </View>
+                     <View>
+                        {listitemInfo}
+                     </View>
+                   </View>
 
     return (
       p.onPress && p.icon ?

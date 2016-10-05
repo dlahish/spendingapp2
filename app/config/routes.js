@@ -88,24 +88,24 @@ class Routes extends Component {
                       hideTabBar={true}
                     />
                   </Scene>
-                  <Scene
-                    key="categories"
-                    component={Categories}
-                    icon={TabIcon}
-                    title='Categories'
-                    hideNavBar={true}
-                  >
-                    <Scene key="viewCategoties" hideTabBar={false}/>
-                    <Scene key="editCategory"
-                      leftTitle='Done'
-                      onLeft={() => Actions.viewCategoties({
-                        editMode: false, deleteButtonWidth: 0, selectedCategoryIndex: null})}
-                      rightTitle={plusIconBlackDisabled}
-                      onRight={() => {}}
-                      hideTabBar={true}
-                    />
-                  </Scene>
                   <Scene key="settings" component={Settings} icon={TabIcon} title='Settings' />
+                </Scene>
+                <Scene
+                  key="categories"
+                  component={Categories}
+                  icon={TabIcon}
+                  title='Categories'
+                  hideNavBar={true}
+                >
+                  <Scene key="viewCategoties" hideTabBar={false}/>
+                  <Scene key="editCategory"
+                    leftTitle='Done'
+                    onLeft={() => Actions.viewCategoties({
+                      editMode: false, deleteButtonWidth: 0, selectedCategoryIndex: null})}
+                    rightTitle={plusIconBlackDisabled}
+                    onRight={() => {}}
+                    hideTabBar={true}
+                  />
                 </Scene>
                 <Scene
                   key="newTransaction"

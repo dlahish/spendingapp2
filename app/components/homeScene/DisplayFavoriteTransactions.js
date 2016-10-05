@@ -11,14 +11,16 @@ renderFavoriteTransactions = (favTransaction, i, onAddNewFavortieTransaction) =>
         icon='plus'
         iconColor={iconColor}
         text={favTransactionText}
+        info={favTransaction.amount}
+        styleInfo={{color: iconColor}}
         onPress={() => onAddNewFavortieTransaction(favTransaction)}
       />
   )
 }
 
 function getFavortieTransactionText(favTransaction) {
-  if (!favTransaction.notes) return `${favTransaction.category}, ${favTransaction.amount}`
-  else return `${favTransaction.category}, ${favTransaction.amount}, ${favTransaction.notes}`
+  if (!favTransaction.notes) return favTransaction.category
+  else return `${favTransaction.category}, ${favTransaction.notes}`
 }
 
 function getAddButtonColor(favTransaction) {

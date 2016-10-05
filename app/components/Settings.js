@@ -35,6 +35,11 @@ class Settings extends Component {
               title='Setup Preset Transaction'
               onPress={() => Actions.favoriteTransactions({editMode: false})}
             />
+            <SettingsList.Header headerStyle={{marginTop:15}}/>
+            <SettingsList.Item
+              title='Categories'
+              onPress={() => Actions.categories({editMode: false})}
+            />
           </SettingsList>
         </View>
       </View>
