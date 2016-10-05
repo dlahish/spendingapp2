@@ -22,7 +22,7 @@ import * as settingsActions from '../actions/settings'
 class Home extends Component {
 
   onAddNewFavortieTransaction = (favTransaction) => {
-    delete favTransaction['_id']
+    delete favTransaction['id']
     this.props.actions.data.addNewFavoriteTransaction(favTransaction)
   }
 
@@ -61,9 +61,6 @@ class Home extends Component {
             <Text style={{fontSize: 17, fontWeight: '500'}}>Preset Transactions</Text>
           </View>
           <View style={styles.favoriteTransactions}>
-            {/* <View style={styles.presetTransactionsTitleWrapper}>
-              <Text style={{fontSize: 15, paddingBottom: 10}}>Preset Transactions</Text>
-            </View> */}
             <DisplayFavoriteTransactions
               favoriteTransactions={this.props.favoriteTransactions}
               onAddNewFavortieTransaction={this.onAddNewFavortieTransaction}

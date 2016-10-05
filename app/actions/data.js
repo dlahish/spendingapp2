@@ -6,7 +6,8 @@ import {
   SET_CURRENT_MONTH,
   SET_CATEGORIES,
   SET_YEAR_TRANSACTIONS,
-  SET_FAVORITE_TRANSACTIONS,
+  SET_FAVORITE_TRANSACTION,
+  DELETE_FAVORITE_TRANSACTION,
   SET_VISIBLE_TRANSACTIONS
 } from './../constants'
 import {
@@ -37,7 +38,6 @@ function setYearTotal(data) {
 
 function setCurrentMonthTotal(data, currentMonthIndex) {
   if (data.length > 0) {
-    // const currentMonth = new Date().getMonth()
     return {
       type: SET_CURRENT_MONTH_TOTAL,
       data: data[currentMonthIndex]
@@ -46,7 +46,6 @@ function setCurrentMonthTotal(data, currentMonthIndex) {
 }
 
 export function setMonth(type, currentMonthIndex, yearTotal, transactions) {
-  console.log('SET MONTH --------')
   return function(dispatch) {
     if (type === 'next' && currentMonthIndex === 11) { return }
     if (type === 'previous' && currentMonthIndex === 0) { return }
@@ -77,10 +76,11 @@ function setYearlyTransactions(response, year) {
   }
 }
 
-function setFavoriteTransactions(transactions) {
+function setFavoriteTransaction(transaction, favoriteTransactionsId) {
+  transaction.id = favoriteTransactionsId
   return {
-    type: SET_FAVORITE_TRANSACTIONS,
-    transactions
+    type: SET_FAVORITE_TRANSACTION,
+    transaction
   }
 }
 
@@ -123,28 +123,17 @@ export function addNewFavoriteTransaction(favTransaction) {
 }
 
 export function removeFavoriteTransaction(transaction) {
-  return function(dispatch) {
-    return deleteFavoriteTransaction(transaction)
-      .then(() => dispatch(getFavoriteTransactions()))
-      .catch((err) => console.log(err))
-  }
-}
-
-export function getFavoriteTransactions() {
-  return function(dispatch) {
-    return DB.favoriteTransactions.find()
-      .then(response => dispatch(setFavoriteTransactions(response)))
-      .catch((err) => console.log(err))
+  return {
+    type: DELETE_FAVORITE_TRANSACTION,
+    transaction
   }
 }
 
 export function addFavoriteTransaction(transaction) {
-  return function(dispatch) {
-    return saveFavoriteTransaction(transaction)
-      .then(() => {
-        dispatch(getFavoriteTransactions())
-      })
-      .catch((err) => console.log(err))
+  return function(dispatch, getState) {
+    const state = getState()
+    favoriteTransactionsId = state.data.favoriteTransactions.length + 1
+    dispatch(setFavoriteTransaction(transaction, favoriteTransactionsId))
   }
 }
 

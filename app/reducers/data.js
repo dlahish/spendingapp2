@@ -6,7 +6,8 @@ import {
   SET_CURRENT_MONTH,
   SET_CATEGORIES,
   SET_YEAR_TRANSACTIONS,
-  SET_FAVORITE_TRANSACTIONS,
+  SET_FAVORITE_TRANSACTION,
+  DELETE_FAVORITE_TRANSACTION,
   SET_VISIBLE_TRANSACTIONS
 } from '../constants'
 
@@ -38,8 +39,13 @@ export default function accounts (state = initialState, action) {
     case SET_YEAR_TRANSACTIONS:
       const nextTransactions = { ...state.transactions, [action.year]: action.data }
       return { ...state, transactions: nextTransactions }
-    case SET_FAVORITE_TRANSACTIONS:
-      return { ...state, favoriteTransactions: action.transactions }
+    case SET_FAVORITE_TRANSACTION:
+      nextFavoriteTransactions = state.favoriteTransactions.concat(action.transaction)
+      return { ...state, favoriteTransactions: nextFavoriteTransactions }
+    case DELETE_FAVORITE_TRANSACTION:
+      nextFavoriteTransactions = state.favoriteTransactions.filter((transaction) =>
+          transaction.id !== action.transaction.id)
+      return { ...state, favoriteTransactions: nextFavoriteTransactions }
     case SET_VISIBLE_TRANSACTIONS:
       return { ...state, visibleTransactions: action.transactions }
     case REHYDRATE:

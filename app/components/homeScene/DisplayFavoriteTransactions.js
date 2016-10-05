@@ -2,26 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native'
 import ListItem from '../common/ListItem'
 
-export default DisplayFavoriteTransactions = (props) => {
-  return (
-    <View>
-      {props.favoriteTransactions !== null
-        ? props.favoriteTransactions.map((transaction, i) => {
-            return renderFavoriteTransactions(transaction, i, props.onAddNewFavortieTransaction)
-          })
-        : <View><Text style={{opacity: 0.6}}>Go to settings to add your favorite Transactions</Text></View>}
-    </View>
-  )
-}
-
-DisplayFavoriteTransactions.propTypes = {
-  favoriteTransactions: PropTypes.array,
-  onAddNewFavortieTransaction: PropTypes.func.isRequired
-}
-
 renderFavoriteTransactions = (favTransaction, i, onAddNewFavortieTransaction) => {
   const favTransactionText = getFavortieTransactionText(favTransaction)
-  // const addButtonColor = getAddButtonColor(favTransaction)
   const iconColor = getAddButtonColor(favTransaction)
   return (
       <ListItem
@@ -31,21 +13,6 @@ renderFavoriteTransactions = (favTransaction, i, onAddNewFavortieTransaction) =>
         text={favTransactionText}
         onPress={() => onAddNewFavortieTransaction(favTransaction)}
       />
-    // <View style={styles.favTransactionWrapper} key={i}>
-    //   <View style={[styles.buttonWrapper, {backgroundColor: addButtonColor}]}>
-    //     <TouchableHighlight onPress={() => onAddNewFavortieTransaction(favTransaction)}>
-    //       <View style={[styles.buttonWrapper, {backgroundColor: addButtonColor}]}>
-    //         <Text style={styles.favTransactionText}>Add</Text>
-    //       </View>
-    //     </TouchableHighlight>
-    //   </View>
-    //   <View style={styles.favTransactionTextWrapper}>
-    //     <Text
-    //       numberOfLines={1}
-    //       style={styles.favTransactionText}>{favTransactionText}
-    //     </Text>
-    //   </View>
-    // </View>
   )
 }
 
@@ -57,6 +24,27 @@ function getFavortieTransactionText(favTransaction) {
 function getAddButtonColor(favTransaction) {
   if (favTransaction.amount > 0) return '#2ecc71'
   else return '#ff4d4d'
+}
+
+export default DisplayFavoriteTransactions = (props) => {
+  return (
+    <View style={{flex: 1}}>
+      {props.favoriteTransactions.length > 0
+        ? props.favoriteTransactions.map((transaction, i) => {
+            return renderFavoriteTransactions(transaction, i, props.onAddNewFavortieTransaction)
+          })
+        : <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+            <View style={styles.messageBox}>
+              <Text style={{fontSize: 15}}>Go to setting to add a new preset transaction</Text>
+            </View>
+          </View>}
+    </View>
+  )
+}
+
+DisplayFavoriteTransactions.propTypes = {
+  favoriteTransactions: PropTypes.array,
+  onAddNewFavortieTransaction: PropTypes.func.isRequired
 }
 
 const styles = StyleSheet.create({
@@ -88,5 +76,11 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 5,
     paddingTop: 4,
     paddingBottom: 2
+  },
+  messageBox: {
+    backgroundColor: '#d8d8d8',
+    borderWidth: 1,
+    borderColor: 'black',
+    padding: 15
   }
 })

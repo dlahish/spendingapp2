@@ -26,23 +26,24 @@ var Listitem = React.createClass({
     if (p.indent > -1) styleLiContainer.push([{ paddingLeft: p.indent }])
 
     var listitemChild = <Text style={[styles.liText, p.styleText]}>{p.text}</Text>
-    if (p.icon) var listitemChild =
-      <View style={{flexDirection: 'row'}}>
-        <Icon name={p.icon} style={[styles.icon, {color: p.iconColor}]}/>
-        <Text style={[styles.liText, p.styleText]}>{p.text}</Text>
-      </View>
+
     if (p.children) var listitemChild = <View>{p.children}</View>
 
     var listitem = <View style={[styles.li, p.style]}>{listitemChild}</View>
 
     return (
-      p.onPress ?
-        <TouchableHighlight
-          style={styleLiContainer}
-          underlayColor={p.underlayColor}
-          onPress={self._handlePress}>
-            {listitem}
-        </TouchableHighlight>
+      p.onPress && p.icon ?
+        <View style={[styleLiContainer, {flexDirection: 'row'}]}>
+          <TouchableHighlight
+            underlayColor={p.underlayColor}
+            onPress={self._handlePress}
+          >
+            <Icon name={p.icon} style={[styles.li, styles.icon, {color: p.iconColor}]}/>
+          </TouchableHighlight>
+          <View style={{flex: 1}}>
+              {listitem}
+          </View>
+        </View>
       : <View style={styleLiContainer}>{listitem}</View>
     )
   }

@@ -65,7 +65,7 @@ class NewTransaction extends Component {
 
   keyboardDidShow = (e) => {
     // Animation types easeInEaseOut/linear/spring
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring)
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
     let newSize = this.state.visibleHeight - e.endCoordinates.height
     this.setState({
       visibleHeight: newSize

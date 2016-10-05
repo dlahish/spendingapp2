@@ -113,7 +113,7 @@ export default class FavoriteTransaction extends Component {
                 onDeleteItem={this.props.removeFavoriteTransaction}
               />)
               : <View>
-                  <Text style={styles.message}>Press the plus icon to add your favorite Transactions</Text>
+                  <Text style={styles.message}>Press the '+' icon to add your favorite Transactions</Text>
                 </View>}
         </ScrollView>
 

@@ -24,8 +24,8 @@ function loadingActions(dispatch, token) {
   dispatch(getTransactions(currentYear, token))
   dispatch(getYearTotal(currentYear, token))
   dispatch(getCategories(token))
-  dispatch(getFavoriteTransactions())
-  dispatch(getCurrencySymbol())
+  // dispatch(getFavoriteTransactions())
+  // dispatch(getCurrencySymbol())
 }
 
 function removeCurrentUser () {

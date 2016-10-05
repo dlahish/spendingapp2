@@ -20,8 +20,7 @@ export function getCurrencySymbol() {
   return function(dispatch) {
     return fetchCurrencySymbol()
       .then((res) => {
-        console.log(res)
-        dispatch(setCurrencySymbol(res[0].symbol))
+        if (res) dispatch(setCurrencySymbol(res[0].symbol))
       })
       .catch((err) => console.log(err))
   }
