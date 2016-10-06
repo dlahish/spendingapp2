@@ -18,14 +18,14 @@ export default class MenuModal extends Component {
     } = this.props
     const cancelButton = <Button
                             onPress={() => closeModal()}
-                            containerStyle={[styles.btnContainer, {marginTop: 20}]}
+                            containerStyle={[styles.btnContainer, {marginTop: 10, borderRadius: 5}]}
                             style={styles.btnText}>Cancel
                           </Button>
     let buttons = [cancelButton]
     if (button1) {
       const btn1 = <Button
                     onPress={() => button1OnPress()}
-                    containerStyle={styles.btnContainer}
+                    containerStyle={[styles.btnContainer, {borderBottomRightRadius: 5, borderBottomLeftRadius: 5}]}
                     style={styles.btnText}>{button1}
                   </Button>
       buttons.unshift(btn1)
@@ -73,11 +73,11 @@ const styles = {
   btnContainer: {
     padding: 10,
     height: 45,
-    marginTop: 5,
+    marginTop: 0.5,
     marginLeft: 40,
     marginRight: 40,
     overflow: 'hidden',
-    borderRadius: 6,
+    // borderTopRightRadius: 6,
     backgroundColor: '#FFF'
   },
   btnText: {
@@ -88,7 +88,8 @@ const styles = {
     backgroundColor: '#FFF',
     marginLeft: 40,
     marginRight: 40,
-    borderRadius: 6,
+    borderTopRightRadius: 5,
+    borderTopLeftRadius: 5,
     padding: 7,
     justifyContent: 'center',
     alignItems: 'center'

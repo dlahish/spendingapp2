@@ -9,7 +9,7 @@ import { Actions } from 'react-native-router-flux'
 import { ItemRow, ChangeMonthArrows, MonthHeader, MenuModal} from '../components'
 import I18n from 'react-native-i18n'
 import SearchBar from 'react-native-search-bar'
-import {searchTransactions} from '../functions/transactionsSearchAndFilter'
+import {searchTransactions, sortTransactions} from '../functions/transactionsSearchAndFilter'
 
 function setAmountColor(type) {
   if (type === 'Income') return {color: 'green'}
@@ -35,7 +35,11 @@ class Transactions extends Component {
       searchValue: '',
       isOpen: false,
       isDisabled: false,
-      swipeToClose: true
+      swipeToClose: true,
+      sortType: '',
+      dateSortDirection: true,
+      amountSortDirection: true,
+      categorySortDirection: true
     }
   }
 
@@ -59,12 +63,24 @@ class Transactions extends Component {
   }
 
   closeModal = () => {
-    this.setState({isOpen: false});
+    this.setState({isOpen: false})
+  }
+
+  setFilter = (filter) => {
+    this.setState({
+      sortType: filter,
+      [`${filter}SortDirection`]: !this.state[`${this.state.sortType}SortDirection`],
+      isOpen: false
+    })
+
   }
 
   render() {
     const p = this.props
-    const transactionsToRender = searchTransactions(p.visibleTransactions, this.state.searchValue)
+    let transactionsToRender = searchTransactions(p.visibleTransactions, this.state.searchValue)
+    transactionsToRender = sortTransactions(transactionsToRender,
+                                            this.state.sortType,
+                                            this.state[`${this.state.sortType}SortDirection`])
 
     return (
       <View style={styles.container}>
@@ -122,11 +138,11 @@ class Transactions extends Component {
           isOpen={this.state.isOpen}
           closeModal={this.closeModal}
           button1='Date'
-          button1OnPress={() => console.log('button 1 was pressed')}
+          button1OnPress={() => this.setFilter('date')}
           button2='Amount'
-          button2OnPress={() => console.log('button 2 was pressed')}
+          button2OnPress={() => this.setFilter('amount')}
           button3='Category'
-          button3OnPress={() => console.log('button 3 was pressed')}
+          button3OnPress={() => this.setFilter('category')}
         />
 
       </View>
