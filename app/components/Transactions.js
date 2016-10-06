@@ -6,7 +6,7 @@ import * as dataActions from '../actions/data'
 import * as formActions from '../actions/form'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
-import { ItemRow, ChangeMonthArrows } from '../components'
+import { ItemRow, ChangeMonthArrows, MonthHeader} from '../components'
 import I18n from 'react-native-i18n'
 import SearchBar from 'react-native-search-bar'
 import {searchTransactions} from '../functions/transactionsSearchAndFilter'
@@ -57,26 +57,20 @@ class Transactions extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.monthHeader}>
-          <View style={styles.monthWrapper}>
-            <Text style={styles.monthText}>
-              {p.currentMonthName}
-            </Text>
-          </View>
-          <View style={styles.monthArrows}>
-            <ChangeMonthArrows
-              onPressLeft={() =>
-                p.actions.data.setMonth('previous',
-                                                  p.currentMonthIndex,
-                                                  p.yearTotal,
-                                                  p.transactions)}
-              onPressRight={() => p.actions.data.setMonth('next',
-                                                                    p.currentMonthIndex,
-                                                                    p.yearTotal,
-                                                                    p.transactions)}
-            />
-          </View>
-        </View>
+
+        <MonthHeader
+          currentMonthName={p.currentMonthName}
+          onPressLeft={() =>
+            p.actions.data.setMonth('previous',
+              p.currentMonthIndex,
+              p.yearTotal,
+              p.transactions)}
+          onPressRight={() => p.actions.data.setMonth('next',
+              p.currentMonthIndex,
+              p.yearTotal,
+              p.transactions)}
+        />
+
         <ScrollView contentOffset={{y:50}}>
 
             <View style={{paddingBottom: 20, backgroundColor: '#c8c7cc'}}>
@@ -84,12 +78,8 @@ class Transactions extends Component {
                 ref='searchBar'
                 placeholder='Search Category, Amount or Notes'
                 text={p.searchTransactionsValue}
-                onChangeText={(value) => {
-                  this.setState({searchValue: value})
-                }}
-                onSearchButtonPress={() => {
-                  this.refs.searchBar.unFocus()
-                }}
+                onChangeText={(value) => this.setState({searchValue: value})}
+                onSearchButtonPress={() => this.refs.searchBar.unFocus() }
                 onCancelButtonPress={() => this.setState({searchValue: ''})}
                 showsCancelButton={true}
                 />
@@ -142,24 +132,6 @@ const styles = {
     flex: 1,
     paddingTop: 64,
     paddingBottom: 50
-  },
-  monthHeader: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 5,
-    marginBottom: 5
-  },
-  monthWrapper: {
-    borderColor: '#BBB',
-    borderWidth: 2,
-    borderRadius: 5,
-    paddingTop: 2,
-    paddingBottom: 2,
-    paddingLeft: 5,
-    paddingRight: 5
-  },
-  monthText: {
-    fontSize: 18
   },
   transactionRow: {
     borderBottomColor: 'gray',
