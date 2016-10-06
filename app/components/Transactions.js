@@ -3,10 +3,13 @@ import { View, Text, ScrollView, TouchableHighlight } from 'react-native'
 import { getTransactions } from '../actions/data'
 import { bindActionCreators } from 'redux'
 import * as dataActions from '../actions/data'
+import * as formActions from '../actions/form'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import { ItemRow, ChangeMonthArrows } from '../components'
 import I18n from 'react-native-i18n'
+import SearchBar from 'react-native-search-bar'
+import {searchTransactions} from '../functions/transactionsSearchAndFilter'
 
 function setAmountColor(type) {
   if (type === 'Income') return {color: 'green'}
@@ -28,7 +31,8 @@ class Transactions extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedItemIndex: null
+      selectedItemIndex: null,
+      searchValue: ''
     }
   }
 
@@ -48,46 +52,66 @@ class Transactions extends Component {
   }
 
   render() {
+    const p = this.props
+    const transactionsToRender = searchTransactions(p.visibleTransactions, this.state.searchValue)
+
     return (
       <View style={styles.container}>
         <View style={styles.monthHeader}>
           <View style={styles.monthWrapper}>
             <Text style={styles.monthText}>
-              {this.props.currentMonthName}
+              {p.currentMonthName}
             </Text>
           </View>
           <View style={styles.monthArrows}>
             <ChangeMonthArrows
               onPressLeft={() =>
-                this.props.actions.data.setMonth('previous',
-                                                  this.props.currentMonthIndex,
-                                                  this.props.yearTotal,
-                                                  this.props.transactions)}
-              onPressRight={() => this.props.actions.data.setMonth('next',
-                                                                    this.props.currentMonthIndex,
-                                                                    this.props.yearTotal,
-                                                                    this.props.transactions)}
+                p.actions.data.setMonth('previous',
+                                                  p.currentMonthIndex,
+                                                  p.yearTotal,
+                                                  p.transactions)}
+              onPressRight={() => p.actions.data.setMonth('next',
+                                                                    p.currentMonthIndex,
+                                                                    p.yearTotal,
+                                                                    p.transactions)}
             />
           </View>
         </View>
-        <ScrollView>
-            {this.props.visibleTransactions.map((transaction, i) =>
+        <ScrollView contentOffset={{y:50}}>
+
+            <View style={{paddingBottom: 20, backgroundColor: '#c8c7cc'}}>
+              <SearchBar
+                ref='searchBar'
+                placeholder='Search Category, Amount or Notes'
+                text={p.searchTransactionsValue}
+                onChangeText={(value) => {
+                  this.setState({searchValue: value})
+                }}
+                onSearchButtonPress={() => {
+                  this.refs.searchBar.unFocus()
+                }}
+                onCancelButtonPress={() => this.setState({searchValue: ''})}
+                showsCancelButton={true}
+                />
+            </View>
+
+            {transactionsToRender.map((transaction, i) =>
               <ItemRow
                 key={i}
                 itemIndex={i}
-                editMode={this.props.editMode}
+                editMode={p.editMode}
                 selected={i === this.state.selectedItemIndex ? true : false}
                 item={transaction}
                 mainText={setMainText(transaction)}
                 rightText={I18n.toCurrency(Math.abs(transaction.amount),
-                  {unit: getSymbol(this.props.currencySymbol),
+                  {unit: getSymbol(p.currencySymbol),
                   format: "%u %n",
                   sign_first: false,
                   precision: 0})}
                 rightTextStyle={setAmountColor(transaction.type)}
                 secondaryText={new Date(transaction.date).toLocaleDateString('en-GB')}
                 onSelecetItem={this.onSelecetItem}
-                onDeleteItem={this.props.removeTransaction}
+                onDeleteItem={p.removeTransaction}
               />
             )}
         </ScrollView>
@@ -103,11 +127,13 @@ export default connect(
     currentMonthName: state.data.currentMonthName,
     currentMonthIndex: state.data.currentMonthIndex,
     yearTotal: state.data.yearTotal,
-    currencySymbol: state.settings.currencySymbol
+    currencySymbol: state.settings.currencySymbol,
+    transactionsSearchValue: state.form.transactionsSearchValue
   }),
   (dispatch) => ({
     actions: {
-      data: bindActionCreators(dataActions, dispatch)
+      data: bindActionCreators(dataActions, dispatch),
+      form: bindActionCreators(formActions, dispatch)
     }
   }))(Transactions)
 

@@ -1,4 +1,9 @@
-import { SET_NEW_CATEGORY, CLEAR_FORM, SET_CATEGORY_TYPE } from '../constants'
+import {
+  SET_NEW_CATEGORY,
+  CLEAR_FORM,
+  SET_CATEGORY_TYPE,
+  SET_TRANSACTIONS_SEARCH_VALUE
+} from '../constants'
 
 export function setNewCategory(category) {
   return {
@@ -17,5 +22,12 @@ export function setCategoryType(categoryType) {
   return {
     type: SET_CATEGORY_TYPE,
     categoryType
+  }
+}
+
+export function setTransactionsSearchValue(value) {
+  return {
+    type: SET_TRANSACTIONS_SEARCH_VALUE,
+    value
   }
 }
