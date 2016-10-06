@@ -127,7 +127,7 @@ class Transactions extends Component {
                   sign_first: false,
                   precision: 0})}
                 rightTextStyle={setAmountColor(transaction.type)}
-                secondaryText={new Date(transaction.date).toLocaleDateString('en-GB')}
+                secondaryText={`${(new Date(transaction.date).toLocaleDateString('en-GB'))}, ${transaction.category}`}
                 onSelecetItem={this.onSelecetItem}
                 onDeleteItem={p.removeTransaction}
               />
