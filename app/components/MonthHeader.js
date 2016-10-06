@@ -6,8 +6,10 @@ const leftArrow = (<Icon name='angle-left' size={22} />)
 
 export default MonthHeader = (props) =>
   <View style={styles.monthHeaderContainer}>
-    <View style={{flex: 1, alignItems: 'flex-start'}}>
-      <Text style={styles.monthText}>Sort</Text>
+    <View style={{flex: 1, alignItems: 'flex-start', paddingLeft: 10}}>
+      <TouchableHighlight onPress={() => props.onSortPress()}>
+        <Text style={styles.monthText}>Sort</Text>
+      </TouchableHighlight>
     </View>
 
     <View style={styles.monthHeader}>
@@ -39,8 +41,7 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: 10,
-    paddingBottom: 10,
-    // paddingLeft: 10
+    paddingBottom: 10
   },
   monthHeader: {
     flex: 3,

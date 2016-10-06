@@ -6,7 +6,7 @@ import * as dataActions from '../actions/data'
 import * as formActions from '../actions/form'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
-import { ItemRow, ChangeMonthArrows, MonthHeader} from '../components'
+import { ItemRow, ChangeMonthArrows, MonthHeader, MenuModal} from '../components'
 import I18n from 'react-native-i18n'
 import SearchBar from 'react-native-search-bar'
 import {searchTransactions} from '../functions/transactionsSearchAndFilter'
@@ -32,7 +32,10 @@ class Transactions extends Component {
     super(props)
     this.state = {
       selectedItemIndex: null,
-      searchValue: ''
+      searchValue: '',
+      isOpen: false,
+      isDisabled: false,
+      swipeToClose: true
     }
   }
 
@@ -49,6 +52,14 @@ class Transactions extends Component {
     } else {
         Actions.newTransaction({isEdit: true, transaction})
     }
+  }
+
+  openModal = () => {
+    this.setState({isOpen: true})
+  }
+
+  closeModal = () => {
+    this.setState({isOpen: false});
   }
 
   render() {
@@ -69,6 +80,7 @@ class Transactions extends Component {
               p.currentMonthIndex,
               p.yearTotal,
               p.transactions)}
+          onSortPress={() => this.openModal()}
         />
 
         <ScrollView contentOffset={{y:50}}>
@@ -105,6 +117,18 @@ class Transactions extends Component {
               />
             )}
         </ScrollView>
+
+        <MenuModal
+          isOpen={this.state.isOpen}
+          closeModal={this.closeModal}
+          button1='Date'
+          button1OnPress={() => console.log('button 1 was pressed')}
+          button2='Amount'
+          button2OnPress={() => console.log('button 2 was pressed')}
+          button3='Category'
+          button3OnPress={() => console.log('button 3 was pressed')}
+        />
+
       </View>
     )
   }

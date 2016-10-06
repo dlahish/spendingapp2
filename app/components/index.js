@@ -33,6 +33,7 @@ import MessageModal from './common/MessageModal'
 import Loader from './common/Loader'
 import ListItem from './common/ListItem'
 import MonthHeader from './MonthHeader'
+import MenuModal from './common/MenuModal'
 
 export {
   Home,
@@ -69,5 +70,6 @@ export {
   DisplayFavoriteTransactions,
   Loader,
   ListItem,
-  MonthHeader
+  MonthHeader,
+  MenuModal
 }
