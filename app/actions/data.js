@@ -1,4 +1,3 @@
-import DB from '../config/localDB'
 import {
   SET_TOTAL_BALANCE,
   SET_YEAR_TOTAL,

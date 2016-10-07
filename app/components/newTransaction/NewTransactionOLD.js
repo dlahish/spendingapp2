@@ -9,6 +9,7 @@ import {
   Dimensions,
   TouchableHighlight
 } from 'react-native'
+
 import { NewTransactionForm, CustomNavBar, addBorder, CategorySelector } from '../../components'
 import { Actions, ActionConst } from 'react-native-router-flux'
 import { connect } from 'react-redux'
@@ -16,7 +17,6 @@ import { bindActionCreators } from 'redux'
 import * as dataActionCreators from '../../actions/data'
 import * as formActionCreators from '../../actions/form'
 import Button from 'react-native-button'
-import KeyboardSpacer from 'react-native-keyboard-spacer'
 
 class NewTransaction extends Component {
   constructor(props) {
@@ -27,16 +27,25 @@ class NewTransaction extends Component {
       category: 'Category',
       notes: null,
       error: '',
+      visibleHeight: null,
+      windowHeight: null,
       categoryType: ''
     }
   }
 
   componentWillMount () {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow)
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide)
+    const height = Dimensions.get('window').height
     if (this.props.editMode && this.props.title === 'New Favorite Transaction' || !this.props.editMode) {
-      this.setState({ categoryType: this.props.categoryType })
+      this.setState({
+        windowHeight: height,
+        visibleHeight: height,
+        categoryType: this.props.categoryType
+      })
     } else {
-      const tempDate = new Date(this.props.transaction.date),
-            tempAmount = Math.abs(this.props.transaction.amount).toString()
+      const tempDate = new Date(this.props.transaction.date)
+      const tempAmount = Math.abs(this.props.transaction.amount).toString()
       this.setState({
         windowHeight: height,
         visibleHeight: height,
@@ -48,6 +57,30 @@ class NewTransaction extends Component {
         categoryType: this.props.transaction.type
       })
     }
+  }
+
+  componentWillUnmount () {
+    this.keyboardDidShowListener.remove()
+    this.keyboardDidHideListener.remove()
+  }
+
+  keyboardDidShow = (e) => {
+    // Animation types easeInEaseOut/linear/spring
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+    let newSize = this.state.visibleHeight - e.endCoordinates.height
+    this.setState({
+      visibleHeight: newSize
+    })
+    _scrollView.scrollTo({y: 80});
+  }
+
+  keyboardDidHide = (e) => {
+    // Animation types easeInEaseOut/linear/spring
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+    this.setState({
+      visibleHeight: this.state.windowHeight
+    })
+    _scrollView.scrollTo({y: 0});
   }
 
   componentWillReceiveProps(nextProps) {
@@ -123,6 +156,7 @@ class NewTransaction extends Component {
   }
 
   onTypeChange = (categoryType) => {
+    // this.setState({ categoryType: type })
     this.props.actions.form.setCategoryType(categoryType)
   }
 
@@ -180,7 +214,6 @@ class NewTransaction extends Component {
               </View>
             : <View></View>}
         </ScrollView>
-        <KeyboardSpacer/>
       </View>
     )
   }

@@ -12,22 +12,10 @@ import SearchBar from 'react-native-search-bar'
 import {searchTransactions, sortTransactions} from '../functions/transactionsSearchAndFilter'
 import Icon from 'react-native-vector-icons/FontAwesome'
 const upArrow = (<Icon name='angle-up' size={24} color='#FFF' />)
-
-function setAmountColor(type) {
-  if (type === 'Income') return {color: 'green'}
-  else return {color: 'red'}
-}
-
-function setMainText(transaction) {
-  if (transaction.notes) return transaction.notes
-  else return transaction.category
-}
-
-function getSymbol(symbol) {
-  if (symbol === 'default') return null
-  if (typeof symbol === 'number') return String.fromCharCode(symbol)
-  else return symbol
-}
+import {
+  setAmountColor,
+  setMainText,
+  getSymbol } from '../functions/transactionsScene'
 
 class Transactions extends Component {
   constructor(props) {

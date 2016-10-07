@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { View, Text, TextInput, StyleSheet, ScrollView } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import Button from 'react-native-button'
+import KeyboardSpacer from 'react-native-keyboard-spacer'
 
 class SigninForm extends Component {
 
@@ -33,34 +34,37 @@ class SigninForm extends Component {
   render () {
     return (
       <View style={styles.container}>
+        <ScrollView style={{paddingTop: 64}}>
+          <TextInput style={styles.input}
+            placeholder='Email'
+            onChangeText={(value) => this.onInputChange('email', value)}
+            value={this.state.email}
+            autoCapitalize='none'
+            />
 
-        <TextInput style={styles.input}
-          placeholder='Email'
-          onChangeText={(value) => this.onInputChange('email', value)}
-          value={this.state.email}
-          autoCapitalize='none'
-          />
+          <TextInput style={styles.input}
+            onChangeText={(value) => this.onInputChange('password', value)}
+            secureTextEntry={true}
+            value={this.state.password}
+            placeholder='Password'
+            autoCapitalize='none'
+            />
 
-        <TextInput style={styles.input}
-          onChangeText={(value) => this.onInputChange('password', value)}
-          secureTextEntry={true}
-          value={this.state.password}
-          placeholder='Password'
-          autoCapitalize='none'
-          />
+          <Text>{this.props.authError}</Text>
 
-        <Text>{this.props.authError}</Text>
+          <View style={{justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
+            <Button style={styles.btnText}
+              containerStyle={styles.btn}
+              onPress={this.onFormSubmit}>Submit
+            </Button>
 
-        <Button style={styles.btnText}
-          containerStyle={styles.btn}
-          onPress={this.onFormSubmit}>Submit
-        </Button>
-
-        <Button style={styles.btnText}
-          containerStyle={[styles.btn, styles.bgBlue]}
-          onPress={() => this.onSignupPress()}>Sign up
-        </Button>
-
+            <Button style={styles.btnText}
+              containerStyle={[styles.btn, styles.bgBlue]}
+              onPress={() => this.onSignupPress()}>Sign up
+            </Button>
+          </View>
+        </ScrollView>
+        <KeyboardSpacer/>
       </View>
     )
   }
@@ -69,8 +73,7 @@ class SigninForm extends Component {
 var styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+        paddingTop: 64,
         backgroundColor: "#f2f2f2"
     },
     btnText: {
