@@ -10,22 +10,30 @@ export default FilteredAndSortedTransactionsTotal = (props) => {
       if (type === 'income' && transaction.type === 'Income') totalBalance += transaction.amount
       else if (type === 'expense' && transaction.type === 'Expense') totalBalance += Math.abs(transaction.amount)
     })
-    return totalBalance
+    return I18n.toCurrency(Math.abs(totalBalance),
+      {unit: props.currencySymbol,
+      format: "%u %n",
+      sign_first: false,
+      precision: 0})
   }
 
   return (
-    <View style={{paddingTop: 0}}>
+    <View style={{paddingLeft: 10, paddingRight: 10}}>
 
-        <View style={{flexDirection: 'row'}}>
+        <View style={styles.balanceBox}>
             <View style={styles.balanceWrapper}>
-              <Text>{`${props.currencySymbol} ${getTotalBalace(props.transactions, 'income')}`}</Text>
+              <Text>
+                {getTotalBalace(props.transactions, 'income')}
+              </Text>
             </View>
-            <View style={[styles.balanceWrapper, {backgroundColor: 'red'}]}>
-              <Text>{`${props.currencySymbol} ${getTotalBalace(props.transactions, 'expense')}`}</Text>
+            <View style={[styles.balanceWrapper, styles.expenseWrapper]}>
+              <Text>
+                {getTotalBalace(props.transactions, 'expense')}
+              </Text>
             </View>
         </View>
 
-        <View style={{paddingLeft: 35, paddingBottom: 2}}>
+        <View style={{paddingLeft: 25, paddingBottom: 2, paddingTop: 2}}>
             <Text>{I18n.p(props.transactions.length, 'transactions')}</Text>
         </View>
 
@@ -36,17 +44,26 @@ export default FilteredAndSortedTransactionsTotal = (props) => {
 const styles = {
   balanceWrapper: {
     flex: 1,
-    backgroundColor: 'green',
+    backgroundColor: '#2ecc71',
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 2,
-    paddingBottom: 2
+    paddingBottom: 2,
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5
   },
-  balanceText: {
-
+  expenseWrapper: {
+    backgroundColor: '#ff4d4d',
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5
   },
-  ransactionsFoundText: {
-
+  balanceBox: {
+    flexDirection: 'row',
+    borderWidth: 0.5,
+    borderColor: 'black',
+    borderRadius: 5
   }
 }
 

@@ -1,22 +1,16 @@
 import axios from 'axios'
 const BASE_URI = `https://spendingapi2.herokuapp.com`
 // const BASE_URI = `http://192.168.0.104:3090`
-import DB from '../config/localDB'
 
-export function saveFavoriteTransaction(transaction) {
-  return DB.favoriteTransactions.add(transaction)
-}
-
-export function deleteFavoriteTransaction(transaction) {
-  return DB.favoriteTransactions.removeById(transaction._id)
-}
-
-export function saveCurrancySymbolToLocalDB(symbol) {
-  return DB.currencySymbol.updateById({symbol}, 1)
-}
-
-export function fetchCurrencySymbol() {
-  return DB.currencySymbol.find()
+export function sendUpdateTransaction(transaction, token) {
+  if (token === null) return {}
+  return axios({
+    url: `${BASE_URI}/updatetransaction`,
+    method: 'post',
+    headers: { authorization: token },
+    contentType: 'application/json',
+    data: { transaction }
+  })
 }
 
 export function fetchTotalBalance(token) {

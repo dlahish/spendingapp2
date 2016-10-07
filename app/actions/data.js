@@ -19,7 +19,8 @@ import {
   deleteCategory,
   deleteTransaction,
   saveFavoriteTransaction,
-  deleteFavoriteTransaction
+  deleteFavoriteTransaction,
+  sendUpdateTransaction
 } from '../api/data'
 
 function setTotalBalance(data) {
@@ -93,6 +94,21 @@ function setVisibleTransactions(transactions) {
 
 function getToken(state) {
   return state.account.token
+}
+
+export function updateTransaction(transaction, currentMonthIndex) {
+  return function(dispatch, getState) {
+    const state = getState()
+    const currentMonthIndex = state.data.currentMonthIndex,
+          token = state.account.token
+    sendUpdateTransaction(transaction, token)
+      .then((res) => {
+        let currentYear = new Date().getFullYear()
+        dispatch(getTransactions(currentYear, token, currentMonthIndex))
+        dispatch(getYearTotal(currentYear, token))
+      })
+      .catch((err) => console.log(err))
+  }
 }
 
 export function getVisibleTransactions(transactions, currentMonthIndex) {

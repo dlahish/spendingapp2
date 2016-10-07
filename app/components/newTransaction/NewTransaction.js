@@ -37,7 +37,7 @@ class NewTransaction extends Component {
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow)
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide)
     const height = Dimensions.get('window').height
-    if (this.props.isEdit && this.props.title === 'New Favorite Transaction' || !this.props.isEdit) {
+    if (this.props.editMode && this.props.title === 'New Favorite Transaction' || !this.props.editMode) {
       this.setState({
         windowHeight: height,
         visibleHeight: height,
@@ -49,6 +49,7 @@ class NewTransaction extends Component {
       this.setState({
         windowHeight: height,
         visibleHeight: height,
+        _id: this.props.transaction._id,
         date: tempDate,
         amount: tempAmount,
         category: this.props.transaction.category,
@@ -110,6 +111,7 @@ class NewTransaction extends Component {
       if (this.state.categoryType === 'Expense') { newAmount = this.state.amount * -1 }
       else { newAmount = this.state.amount }
       const transaction = {
+        _id: this.state._id,
         date: this.state.date,
         amount: newAmount,
         category: this.state.category,
@@ -117,7 +119,11 @@ class NewTransaction extends Component {
         type: this.state.categoryType
       }
       if (this.props.title === 'New Transaction') {
-        this.props.actions.data.addNewTransaction(transaction)
+        if (this.props.editMode) {
+          this.props.actions.data.updateTransaction(transaction)
+        } else {
+          this.props.actions.data.addNewTransaction(transaction)
+        }
       } else {
         this.props.actions.data.addFavoriteTransaction(transaction)
       }
@@ -199,7 +205,7 @@ class NewTransaction extends Component {
             onInputChange={this.onInputChange}
             title={this.props.title}
           />
-          {this.props.isEdit
+          {this.props.editMode
             ? <View style={{alignItems: 'center'}}>
                 <Button style={styles.btnText}
                   containerStyle={styles.btn}
