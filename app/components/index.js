@@ -34,6 +34,7 @@ import Loader from './common/Loader'
 import ListItem from './common/ListItem'
 import MonthHeader from './MonthHeader'
 import MenuModal from './common/MenuModal'
+import FilteredAndSortedTransactionsTotal from './FilteredAndSortedTransactionsTotal'
 
 export {
   Home,
@@ -71,5 +72,6 @@ export {
   Loader,
   ListItem,
   MonthHeader,
-  MenuModal
+  MenuModal,
+  FilteredAndSortedTransactionsTotal
 }

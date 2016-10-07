@@ -6,10 +6,12 @@ import * as dataActions from '../actions/data'
 import * as formActions from '../actions/form'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
-import { ItemRow, ChangeMonthArrows, MonthHeader, MenuModal} from '../components'
+import { ItemRow, ChangeMonthArrows, MonthHeader, MenuModal, FilteredAndSortedTransactionsTotal} from '../components'
 import I18n from 'react-native-i18n'
 import SearchBar from 'react-native-search-bar'
 import {searchTransactions, sortTransactions} from '../functions/transactionsSearchAndFilter'
+import Icon from 'react-native-vector-icons/FontAwesome'
+const upArrow = (<Icon name='angle-up' size={24} color='#FFF' />)
 
 function setAmountColor(type) {
   if (type === 'Income') return {color: 'green'}
@@ -99,9 +101,9 @@ class Transactions extends Component {
           onSortPress={() => this.openModal()}
         />
 
-        <ScrollView contentOffset={{y:50}}>
+        <ScrollView contentOffset={{y:44}}>
 
-            <View style={{paddingBottom: 20, backgroundColor: '#c8c7cc'}}>
+            <View style={{backgroundColor: '#c8c7cc'}}>
               <SearchBar
                 ref='searchBar'
                 placeholder='Search Category, Amount or Notes'
@@ -109,8 +111,14 @@ class Transactions extends Component {
                 onChangeText={(value) => this.setState({searchValue: value})}
                 onSearchButtonPress={() => this.refs.searchBar.unFocus() }
                 onCancelButtonPress={() => this.setState({searchValue: ''})}
-                showsCancelButton={true}
-                />
+                showsCancelButton={true}/>
+
+              <View style={{alignItems: 'center', justifyContent: 'center'}}>{upArrow}</View>
+
+              <FilteredAndSortedTransactionsTotal
+                transactions={transactionsToRender}
+                currencySymbol={this.props.currencySymbol}/>
+
             </View>
 
             {transactionsToRender.map((transaction, i) =>
