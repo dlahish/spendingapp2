@@ -41,8 +41,13 @@ class Transactions extends Component {
       sortType: '',
       dateSortDirection: true,
       amountSortDirection: true,
-      categorySortDirection: true
+      categorySortDirection: true,
+      scrollY: 44
     }
+  }
+
+  componentDidMount() {
+    this.refs._scrollView.scrollTo({y: this.state.scrollY})
   }
 
   componentWillReceiveProps(nextProps) {
@@ -89,19 +94,23 @@ class Transactions extends Component {
 
         <MonthHeader
           currentMonthName={p.currentMonthName}
-          onPressLeft={() =>
+          onPressLeft={() => {
             p.actions.data.setMonth('previous',
               p.currentMonthIndex,
               p.yearTotal,
-              p.transactions)}
-          onPressRight={() => p.actions.data.setMonth('next',
+              p.transactions)
+            this.refs._scrollView.scrollTo({y: this.state.scrollY})}}
+          onPressRight={() => {
+            p.actions.data.setMonth('next',
               p.currentMonthIndex,
               p.yearTotal,
-              p.transactions)}
+              p.transactions)
+            this.refs._scrollView.scrollTo({y: this.state.scrollY})}}
           onSortPress={() => this.openModal()}
         />
 
-        <ScrollView contentOffset={{y:44}}>
+        {/* contentOffset={{y:44}} */}
+        <ScrollView ref='_scrollView'>
 
             <View style={{backgroundColor: '#c8c7cc'}}>
               <SearchBar
@@ -110,7 +119,9 @@ class Transactions extends Component {
                 text={p.searchTransactionsValue}
                 onChangeText={(value) => this.setState({searchValue: value})}
                 onSearchButtonPress={() => this.refs.searchBar.unFocus() }
-                onCancelButtonPress={() => this.setState({searchValue: ''})}
+                onCancelButtonPress={() => {
+                  this.setState({searchValue: ''})
+                  this.refs._scrollView.scrollTo({y: this.state.scrollY})}}
                 showsCancelButton={true}/>
 
               <View style={{alignItems: 'center', justifyContent: 'center'}}>{upArrow}</View>
