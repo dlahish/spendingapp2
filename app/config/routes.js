@@ -108,7 +108,7 @@ class Routes extends Component {
                     />
                   </Scene>
                   <Scene
-                    key="PresetTransactions"
+                    key="presetTransactions"
                     component={connect(state =>
                       ({favoriteTransactions: state.data.favoriteTransactions}))(PresetTransactions)}
                     removeFavoriteTransaction={this.props.actions.data.removeFavoriteTransaction}

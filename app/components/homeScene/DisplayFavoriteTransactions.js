@@ -6,12 +6,11 @@ import { Actions } from 'react-native-router-flux'
 renderFavoriteTransactions = (favTransaction, i, onAddNewFavortieTransaction, favTransactionsLength) => {
   const favTransactionText = getFavortieTransactionText(favTransaction)
   const iconColor = getAddButtonColor(favTransaction)
-  console.log('favTransactionsLength - ' + favTransactionsLength)
   return (
       <View key={i}>
         <ListItem
           icon='plus'
-          iconColor={iconColor}
+          iconStyle={{color: iconColor}}
           text={favTransactionText}
           info={favTransaction.amount}
           styleInfo={{color: iconColor}}
@@ -20,8 +19,10 @@ renderFavoriteTransactions = (favTransaction, i, onAddNewFavortieTransaction, fa
         {favTransactionsLength < 5 && i === favTransactionsLength-1 ?
           <ListItem
             icon='plus'
+            iconStyle={{opacity: 0.6}}
             text='Add new preset transaction'
-            onPress={() => Actions.settings()}
+            styleText={{opacity: 0.6}}
+            onPress={() => Actions.presetTransactions()}
           /> : null}
       </View>
 

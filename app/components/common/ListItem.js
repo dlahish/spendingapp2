@@ -46,7 +46,7 @@ var Listitem = React.createClass({
             underlayColor={p.underlayColor}
             onPress={self._handlePress}
           >
-            <Icon name={p.icon} style={[styles.li, styles.icon, {color: p.iconColor}]}/>
+            <Icon name={p.icon} style={[styles.li, styles.icon, p.iconStyle]}/>
           </TouchableHighlight>
           <View style={{flex: 1}}>
               {listitem}
