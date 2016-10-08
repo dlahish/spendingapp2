@@ -68,7 +68,7 @@ class Categories extends Component {
           secondLeftButton='Edit'
           rightButton={plusIcon}
           leftButton='Back'
-          onLeftPress={() => Actions.pop()}
+          onLeftPress={() => Actions.settings()}
         />
         <CategorySelector
           incomeSelected={incomeSelected}

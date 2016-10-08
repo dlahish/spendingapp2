@@ -28,7 +28,7 @@ class Settings extends Component {
               titleInfo={getSymbol(this.props.currencySymbol)}
               titleInfoStyle={styles.titleInfoStyle}
               onPress={() =>
-                Actions.currencySymbols({setCurrancySymbol: this.props.actions.settings.setCurrancySymbol})}
+                Actions.currencySymbols()}
             />
             <SettingsList.Header headerStyle={{marginTop:15}}/>
             <SettingsList.Item
@@ -43,6 +43,7 @@ class Settings extends Component {
             <SettingsList.Header headerStyle={{marginTop:15}}/>
             <SettingsList.Item
               title='Log Out'
+              hasNavArrow={false}
               onPress={() => this.props.actions.account.logoutAndUnauthUser()}
             />
           </SettingsList>

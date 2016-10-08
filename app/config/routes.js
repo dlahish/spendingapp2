@@ -4,6 +4,7 @@ import { Router, Scene, Switch, Actions, ActionConst } from 'react-native-router
 import { bindActionCreators } from 'redux'
 import * as accountActions from '../actions/accounts'
 import * as dataActions from '../actions/data'
+import * as settingsActions from '../actions/settings'
 import { fetchIfCurrentUser } from '../actions/accounts'
 import Button from 'react-native-button'
 import { connect } from 'react-redux'
@@ -90,32 +91,53 @@ class Routes extends Component {
                   </Scene>
                   <Scene key="settings" component={Settings} icon={TabIcon} title='Settings' />
                   <Scene
-                    key="newTransaction"
-                    component={NewTransaction}
+                    key="categories"
+                    component={Categories}
+                    // icon={TabIcon}
+                    title='Categories'
                     hideNavBar={true}
-                    removeTransaction={this.props.actions.data.removeTransaction}
-                    title="New Transaction"
                   >
-                    <Scene key="viewNewTransaction" />
-                    <Scene key="newFavoriteTransaction" />
+                    <Scene key="viewCategoties" hideTabBar={false}/>
+                    <Scene key="editCategory"
+                      leftTitle='Done'
+                      onLeft={() => Actions.viewCategoties({
+                        editMode: false, deleteButtonWidth: 0, selectedCategoryIndex: null})}
+                      rightTitle={plusIconBlackDisabled}
+                      onRight={() => {}}
+                      hideTabBar={true}
+                    />
                   </Scene>
-                </Scene>
-                <Scene
-                  key="categories"
-                  component={Categories}
-                  icon={TabIcon}
-                  title='Categories'
-                  hideNavBar={true}
-                >
-                  <Scene key="viewCategoties" hideTabBar={false}/>
-                  <Scene key="editCategory"
-                    leftTitle='Done'
-                    onLeft={() => Actions.viewCategoties({
-                      editMode: false, deleteButtonWidth: 0, selectedCategoryIndex: null})}
-                    rightTitle={plusIconBlackDisabled}
-                    onRight={() => {}}
-                    hideTabBar={true}
+                  <Scene
+                    key="favoriteTransactions"
+                    component={connect(state =>
+                      ({favoriteTransactions: state.data.favoriteTransactions}))(FavoriteTransactions)}
+                    removeFavoriteTransaction={this.props.actions.data.removeFavoriteTransaction}
+                    hideNavBar={true}
+                  >
+                    <Scene key="viewFavoriteTransactions" />
+                    <Scene key="editFavoriteTransactions" />
+                  </Scene>
+                  <Scene
+                    key="currencySymbols"
+                    title="Currency Symbols"
+                    component={CurrencySymbols}
+                    hideNavBar={false}
+                    setCurrancySymbol={this.props.actions.settings.setCurrancySymbol}
+                    leftTitle='Back'
+                    onLeft={() => Actions.settings()}
+                    leftButtonTextStyle={{color: '#fff'}}
                   />
+                </Scene>
+
+                <Scene
+                  key="newTransaction"
+                  component={NewTransaction}
+                  hideNavBar={true}
+                  removeTransaction={this.props.actions.data.removeTransaction}
+                  title="New Transaction"
+                >
+                  <Scene key="viewNewTransaction" />
+                  <Scene key="newFavoriteTransaction" />
                 </Scene>
                 <Scene
                   key="categoryList"
@@ -135,23 +157,6 @@ class Routes extends Component {
                   component={NewCategory}
                   hideNavBar={true}
                 />
-                <Scene
-                  key="currencySymbols"
-                  title="Currency Symbols"
-                  component={CurrencySymbols}
-                  hideNavBar={false}
-                  leftButtonIconStyle={{tintColor: '#FFF'}}
-                />
-                <Scene
-                  key="favoriteTransactions"
-                  component={connect(state =>
-                    ({favoriteTransactions: state.data.favoriteTransactions}))(FavoriteTransactions)}
-                  removeFavoriteTransaction={this.props.actions.data.removeFavoriteTransaction}
-                  hideNavBar={true}
-                >
-                  <Scene key="viewFavoriteTransactions" />
-                  <Scene key="editFavoriteTransactions" />
-                </Scene>
               </Scene>
             </Scene>
           </RouterWithRedux>
@@ -167,7 +172,8 @@ export default connect(
   (dispatch) => ({
     actions: {
       account: bindActionCreators(accountActions, dispatch),
-      data: bindActionCreators(dataActions, dispatch)
+      data: bindActionCreators(dataActions, dispatch),
+      settings: bindActionCreators(settingsActions, dispatch)
     }
   }))(Routes)
 

@@ -38,8 +38,6 @@ class NewTransaction extends Component {
       const tempDate = new Date(this.props.transaction.date),
             tempAmount = Math.abs(this.props.transaction.amount).toString()
       this.setState({
-        windowHeight: height,
-        visibleHeight: height,
         _id: this.props.transaction._id,
         date: tempDate,
         amount: tempAmount,
@@ -119,7 +117,7 @@ class NewTransaction extends Component {
       categoryType: ''
     })
     this.props.actions.form.clearForm()
-    Actions.home()
+    Actions.pop()
   }
 
   onTypeChange = (categoryType) => {
@@ -141,7 +139,7 @@ class NewTransaction extends Component {
     else { incomeSelected = false, expenseSelected = true }
 
     return (
-      <View style={[styles.container, {height: this.state.visibleHeight}]}>
+      <View style={styles.container}>
         <CustomNavBar
           onLeftPress={this.onCancelPress}
           onRightPress={this.onSaveNewTransaction}
