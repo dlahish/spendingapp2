@@ -16,9 +16,7 @@ const styles = StyleSheet.create({
 });
 
 const data = [
-    [0, 1],
-    [1, 3],
-    [3, 7],
+    [1, 5],
     [4, 9],
 ];
 
@@ -30,8 +28,9 @@ class SimpleChart extends Component {
                     style={styles.chart}
                     data={data}
                     verticalGridStep={5}
-                    type="line"
+                    type="pie"
                     showDataPoint={true}
+                    showAxis={false}
                  />
             </View>
         );

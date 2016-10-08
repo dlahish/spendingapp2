@@ -1,10 +1,17 @@
 import React from 'react'
 import {Text, TouchableHighlight, View} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import Spinner from 'react-native-spinkit'
 
 var styles = require('./ListItemStyles.js')
 
 var Listitem = React.createClass({
+  getInitialState: function() {
+    return {
+      showSpinner: false
+    }
+  },
+
   getDefaultProps: function() {
     return {
       onPress: null,
@@ -14,8 +21,19 @@ var Listitem = React.createClass({
   }
 , _handlePress: function() {
     var onPress = this.props.onPress
-    if (onPress) onPress()
+    if (onPress) {
+      this.setState({showSpinner: true})
+      this.stopSpinner()
+      onPress()
+    }
+  },
+
+  stopSpinner: function() {
+    setTimeout(function(){
+             this.setState({showSpinner: false});
+        }.bind(this),1200);
   }
+
 , render: function() {
     var self = this
     var p = self.props
@@ -42,12 +60,21 @@ var Listitem = React.createClass({
     return (
       p.onPress && p.icon ?
         <View style={[styleLiContainer, {flexDirection: 'row'}]}>
+          {this.state.showSpinner
+          ? <Spinner
+            style={{marginTop: 15, marginRight: 9, marginBottom: 17}}
+            // style={styles.spinner}
+            isVisible={this.state.showSpinner}
+            size={15}
+            type='Circle'
+            color='#555'/>
+          :
           <TouchableHighlight
             underlayColor={p.underlayColor}
             onPress={self._handlePress}
           >
             <Icon name={p.icon} style={[styles.li, styles.icon, p.iconStyle]}/>
-          </TouchableHighlight>
+          </TouchableHighlight> }
           <View style={{flex: 1}}>
               {listitem}
           </View>

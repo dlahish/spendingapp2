@@ -14,6 +14,7 @@ renderFavoriteTransactions = (favTransaction, i, onAddNewFavortieTransaction, fa
           text={favTransactionText}
           info={favTransaction.amount}
           styleInfo={{color: iconColor}}
+          underlayColor="#a9d9d4"
           onPress={() => onAddNewFavortieTransaction(favTransaction)}
         />
         {favTransactionsLength < 5 && i === favTransactionsLength-1 ?
