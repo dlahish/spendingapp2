@@ -119,7 +119,7 @@ class NewTransaction extends Component {
       categoryType: ''
     })
     this.props.actions.form.clearForm()
-    Actions.pop()
+    Actions.home()
   }
 
   onTypeChange = (categoryType) => {

@@ -89,6 +89,16 @@ class Routes extends Component {
                     />
                   </Scene>
                   <Scene key="settings" component={Settings} icon={TabIcon} title='Settings' />
+                  <Scene
+                    key="newTransaction"
+                    component={NewTransaction}
+                    hideNavBar={true}
+                    removeTransaction={this.props.actions.data.removeTransaction}
+                    title="New Transaction"
+                  >
+                    <Scene key="viewNewTransaction" />
+                    <Scene key="newFavoriteTransaction" />
+                  </Scene>
                 </Scene>
                 <Scene
                   key="categories"
@@ -106,16 +116,6 @@ class Routes extends Component {
                     onRight={() => {}}
                     hideTabBar={true}
                   />
-                </Scene>
-                <Scene
-                  key="newTransaction"
-                  component={NewTransaction}
-                  hideNavBar={true}
-                  removeTransaction={this.props.actions.data.removeTransaction}
-                  title="New Transaction"
-                >
-                  <Scene key="viewNewTransaction" hideTabBar={true} />
-                  <Scene key="newFavoriteTransaction" hideTabBar={true} />
                 </Scene>
                 <Scene
                   key="categoryList"
