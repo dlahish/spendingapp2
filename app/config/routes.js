@@ -22,7 +22,7 @@ import {
   Settings,
   Transaction,
   CurrencySymbols,
-  FavoriteTransactions,
+  PresetTransactions,
   Loader
 } from '../components'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -93,13 +93,13 @@ class Routes extends Component {
                   <Scene
                     key="categories"
                     component={Categories}
-                    // icon={TabIcon}
                     title='Categories'
                     hideNavBar={true}
                   >
                     <Scene key="viewCategoties" hideTabBar={false}/>
                     <Scene key="editCategory"
                       leftTitle='Done'
+                      leftButtonTextStyle={{color: '#fff'}}
                       onLeft={() => Actions.viewCategoties({
                         editMode: false, deleteButtonWidth: 0, selectedCategoryIndex: null})}
                       rightTitle={plusIconBlackDisabled}
@@ -108,9 +108,9 @@ class Routes extends Component {
                     />
                   </Scene>
                   <Scene
-                    key="favoriteTransactions"
+                    key="PresetTransactions"
                     component={connect(state =>
-                      ({favoriteTransactions: state.data.favoriteTransactions}))(FavoriteTransactions)}
+                      ({favoriteTransactions: state.data.favoriteTransactions}))(PresetTransactions)}
                     removeFavoriteTransaction={this.props.actions.data.removeFavoriteTransaction}
                     hideNavBar={true}
                   >

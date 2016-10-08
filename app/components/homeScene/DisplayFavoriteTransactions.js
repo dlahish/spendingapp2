@@ -1,20 +1,31 @@
 import React, { Component, PropTypes } from 'react'
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native'
 import { ListItem } from '../../components'
+import { Actions } from 'react-native-router-flux'
 
-renderFavoriteTransactions = (favTransaction, i, onAddNewFavortieTransaction) => {
+renderFavoriteTransactions = (favTransaction, i, onAddNewFavortieTransaction, favTransactionsLength) => {
   const favTransactionText = getFavortieTransactionText(favTransaction)
   const iconColor = getAddButtonColor(favTransaction)
+  console.log('favTransactionsLength - ' + favTransactionsLength)
   return (
-      <ListItem
-        key={i}
-        icon='plus'
-        iconColor={iconColor}
-        text={favTransactionText}
-        info={favTransaction.amount}
-        styleInfo={{color: iconColor}}
-        onPress={() => onAddNewFavortieTransaction(favTransaction)}
-      />
+      <View key={i}>
+        <ListItem
+          icon='plus'
+          iconColor={iconColor}
+          text={favTransactionText}
+          info={favTransaction.amount}
+          styleInfo={{color: iconColor}}
+          onPress={() => onAddNewFavortieTransaction(favTransaction)}
+        />
+        {favTransactionsLength < 5 && i === favTransactionsLength-1 ?
+          <ListItem
+            icon='plus'
+            text='Add new preset transaction'
+            onPress={() => Actions.settings()}
+          /> : null}
+      </View>
+
+
   )
 }
 
@@ -29,11 +40,12 @@ function getAddButtonColor(favTransaction) {
 }
 
 export default DisplayFavoriteTransactions = (props) => {
+  const p = props
   return (
     <View style={{flex: 1}}>
-      {props.favoriteTransactions.length > 0
-        ? props.favoriteTransactions.map((transaction, i) => {
-            return renderFavoriteTransactions(transaction, i, props.onAddNewFavortieTransaction)
+      {p.favoriteTransactions.length > 0
+        ? p.favoriteTransactions.map((transaction, i) => {
+            return renderFavoriteTransactions(transaction, i, p.onAddNewFavortieTransaction, p.favoriteTransactions.length)
           })
         : <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
             <View style={styles.messageBox}>

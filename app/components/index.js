@@ -11,8 +11,7 @@ import NewTransaction from './newTransaction/NewTransaction'
 import NewTransactionForm from './newTransaction/NewTransactionForm'
 import CurrentMonthTotal from './CurrentMonthTotal'
 import addBorder from './addBorder'
-import FavoriteTransactions from './FavoriteTransactions'
-import FavoriteTransaction from './FavoriteTransaction'
+import PresetTransactions from './PresetTransactions'
 import AddTransactionButtons from './homeScene/AddTransactionButtons'
 import Button from './common/Button'
 import DatePicker from './common/DatePicker'
@@ -49,8 +48,7 @@ export {
   NewTransaction,
   CurrentMonthTotal,
   addBorder,
-  FavoriteTransactions,
-  FavoriteTransaction,
+  PresetTransactions,
   AddTransactionButtons,
   NewTransactionForm,
   Button,

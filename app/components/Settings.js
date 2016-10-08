@@ -33,7 +33,7 @@ class Settings extends Component {
             <SettingsList.Header headerStyle={{marginTop:15}}/>
             <SettingsList.Item
               title='Setup Preset Transaction'
-              onPress={() => Actions.favoriteTransactions({editMode: false})}
+              onPress={() => Actions.PresetTransactions({editMode: false})}
             />
             <SettingsList.Header headerStyle={{marginTop:15}}/>
             <SettingsList.Item

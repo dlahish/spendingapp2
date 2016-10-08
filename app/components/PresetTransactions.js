@@ -49,7 +49,7 @@ export default class FavoriteTransaction extends Component {
   }
 
   onPlusIconPress = () => {
-    if (this.props.favoriteTransactions === null || this.props.favoriteTransactions.length <= 5) {
+    if (this.props.favoriteTransactions === null || this.props.favoriteTransactions.length < 5) {
       Actions.newTransaction({title: 'New Favorite Transaction'})
     } else {
       this.setModalVisible(true)
@@ -61,7 +61,7 @@ export default class FavoriteTransaction extends Component {
       return <CustomNavBar
         onLeftPress={() => Actions.viewFavoriteTransactions({editMode: false})}
         onRightPress={() => {}}
-        title='Favorite Transaction'
+        title='Preset Transaction'
         leftButton='Done'
         rightButton={plusIconBlackDisabled}
       />
@@ -70,7 +70,7 @@ export default class FavoriteTransaction extends Component {
         onLeftPress={() => Actions.settings()}
         onSecondLeftPress={() => Actions.editFavoriteTransactions({editMode: true})}
         onRightPress={() => this.onPlusIconPress()}
-        title='Favorite Transaction'
+        title='Preset Transaction'
         leftButton='Back'
         secondLeftButton='Edit'
         rightButton={plusIcon}
