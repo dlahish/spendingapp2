@@ -5,11 +5,8 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  DatePickerIOS,
   TouchableHighlight,
-  Modal,
   ListView,
-  TouchableOpacity
 } from 'react-native'
 import Button from 'react-native-button'
 import { addBorder, DatePicker, DatePickerModal } from '../../components'

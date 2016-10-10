@@ -13,7 +13,6 @@ import {
   Signin,
   Signup,
   TabIcon,
-  TabView,
   NewTransaction,
   CategoryList,
   Transactions,

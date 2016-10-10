@@ -5,11 +5,10 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  DatePickerIOS,
   TouchableHighlight
 } from 'react-native'
 import Button from 'react-native-button'
-import { addBorder, DatePicker, DatePickerModal, CategorySelector } from '../components'
+import { addBorder, CategorySelector } from '../../components'
 import { Actions } from 'react-native-router-flux'
 
 export default class NewCategoryForm extends Component {

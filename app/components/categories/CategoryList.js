@@ -1,7 +1,7 @@
 import React, { Component, PropTypes} from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as formActionCreators from '../actions/form'
+import * as formActionCreators from '../../actions/form'
 import { Actions } from 'react-native-router-flux'
 import Button from 'react-native-button'
 import {

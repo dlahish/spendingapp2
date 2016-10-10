@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, DatePicker } from '../components'
+import { Button, DatePicker } from '../../components'
 import {
   Modal,
   StyleSheet,

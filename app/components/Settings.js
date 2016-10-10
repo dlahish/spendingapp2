@@ -7,7 +7,6 @@ import * as settingsActionCreators from '../actions/settings'
 import * as accountActions from '../actions/accounts'
 import Icon from 'react-native-vector-icons/FontAwesome'
 const smallRightArrow = (<Icon name='angle-right' size={22} />)
-import { UserActions, addBorder } from '../components'
 import SettingsList from 'react-native-settings-list'
 
 function getSymbol(symbol) {

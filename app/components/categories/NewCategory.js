@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { NewCategoryForm } from '../components'
+import { NewCategoryForm } from '../../components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Actions } from 'react-native-router-flux'
-import * as dataActionCreators from '../actions/data'
+import * as dataActionCreators from '../../actions/data'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 
 class NewCategory extends Component {

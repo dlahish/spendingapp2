@@ -1,12 +1,9 @@
 import Home from './Home'
-import GuestActions from './GuestActions'
 import Signin from './authentication/Signin'
 import SigninForm from './authentication/SigninForm'
 import SignupForm from './authentication/SignupForm'
 import Signup from './authentication/Signup'
-import UserActions from './UserActions'
 import TabIcon from './TabIcon'
-import TabView from './TabView'
 import NewTransaction from './newTransaction/NewTransaction'
 import NewTransactionForm from './newTransaction/NewTransactionForm'
 import CurrentMonthTotal from './CurrentMonthTotal'
@@ -15,13 +12,13 @@ import PresetTransactions from './PresetTransactions'
 import AddTransactionButtons from './homeScene/AddTransactionButtons'
 import Button from './common/Button'
 import DatePicker from './common/DatePicker'
-import DatePickerModal from './DatePickerModal'
-import CategoryList from './CategoryList'
+import DatePickerModal from './common/DatePickerModal'
+import CategoryList from './categories/CategoryList'
 import Transactions from './Transactions'
-import Categories from './Categories'
+import Categories from './categories/Categories'
 import CustomNavBar from './common/CustomNavBar'
-import NewCategory from './NewCategory'
-import NewCategoryForm from './NewCategoryForm'
+import NewCategory from './categories/NewCategory'
+import NewCategoryForm from './categories/NewCategoryForm'
 import Settings from './Settings'
 import ItemRow from './common/ItemRow'
 import CategorySelector from './common/CategorySelector'
@@ -41,10 +38,7 @@ export {
   SigninForm,
   SignupForm,
   Signup,
-  GuestActions,
-  UserActions,
   TabIcon,
-  TabView,
   NewTransaction,
   CurrentMonthTotal,
   addBorder,

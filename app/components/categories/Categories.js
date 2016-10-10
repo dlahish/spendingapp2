@@ -7,12 +7,12 @@ import {
   TouchableHighlight,
   LayoutAnimation
 } from 'react-native'
-import { CustomNavBar, CategorySelector, ItemRow } from '../components'
+import { CustomNavBar, CategorySelector, ItemRow } from '../../components'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as dataActionCreators from '../actions/data'
+import * as dataActionCreators from '../../actions/data'
 
 const plusIcon = (<Icon name='plus' size={26} color='#FFF' />)
 const plusIconBlack = (<Icon name='plus' size={22} color='#CCC' />)
