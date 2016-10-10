@@ -22,7 +22,8 @@ import {
   Transaction,
   CurrencySymbols,
   PresetTransactions,
-  Loader
+  Loader,
+  Export
 } from '../components'
 import Icon from 'react-native-vector-icons/FontAwesome'
 const plusIcon = (<Icon name='plus' size={26} color='#FFF' />)
@@ -155,6 +156,12 @@ class Routes extends Component {
                   title="New Category"
                   component={NewCategory}
                   hideNavBar={true}
+                />
+                <Scene
+                  key="export"
+                  title="Export to CSV"
+                  component={Export}
+                  // hideNavBar={false}
                 />
               </Scene>
             </Scene>

@@ -3,6 +3,7 @@ import { View, Text, TouchableHighlight } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 const rightArrow = (<Icon name='angle-right' size={22} />)
 const leftArrow = (<Icon name='angle-left' size={22} />)
+import { Actions } from 'react-native-router-flux'
 
 export default MonthHeader = (props) =>
   <View style={styles.monthHeaderContainer}>
@@ -30,8 +31,10 @@ export default MonthHeader = (props) =>
       </View>
     </View>
 
-    <View style={{flex: 1}}>
-      <Text style={styles.monthText}></Text>
+    <View style={{flex: 1, alignItems: 'flex-end', paddingRight: 10}}>
+      <TouchableHighlight onPress={() => Actions.export()}>
+        <Text style={styles.monthText}>Export</Text>
+      </TouchableHighlight>
     </View>
   </View>
 

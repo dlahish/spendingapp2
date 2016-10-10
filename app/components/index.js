@@ -31,6 +31,7 @@ import ListItem from './common/ListItem'
 import MonthHeader from './common/MonthHeader'
 import MenuModal from './common/MenuModal'
 import FilteredAndSortedTransactionsTotal from './transactions/FilteredAndSortedTransactionsTotal'
+import Export from './transactions/Export'
 
 export {
   Home,
@@ -65,5 +66,6 @@ export {
   ListItem,
   MonthHeader,
   MenuModal,
-  FilteredAndSortedTransactionsTotal
+  FilteredAndSortedTransactionsTotal,
+  Export
 }

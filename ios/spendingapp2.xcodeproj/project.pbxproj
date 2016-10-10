@@ -34,6 +34,7 @@
 		9B6211691D83F8D500F2B6D0 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B6211611D83F8D500F2B6D0 /* Zocial.ttf */; };
 		9B8203B61DA96C16008051B9 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 107ECEB51D802B43001A925A /* libART.a */; };
 		9B8203CB1DA98586008051B9 /* libRNSpinkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B8203CA1DA98568008051B9 /* libRNSpinkit.a */; };
+		9B8203D51DABA0DC008051B9 /* libRNMail.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B8203D21DABA0C7008051B9 /* libRNMail.a */; };
 		9BD1AF4C1D96D7D100366CD1 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BD1AF481D96D7C600366CD1 /* libRNI18n.a */; };
 /* End PBXBuildFile section */
 
@@ -143,6 +144,20 @@
 			remoteGlobalIDString = D42CB3511B2538DE00FD0AE2;
 			remoteInfo = RNSpinkit;
 		};
+		9B8203D11DABA0C7008051B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B8203CC1DABA0C7008051B9 /* RNMail.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 46FEDE7F1AFF192F00D3261C;
+			remoteInfo = RNMail;
+		};
+		9B8203D31DABA0C7008051B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B8203CC1DABA0C7008051B9 /* RNMail.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 46FEDE8A1AFF192F00D3261C;
+			remoteInfo = RNMailTests;
+		};
 		9BD1AF471D96D7C600366CD1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9BD1AF371D96D7C600366CD1 /* RNI18n.xcodeproj */;
@@ -193,6 +208,7 @@
 		9B6211611D83F8D500F2B6D0 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
 		9B6211751D8404C900F2B6D0 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		9B8203C51DA98568008051B9 /* RNSpinkit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSpinkit.xcodeproj; path = "../node_modules/react-native-spinkit/ios/RNSpinkit.xcodeproj"; sourceTree = "<group>"; };
+		9B8203CC1DABA0C7008051B9 /* RNMail.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNMail.xcodeproj; path = "../node_modules/react-native-mail/RNMail.xcodeproj"; sourceTree = "<group>"; };
 		9BD1AF371D96D7C600366CD1 /* RNI18n.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNI18n.xcodeproj; path = "../node_modules/react-native-i18n/RNI18n.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -209,6 +225,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B8203D51DABA0DC008051B9 /* libRNMail.a in Frameworks */,
 				9B8203CB1DA98586008051B9 /* libRNSpinkit.a in Frameworks */,
 				9B8203B61DA96C16008051B9 /* libART.a in Frameworks */,
 				9B53409F1DA5FC92002D3037 /* libRNSearchBar.a in Frameworks */,
@@ -343,6 +360,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				9B8203CC1DABA0C7008051B9 /* RNMail.xcodeproj */,
 				9B8203C51DA98568008051B9 /* RNSpinkit.xcodeproj */,
 				9B5340991DA5FC07002D3037 /* RNSearchBar.xcodeproj */,
 				9BD1AF371D96D7C600366CD1 /* RNI18n.xcodeproj */,
@@ -429,6 +447,15 @@
 			isa = PBXGroup;
 			children = (
 				9B8203CA1DA98568008051B9 /* libRNSpinkit.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9B8203CD1DABA0C7008051B9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9B8203D21DABA0C7008051B9 /* libRNMail.a */,
+				9B8203D41DABA0C7008051B9 /* RNMailTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -560,6 +587,10 @@
 					ProjectRef = 9BD1AF371D96D7C600366CD1 /* RNI18n.xcodeproj */;
 				},
 				{
+					ProductGroup = 9B8203CD1DABA0C7008051B9 /* Products */;
+					ProjectRef = 9B8203CC1DABA0C7008051B9 /* RNMail.xcodeproj */;
+				},
+				{
 					ProductGroup = 9B53409A1DA5FC07002D3037 /* Products */;
 					ProjectRef = 9B5340991DA5FC07002D3037 /* RNSearchBar.xcodeproj */;
 				},
@@ -677,6 +708,20 @@
 			fileType = archive.ar;
 			path = libRNSpinkit.a;
 			remoteRef = 9B8203C91DA98568008051B9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9B8203D21DABA0C7008051B9 /* libRNMail.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNMail.a;
+			remoteRef = 9B8203D11DABA0C7008051B9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9B8203D41DABA0C7008051B9 /* RNMailTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RNMailTests.xctest;
+			remoteRef = 9B8203D31DABA0C7008051B9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		9BD1AF481D96D7C600366CD1 /* libRNI18n.a */ = {
@@ -824,6 +869,7 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
 				INFOPLIST_FILE = spendingapp2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -848,6 +894,7 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
 				INFOPLIST_FILE = spendingapp2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -903,7 +950,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -946,7 +993,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -963,7 +1010,7 @@
 				00E356F71AD99517003FC87E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "spendingapp2" */ = {
 			isa = XCConfigurationList;
@@ -972,7 +1019,7 @@
 				13B07F951A680F5B00A75B9A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "spendingapp2" */ = {
 			isa = XCConfigurationList;
@@ -981,7 +1028,7 @@
 				83CBBA211A601CBA00E9B192 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
