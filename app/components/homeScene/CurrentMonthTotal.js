@@ -4,7 +4,6 @@ import React, { Component, PropTypes } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import I18n from 'react-native-i18n'
 import ReactNativeI18n from 'react-native-i18n'
-// const deviceLocale = ReactNativeI18n.locale
 
 function displayText(currentMonthTotal, type, currencySymbol) {
   if (type === 'balance') {
@@ -74,7 +73,6 @@ export default class CurrentMonthTotal extends Component {
 }
 
 CurrentMonthTotal.propTypes = {
-  // getYearTotal: PropTypes.func.isRequired,
   currentMonthTotal: PropTypes.object
 }
 

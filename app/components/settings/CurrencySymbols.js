@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import { Text, View, StyleSheet, ScrollView, TouchableHighlight } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-import { ListItem } from '../components'
+import { ListItem } from '../../components'
 
 symbols = ['default',36,8364,8362,163,'CHF']
 
@@ -15,8 +15,7 @@ export default CurrencySymbols = (props) => {
     props.setCurrancySymbol(symbol)
     Actions.settings()
   }
-  console.log('currency symbols --------')
-  console.log(props)
+
   return (
     <ScrollView style={styles.container}>
       {symbols.map((symbol,i) =>
@@ -27,13 +26,6 @@ export default CurrencySymbols = (props) => {
             </TouchableHighlight>
           </View>
         </View>
-        // <ListItem
-        //   key={i}
-        //   icon='plus'
-        //   // iconColor={iconColor}
-        //   text={getSymbol(symbol)}
-        //   onPress={() => this.onSymbolPress(symbol)}
-        // />
       )}
     </ScrollView>
   )

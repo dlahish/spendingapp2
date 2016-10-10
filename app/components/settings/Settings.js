@@ -3,8 +3,8 @@ import { Text, View, StyleSheet, ScrollView, TouchableHighlight } from 'react-na
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as settingsActionCreators from '../actions/settings'
-import * as accountActions from '../actions/accounts'
+import * as settingsActionCreators from '../../actions/settings'
+import * as accountActions from '../../actions/accounts'
 import Icon from 'react-native-vector-icons/FontAwesome'
 const smallRightArrow = (<Icon name='angle-right' size={22} />)
 import SettingsList from 'react-native-settings-list'

@@ -1,21 +1,25 @@
 import React, { Component, PropTypes } from 'react'
 import { View, Text, ScrollView, TouchableHighlight } from 'react-native'
-import { getTransactions } from '../actions/data'
+import { getTransactions } from '../../actions/data'
 import { bindActionCreators } from 'redux'
-import * as dataActions from '../actions/data'
-import * as formActions from '../actions/form'
+import * as dataActions from '../../actions/data'
+import * as formActions from '../../actions/form'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
-import { ItemRow, ChangeMonthArrows, MonthHeader, MenuModal, FilteredAndSortedTransactionsTotal} from '../components'
+import {
+  ItemRow,
+  ChangeMonthArrows,
+  MonthHeader, MenuModal,
+  FilteredAndSortedTransactionsTotal } from '../../components'
 import I18n from 'react-native-i18n'
 import SearchBar from 'react-native-search-bar'
-import {searchTransactions, sortTransactions} from '../functions/transactionsSearchAndFilter'
+import {searchTransactions, sortTransactions} from '../../functions/transactionsSearchAndFilter'
 import Icon from 'react-native-vector-icons/FontAwesome'
 const upArrow = (<Icon name='angle-up' size={24} color='#FFF' />)
 import {
   setAmountColor,
   setMainText,
-  getSymbol } from '../functions/transactionsScene'
+  getSymbol } from '../../functions/transactionsScene'
 
 class Transactions extends Component {
   constructor(props) {

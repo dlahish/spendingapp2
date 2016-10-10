@@ -13,11 +13,11 @@ import {
   AddTransactionButtons,
   ChangeMonthArrows,
   DisplayFavoriteTransactions
-} from '../components'
-import * as accountActions from '../actions/accounts'
-import * as dataActions from '../actions/data'
-import * as formActions from '../actions/form'
-import * as settingsActions from '../actions/settings'
+} from '../../components'
+import * as accountActions from '../../actions/accounts'
+import * as dataActions from '../../actions/data'
+import * as formActions from '../../actions/form'
+import * as settingsActions from '../../actions/settings'
 
 class Home extends Component {
 

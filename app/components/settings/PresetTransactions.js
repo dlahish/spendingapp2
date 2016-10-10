@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { View, Text, ScrollView, TouchableHighlight } from 'react-native'
-import { getTransactions } from '../actions/data'
+import { getTransactions } from '../../actions/data'
 import { Actions } from 'react-native-router-flux'
-import { ItemRow, MessageModal } from '../components'
+import { ItemRow, MessageModal } from '../../components'
 import I18n from 'react-native-i18n'
 import Icon from 'react-native-vector-icons/FontAwesome'
 const plusIcon = (<Icon name='plus' size={26} color='#FFF' />)
