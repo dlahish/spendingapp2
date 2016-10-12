@@ -5,10 +5,26 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 const editIcon = (<Icon name='minus-circle' size={22} color='red' />)
 const plusIconBlack = (<Icon name='plus' size={22} color='#CCC' />)
 import { addBorder } from '../../components'
+import CheckBox from 'react-native-checkbox'
 
 export default class ItemRow extends Component {
   componentWillUpdate() {
     LayoutAnimation.easeInEaseOut();
+  }
+
+  getIcon() {
+    if (this.props.icon === 'checkBox') {
+      return <CheckBox
+        label=''
+        checked={this.props.completed}
+        checkboxStyle={{width: 18, height: 18}}
+        onChange={() => this.props.onCheckRow(this.props.item.id)}
+      />
+    } else if (this.props.icon) {
+      return <Icon name={this.props.icon} size={22} color='#CCC' />
+    } else {
+      return <View style={{width: 19}}/>
+    }
   }
 
   render() {
@@ -23,6 +39,7 @@ export default class ItemRow extends Component {
       secondaryText,
       onSelecetItem,
       onDeleteItem } = this.props
+    const rowIcon = this.getIcon()
     let deleteButtonWidth, sameRow
     selected ? deleteButtonWidth = 100 : deleteButtonWidth = 0
 
@@ -37,7 +54,7 @@ export default class ItemRow extends Component {
                   <View>{editIcon}</View>
                 </Button>
               </View>
-            : <View style={styles.iconWrapper}>{plusIconBlack}</View>}
+            : <View style={styles.iconWrapper}>{rowIcon}</View>}
 
           <TouchableHighlight
             style={styles.textWrapper}

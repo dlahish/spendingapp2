@@ -1,14 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { View, StyleSheet } from 'react-native'
-// import I18n from 'react-native-i18n'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as remindersActions from '../../actions/reminders'
-// import * as formActions from '../../actions/form'
-// import ActionButton from 'react-native-action-button'
-// import Icon from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux'
-// import { ItemRow } from '../../components'
 import NewReminderForm from './NewReminderForm'
 
 class NewReminder extends Component {
@@ -26,8 +21,8 @@ class NewReminder extends Component {
   }
 
   handleValueChange = (values) => {
-    console.log('handleValueChange', values)
     values.date = this.state.form.date
+    values.completed = false
     this.setState({ form: values })
   }
 
@@ -35,13 +30,14 @@ class NewReminder extends Component {
     this.setState({ ...this.state, form: {...this.state.form, date: date } })
   }
 
-  onSubmitReminder = () => {
-    this.props.actions.reminders.setNewReminder(this.state.form)
-    Actions.pop()
+  onSubmitReminder = (isValid) => {
+    if (isValid) {
+      this.props.actions.reminders.setNewReminder(this.state.form)
+      Actions.viewReminders()
+    }
   }
 
   render() {
-    console.log('new reminder form state -  ', this.state.form)
     return (
       <View style={styles.container}>
         <NewReminderForm

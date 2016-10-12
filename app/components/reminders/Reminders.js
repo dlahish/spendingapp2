@@ -10,8 +10,7 @@ import {
 import I18n from 'react-native-i18n'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as dataActions from '../../actions/data'
-import * as formActions from '../../actions/form'
+import * as remindersActions from '../../actions/reminders'
 import ActionButton from 'react-native-action-button'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux'
@@ -22,60 +21,82 @@ import {
   setMainText,
   getSymbol } from '../../functions/transactionsScene'
 
-const data = [
-  {
-    type: 'receive',
-    name: 'Yoni',
-    note: 'grocery shopping',
-    date: '',
-    amount: 200
-  },
-  {
-    type: 'lent',
-    name: 'Rotem',
-    note: 'beer',
-    date: '',
-    amount: 50
-  }
-]
+function filterReminders(reminders, title) {
+  let filteredReminders
+  if (title === 'Reminders') filteredReminders = reminders.filter((reminder) => !reminder.completed)
+  else filteredReminders = reminders.filter((reminder) => reminder.completed)
+  return filteredReminders
+}
 
 class Reminders extends Component {
+  onCheckRow = (itemId) => {
+    this.props.actions.reminders.setCheckedReminder(itemId)
+  }
+
   render() {
     const p = this.props
+    const filteredReminders = filterReminders(p.reminders, p.title)
     return (
       <View style={styles.container}>
+        <ScrollView style={{flex: 1}}>
+          {filteredReminders.map((reminder,i) =>
+            <ItemRow
+              key={i}
+              itemIndex={i}
+              icon='checkBox'
+              completed={reminder.completed}
+              onCheckRow={this.onCheckRow}
+              item={reminder}
+              mainText={reminder.name}
+              rightText={I18n.toCurrency(Math.abs(reminder.amount),
+                {unit: getSymbol(reminder.currencySymbol),
+                format: "%u %n",
+                sign_first: false,
+                precision: 0})}
+              rightTextStyle={setAmountColor(reminder.type[0])}
+              secondaryText={
+                `${(new Date(reminder.date).toLocaleDateString('en-GB'))}, ${reminder.notes}, ${reminder.type[0]}`}
+              onSelecetItem={() => {}}
+            />
+          )}
+        </ScrollView>
 
-          <ScrollView style={{flex: 1}}>
-            {data.map((d,i) =>
-              <ItemRow
-                key={i}
-                itemIndex={i}
-                // editMode={p.editMode}
-                // selected={i === this.state.selectedItemIndex ? true : false}
-                item={d}
-                mainText={d.name}
-                rightText={I18n.toCurrency(Math.abs(d.amount),
-                  {unit: getSymbol(p.currencySymbol),
-                  format: "%u %n",
-                  sign_first: false,
-                  precision: 0})}
-                rightTextStyle={setAmountColor(d.type)}
-                secondaryText={`${(new Date(d.date).toLocaleDateString('en-GB'))}, ${d.note}`}
-                // onSelecetItem={this.onSelecetItem}
-                // onDeleteItem={p.removeTransaction}
-              />
-            )}
-          </ScrollView>
-
-          <ActionButton buttonColor="rgba(231,76,60,1)" offsetY={40} offsetX={15}>
-            <ActionButton.Item
-              buttonColor='#9b59b6'
-              title="New Reminder"
-              onPress={() => Actions.newReminder()}>
-              <Icon name="md-create" style={styles.actionButtonIcon} />
-            </ActionButton.Item>
-          </ActionButton>
-
+          {this.props.title === 'Reminders'
+            ? <ActionButton buttonColor="rgba(231,76,60,1)" offsetY={40} offsetX={15}>
+                <ActionButton.Item
+                  buttonColor='#9b59b6'
+                  title="New Reminder"
+                  onPress={() => Actions.newReminder()}>
+                  <Icon name="md-create" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                <ActionButton.Item
+                  buttonColor='#3498db'
+                  title="Completed Reminders"
+                  onPress={() => Actions.completedReminders()}>
+                  <Icon name="md-checkmark" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
+                </ActionButton.Item>
+              </ActionButton>
+            : <ActionButton buttonColor="rgba(231,76,60,1)" offsetY={40} offsetX={15}>
+                <ActionButton.Item
+                  buttonColor='#9b59b6'
+                  title="New Reminder"
+                  onPress={() => Actions.newReminder()}>
+                  <Icon name="md-create" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                <ActionButton.Item
+                  buttonColor='#3498db'
+                  title="Uncompleted Reminders"
+                  onPress={() => Actions.viewReminders()}>
+                  <Icon name="md-list" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
+                </ActionButton.Item>
+                <ActionButton.Item
+                  buttonColor='#1abc9c'
+                  title="Clear all completed reminders"
+                  onPress={() => this.props.actions.reminders.clearCompletedReminders()}>
+                  <Icon name="md-warning" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
+                </ActionButton.Item>
+              </ActionButton>
+            }
       </View>
     )
   }
@@ -85,25 +106,24 @@ class Reminders extends Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
     paddingTop: 64,
     backgroundColor: 'rgb(253,253,253)',
   },
   actionButtonIcon: {
-    fontSize: 10,
-    height: 10,
+    fontSize: 20,
+    height: 20,
     color: 'white',
   }
 })
 
 export default connect(
   (state) => ({
-    currencySymbol: state.settings.currencySymbol
+    currencySymbol: state.settings.currencySymbol,
+    reminders: state.reminders.reminders
   }),
   (dispatch) => ({
     actions: {
-      data: bindActionCreators(dataActions, dispatch)
+      reminders: bindActionCreators(remindersActions, dispatch)
     }
   })
 )(Reminders)

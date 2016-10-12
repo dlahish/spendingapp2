@@ -96,21 +96,8 @@ export default class NewReminderForm extends Component {
           onSubmit={(isValid, values, validationResults, postSubmit = null, modalNavigator = null) => {
             if (isValid === true) {
               values.date = date
-              console.log('submitted', values)
               GiftedFormManager.reset('newReminderForm')
-              this.props.onSubmitReminder()
-              // postSubmit(['An error occurred, please try again'])
-              // prepare object
-              // values.gender = values.gender[0];
-              // values.birthday = moment(values.birthday).format('YYYY-MM-DD');
-
-              /* Implement the request to your server using values variable
-              ** then you can do:
-              ** postSubmit(); // disable the loader
-              ** postSubmit(['An error occurred, please try again']); // disable the loader and display an error message
-              ** postSubmit(['Username already taken', 'Email already taken']); // disable the loader and display an error message
-              ** GiftedFormManager.reset('signupForm'); // clear the states of the form manually. 'signupForm' is the formName used
-              */
+              this.props.onSubmitReminder(isValid)
             } else {
               console.log('validationResults', validationResults)
 

@@ -1,5 +1,5 @@
 export function setAmountColor(type) {
-  if (type === 'Income') return {color: 'green'}
+  if (type === 'Income' || type === 'lent') return {color: 'green'}
   else return {color: 'red'}
 }
 
