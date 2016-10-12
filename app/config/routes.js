@@ -23,8 +23,11 @@ import {
   CurrencySymbols,
   PresetTransactions,
   Loader,
-  Export
+  Export,
+  Reminders,
+  NewReminder
 } from '../components'
+import FormModal from '../components/reminders/FormModal'
 import Icon from 'react-native-vector-icons/FontAwesome'
 const plusIcon = (<Icon name='plus' size={26} color='#FFF' />)
 const plusIconBlackDisabled = (<Icon name='plus' size={26} color='#BBBBBB' />)
@@ -89,6 +92,7 @@ class Routes extends Component {
                       hideTabBar={true}
                     />
                   </Scene>
+                  <Scene key="reminders" component={Reminders} icon={TabIcon} title='Reminders' />
                   <Scene key="settings" component={Settings} icon={TabIcon} title='Settings' />
                   <Scene
                     key="categories"
@@ -129,6 +133,8 @@ class Routes extends Component {
                   />
                 </Scene>
 
+                <Scene key="newReminder" component={NewReminder} icon={TabIcon} title='New Reminder' />
+                <Scene key='formModal' component={FormModal}/>
                 <Scene
                   key="newTransaction"
                   component={NewTransaction}

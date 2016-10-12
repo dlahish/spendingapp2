@@ -32,6 +32,8 @@ import MonthHeader from './common/MonthHeader'
 import MenuModal from './common/MenuModal'
 import FilteredAndSortedTransactionsTotal from './transactions/FilteredAndSortedTransactionsTotal'
 import Export from './transactions/Export'
+import Reminders from './reminders/Reminders'
+import NewReminder from './reminders/NewReminder'
 
 export {
   Home,
@@ -67,5 +69,7 @@ export {
   MonthHeader,
   MenuModal,
   FilteredAndSortedTransactionsTotal,
-  Export
+  Export,
+  Reminders,
+  NewReminder
 }

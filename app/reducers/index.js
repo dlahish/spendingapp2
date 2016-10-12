@@ -5,6 +5,7 @@ import data from './data'
 import form from './form'
 import settings from './settings'
 import storage from './storage'
+import reminders from './reminders'
 
 export default combineReducers({
   account,
@@ -12,5 +13,6 @@ export default combineReducers({
   data,
   form,
   storage,
-  settings
+  settings,
+  reminders
 })
