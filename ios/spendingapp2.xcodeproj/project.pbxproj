@@ -26,7 +26,6 @@
 		9B53409F1DA5FC92002D3037 /* libRNSearchBar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B53409E1DA5FC08002D3037 /* libRNSearchBar.a */; };
 		9B6211621D83F8D500F2B6D0 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B62115A1D83F8D500F2B6D0 /* Entypo.ttf */; };
 		9B6211631D83F8D500F2B6D0 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B62115B1D83F8D500F2B6D0 /* EvilIcons.ttf */; };
-		9B6211641D83F8D500F2B6D0 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B62115C1D83F8D500F2B6D0 /* FontAwesome.ttf */; };
 		9B6211651D83F8D500F2B6D0 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B62115D1D83F8D500F2B6D0 /* Foundation.ttf */; };
 		9B6211661D83F8D500F2B6D0 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B62115E1D83F8D500F2B6D0 /* Ionicons.ttf */; };
 		9B6211671D83F8D500F2B6D0 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B62115F1D83F8D500F2B6D0 /* MaterialIcons.ttf */; };
@@ -36,6 +35,8 @@
 		9B8203CB1DA98586008051B9 /* libRNSpinkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B8203CA1DA98568008051B9 /* libRNSpinkit.a */; };
 		9B8203D51DABA0DC008051B9 /* libRNMail.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B8203D21DABA0C7008051B9 /* libRNMail.a */; };
 		9BD1AF4C1D96D7D100366CD1 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BD1AF481D96D7C600366CD1 /* libRNI18n.a */; };
+		9BD202621DAF75DE00DE8F48 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B62117A1D8404CA00F2B6D0 /* libRNVectorIcons.a */; };
+		9BD202641DAF762C00DE8F48 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9BD202631DAF762C00DE8F48 /* FontAwesome.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,7 +201,6 @@
 		9B5340991DA5FC07002D3037 /* RNSearchBar.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSearchBar.xcodeproj; path = "../node_modules/react-native-search-bar/RNSearchBar.xcodeproj"; sourceTree = "<group>"; };
 		9B62115A1D83F8D500F2B6D0 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
 		9B62115B1D83F8D500F2B6D0 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
-		9B62115C1D83F8D500F2B6D0 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 		9B62115D1D83F8D500F2B6D0 /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Foundation.ttf; sourceTree = "<group>"; };
 		9B62115E1D83F8D500F2B6D0 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
 		9B62115F1D83F8D500F2B6D0 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
@@ -210,6 +210,7 @@
 		9B8203C51DA98568008051B9 /* RNSpinkit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSpinkit.xcodeproj; path = "../node_modules/react-native-spinkit/ios/RNSpinkit.xcodeproj"; sourceTree = "<group>"; };
 		9B8203CC1DABA0C7008051B9 /* RNMail.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNMail.xcodeproj; path = "../node_modules/react-native-mail/RNMail.xcodeproj"; sourceTree = "<group>"; };
 		9BD1AF371D96D7C600366CD1 /* RNI18n.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNI18n.xcodeproj; path = "../node_modules/react-native-i18n/RNI18n.xcodeproj"; sourceTree = "<group>"; };
+		9BD202631DAF762C00DE8F48 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +226,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BD202621DAF75DE00DE8F48 /* libRNVectorIcons.a in Frameworks */,
 				9B8203D51DABA0DC008051B9 /* libRNMail.a in Frameworks */,
 				9B8203CB1DA98586008051B9 /* libRNSpinkit.a in Frameworks */,
 				9B8203B61DA96C16008051B9 /* libART.a in Frameworks */,
@@ -421,9 +423,9 @@
 		9B6211591D83F8D500F2B6D0 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				9BD202631DAF762C00DE8F48 /* FontAwesome.ttf */,
 				9B62115A1D83F8D500F2B6D0 /* Entypo.ttf */,
 				9B62115B1D83F8D500F2B6D0 /* EvilIcons.ttf */,
-				9B62115C1D83F8D500F2B6D0 /* FontAwesome.ttf */,
 				9B62115D1D83F8D500F2B6D0 /* Foundation.ttf */,
 				9B62115E1D83F8D500F2B6D0 /* Ionicons.ttf */,
 				9B62115F1D83F8D500F2B6D0 /* MaterialIcons.ttf */,
@@ -753,10 +755,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B6211671D83F8D500F2B6D0 /* MaterialIcons.ttf in Resources */,
+				9BD202641DAF762C00DE8F48 /* FontAwesome.ttf in Resources */,
 				9B6211681D83F8D500F2B6D0 /* Octicons.ttf in Resources */,
 				9B6211691D83F8D500F2B6D0 /* Zocial.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				9B6211641D83F8D500F2B6D0 /* FontAwesome.ttf in Resources */,
 				9B6211631D83F8D500F2B6D0 /* EvilIcons.ttf in Resources */,
 				9B6211661D83F8D500F2B6D0 /* Ionicons.ttf in Resources */,
 				9B6211651D83F8D500F2B6D0 /* Foundation.ttf in Resources */,
@@ -869,7 +871,7 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
 				INFOPLIST_FILE = spendingapp2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -894,7 +896,7 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
 				INFOPLIST_FILE = spendingapp2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -950,7 +952,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -993,7 +995,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
