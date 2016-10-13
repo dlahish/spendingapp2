@@ -27,7 +27,9 @@ class NewTransaction extends Component {
       category: '',
       notes: null,
       error: '',
-      categoryType: ''
+      categoryType: '',
+      isValid: false,
+      formValidateInfo: undefined
     }
   }
 
@@ -50,14 +52,15 @@ class NewTransaction extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
+      ...this.state,
       category: nextProps.newCategory,
-      categoryType: nextProps.categoryType
+      categoryType: nextProps.categoryType,
+      error: ''
     })
   }
 
   onDateChange = (date) => {
-    console.log('on date change - ', date)
-    this.setState({ ...this.state, date: date })
+    this.setState({ date: new Date(date) })
   }
 
   onInputChange = (field, value) => {
@@ -67,54 +70,68 @@ class NewTransaction extends Component {
     })
   }
 
-  handleValueChange = (values) => {
-    console.log('handle value change', values)
-    values = { ...values,
-      date: this.state.date,
-      category: this.state.category,
-      categoryType: this.state.categoryType
-    }
-    console.log('value after - ', values)
-    this.setState({ values })
+  handleValueChange = (values, formValidateInfo) => {
+    console.log('handleValueChange', values)
+    console.log('isValid', formValidateInfo)
+    let error = this.state.error
+    if (formValidateInfo.results.amount[0].value.length === 0) error = ''
+    this.setState({
+      isValid: formValidateInfo.isValid,
+      amount: values.amount,
+      notes: values.notes,
+      error,
+      formValidateInfo
+    })
   }
 
   onSaveNewTransaction = () => {
-    if (this.state.category === 'Category') {
-      this.setState({error: 'Category must be selected'})
-    } else if (this.state.amount === null || this.state.amount.length === 0) {
-      this.setState({error: 'Please enter an amount'})
-    } else {
-      let newAmount
-      if (this.state.categoryType === 'Expense') { newAmount = this.state.amount * -1 }
-      else { newAmount = this.state.amount }
-      const transaction = {
-        _id: this.state._id,
-        date: this.state.date,
-        amount: newAmount,
-        category: this.state.category,
-        notes: this.state.notes,
-        type: this.state.categoryType
-      }
-      if (this.props.title === 'New Transaction') {
-        if (this.props.editMode) {
-          this.props.actions.data.updateTransaction(transaction)
-        } else {
-          this.props.actions.data.addNewTransaction(transaction)
-        }
+    if (this.state.isValid) {
+      if (this.state.category === '') {
+        this.setState({error: 'Category is required'})
+      } else if (this.state.amount === null || this.state.amount.length === 0) {
+        this.setState({error: 'Amount is required'})
       } else {
-        this.props.actions.data.addFavoriteTransaction(transaction)
-      }
+        let newAmount
+        if (this.state.categoryType === 'Expense') { newAmount = this.state.amount * -1 }
+        else { newAmount = this.state.amount }
+        const transaction = {
+          _id: this.state._id,
+          date: this.state.date,
+          amount: newAmount,
+          category: this.state.category,
+          notes: this.state.notes,
+          type: this.state.categoryType
+        }
+        if (this.props.title === 'New Transaction') {
+          if (this.props.editMode) {
+            this.props.actions.data.updateTransaction(transaction)
+          } else {
+            this.props.actions.data.addNewTransaction(transaction)
+          }
+        } else {
+          this.props.actions.data.addFavoriteTransaction(transaction)
+        }
 
-      this.setState({
-        date: new Date(),
-        amount: '',
-        category: '',
-        notes: '',
-        error: '',
-        categoryType: ''
-      })
-      this.props.actions.form.clearForm()
-      Actions.pop()
+        this.setState({
+          date: new Date(),
+          amount: '',
+          category: '',
+          notes: '',
+          error: '',
+          categoryType: ''
+        })
+        this.props.actions.form.clearForm()
+        Actions.pop()
+      }
+    } else {
+      let error
+      if (this.state.formValidateInfo === undefined) {
+        error = 'Amount is required'
+        this.setState({error})
+      } else if (this.state.formValidateInfo.results.amount[0].message.length > 0) {
+        error = this.state.formValidateInfo.results.amount[0].message
+        this.setState({error})
+      } else { this.setState({error: ''}) }
     }
   }
 
@@ -146,6 +163,7 @@ class NewTransaction extends Component {
   }
 
   render() {
+    console.log('new transaxction', this.state)
     let incomeSelected, expenseSelected
     if (this.state.categoryType === 'Income') { incomeSelected = true, expenseSelected = false }
     else { incomeSelected = false, expenseSelected = true }
@@ -181,6 +199,7 @@ class NewTransaction extends Component {
             onInputChange={this.onInputChange}
             title={this.props.title}
             handleValueChange={this.handleValueChange}
+            onSaveNewTransaction={this.onSaveNewTransaction}
           />
           {this.props.editMode
             ? <View style={{alignItems: 'center'}}>
