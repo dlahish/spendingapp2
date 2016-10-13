@@ -7,7 +7,7 @@ import {
 } from '../constants'
 
 const initialState = {
-  category: 'Category',
+  category: '',
   categoryType: 'Income',
   transactionsSearchValue: ''
 }
@@ -24,8 +24,8 @@ export default function accounts (state = initialState, action) {
       return initialState
     case REHYDRATE:
       var incoming = action.payload.myReducer
-      if (incoming) return {...state, ...incoming, specialKey: processSpecial(incoming.specialKey)}
-      return state
+      if (incoming) return {initialState, specialKey: processSpecial(incoming.specialKey)}
+      return initialState
     default:
       return state
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { GiftedForm, GiftedFormManager } from 'react-native-gifted-form'
-import Icon from 'react-native-vector-icons/Ionicons';
-const upArrow = (<Icon name='angle-up' size={24} color='black' style={{paddingLeft: 10}}/>)
+import Icon from 'react-native-vector-icons/Ionicons'
+// const upArrow = (<Icon name='angle-up' size={24} color='black' style={{paddingLeft: 10}}/>)
 import DatePicker from 'react-native-datepicker'
 import { Actions, ActionConst } from 'react-native-router-flux'
 import { View, Text } from 'react-native'

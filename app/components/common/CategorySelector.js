@@ -42,7 +42,7 @@ export default CategorySelector = (props) => {
 const styles = {
   categoryTypeWrapper: {
     flexDirection: 'row',
-    marginBottom: 20,
+    // marginBottom: 20,
     borderBottomColor: 'black',
     borderBottomWidth: 1,
     padding: 10,

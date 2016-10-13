@@ -23,8 +23,8 @@ class NewTransaction extends Component {
     super(props)
     this.state = {
       date: new Date(),
-      amount: null,
-      category: 'Category',
+      amount: '',
+      category: '',
       notes: null,
       error: '',
       categoryType: ''
@@ -56,7 +56,8 @@ class NewTransaction extends Component {
   }
 
   onDateChange = (date) => {
-    this.setState({ date: date })
+    console.log('on date change - ', date)
+    this.setState({ ...this.state, date: date })
   }
 
   onInputChange = (field, value) => {
@@ -64,6 +65,17 @@ class NewTransaction extends Component {
       ...this.state,
       [field]: value
     })
+  }
+
+  handleValueChange = (values) => {
+    console.log('handle value change', values)
+    values = { ...values,
+      date: this.state.date,
+      category: this.state.category,
+      categoryType: this.state.categoryType
+    }
+    console.log('value after - ', values)
+    this.setState({ values })
   }
 
   onSaveNewTransaction = () => {
@@ -96,7 +108,7 @@ class NewTransaction extends Component {
       this.setState({
         date: new Date(),
         amount: '',
-        category: 'Category',
+        category: '',
         notes: '',
         error: '',
         categoryType: ''
@@ -110,7 +122,7 @@ class NewTransaction extends Component {
     this.setState({
       date: new Date(),
       amount: '',
-      category: 'Category',
+      category: '',
       notes: '',
       error: '',
       type: '',
@@ -152,11 +164,11 @@ class NewTransaction extends Component {
           expenseSelected={expenseSelected}
           onTypeChange={this.onTypeChange}
         />
-        <ScrollView
+        {/* <ScrollView
           keyboardDismissMode='interactive'
           keyboardShouldPersistTaps={false}
           ref={(scrollView) => { _scrollView = scrollView }}
-        >
+        > */}
           <NewTransactionForm
             date={this.state.date}
             amount={this.state.amount}
@@ -168,6 +180,7 @@ class NewTransaction extends Component {
             onDateChange={this.onDateChange}
             onInputChange={this.onInputChange}
             title={this.props.title}
+            handleValueChange={this.handleValueChange}
           />
           {this.props.editMode
             ? <View style={{alignItems: 'center'}}>
@@ -177,8 +190,8 @@ class NewTransaction extends Component {
                 </Button>
               </View>
             : <View></View>}
-        </ScrollView>
-        <KeyboardSpacer/>
+        {/* </ScrollView> */}
+        {/* <KeyboardSpacer/> */}
       </View>
     )
   }

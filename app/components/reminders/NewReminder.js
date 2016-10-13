@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import * as remindersActions from '../../actions/reminders'
 import { Actions } from 'react-native-router-flux'
 import NewReminderForm from './NewReminderForm'
+import moment from 'moment'
 
 class NewReminder extends Component {
   constructor(props) {
@@ -27,7 +28,12 @@ class NewReminder extends Component {
   }
 
   onDateChange = (date) => {
-    this.setState({ ...this.state, form: {...this.state.form, date: date } })
+    console.log('reminder, date change - ', date)
+    const dateInDateFormat = moment(date).toISOString()
+    const td = new Date(date)
+    console.log(dateInDateFormat)
+    console.log('td', td)
+    this.setState({ ...this.state, form: {...this.state.form, date: td } })
   }
 
   onSubmitReminder = (isValid) => {
