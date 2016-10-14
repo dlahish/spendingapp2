@@ -50,6 +50,9 @@ class Home extends Component {
                                                                       this.props.transactions)}
               />
             </View>
+            <View style={styles.titleWrapper}>
+              <Text style={styles.titleText}>Month Balance</Text>
+            </View>
             <View style={styles.summary}>
               <CurrentMonthTotal
                 currentMonthTotal={this.props.currentMonthTotal}
@@ -57,8 +60,9 @@ class Home extends Component {
               />
             </View>
           </View>
-          <View style={styles.presetTransactionsTitleWrapper}>
-            <Text style={{fontSize: 17, fontWeight: '500'}}>Preset Transactions</Text>
+
+          <View style={styles.titleWrapper}>
+            <Text style={styles.titleText}>Preset Transactions</Text>
           </View>
           <View style={styles.favoriteTransactions}>
             <DisplayFavoriteTransactions
@@ -123,9 +127,9 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 3,
     borderBottomWidth: 1,
-    borderBottomColor: '#BBB',
-    paddingLeft: 15,
-    paddingRight: 15
+    borderBottomColor: '#BBB'
+    // paddingLeft: 15,
+    // paddingRight: 15
   },
   summary: {
     flex: 1
@@ -136,11 +140,16 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15
   },
-  presetTransactionsTitleWrapper: {
+  titleWrapper: {
     backgroundColor: '#BBB',
     paddingLeft: 15,
     justifyContent: 'center',
     paddingTop: 3,
     paddingBottom: 3
+  },
+  titleText: {
+    color: 'black',
+    fontSize: 17,
+    fontWeight: '400'
   }
 })

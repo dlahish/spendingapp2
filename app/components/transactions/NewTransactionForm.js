@@ -58,7 +58,7 @@ class NewTransactionForm extends Component {
           }}
         >
           <GiftedForm.NoticeWidget title={error} style={{paddingTop: 2, color: 'red'}}/>
-          {this.props.title !== 'New Favorite Transaction'
+          {/* {this.props.title !== 'New Favorite Transaction'
             ? <GiftedForm.RowDatePicker
                 name='dateRow'
                 title='Date'
@@ -66,7 +66,7 @@ class NewTransactionForm extends Component {
                 image={getIcon('ios-calendar')}
                 date={date}
                 onDateChange={onDateChange}
-              /> : null }
+              /> : null } */}
               <GiftedForm.TextInputWidget
                 name='amount'
                 title='Amount'
@@ -75,14 +75,14 @@ class NewTransactionForm extends Component {
                 value={amount}
                 image={getIcon('ios-cash')}
               />
-              <GiftedForm.RowWidgetWithTitle
+              {/* <GiftedForm.RowWidgetWithTitle
                 title='Category'
                 disclosure={true}
                 onPress={() => Actions.categoryList({categoryType: this.props.categoryType})}
                 image={getIcon('ios-list-box')}
                 mainContent={category}
                 placeholder='Category'
-              />
+              /> */}
               <GiftedForm.TextAreaWidget
                 name='notes'
                 title='Notes'

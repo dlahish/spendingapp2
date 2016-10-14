@@ -60,7 +60,7 @@ export default class CurrentMonthTotal extends Component {
 
         <View style={styles.innerContainer}>
           <Text style={styles.title}>
-            Balance
+            Total
           </Text>
           <View>
             {displayText(this.props.currentMonthTotal, 'balance', this.props.currencySymbol)}
@@ -78,26 +78,31 @@ CurrentMonthTotal.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    paddingTop: 5
   },
   innerContainer: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-between',
-    marginBottom: 5
+    marginBottom: 5,
+    paddingLeft: 15,
+    paddingRight: 15
   },
   title: {
     justifyContent: 'center',
-    fontSize: 15,
-    fontWeight: '500',
+    color: '#333',
+    fontSize: 17,
+    fontWeight: '400',
     // color: 'rgb(0, 153, 204)',
     paddingBottom: 5
   },
   amount: {
     flex: 1,
-    fontSize: 15,
-    fontWeight: '500',
+    color: '#333',
+    fontSize: 17,
+    fontWeight: '400'
   },
   loading: {
     flex: 1,

@@ -7,10 +7,11 @@ import {
 
 function isSelected(selected, type) {
   if (type === 'button') {
-    if (selected) return {backgroundColor: '#BBB'}
-    else return {backgroundColor: '#FFF'}
+    if (selected) return styles.selectedButton
+    else return styles.defaultButton
   } else {
-    if (selected) return {fontSize: 17, fontWeight: 'bold'}
+    if (selected) return styles.selectedButtonText
+    else return styles.defaultButtonText
   }
 }
 
@@ -22,15 +23,15 @@ export default CategorySelector = (props) => {
   } = props
 
   return (
-    <View style={[styles.categoryTypeWrapper]}>
+    <View style={[styles.container]}>
       <TouchableHighlight
-        style={[styles.categoryTypeButton, {borderTopLeftRadius: 5, borderBottomLeftRadius: 5}, isSelected(incomeSelected, 'button')]}
+        style={[styles.categoryTypeButton, styles.leftButton, isSelected(incomeSelected, 'button')]}
         onPress={()=> onTypeChange('Income')}
       >
         <Text style={isSelected(incomeSelected, 'text')}>Income</Text>
       </TouchableHighlight>
       <TouchableHighlight
-        style={[styles.categoryTypeButton, {borderTopRightRadius: 5, borderBottomRightRadius: 5}, isSelected(expenseSelected, 'button')]}
+        style={[styles.categoryTypeButton, styles.rightButton, isSelected(expenseSelected, 'button')]}
         onPress={() => onTypeChange('Expense')}
       >
         <Text style={isSelected(expenseSelected, 'text')}>Expense</Text>
@@ -40,18 +41,42 @@ export default CategorySelector = (props) => {
 }
 
 const styles = {
-  categoryTypeWrapper: {
+  container: {
     flexDirection: 'row',
-    // marginBottom: 20,
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
     padding: 10,
-    backgroundColor: '#6666ff',
+    backgroundColor: '#eaeaea',
   },
   categoryTypeButton: {
+    borderColor: '#c8c7cc',
+    borderWidth: 1.5,
     flex:1,
     alignItems: 'center',
     paddingTop: 5,
     paddingBottom: 5
+  },
+  defaultButton: {
+    backgroundColor: '#eaeaea'
+  },
+  defaultButtonText: {
+    fontSize: 15,
+    fontWeight: '500'
+  },
+  selectedButton: {
+    backgroundColor: 'blue'
+  },
+  selectedButtonText: {
+    fontSize: 15,
+    fontWeight: '500',
+    color: '#FFF'
+  },
+  leftButton: {
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
+    borderRightWidth: 0
+  },
+  rightButton: {
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5,
+    borderLeftWidth: 0
   }
 }
