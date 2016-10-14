@@ -18,6 +18,7 @@ import * as accountActions from '../../actions/accounts'
 import * as dataActions from '../../actions/data'
 import * as formActions from '../../actions/form'
 import * as settingsActions from '../../actions/settings'
+import ProgressBar from '../ProgressBar'
 
 class Home extends Component {
 
@@ -50,6 +51,7 @@ class Home extends Component {
                                                                       this.props.transactions)}
               />
             </View>
+            <ProgressBar currentMonthTotal={this.props.currentMonthTotal}/>
             <View style={styles.titleWrapper}>
               <Text style={styles.titleText}>Month Balance</Text>
             </View>
@@ -124,7 +126,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   monthSummary: {
-    flex: 1,
+    flex: 3,
     paddingTop: 3,
     borderBottomWidth: 1,
     borderBottomColor: '#BBB'
@@ -135,7 +137,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   favoriteTransactions: {
-    flex: 2,
+    flex: 5,
     paddingTop: 10,
     paddingLeft: 15,
     paddingRight: 15

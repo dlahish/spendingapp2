@@ -28,7 +28,7 @@ class SimpleChart extends Component {
                     style={styles.chart}
                     data={data}
                     verticalGridStep={5}
-                    type="pie"
+                    type="line"
                     showDataPoint={true}
                     showAxis={false}
                  />
