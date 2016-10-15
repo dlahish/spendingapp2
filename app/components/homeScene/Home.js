@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { Component, PropTypes } from 'react'
-import { View, Text, TouchableHighlight, StyleSheet } from 'react-native'
+import { View, Text, TouchableHighlight, StyleSheet, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Actions } from 'react-native-router-flux'
@@ -78,12 +78,12 @@ class Home extends Component {
           <View style={styles.titleWrapper}>
             <Text style={styles.titleText}>Preset Transactions</Text>
           </View>
-          <View style={styles.favoriteTransactions}>
+          <ScrollView style={styles.favoriteTransactions}>
             <DisplayFavoriteTransactions
               favoriteTransactions={this.props.favoriteTransactions}
               onAddNewFavortieTransaction={this.onAddNewFavortieTransaction}
             />
-          </View>
+          </ScrollView>
 
         </View>
 
