@@ -1,6 +1,5 @@
 import Home from './homeScene/Home'
 import Signin from './authentication/Signin'
-import SigninForm from './authentication/SigninForm'
 import SignupForm from './authentication/SignupForm'
 import Signup from './authentication/Signup'
 import TabIcon from './common/TabIcon'
@@ -40,7 +39,6 @@ import RowWidgetWithTitle from './common/formWidgets/widgets/RowWidgetWithTitle'
 export {
   Home,
   Signin,
-  SigninForm,
   SignupForm,
   Signup,
   TabIcon,

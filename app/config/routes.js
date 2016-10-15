@@ -56,7 +56,7 @@ class Routes extends Component {
               tabs={true}
             >
               <Scene key="authentication" >
-                <Scene key="signin" title="Signin" component={Signin} />
+                <Scene key="signin" title="Signin" component={Signin} hideNavBar={true}/>
                 <Scene key="signup" title="Signup" component={Signup} />
               </Scene>
 
