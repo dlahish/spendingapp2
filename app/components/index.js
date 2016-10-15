@@ -35,6 +35,7 @@ import Reminders from './reminders/Reminders'
 import NewReminder from './reminders/NewReminder'
 import RowDatePicker from './common/formWidgets/widgets/RowDatePicker'
 import RowWidgetWithTitle from './common/formWidgets/widgets/RowWidgetWithTitle'
+import LoadingOverlay from './common/LoadingOverlay'
 
 export {
   Home,
@@ -73,5 +74,6 @@ export {
   Reminders,
   NewReminder,
   RowDatePicker,
-  RowWidgetWithTitle
+  RowWidgetWithTitle,
+  LoadingOverlay
 }

@@ -15,6 +15,7 @@ import { bindActionCreators } from 'redux'
 import { Actions } from 'react-native-router-flux'
 import * as accountActions from '../../actions/accounts'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
+import { LoadingOverlay } from '../../components'
 var windowSize = Dimensions.get('window')
 
 class Signin extends Component {
@@ -22,14 +23,22 @@ class Signin extends Component {
     super(props)
     this.state = {
       email: '',
-      password: ''
+      password: '',
+			isLoading: false
     }
   }
 
 	onFormSubmit = () => {
+		this.setState({ isLoading: true })
 		this.props.signinAndAuthUser(this.state)
-			.then((authError) => {
-				if (!authError) Actions.home()
+			.then(() => {
+				console.log('autherror', this.props.authError)
+				if (!this.props.authError) {
+					this.setState({ isLoading: false })
+					Actions.home()
+				} else {
+					this.setState({ isLoading: false })
+				}
 			})
     this.setState({ password: '' })
   }
@@ -78,6 +87,7 @@ class Signin extends Component {
                     />
                 </View>
                 <View style={styles.forgotContainer}>
+										<Text style={{color: 'red'}}>{this.props.authError}</Text>
                     <Text style={styles.greyFont}>Forgot Password</Text>
                 </View>
             </View>
@@ -90,7 +100,7 @@ class Signin extends Component {
                 <Text style={styles.greyFont}>Don't have an account?
 								<Text onPress={() => this.onSignupPress()} style={styles.whiteFont}>  Sign Up</Text></Text>
             </View>
-						<KeyboardSpacer />
+						<LoadingOverlay isLoading={this.state.isLoading} />
         </View>
     )
   }
@@ -165,8 +175,11 @@ var styles = StyleSheet.create({
         fontSize: 14
     },
     forgotContainer: {
-      alignItems: 'flex-end',
+			flexDirection: 'row',
+      justifyContent: 'space-between',
+			alignItems: 'stretch',
       padding: 15,
+			paddingLeft: 25
     },
     greyFont: {
       color: '#D8D8D8'
