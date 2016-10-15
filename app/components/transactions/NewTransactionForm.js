@@ -11,7 +11,7 @@ import {
   ListView,
 } from 'react-native'
 import Button from 'react-native-button'
-import { addBorder, DatePicker, DatePickerModal } from '../../components'
+import { addBorder, DatePicker, DatePickerModal, RowDatePicker, RowWidgetWithTitle } from '../../components'
 import { Actions } from 'react-native-router-flux'
 
 function getIcon(name) {
@@ -43,7 +43,7 @@ class NewTransactionForm extends Component {
       <View style={[styles.container]}>
         <GiftedForm
           formName='newReminderForm'
-          openModal={route => Actions.formModal({ ...route, title: route.getTitle() })}
+          // openModal={route => Actions.formModal({ ...route, title: route.getTitle() })}
           onValueChange={(values) => {
             handleValueChange(values, GiftedFormManager.validate('newReminderForm'))
           }}
@@ -57,16 +57,16 @@ class NewTransactionForm extends Component {
             }
           }}
         >
-          <GiftedForm.NoticeWidget title={error} style={{paddingTop: 2, color: 'red'}}/>
-          {/* {this.props.title !== 'New Favorite Transaction'
-            ? <GiftedForm.RowDatePicker
+          <GiftedForm.NoticeWidget title={error} style={{color: 'red'}}/>
+          {this.props.title !== 'New Favorite Transaction'
+            ? <RowDatePicker
                 name='dateRow'
                 title='Date'
                 placeholder='Enter date'
                 image={getIcon('ios-calendar')}
                 date={date}
                 onDateChange={onDateChange}
-              /> : null } */}
+              /> : null }
               <GiftedForm.TextInputWidget
                 name='amount'
                 title='Amount'
@@ -75,14 +75,14 @@ class NewTransactionForm extends Component {
                 value={amount}
                 image={getIcon('ios-cash')}
               />
-              {/* <GiftedForm.RowWidgetWithTitle
+              <RowWidgetWithTitle
                 title='Category'
                 disclosure={true}
                 onPress={() => Actions.categoryList({categoryType: this.props.categoryType})}
                 image={getIcon('ios-list-box')}
                 mainContent={category}
                 placeholder='Category'
-              /> */}
+              />
               <GiftedForm.TextAreaWidget
                 name='notes'
                 title='Notes'
@@ -90,7 +90,7 @@ class NewTransactionForm extends Component {
                 clearButtonMode='while-editing'
                 value={notes}
               />
-              <GiftedForm.ErrorsWidget />
+              {/* <GiftedForm.ErrorsWidget />
               <GiftedForm.SubmitWidget
                 title='Add new transactions'
                 widgetStyles={{
@@ -107,7 +107,7 @@ class NewTransactionForm extends Component {
                     console.log('validationResults', validationResults)
                   }
                 }}
-              />
+              /> */}
         </GiftedForm>
         {/* {this.props.title !== 'New Favorite Transaction'
           ? <View style={[styles.inputWrapper]}>

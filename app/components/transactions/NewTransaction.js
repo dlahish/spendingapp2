@@ -60,7 +60,9 @@ class NewTransaction extends Component {
   }
 
   onDateChange = (date) => {
-    this.setState({ date: new Date(date) })
+    let dateParts = date.split('-')
+    let formattedDate = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0])
+    this.setState({ date: formattedDate })
   }
 
   onInputChange = (field, value) => {
@@ -71,8 +73,6 @@ class NewTransaction extends Component {
   }
 
   handleValueChange = (values, formValidateInfo) => {
-    console.log('handleValueChange', values)
-    console.log('isValid', formValidateInfo)
     let error = this.state.error
     if (formValidateInfo.results.amount[0].value.length === 0) error = ''
     this.setState({
@@ -163,7 +163,6 @@ class NewTransaction extends Component {
   }
 
   render() {
-    console.log('new transaxction', this.state)
     let incomeSelected, expenseSelected
     if (this.state.categoryType === 'Income') { incomeSelected = true, expenseSelected = false }
     else { incomeSelected = false, expenseSelected = true }

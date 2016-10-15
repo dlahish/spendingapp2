@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     flex: 3,
     paddingTop: 3,
     borderBottomWidth: 1,
-    borderBottomColor: '#BBB'
+    borderBottomColor: '#eaeaea'
     // paddingLeft: 15,
     // paddingRight: 15
   },
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     paddingRight: 15
   },
   titleWrapper: {
-    backgroundColor: '#BBB',
+    backgroundColor: '#eaeaea',
     paddingLeft: 15,
     justifyContent: 'center',
     paddingTop: 3,

@@ -8,7 +8,6 @@ import {
 import * as Progress from 'react-native-progress'
 
 function getProgress(income, expense) {
-  console.log('propgress', income, expense)
   if (income === expense) return 0.5
   if (income === 0 && expense > 0) return 0
   if (expense === 0 && income > 0) return 1

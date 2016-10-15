@@ -94,8 +94,9 @@ const styles = StyleSheet.create({
     paddingBottom: 2
   },
   messageBox: {
-    backgroundColor: '#d8d8d8',
+    backgroundColor: '#eaeaea',
     borderWidth: 1,
+    borderRadius: 3,
     borderColor: 'black',
     padding: 15
   }

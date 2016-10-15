@@ -28,10 +28,9 @@ class NewReminder extends Component {
   }
 
   onDateChange = (date) => {
-    console.log('date', date)
-    console.log('to ios string', new Date(date).toISOString())
-    console.log('new Date', new Date(date))
-    this.setState({ ...this.state, form: {...this.state.form, date: new Date(date) } })
+    let dateParts = date.split('-')
+    let formattedDate = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0])
+    this.setState({ ...this.state, form: {...this.state.form, date: formattedDate } })
   }
 
   onSubmitReminder = (isValid) => {
@@ -42,7 +41,6 @@ class NewReminder extends Component {
   }
 
   render() {
-    console.log('date ---', this.state.form.date)
     return (
       <View style={styles.container}>
         <NewReminderForm

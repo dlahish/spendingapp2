@@ -80,7 +80,7 @@ export default class NewReminderForm extends Component {
           image={getIcon('ios-calendar')}
           date={date}
           onDateChange={onDateChange}
-        />
+          />
         <GiftedForm.TextAreaWidget
           name='notes'
           title='Notes'

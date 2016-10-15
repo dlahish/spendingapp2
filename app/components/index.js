@@ -34,6 +34,8 @@ import FilteredAndSortedTransactionsTotal from './transactions/FilteredAndSorted
 import Export from './transactions/Export'
 import Reminders from './reminders/Reminders'
 import NewReminder from './reminders/NewReminder'
+import RowDatePicker from './common/formWidgets/widgets/RowDatePicker'
+import RowWidgetWithTitle from './common/formWidgets/widgets/RowWidgetWithTitle'
 
 export {
   Home,
@@ -71,5 +73,7 @@ export {
   FilteredAndSortedTransactionsTotal,
   Export,
   Reminders,
-  NewReminder
+  NewReminder,
+  RowDatePicker,
+  RowWidgetWithTitle
 }
