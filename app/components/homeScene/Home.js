@@ -12,7 +12,8 @@ import {
   addBorder,
   AddTransactionButtons,
   ChangeMonthArrows,
-  DisplayFavoriteTransactions
+  DisplayFavoriteTransactions,
+  LoadingOverlay
 } from '../../components'
 import * as accountActions from '../../actions/accounts'
 import * as dataActions from '../../actions/data'
@@ -21,10 +22,21 @@ import * as settingsActions from '../../actions/settings'
 import ProgressBar from '../ProgressBar'
 
 class Home extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+			isLoading: false
+    }
+  }
 
   onAddNewFavortieTransaction = (favTransaction) => {
+    this.setState({ isLoading: true })
     delete favTransaction['id']
     this.props.actions.data.addNewFavoriteTransaction(favTransaction)
+  }
+
+  componentWillReceiveProps() {
+    this.setState({ isLoading: false })
   }
 
   render() {
@@ -78,7 +90,7 @@ class Home extends Component {
         <View style={styles.addTransactionButtonsWrapper}>
             <AddTransactionButtons setCategoryType={this.props.actions.form.setCategoryType}/>
         </View>
-
+        <LoadingOverlay isLoading={this.state.isLoading} />
       </View>
     )
   }
