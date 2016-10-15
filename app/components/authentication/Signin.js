@@ -100,6 +100,7 @@ class Signin extends Component {
                 <Text style={styles.greyFont}>Don't have an account?
 								<Text onPress={() => this.onSignupPress()} style={styles.whiteFont}>  Sign Up</Text></Text>
             </View>
+            <KeyboardSpacer />
 						<LoadingOverlay isLoading={this.state.isLoading} />
         </View>
     )
