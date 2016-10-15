@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 // const upArrow = (<Icon name='angle-up' size={24} color='black' style={{paddingLeft: 10}}/>)
 import DatePicker from 'react-native-datepicker'
 import { Actions, ActionConst } from 'react-native-router-flux'
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
 
 function getIcon(name) {
   return <Icon name={name} size={16} color='black' style={{paddingLeft: 10}}/>
@@ -51,8 +51,14 @@ export default class NewReminderForm extends Component {
         <GiftedForm.SeparatorWidget />
         <GiftedForm.GroupWidget title='Choose One'/>
         <GiftedForm.SelectWidget name='type' title='Type' multiple={false}>
-          <GiftedForm.OptionWidget image={getIcon('ios-arrow-down')} title='Borrow' value='borrow'/>
-          <GiftedForm.OptionWidget image={getIcon('ios-arrow-up')} title='Lent' value='lent'/>
+          <GiftedForm.OptionWidget
+            image={<Image source={require('../../icons/wallet2_left.png')} style={{height:22,width:22}}/>}
+            title='Borrow'
+            value='borrow'/>
+          <GiftedForm.OptionWidget
+            image={<Image source={require('../../icons/wallet2_right.png')} style={{height:22,width:22}}/>}
+            title='Lent'
+            value='lent'/>
         </GiftedForm.SelectWidget>
 
         <GiftedForm.SeparatorWidget />

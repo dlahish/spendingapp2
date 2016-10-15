@@ -62,7 +62,7 @@ const styles = {
     fontWeight: '500'
   },
   selectedButton: {
-    backgroundColor: 'blue'
+    backgroundColor: 'rgb(0, 153, 204)'
   },
   selectedButtonText: {
     fontSize: 15,

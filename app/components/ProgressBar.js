@@ -12,17 +12,9 @@ function getProgress(income, expense) {
   if (income === 0 && expense > 0) return 0
   if (expense === 0 && income > 0) return 1
   if (income > expense) {
-    if (income / 2 > expense) {
-      return expense / (income / 2)
-    } else {
-      return (income / 2) / expense
-    }
+    return ((1 - expense / income) * 0.5) + 0.5
   } else {
-    if (expense / 2 > income) {
-      return income / (expense / 2)
-    } else {
-      return (expense / 2) / income
-    }
+    return (income / expense) * 0.5
   }
 }
 
