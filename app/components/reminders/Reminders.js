@@ -95,11 +95,11 @@ class Reminders extends Component {
             <Icon name="md-warning" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
           </ActionButton.Item>
         </ActionButton>
-        
+
         <MessageModal
           setModalVisible={this.setModalVisible}
           modalVisible={this.state.modalVisible}
-          text='Are you sure you want to delete all completed transactions?'
+          text='Are you sure you want to delete all completed reminders?'
           button={true}
           buttonText='Delete All'
           onButtonPress={this.onDeleteConfirmPress}

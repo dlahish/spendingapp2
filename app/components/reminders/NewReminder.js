@@ -33,18 +33,10 @@ class NewReminder extends Component {
       },
       errors: ''
     })
-    // this.props.actions.form.clearForm()
     Actions.pop()
   }
 
-  // handleValueChange = (values) => {
-  //   values.date = this.state.form.date
-  //   values.completed = false
-  //   this.setState({ form: values })
-  // }
-
   handleValueChange = (values, formValidateInfo) => {
-    console.log('handle value change fom validation info', formValidateInfo)
     let errors = ''
     this.setState({
       form: {
@@ -81,14 +73,7 @@ class NewReminder extends Component {
     }
   }
 
-  // getErrorsString = () => {
-  //   const s = this.state
-  //   return `${s.errors.amount} \n ${s.errors.name} \n ${s.errors.type}`
-  //
-  // }
-
   render() {
-    console.log('new reminder state', this.state)
     return (
       <View style={styles.container}>
         <CustomNavBar

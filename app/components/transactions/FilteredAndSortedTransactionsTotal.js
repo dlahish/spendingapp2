@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { View, Text } from 'react-native'
 import I18n from 'react-native-i18n'
+import { getSymbol } from '../../functions/transactionsScene'
 
 export default FilteredAndSortedTransactionsTotal = (props) => {
 
@@ -11,7 +12,7 @@ export default FilteredAndSortedTransactionsTotal = (props) => {
       else if (type === 'expense' && transaction.type === 'Expense') totalBalance += Math.abs(transaction.amount)
     })
     return I18n.toCurrency(Math.abs(totalBalance),
-      {unit: props.currencySymbol,
+      {unit: getSymbol(props.currencySymbol),
       format: "%u %n",
       sign_first: false,
       precision: 0})
