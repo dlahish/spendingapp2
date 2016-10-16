@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { GiftedForm, GiftedFormManager } from 'react-native-gifted-form'
 import Icon from 'react-native-vector-icons/Ionicons'
-// const upArrow = (<Icon name='angle-up' size={24} color='black' style={{paddingLeft: 10}}/>)
 import DatePicker from 'react-native-datepicker'
 import { Actions, ActionConst } from 'react-native-router-flux'
 import { View, Text, Image } from 'react-native'
@@ -17,7 +16,10 @@ export default class NewReminderForm extends Component {
       <GiftedForm
         formName='newReminderForm'
         openModal={route => Actions.formModal({ ...route, title: route.getTitle() })}
-        onValueChange={handleValueChange}
+        // onValueChange={handleValueChange}
+        onValueChange={(values) => {
+          handleValueChange(values, GiftedFormManager.validate('newReminderForm'))
+        }}
         validators={{
           name: {
             title: 'name',
@@ -48,8 +50,7 @@ export default class NewReminderForm extends Component {
           }
         }}
       >
-        <GiftedForm.SeparatorWidget />
-        <GiftedForm.GroupWidget title='Choose One'/>
+        <GiftedForm.GroupWidget title='Choose Type'/>
         <GiftedForm.SelectWidget name='type' title='Type' multiple={false}>
           <GiftedForm.OptionWidget
             image={<Image source={require('../../icons/wallet2_left.png')} style={{height:22,width:22}}/>}
@@ -94,6 +95,7 @@ export default class NewReminderForm extends Component {
           clearButtonMode='while-editing'
           value={notes}
         />
+        <GiftedForm.NoticeWidget title={this.props.errors} style={{color: 'red'}}/>
         <GiftedForm.ErrorsWidget />
         <GiftedForm.SubmitWidget
           title='Add new reminder'
