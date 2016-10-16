@@ -27,6 +27,16 @@ export default class ItemRow extends Component {
     }
   }
 
+  getCompletedStyles = (type) => {
+    if (this.props.completed) {
+      switch (type) {
+        case 'container': return { opacity: 0.4 }
+        case 'amount': return { color: 'black', textDecorationLine: 'line-through' }
+        case 'mainText': return { textDecorationLine: 'line-through' }
+      }
+    }
+  }
+
   render() {
     const {
       item,
@@ -45,7 +55,7 @@ export default class ItemRow extends Component {
 
     return(
       <View style={styles.itemRow}>
-        <View style={styles.container}>
+        <View style={[styles.container, this.getCompletedStyles('container')]}>
           {editMode && selected
             ? <View></View>
             : editMode ?
@@ -64,10 +74,10 @@ export default class ItemRow extends Component {
             <View>
               <View style={styles.mainAndRightText}>
                 <View>
-                  <Text style={styles.mainText}>{mainText}</Text>
+                  <Text style={[styles.mainText, this.getCompletedStyles('mainText')]}>{mainText}</Text>
                 </View>
                 <View>
-                  <Text style={[styles.mainText, rightTextStyle]}>{rightText}</Text>
+                  <Text style={[styles.mainText, rightTextStyle, this.getCompletedStyles('amount')]}>{rightText}</Text>
                 </View>
               </View>
               {secondaryText
@@ -95,15 +105,13 @@ export default class ItemRow extends Component {
 }
 
   const styles = {
-    container: {
-      flex: 1,
-      flexDirection: 'row',
-      // paddingTop: 2,
-      // paddingBottom: 2
-    },
     itemRow: {
       flexDirection: 'row',
       paddingLeft: 10
+    },
+    container: {
+      flex: 1,
+      flexDirection: 'row',
     },
     textWrapper: {
       flex: 1,

@@ -39,7 +39,7 @@ class Reminders extends Component {
     return (
       <View style={styles.container}>
         <ScrollView style={{flex: 1}}>
-          {filteredReminders.map((reminder,i) =>
+          {p.reminders.map((reminder,i) =>
             <ItemRow
               key={i}
               itemIndex={i}
@@ -61,42 +61,20 @@ class Reminders extends Component {
           )}
         </ScrollView>
 
-          {this.props.title === 'Reminders'
-            ? <ActionButton buttonColor="rgba(231,76,60,1)" offsetY={40} offsetX={15}>
-                <ActionButton.Item
-                  buttonColor='#9b59b6'
-                  title="New Reminder"
-                  onPress={() => Actions.newReminder()}>
-                  <Icon name="md-create" style={styles.actionButtonIcon} />
-                </ActionButton.Item>
-                <ActionButton.Item
-                  buttonColor='#3498db'
-                  title="Completed Reminders"
-                  onPress={() => Actions.completedReminders()}>
-                  <Icon name="md-checkmark" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
-                </ActionButton.Item>
-              </ActionButton>
-            : <ActionButton buttonColor="rgba(231,76,60,1)" offsetY={40} offsetX={15}>
-                <ActionButton.Item
-                  buttonColor='#9b59b6'
-                  title="New Reminder"
-                  onPress={() => Actions.newReminder()}>
-                  <Icon name="md-create" style={styles.actionButtonIcon} />
-                </ActionButton.Item>
-                <ActionButton.Item
-                  buttonColor='#3498db'
-                  title="Uncompleted Reminders"
-                  onPress={() => Actions.viewReminders()}>
-                  <Icon name="md-list" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
-                </ActionButton.Item>
-                <ActionButton.Item
-                  buttonColor='#1abc9c'
-                  title="Clear all completed reminders"
-                  onPress={() => this.props.actions.reminders.clearCompletedReminders()}>
-                  <Icon name="md-warning" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
-                </ActionButton.Item>
-              </ActionButton>
-            }
+        <ActionButton buttonColor="rgba(231,76,60,1)" offsetY={40} offsetX={15}>
+          <ActionButton.Item
+            buttonColor='#9b59b6'
+            title="New Reminder"
+            onPress={() => Actions.newReminder()}>
+            <Icon name="md-create" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+          <ActionButton.Item
+            buttonColor='#1abc9c'
+            title="Clear all completed reminders"
+            onPress={() => this.props.actions.reminders.clearCompletedReminders()}>
+            <Icon name="md-warning" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
+          </ActionButton.Item>
+        </ActionButton>
       </View>
     )
   }

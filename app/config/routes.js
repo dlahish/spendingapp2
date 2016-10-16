@@ -92,13 +92,7 @@ class Routes extends Component {
                       hideTabBar={true}
                     />
                   </Scene>
-                  <Scene key="reminders" component={Reminders} icon={TabIcon} title='Reminders'>
-                    <Scene key="viewReminders" />
-                    <Scene
-                      key="completedReminders"
-                      title='Completed Reminders'
-                    />
-                  </Scene>
+                  <Scene key="reminders" component={Reminders} icon={TabIcon} title='Reminders' />
                   <Scene key="settings" component={Settings} icon={TabIcon} title='Settings' />
                   <Scene
                     key="categories"
