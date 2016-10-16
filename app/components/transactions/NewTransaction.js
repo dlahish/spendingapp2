@@ -85,7 +85,11 @@ class NewTransaction extends Component {
   }
 
   onSaveNewTransaction = () => {
-    if (this.state.isValid) {
+    if (this.state.formValidateInfo === undefined && this.state.amount.length > 0) {
+      var editTransactionIsValid = true
+    } else { var editTransactionIsValid = false }
+
+    if (this.state.isValid || editTransactionIsValid) {
       if (this.state.category === '') {
         this.setState({error: 'Category is required'})
       } else if (this.state.amount === null || this.state.amount.length === 0) {

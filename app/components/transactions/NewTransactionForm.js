@@ -37,6 +37,10 @@ class NewTransactionForm extends Component {
     else return 1
   }
 
+  componentWillReceiveProps() {
+
+  }
+
   render() {
     const { name, category, categoryType, amount, date, notes, handleValueChange, onDateChange, error } = this.props
     return (
@@ -90,24 +94,6 @@ class NewTransactionForm extends Component {
                 clearButtonMode='while-editing'
                 value={notes}
               />
-              {/* <GiftedForm.ErrorsWidget />
-              <GiftedForm.SubmitWidget
-                title='Add new transactions'
-                widgetStyles={{
-                  submitButton: {
-                    backgroundColor: 'green',
-                  }
-                }}
-                onSubmit={(isValid, values, validationResults, postSubmit = null, modalNavigator = null) => {
-                  if (isValid === true) {
-                    values.date = date
-                    GiftedFormManager.reset('newReminderForm')
-                    this.props.onSaveNewTransaction(isValid)
-                  } else {
-                    console.log('validationResults', validationResults)
-                  }
-                }}
-              /> */}
         </GiftedForm>
         {/* {this.props.title !== 'New Favorite Transaction'
           ? <View style={[styles.inputWrapper]}>

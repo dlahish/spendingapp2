@@ -137,7 +137,7 @@ var styles = StyleSheet.create({
         height: 150
     },
     signin: {
-        backgroundColor: '#FF3366',
+        backgroundColor: '#7e01a8',
         padding: 20,
         alignItems: 'center'
     },
