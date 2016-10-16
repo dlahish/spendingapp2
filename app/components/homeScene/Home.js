@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   monthSummary: {
-    flex: 3,
+    // flex: 3,
     paddingTop: 3,
     borderBottomWidth: 1,
     borderBottomColor: '#eaeaea'
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   favoriteTransactions: {
-    flex: 5,
+    // flex: 1,
     paddingTop: 10,
     paddingLeft: 15,
     paddingRight: 15

@@ -185,35 +185,29 @@ class NewTransaction extends Component {
           expenseSelected={expenseSelected}
           onTypeChange={this.onTypeChange}
         />
-        {/* <ScrollView
-          keyboardDismissMode='interactive'
-          keyboardShouldPersistTaps={false}
-          ref={(scrollView) => { _scrollView = scrollView }}
-        > */}
-          <NewTransactionForm
-            date={this.state.date}
-            amount={this.state.amount}
-            category={this.state.category}
-            categoryType={this.props.categoryType}
-            notes={this.state.notes}
-            error={this.state.error}
-            type={this.state.type}
-            onDateChange={this.onDateChange}
-            onInputChange={this.onInputChange}
-            title={this.props.title}
-            handleValueChange={this.handleValueChange}
-            onSaveNewTransaction={this.onSaveNewTransaction}
-          />
-          {this.props.editMode
-            ? <View style={{alignItems: 'center'}}>
-                <Button style={styles.btnText}
-                  containerStyle={styles.btn}
-                  onPress={this.onDeleteTransaction}>Delete transaction
-                </Button>
-              </View>
-            : <View></View>}
-        {/* </ScrollView> */}
-        {/* <KeyboardSpacer/> */}
+        <NewTransactionForm
+          date={this.state.date}
+          amount={this.state.amount}
+          category={this.state.category}
+          categoryType={this.props.categoryType}
+          notes={this.state.notes}
+          error={this.state.error}
+          type={this.state.type}
+          onDateChange={this.onDateChange}
+          onInputChange={this.onInputChange}
+          title={this.props.title}
+          handleValueChange={this.handleValueChange}
+          onSaveNewTransaction={this.onSaveNewTransaction}
+        />
+        {this.props.editMode
+          ? <View style={{alignItems: 'center'}}>
+              <Button style={styles.btnText}
+                containerStyle={styles.btn}
+                onPress={this.onDeleteTransaction}>Delete transaction
+              </Button>
+            </View>
+          : <View></View>}
+        <KeyboardSpacer/>
       </View>
     )
   }
