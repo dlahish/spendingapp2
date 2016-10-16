@@ -46,9 +46,9 @@ class NewTransactionForm extends Component {
     return (
       <View style={[styles.container]}>
         <GiftedForm
-          formName='newReminderForm'
+          formName='newTransactionForm'
           onValueChange={(values) => {
-            handleValueChange(values, GiftedFormManager.validate('newReminderForm'))
+            handleValueChange(values, GiftedFormManager.validate('newTransactionForm'))
           }}
           validators={{
             amount: {

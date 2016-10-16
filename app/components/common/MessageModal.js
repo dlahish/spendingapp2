@@ -10,13 +10,40 @@ import {
 } from 'react-native'
 
 export default class MessageModal extends Component {
-  state = {
-    animationType: 'none',
-    modalVisible: false,
-    transparent: true
+  constructor(props) {
+    super(props)
+    this.state = {
+      animationType: 'none',
+      modalVisible: false,
+      transparent: true
+    }
+  }
+
+  getButtons = () => {
+    if (this.props.button) {
+      return <View style={{flexDirection: 'row', paddingTop: 10}}>
+        <Button
+          onPress={this.props.setModalVisible.bind(this, false)}
+          style={styles.modalButton}>
+          Cancel
+        </Button>
+        <Button
+          onPress={this.props.onButtonPress.bind(this, true)}
+          style={styles.modalButton}>
+          {this.props.buttonText}
+        </Button>
+      </View>
+    } else {
+      return <Button
+        onPress={this.props.setModalVisible.bind(this, false)}
+        style={styles.modalButton}>
+        Close
+      </Button>
+    }
   }
 
   render() {
+    const buttons = this.getButtons()
     return (
       <View>
         <Modal
@@ -30,11 +57,7 @@ export default class MessageModal extends Component {
               <View>
                 <Text>{this.props.text}</Text>
               </View>
-              <Button
-                onPress={this.props.setModalVisible.bind(this, false)}
-                style={styles.modalButton}>
-                Close
-              </Button>
+              {buttons}
             </View>
           </View>
         </Modal>

@@ -14,7 +14,7 @@ import * as remindersActions from '../../actions/reminders'
 import ActionButton from 'react-native-action-button'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux'
-import { ItemRow } from '../../components'
+import { ItemRow, MessageModal } from '../../components'
 
 import {
   setAmountColor,
@@ -29,8 +29,28 @@ function filterReminders(reminders, title) {
 }
 
 class Reminders extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      modalVisible: false
+    }
+  }
+
+  setModalVisible = (visible) => {
+    this.setState({ modalVisible: visible })
+  }
+
   onCheckRow = (itemId) => {
     this.props.actions.reminders.setCheckedReminder(itemId)
+  }
+
+  onDeleteConfirmPress = (result) => {
+    this.setState({ modalVisible: false })
+    if (result) this.props.actions.reminders.clearCompletedReminders()
+  }
+
+  onClearCompletedPress = () => {
+    this.setModalVisible(true)
   }
 
   render() {
@@ -71,10 +91,19 @@ class Reminders extends Component {
           <ActionButton.Item
             buttonColor='#1abc9c'
             title="Clear all completed reminders"
-            onPress={() => this.props.actions.reminders.clearCompletedReminders()}>
+            onPress={() => this.onClearCompletedPress()}>
             <Icon name="md-warning" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
           </ActionButton.Item>
         </ActionButton>
+        
+        <MessageModal
+          setModalVisible={this.setModalVisible}
+          modalVisible={this.state.modalVisible}
+          text='Are you sure you want to delete all completed transactions?'
+          button={true}
+          buttonText='Delete All'
+          onButtonPress={this.onDeleteConfirmPress}
+        />
       </View>
     )
   }

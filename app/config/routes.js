@@ -138,8 +138,9 @@ class Routes extends Component {
                   component={NewReminder}
                   icon={TabIcon}
                   title='New Reminder'
-                  backTitle='Back'
-                  backButtonTextStyle={{color: 'white'}}
+                  hideNavBar={true}
+                  // backTitle='Back'
+                  // backButtonTextStyle={{color: 'white'}}
                 />
                 <Scene key='formModal' component={FormModal}/>
                 <Scene
