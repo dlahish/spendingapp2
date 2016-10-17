@@ -1,5 +1,4 @@
 import Signin from './authentication/Signin'
-import SignupForm from './authentication/SignupForm'
 import Signup from './authentication/Signup'
 
 import Home from './homeScene/Home'
@@ -48,7 +47,6 @@ import addBorder from './addBorder'
 export {
   Home,
   Signin,
-  SignupForm,
   Signup,
   TabIcon,
   NewTransaction,

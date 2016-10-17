@@ -7,7 +7,8 @@ import {
   TextInput,
   Image,
 	Dimensions,
-	TouchableOpacity
+	TouchableOpacity,
+  ScrollView
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { connect } from 'react-redux'
@@ -60,7 +61,7 @@ class Signin extends Component {
         <View style={styles.container}>
             {/* <Image style={styles.bg} source={{uri: 'http://i.imgur.com/xlQ56UK.jpg'}} /> */}
             <View style={styles.header}>
-                {/* <Image style={styles.mark} source={{uri: 'http://i.imgur.com/da4G0Io.png'}} /> */}
+                <Image style={styles.mark} source={require('../../Currency_Exchange.png')} />
             </View>
             <View style={styles.inputs}>
                 <View style={styles.inputContainer}>
@@ -127,14 +128,15 @@ var styles = StyleSheet.create({
         height: windowSize.height
     },
     header: {
+        marginTop: 20,
         justifyContent: 'center',
         alignItems: 'center',
         flex: .5,
         backgroundColor: 'transparent'
     },
     mark: {
-        width: 150,
-        height: 150
+        width: 170,
+        height: 170
     },
     signin: {
         backgroundColor: '#7e01a8',
