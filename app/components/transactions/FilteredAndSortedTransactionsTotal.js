@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { View, Text } from 'react-native'
 import I18n from 'react-native-i18n'
 import { getSymbol } from '../../functions/transactionsScene'
@@ -40,6 +40,10 @@ export default FilteredAndSortedTransactionsTotal = (props) => {
 
     </View>
   )
+}
+
+FilteredAndSortedTransactionsTotal.PropTypes = {
+  transactions: PropTypes.array
 }
 
 const styles = {

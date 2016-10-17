@@ -13,13 +13,13 @@ import {
   AddTransactionButtons,
   ChangeMonthArrows,
   DisplayFavoriteTransactions,
-  LoadingOverlay
+  LoadingOverlay,
+  ProgressBar
 } from '../../components'
 import * as accountActions from '../../actions/accounts'
 import * as dataActions from '../../actions/data'
 import * as formActions from '../../actions/form'
 import * as settingsActions from '../../actions/settings'
-import ProgressBar from '../ProgressBar'
 
 class Home extends Component {
   constructor (props) {
@@ -42,15 +42,14 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <CustomNavBar
-          onLeftPress={() => {}}
-          onRightPress={() => {}}
-          title={this.props.currentMonthName}
-        />
-        <View style={styles.main}>
+
+          <CustomNavBar
+            onLeftPress={() => {}}
+            onRightPress={() => {}}
+            title={this.props.currentMonthName}
+          />
 
           <View style={styles.monthSummary}>
-            <View style={styles.monthArrows}>
               <ChangeMonthArrows
                 onPressLeft={() =>
                   this.props.actions.data.setMonth('previous',
@@ -62,22 +61,19 @@ class Home extends Component {
                                                                       this.props.yearTotal,
                                                                       this.props.transactions)}
               />
-            </View>
-            <ProgressBar currentMonthTotal={this.props.currentMonthTotal}/>
-            <View style={styles.titleWrapper}>
-              <Text style={styles.titleText}>Month Balance</Text>
-            </View>
-            <View style={styles.summary}>
+
+              <ProgressBar currentMonthTotal={this.props.currentMonthTotal}/>
+
               <CurrentMonthTotal
                 currentMonthTotal={this.props.currentMonthTotal}
                 currencySymbol={this.props.currencySymbol}
               />
-            </View>
           </View>
 
           <View style={styles.titleWrapper}>
-            <Text style={styles.titleText}>Preset Transactions</Text>
+              <Text style={styles.titleText}>Preset Transactions</Text>
           </View>
+
           <ScrollView style={styles.favoriteTransactions}>
             <DisplayFavoriteTransactions
               favoriteTransactions={this.props.favoriteTransactions}
@@ -85,12 +81,11 @@ class Home extends Component {
             />
           </ScrollView>
 
-        </View>
+          <View style={styles.addTransactionButtonsWrapper}>
+              <AddTransactionButtons setCategoryType={this.props.actions.form.setCategoryType}/>
+          </View>
 
-        <View style={styles.addTransactionButtonsWrapper}>
-            <AddTransactionButtons setCategoryType={this.props.actions.form.setCategoryType}/>
-        </View>
-        <LoadingOverlay isLoading={this.state.isLoading} />
+          <LoadingOverlay isLoading={this.state.isLoading} />
       </View>
     )
   }
@@ -98,16 +93,17 @@ class Home extends Component {
 
 Home.propTypes = {
   currentMonthTotal: PropTypes.object,
-  isAuthed: PropTypes.bool.isRequired,
+  currentMonthIndex: PropTypes.number,
+  currentMonthName: PropTypes.string,
+  yearTotal: PropTypes.array,
+  transactions: PropTypes.array,
   currencySymbol: PropTypes.node,
   favoriteTransactions: PropTypes.array,
-  token: PropTypes.string
+
 }
 
 export default connect(
   (state) => ({
-    isAuthed: state.account.isAuthed,
-    token: state.account.token,
     currentMonthTotal: state.data.currentMonthTotal,
     currentMonthIndex: state.data.currentMonthIndex,
     currentMonthName: state.data.currentMonthName,
@@ -134,22 +130,12 @@ const styles = StyleSheet.create({
     paddingBottom: 65,
     backgroundColor: '#FFF'
 	},
-  main: {
-    flex: 1
-  },
   monthSummary: {
-    // flex: 3,
     paddingTop: 3,
     borderBottomWidth: 1,
     borderBottomColor: '#eaeaea'
-    // paddingLeft: 15,
-    // paddingRight: 15
-  },
-  summary: {
-    flex: 1
   },
   favoriteTransactions: {
-    // flex: 1,
     paddingTop: 10,
     paddingLeft: 15,
     paddingRight: 15

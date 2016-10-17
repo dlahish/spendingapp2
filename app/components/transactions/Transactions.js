@@ -1,20 +1,20 @@
 import React, { Component, PropTypes } from 'react'
 import { View, Text, ScrollView, TouchableHighlight } from 'react-native'
-import { getTransactions } from '../../actions/data'
-import { bindActionCreators } from 'redux'
-import * as dataActions from '../../actions/data'
-import * as formActions from '../../actions/form'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
+import I18n from 'react-native-i18n'
+import SearchBar from 'react-native-search-bar'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import {
   ItemRow,
   ChangeMonthArrows,
   MonthHeader, MenuModal,
   FilteredAndSortedTransactionsTotal } from '../../components'
-import I18n from 'react-native-i18n'
-import SearchBar from 'react-native-search-bar'
+import { getTransactions } from '../../actions/data'
+import { bindActionCreators } from 'redux'
+import * as dataActions from '../../actions/data'
+import * as formActions from '../../actions/form'
 import {searchTransactions, sortTransactions} from '../../functions/transactionsSearchAndFilter'
-import Icon from 'react-native-vector-icons/FontAwesome'
 const upArrow = (<Icon name='angle-up' size={24} color='#FFF' />)
 import {
   setAmountColor,
@@ -27,8 +27,7 @@ class Transactions extends Component {
     this.state = {
       selectedItemIndex: null,
       searchValue: '',
-      isOpen: false,
-      isDisabled: false,
+      isModalOpen: false,
       swipeToClose: true,
       sortType: '',
       dateSortDirection: true,
@@ -58,18 +57,18 @@ class Transactions extends Component {
   }
 
   openModal = () => {
-    this.setState({isOpen: true})
+    this.setState({isModalOpen: true})
   }
 
   closeModal = () => {
-    this.setState({isOpen: false})
+    this.setState({isModalOpen: false})
   }
 
   setFilter = (filter) => {
     this.setState({
       sortType: filter,
       [`${filter}SortDirection`]: !this.state[`${this.state.sortType}SortDirection`],
-      isOpen: false
+      isModalOpen: false
     })
 
   }
@@ -84,77 +83,76 @@ class Transactions extends Component {
     return (
       <View style={styles.container}>
 
-        <MonthHeader
-          currentMonthName={p.currentMonthName}
-          onPressLeft={() => {
-            p.actions.data.setMonth('previous',
-              p.currentMonthIndex,
-              p.yearTotal,
-              p.transactions)
-            this.refs._scrollView.scrollTo({y: this.state.scrollY})}}
-          onPressRight={() => {
-            p.actions.data.setMonth('next',
-              p.currentMonthIndex,
-              p.yearTotal,
-              p.transactions)
-            this.refs._scrollView.scrollTo({y: this.state.scrollY})}}
-          onSortPress={() => this.openModal()}
-        />
+          <MonthHeader
+            currentMonthName={p.currentMonthName}
+            onPressLeft={() => {
+              p.actions.data.setMonth('previous',
+                p.currentMonthIndex,
+                p.yearTotal,
+                p.transactions)
+              this.refs._scrollView.scrollTo({y: this.state.scrollY})}}
+            onPressRight={() => {
+              p.actions.data.setMonth('next',
+                p.currentMonthIndex,
+                p.yearTotal,
+                p.transactions)
+              this.refs._scrollView.scrollTo({y: this.state.scrollY})}}
+            onSortPress={() => this.openModal()}
+          />
 
-        {/* contentOffset={{y:44}} */}
-        <ScrollView ref='_scrollView'>
+          <ScrollView ref='_scrollView'>
 
-            <View style={{backgroundColor: '#c8c7cc'}}>
-              <SearchBar
-                ref='searchBar'
-                placeholder='Search Category, Amount or Notes'
-                text={p.searchTransactionsValue}
-                onChangeText={(value) => this.setState({searchValue: value})}
-                onSearchButtonPress={() => this.refs.searchBar.unFocus() }
-                onCancelButtonPress={() => {
-                  this.setState({searchValue: ''})
-                  this.refs._scrollView.scrollTo({y: this.state.scrollY})}}
-                showsCancelButton={true}/>
+              <View style={{backgroundColor: '#c8c7cc'}}>
+                  <SearchBar
+                    ref='searchBar'
+                    placeholder='Search Category, Amount or Notes'
+                    text={p.searchTransactionsValue}
+                    onChangeText={(value) => this.setState({searchValue: value})}
+                    onSearchButtonPress={() => this.refs.searchBar.unFocus() }
+                    onCancelButtonPress={() => {
+                      this.setState({searchValue: ''})
+                      this.refs._scrollView.scrollTo({y: this.state.scrollY})}}
+                    showsCancelButton={true}/>
 
-              <View style={{alignItems: 'center', justifyContent: 'center'}}>{upArrow}</View>
+                  <View style={{alignItems: 'center', justifyContent: 'center'}}>{upArrow}</View>
 
-              <FilteredAndSortedTransactionsTotal
-                transactions={transactionsToRender}
-                currencySymbol={this.props.currencySymbol}/>
+                  <FilteredAndSortedTransactionsTotal
+                    transactions={transactionsToRender}
+                    currencySymbol={p.currencySymbol}/>
 
-            </View>
+              </View>
 
-            {transactionsToRender.map((transaction, i) =>
-              <ItemRow
-                key={i}
-                itemIndex={i}
-                editMode={p.editMode}
-                selected={i === this.state.selectedItemIndex ? true : false}
-                item={transaction}
-                mainText={setMainText(transaction)}
-                rightText={I18n.toCurrency(Math.abs(transaction.amount),
-                  {unit: getSymbol(p.currencySymbol),
-                  format: "%u %n",
-                  sign_first: false,
-                  precision: 0})}
-                rightTextStyle={setAmountColor(transaction.type)}
-                secondaryText={`${(new Date(transaction.date).toLocaleDateString('en-GB'))}, ${transaction.category}`}
-                onSelecetItem={this.onSelecetItem}
-                onDeleteItem={p.removeTransaction}
-              />
-            )}
-        </ScrollView>
+              {transactionsToRender.map((transaction, i) =>
+                <ItemRow
+                  key={i}
+                  itemIndex={i}
+                  editMode={p.editMode}
+                  selected={i === this.state.selectedItemIndex ? true : false}
+                  item={transaction}
+                  mainText={setMainText(transaction)}
+                  rightText={I18n.toCurrency(Math.abs(transaction.amount),
+                    {unit: getSymbol(p.currencySymbol),
+                    format: "%u %n",
+                    sign_first: false,
+                    precision: 0})}
+                  rightTextStyle={setAmountColor(transaction.type)}
+                  secondaryText={`${(new Date(transaction.date).toLocaleDateString('en-GB'))}, ${transaction.category}`}
+                  onSelecetItem={this.onSelecetItem}
+                  onDeleteItem={p.removeTransaction}
+                />
+              )}
+          </ScrollView>
 
-        <MenuModal
-          isOpen={this.state.isOpen}
-          closeModal={this.closeModal}
-          button1='Date'
-          button1OnPress={() => this.setFilter('date')}
-          button2='Amount'
-          button2OnPress={() => this.setFilter('amount')}
-          button3='Category'
-          button3OnPress={() => this.setFilter('category')}
-        />
+          <MenuModal
+            isOpen={this.state.isModalOpen}
+            closeModal={this.closeModal}
+            button1='Date'
+            button1OnPress={() => this.setFilter('date')}
+            button2='Amount'
+            button2OnPress={() => this.setFilter('amount')}
+            button3='Category'
+            button3OnPress={() => this.setFilter('category')}
+          />
 
       </View>
     )
@@ -177,6 +175,16 @@ export default connect(
       form: bindActionCreators(formActions, dispatch)
     }
   }))(Transactions)
+
+Transactions.propTypes = {
+  transactions: PropTypes.array,
+  visibleTransactions: PropTypes.array,
+  currentMonthName: PropTypes.string,
+  currentMonthIndex: PropTypes.number,
+  yearTotal: PropTypes.array,
+  currencySymbol: PropTypes.string,
+  transactionsSearchValue: PropTypes.string
+}
 
 const styles = {
   container: {

@@ -1,14 +1,17 @@
 import Home from './homeScene/Home'
+import AddTransactionButtons from './homeScene/AddTransactionButtons'
+import CurrentMonthTotal from './homeScene/CurrentMonthTotal'
+import ChangeMonthArrows from './homeScene/ChangeMonthArrows'
+import DisplayFavoriteTransactions from './homeScene/DisplayFavoriteTransactions'
+
 import Signin from './authentication/Signin'
 import SignupForm from './authentication/SignupForm'
 import Signup from './authentication/Signup'
 import TabIcon from './common/TabIcon'
 import NewTransaction from './transactions/NewTransaction'
 import NewTransactionForm from './transactions/NewTransactionForm'
-import CurrentMonthTotal from './homeScene/CurrentMonthTotal'
 import addBorder from './addBorder'
 import PresetTransactions from './settings/PresetTransactions'
-import AddTransactionButtons from './homeScene/AddTransactionButtons'
 import Button from './common/Button'
 import DatePicker from './common/DatePicker'
 import DatePickerModal from './common/DatePickerModal'
@@ -22,8 +25,6 @@ import Settings from './settings/Settings'
 import ItemRow from './common/ItemRow'
 import CategorySelector from './common/CategorySelector'
 import CurrencySymbols from './settings/CurrencySymbols'
-import ChangeMonthArrows from './homeScene/ChangeMonthArrows'
-import DisplayFavoriteTransactions from './homeScene/DisplayFavoriteTransactions'
 import MessageModal from './common/MessageModal'
 import Loader from './common/Loader'
 import ListItem from './common/ListItem'
@@ -36,6 +37,7 @@ import NewReminder from './reminders/NewReminder'
 import RowDatePicker from './common/formWidgets/widgets/RowDatePicker'
 import RowWidgetWithTitle from './common/formWidgets/widgets/RowWidgetWithTitle'
 import LoadingOverlay from './common/LoadingOverlay'
+import ProgressBar from './common/ProgressBar'
 
 export {
   Home,
@@ -75,5 +77,6 @@ export {
   NewReminder,
   RowDatePicker,
   RowWidgetWithTitle,
-  LoadingOverlay
+  LoadingOverlay,
+  ProgressBar
 }

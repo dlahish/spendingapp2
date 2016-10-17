@@ -37,6 +37,9 @@ export default class CurrentMonthTotal extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <View style={styles.titleWrapper}>
+            <Text style={styles.titleText}>Month Balance</Text>
+        </View>
 
         <View style={styles.innerContainer}>
           <Text style={styles.title}>
@@ -117,6 +120,19 @@ const styles = StyleSheet.create({
   summeryLineWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  titleWrapper: {
+    backgroundColor: '#eaeaea',
+    paddingLeft: 15,
+    justifyContent: 'center',
+    paddingTop: 3,
+    paddingBottom: 3,
+    marginBottom: 3
+  },
+  titleText: {
+    color: 'black',
+    fontSize: 17,
+    fontWeight: '400'
   }
 })
 

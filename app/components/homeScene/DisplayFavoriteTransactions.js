@@ -3,31 +3,30 @@ import { View, Text, TouchableHighlight, StyleSheet } from 'react-native'
 import { ListItem } from '../../components'
 import { Actions } from 'react-native-router-flux'
 
-renderFavoriteTransactions = (favTransaction, i, onAddNewFavortieTransaction, favTransactionsLength) => {
-  const favTransactionText = getFavortieTransactionText(favTransaction)
-  const iconColor = getAddButtonColor(favTransaction)
+function renderFavoriteTransactions(favTransaction, i, onAddNewFavortieTransaction, favTransactionsLength) {
+  const favTransactionText = getFavortieTransactionText(favTransaction),
+        iconColor = getAddButtonColor(favTransaction)
   return (
       <View key={i}>
-        <ListItem
-          icon='plus'
-          iconStyle={{color: iconColor}}
-          text={favTransactionText}
-          info={favTransaction.amount}
-          styleInfo={{color: iconColor}}
-          underlayColor="#a9d9d4"
-          onPress={() => onAddNewFavortieTransaction(favTransaction)}
-        />
-        {favTransactionsLength < 5 && i === favTransactionsLength-1 ?
           <ListItem
             icon='plus'
-            iconStyle={{opacity: 0.6}}
-            text='Add new preset transaction'
-            styleText={{opacity: 0.6}}
-            onPress={() => Actions.presetTransactions()}
-          /> : null}
+            iconStyle={{color: iconColor}}
+            text={favTransactionText}
+            info={favTransaction.amount}
+            styleInfo={{color: iconColor}}
+            underlayColor="#a9d9d4"
+            onPress={() => onAddNewFavortieTransaction(favTransaction)}
+          />
+
+          {favTransactionsLength < 5 && i === favTransactionsLength-1 ?
+            <ListItem
+              icon='plus'
+              iconStyle={{opacity: 0.6}}
+              text='Add new preset transaction'
+              styleText={{opacity: 0.6}}
+              onPress={() => Actions.presetTransactions()}
+            /> : null}
       </View>
-
-
   )
 }
 

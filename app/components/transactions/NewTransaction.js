@@ -1,4 +1,12 @@
 import React, { Component, PropTypes } from 'react'
+import { NewTransactionForm, CustomNavBar, addBorder, CategorySelector } from '../../components'
+import { Actions, ActionConst } from 'react-native-router-flux'
+import { connect } from 'react-redux'
+import Button from 'react-native-button'
+import KeyboardSpacer from 'react-native-keyboard-spacer'
+import { bindActionCreators } from 'redux'
+import * as dataActionCreators from '../../actions/data'
+import * as formActionCreators from '../../actions/form'
 import {
   View,
   Text,
@@ -9,14 +17,6 @@ import {
   Dimensions,
   TouchableHighlight
 } from 'react-native'
-import { NewTransactionForm, CustomNavBar, addBorder, CategorySelector } from '../../components'
-import { Actions, ActionConst } from 'react-native-router-flux'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as dataActionCreators from '../../actions/data'
-import * as formActionCreators from '../../actions/form'
-import Button from 'react-native-button'
-import KeyboardSpacer from 'react-native-keyboard-spacer'
 
 class NewTransaction extends Component {
   constructor(props) {
@@ -65,13 +65,6 @@ class NewTransaction extends Component {
     this.setState({ date: formattedDate })
   }
 
-  onInputChange = (field, value) => {
-    this.setState({
-      ...this.state,
-      [field]: value
-    })
-  }
-
   handleValueChange = (values, formValidateInfo) => {
     let error = this.state.error
     if (formValidateInfo.results.amount[0].value.length === 0) error = ''
@@ -86,56 +79,56 @@ class NewTransaction extends Component {
 
   onSaveNewTransaction = () => {
     if (this.state.formValidateInfo === undefined && this.state.amount.length > 0) {
-      var editTransactionIsValid = true
-    } else { var editTransactionIsValid = false }
+      var isEditTransaction = true
+    } else { var isEditTransaction = false }
 
-    if (this.state.isValid || editTransactionIsValid) {
-      if (this.state.category === '') {
-        this.setState({error: 'Category is required'})
-      } else if (this.state.amount === null || this.state.amount.length === 0) {
-        this.setState({error: 'Amount is required'})
-      } else {
-        let newAmount
-        if (this.state.categoryType === 'Expense') { newAmount = this.state.amount * -1 }
-        else { newAmount = this.state.amount }
-        const transaction = {
-          _id: this.state._id,
-          date: this.state.date,
-          amount: newAmount,
-          category: this.state.category,
-          notes: this.state.notes,
-          type: this.state.categoryType
-        }
-        if (this.props.title === 'New Transaction') {
-          if (this.props.editMode) {
-            this.props.actions.data.updateTransaction(transaction)
-          } else {
-            this.props.actions.data.addNewTransaction(transaction)
-          }
+    if (this.state.isValid || isEditTransaction) {
+        if (this.state.category === '') {
+            this.setState({error: 'Category is required'})
+        } else if (this.state.amount === null || this.state.amount.length === 0) {
+            this.setState({error: 'Amount is required'})
         } else {
-          this.props.actions.data.addFavoriteTransaction(transaction)
-        }
+            let newAmount
+            if (this.state.categoryType === 'Expense') { newAmount = this.state.amount * -1 }
+            else { newAmount = this.state.amount }
+            const transaction = {
+              _id: this.state._id,
+              date: this.state.date,
+              amount: newAmount,
+              category: this.state.category,
+              notes: this.state.notes,
+              type: this.state.categoryType
+            }
+            if (this.props.title === 'New Transaction') {
+              if (this.props.editMode) {
+                this.props.actions.data.updateTransaction(transaction)
+              } else {
+                this.props.actions.data.addNewTransaction(transaction)
+              }
+            } else {
+              this.props.actions.data.addFavoriteTransaction(transaction)
+            }
 
-        this.setState({
-          date: new Date(),
-          amount: '',
-          category: '',
-          notes: '',
-          error: '',
-          categoryType: ''
-        })
-        this.props.actions.form.clearForm()
-        Actions.pop()
-      }
+            this.setState({
+              date: new Date(),
+              amount: '',
+              category: '',
+              notes: '',
+              error: '',
+              categoryType: ''
+            })
+            this.props.actions.form.clearForm()
+            Actions.pop()
+        }
     } else {
-      let error
-      if (this.state.formValidateInfo === undefined) {
-        error = 'Amount is required'
-        this.setState({error})
-      } else if (this.state.formValidateInfo.results.amount[0].message.length > 0) {
-        error = this.state.formValidateInfo.results.amount[0].message
-        this.setState({error})
-      } else { this.setState({error: ''}) }
+        let error
+        if (this.state.formValidateInfo === undefined) {
+          error = 'Amount is required'
+          this.setState({error})
+        } else if (this.state.formValidateInfo.results.amount[0].message.length > 0) {
+          error = this.state.formValidateInfo.results.amount[0].message
+          this.setState({error})
+        } else { this.setState({error: ''}) }
     }
   }
 
@@ -194,7 +187,6 @@ class NewTransaction extends Component {
           error={this.state.error}
           type={this.state.type}
           onDateChange={this.onDateChange}
-          onInputChange={this.onInputChange}
           title={this.props.title}
           handleValueChange={this.handleValueChange}
           onSaveNewTransaction={this.onSaveNewTransaction}
@@ -214,7 +206,8 @@ class NewTransaction extends Component {
 }
 
 NewTransaction.propTypes = {
-  newCategory: PropTypes.string
+  newCategory: PropTypes.string,
+  categoryType: PropTypes.string
 }
 
 var styles = StyleSheet.create({

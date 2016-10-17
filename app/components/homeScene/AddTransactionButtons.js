@@ -3,7 +3,6 @@ import { View, Text, StyleSheet } from 'react-native'
 import Button from 'react-native-button'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Actions } from 'react-native-router-flux'
-import { addBorder } from '../../components'
 
 export default AddTransactionButtons = (props) => {
   handleButtonPress = (categoryType) => {
@@ -15,25 +14,25 @@ export default AddTransactionButtons = (props) => {
     <View style={styles.container}>
 
       <View style={styles.buttonContainer}>
-        <Button
-          style={styles.btnText}
-  				containerStyle={[styles.btn, styles.bgGreen]}
-          onPress={() => this.handleButtonPress('Income')}
-        >
-          <Icon name="plus-circle" style={{fontSize: 15}}/>
-          Income
-        </Button>
+          <Button
+            style={styles.btnText}
+    				containerStyle={[styles.btn, styles.bgGreen]}
+            onPress={() => this.handleButtonPress('Income')}
+          >
+              <Icon name="plus-circle" style={{fontSize: 15}}/>
+              Income
+          </Button>
       </View>
 
       <View style={styles.buttonContainer}>
-        <Button
-          style={styles.btnText}
-          containerStyle={[styles.btn, styles.bgRed]}
-          onPress={() => this.handleButtonPress('Expense')}
-        >
-          <Icon name="plus-circle" style={{fontSize: 15}}/>
-          Expense
-        </Button>
+          <Button
+            style={styles.btnText}
+            containerStyle={[styles.btn, styles.bgRed]}
+            onPress={() => this.handleButtonPress('Expense')}
+          >
+              <Icon name="plus-circle" style={{fontSize: 15}}/>
+              Expense
+          </Button>
       </View>
 
     </View>

@@ -2,17 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import { GiftedForm, GiftedFormManager } from 'react-native-gifted-form'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { connect } from 'react-redux'
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableHighlight,
-  ListView,
-} from 'react-native'
+import { Actions } from 'react-native-router-flux'
 import Button from 'react-native-button'
 import { addBorder, DatePicker, DatePickerModal, RowDatePicker, RowWidgetWithTitle } from '../../components'
-import { Actions } from 'react-native-router-flux'
+import { View, Text, StyleSheet, TextInput, TouchableHighlight, ListView } from 'react-native'
 
 function getIcon(name) {
   return <Icon name={name} size={16} color='black' style={{paddingLeft: 10}}/>
@@ -22,9 +15,7 @@ class NewTransactionForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      dateModalVisible: false,
-      timeZoneOffsetInHours: (-1) * (new Date()).getTimezoneOffset() / 60,
-      dataSource: null
+      dateModalVisible: false
     }
   }
 
@@ -37,63 +28,59 @@ class NewTransactionForm extends Component {
     else return 1
   }
 
-  componentWillReceiveProps() {
-
-  }
-
   render() {
     const { name, category, categoryType, amount, date, notes, handleValueChange, onDateChange, error } = this.props
     return (
       <View style={[styles.container]}>
-        <GiftedForm
-          formName='newTransactionForm'
-          onValueChange={(values) => {
-            handleValueChange(values, GiftedFormManager.validate('newTransactionForm'))
-          }}
-          validators={{
-            amount: {
-              title: 'Amount',
-              validate: [{
-                validator: 'isNumeric',
-                message: '{TITLE} must be a number'
-              }]
-            }
-          }}
-        >
-          <GiftedForm.NoticeWidget title={error} style={{color: 'red'}}/>
-          {this.props.title !== 'New Favorite Transaction'
-            ? <RowDatePicker
-                name='dateRow'
-                title='Date'
-                placeholder='Enter date'
-                image={getIcon('ios-calendar')}
-                date={date}
-                onDateChange={onDateChange}
-              /> : null }
-              <GiftedForm.TextInputWidget
-                name='amount'
-                title='Amount'
-                placeholder='Enter amount'
-                clearButtonMode='while-editing'
-                value={amount}
-                image={getIcon('ios-cash')}
-              />
-              <RowWidgetWithTitle
-                title='Category'
-                disclosure={true}
-                onPress={() => Actions.categoryList({categoryType: this.props.categoryType})}
-                image={getIcon('ios-list-box')}
-                mainContent={category}
-                placeholder='Category'
-              />
-              <GiftedForm.TextAreaWidget
-                name='notes'
-                title='Notes'
-                placeholder='Enter Notes'
-                clearButtonMode='while-editing'
-                value={notes}
-              />
-        </GiftedForm>
+          <GiftedForm
+            formName='newTransactionForm'
+            onValueChange={(values) => {
+              handleValueChange(values, GiftedFormManager.validate('newTransactionForm'))
+            }}
+            validators={{
+              amount: {
+                title: 'Amount',
+                validate: [{
+                  validator: 'isNumeric',
+                  message: '{TITLE} must be a number'
+                }]
+              }
+            }}
+          >
+              <GiftedForm.NoticeWidget title={error} style={{color: 'red'}}/>
+              {this.props.title !== 'New Favorite Transaction'
+                ? <RowDatePicker
+                    name='dateRow'
+                    title='Date'
+                    placeholder='Enter date'
+                    image={getIcon('ios-calendar')}
+                    date={date}
+                    onDateChange={onDateChange}
+                  /> : null }
+                  <GiftedForm.TextInputWidget
+                    name='amount'
+                    title='Amount'
+                    placeholder='Enter amount'
+                    clearButtonMode='while-editing'
+                    value={amount}
+                    image={getIcon('ios-cash')}
+                  />
+                  <RowWidgetWithTitle
+                    title='Category'
+                    disclosure={true}
+                    onPress={() => Actions.categoryList({categoryType: this.props.categoryType})}
+                    image={getIcon('ios-list-box')}
+                    mainContent={category}
+                    placeholder='Category'
+                  />
+                  <GiftedForm.TextAreaWidget
+                    name='notes'
+                    title='Notes'
+                    placeholder='Enter Notes'
+                    clearButtonMode='while-editing'
+                    value={notes}
+                  />
+          </GiftedForm>
       </View>
     )
   }
@@ -115,7 +102,8 @@ NewTransactionForm.propTypes = {
   notes: PropTypes.string,
   error: PropTypes.string,
   onDateChange: PropTypes.func.isRequired,
-  onInputChange: PropTypes.func.isRequired,
+  handleValueChange: PropTypes.func.isRequired,
+  newCategory: PropTypes.string
 }
 
 export default connect(
