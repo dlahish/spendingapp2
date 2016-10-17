@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux'
 import * as remindersActions from '../../actions/reminders'
 import { Actions } from 'react-native-router-flux'
 import NewReminderForm from './NewReminderForm'
-import moment from 'moment'
 
 class NewReminder extends Component {
   constructor(props) {
@@ -99,6 +98,10 @@ class NewReminder extends Component {
   }
 }
 
+NewReminder.PropTypes = {
+  setNewReminder: PropTypes.func.isRequired,
+  title: PropTypes.string
+}
 
 var styles = StyleSheet.create({
   container: {

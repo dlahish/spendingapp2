@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { NewCategoryForm } from '../../components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Actions } from 'react-native-router-flux'
 import * as dataActionCreators from '../../actions/data'
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 
 class NewCategory extends Component {
   constructor(props) {
@@ -55,6 +55,11 @@ class NewCategory extends Component {
       </View>
     )
   }
+}
+
+NewCategory.PropTypes = {
+  categoryType: PropTypes.string,
+  addNewCategory: PropTypes.func.isRequired
 }
 
 const styles = {

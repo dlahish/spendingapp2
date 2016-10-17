@@ -1,12 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableHighlight,
-  TouchableOpacity,
-  ScrollView
-} from 'react-native'
 import I18n from 'react-native-i18n'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -15,11 +7,15 @@ import ActionButton from 'react-native-action-button'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux'
 import { ItemRow, MessageModal } from '../../components'
-
+import { setAmountColor, setMainText, getSymbol } from '../../functions/transactionsScene'
 import {
-  setAmountColor,
-  setMainText,
-  getSymbol } from '../../functions/transactionsScene'
+  View,
+  Text,
+  StyleSheet,
+  TouchableHighlight,
+  TouchableOpacity,
+  ScrollView
+} from 'react-native'
 
 function filterReminders(reminders, title) {
   let filteredReminders
@@ -58,52 +54,53 @@ class Reminders extends Component {
     const filteredReminders = filterReminders(p.reminders, p.title)
     return (
       <View style={styles.container}>
-        <ScrollView style={{flex: 1}}>
-          {p.reminders.map((reminder,i) =>
-            <ItemRow
-              key={i}
-              itemIndex={i}
-              icon='checkBox'
-              completed={reminder.completed}
-              onCheckRow={this.onCheckRow}
-              item={reminder}
-              mainText={reminder.name}
-              rightText={I18n.toCurrency(Math.abs(reminder.amount),
-                {unit: getSymbol(reminder.currencySymbol),
-                format: "%u %n",
-                sign_first: false,
-                precision: 0})}
-              rightTextStyle={setAmountColor(reminder.type[0])}
-              secondaryText={
-                `${(new Date(reminder.date).toLocaleDateString('en-GB'))}, ${reminder.notes}, ${reminder.type[0]}`}
-              onSelecetItem={() => {}}
-            />
-          )}
-        </ScrollView>
+          <ScrollView style={{flex: 1}}>
+            {p.reminders.map((reminder,i) =>
+              <ItemRow
+                key={i}
+                itemIndex={i}
+                icon='checkBox'
+                completed={reminder.completed}
+                onCheckRow={this.onCheckRow}
+                item={reminder}
+                mainText={reminder.name}
+                rightText={I18n.toCurrency(Math.abs(reminder.amount),
+                  {unit: getSymbol(reminder.currencySymbol),
+                  format: "%u %n",
+                  sign_first: false,
+                  precision: 0})}
+                rightTextStyle={setAmountColor(reminder.type[0])}
+                secondaryText={
+                  `${(new Date(reminder.date).toLocaleDateString('en-GB'))}, ${reminder.notes}, ${reminder.type[0]}`}
+                onSelecetItem={() => {}}
+              />
+            )}
+          </ScrollView>
 
-        <ActionButton buttonColor="rgba(231,76,60,1)" offsetY={40} offsetX={15}>
-          <ActionButton.Item
-            buttonColor='#9b59b6'
-            title="New Reminder"
-            onPress={() => Actions.newReminder()}>
-            <Icon name="md-create" style={styles.actionButtonIcon} />
-          </ActionButton.Item>
-          <ActionButton.Item
-            buttonColor='#1abc9c'
-            title="Clear all completed reminders"
-            onPress={() => this.onClearCompletedPress()}>
-            <Icon name="md-warning" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
-          </ActionButton.Item>
-        </ActionButton>
+          <ActionButton buttonColor="rgba(231,76,60,1)" offsetY={40} offsetX={15}>
+              <ActionButton.Item
+                buttonColor='#9b59b6'
+                title="New Reminder"
+                onPress={() => Actions.newReminder()}>
+                <Icon name="md-create" style={styles.actionButtonIcon} />
+              </ActionButton.Item>
 
-        <MessageModal
-          setModalVisible={this.setModalVisible}
-          modalVisible={this.state.modalVisible}
-          text='Are you sure you want to delete all completed reminders?'
-          button={true}
-          buttonText='Delete All'
-          onButtonPress={this.onDeleteConfirmPress}
-        />
+              <ActionButton.Item
+                buttonColor='#1abc9c'
+                title="Clear all completed reminders"
+                onPress={() => this.onClearCompletedPress()}>
+                <Icon name="md-warning" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
+              </ActionButton.Item>
+          </ActionButton>
+
+          <MessageModal
+            setModalVisible={this.setModalVisible}
+            modalVisible={this.state.modalVisible}
+            text='Are you sure you want to delete all completed reminders?'
+            button={true}
+            buttonText='Delete All'
+            onButtonPress={this.onDeleteConfirmPress}
+          />
       </View>
     )
   }

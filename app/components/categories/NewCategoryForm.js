@@ -1,15 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import Button from 'react-native-button'
+import { addBorder, CategorySelector } from '../../components'
+import { Actions } from 'react-native-router-flux'
 import {
   View,
   Text,
   StyleSheet,
-  TextInput,
-  TouchableHighlight
+  TextInput
 } from 'react-native'
-import Button from 'react-native-button'
-import { addBorder, CategorySelector } from '../../components'
-import { Actions } from 'react-native-router-flux'
 
 export default class NewCategoryForm extends Component {
   render() {

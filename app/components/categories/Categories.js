@@ -1,23 +1,17 @@
 import React, { Component, PropTypes } from 'react'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import { Actions } from 'react-native-router-flux'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { CustomNavBar, CategorySelector, ItemRow } from '../../components'
+import * as dataActionCreators from '../../actions/data'
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
-  TouchableHighlight,
   LayoutAnimation
 } from 'react-native'
-import { CustomNavBar, CategorySelector, ItemRow } from '../../components'
-import Icon from 'react-native-vector-icons/FontAwesome'
-import { Actions } from 'react-native-router-flux'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as dataActionCreators from '../../actions/data'
-
-const plusIcon = (<Icon name='plus' size={26} color='#FFF' />)
-const plusIconBlack = (<Icon name='plus' size={22} color='#CCC' />)
-const plusIconBlackDisabled = (<Icon name='plus' size={26} color='#BBBBBB' />)
-const editIcon = (<Icon name='minus-circle' size={22} color='red' />)
 
 class Categories extends Component {
   constructor(props) {
@@ -66,7 +60,7 @@ class Categories extends Component {
           onRightPress={() => Actions.newCategory({categoryType: this.state.categoryType})}
           title='Categories'
           secondLeftButton='Edit'
-          rightButton={plusIcon}
+          rightButton={<Icon name='plus' size={26} color='#FFF' />}
           leftButton='Back'
           onLeftPress={() => Actions.settings()}
         />

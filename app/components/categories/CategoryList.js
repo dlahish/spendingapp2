@@ -4,26 +4,20 @@ import { connect } from 'react-redux'
 import * as formActionCreators from '../../actions/form'
 import { Actions } from 'react-native-router-flux'
 import Button from 'react-native-button'
+import Icon from 'react-native-vector-icons/Ionicons'
 import {
   View,
   ScrollView,
   Text,
-  TextInput,
   TouchableOpacity,
-  Image,
-  Keyboard,
-  Dimensions,
   StyleSheet
 } from 'react-native'
-
-import Icon from 'react-native-vector-icons/Ionicons'
-const myIcon = (<Icon name="ios-add-circle" size={26} />)
 
 const CategoryRow = (props) => {
   return (
     <TouchableOpacity onPress={() => props.onCategorySelect(props.category)}>
       <View style={styles.row}>
-        {myIcon}
+        {<Icon name="ios-add-circle" size={26} />}
         <View style={styles.categoryWrapper}>
           <Text style={styles.category}>
             {props.category.name}

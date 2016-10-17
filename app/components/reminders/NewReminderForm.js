@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { GiftedForm, GiftedFormManager } from 'react-native-gifted-form'
 import Icon from 'react-native-vector-icons/Ionicons'
 import DatePicker from 'react-native-datepicker'
-import { Actions, ActionConst } from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 import { View, Text, Image } from 'react-native'
 
 function getIcon(name) {
@@ -15,8 +15,6 @@ export default class NewReminderForm extends Component {
     return (
       <GiftedForm
         formName='newReminderForm'
-        openModal={route => Actions.formModal({ ...route, title: route.getTitle() })}
-        // onValueChange={handleValueChange}
         onValueChange={(values) => {
           handleValueChange(values, GiftedFormManager.validate('newReminderForm'))
         }}
@@ -50,72 +48,82 @@ export default class NewReminderForm extends Component {
           }
         }}
       >
-        <GiftedForm.GroupWidget title='Choose Type'/>
-        <GiftedForm.SelectWidget name='type' title='Type' multiple={false}>
-          <GiftedForm.OptionWidget
-            image={<Image source={require('../../icons/wallet2_left.png')} style={{height:22,width:22}}/>}
-            title='Borrow'
-            value='borrow'/>
-          <GiftedForm.OptionWidget
-            image={<Image source={require('../../icons/wallet2_right.png')} style={{height:22,width:22}}/>}
-            title='Lent'
-            value='lent'/>
-        </GiftedForm.SelectWidget>
+          <GiftedForm.GroupWidget title='Choose Type'/>
+          <GiftedForm.SelectWidget name='type' title='Type' multiple={false}>
+            <GiftedForm.OptionWidget
+              image={<Image source={require('../../icons/wallet2_left.png')} style={{height:22,width:22}}/>}
+              title='Borrow'
+              value='borrow'/>
+            <GiftedForm.OptionWidget
+              image={<Image source={require('../../icons/wallet2_right.png')} style={{height:22,width:22}}/>}
+              title='Lent'
+              value='lent'/>
+          </GiftedForm.SelectWidget>
 
-        <GiftedForm.SeparatorWidget />
-        <GiftedForm.GroupWidget title='enter details'/>
-        <GiftedForm.TextInputWidget
-          name='name'
-          title='Name'
-          placeholder='Enter name'
-          clearButtonMode='while-editing'
-          value={name}
-          image={getIcon('md-person')}
-        />
-        <GiftedForm.TextInputWidget
-          name='amount'
-          title='Amount'
-          placeholder='Enter amount'
-          clearButtonMode='while-editing'
-          value={amount}
-          image={getIcon('ios-cash')}
-        />
-        <GiftedForm.RowDatePicker
-          name='dateRow'
-          title='Date'
-          placeholder='Enter date'
-          image={getIcon('ios-calendar')}
-          date={date}
-          onDateChange={onDateChange}
+          <GiftedForm.SeparatorWidget />
+          <GiftedForm.GroupWidget title='enter details'/>
+          <GiftedForm.TextInputWidget
+            name='name'
+            title='Name'
+            placeholder='Enter name'
+            clearButtonMode='while-editing'
+            value={name}
+            image={getIcon('md-person')}
           />
-        <GiftedForm.TextAreaWidget
-          name='notes'
-          title='Notes'
-          placeholder='Enter Notes'
-          clearButtonMode='while-editing'
-          value={notes}
-        />
-        <GiftedForm.NoticeWidget title={this.props.errors} style={{color: 'red'}}/>
-        <GiftedForm.ErrorsWidget />
-        <GiftedForm.SubmitWidget
-          title='Add new reminder'
-          widgetStyles={{
-            submitButton: {
-              backgroundColor: 'green',
-            }
-          }}
-          onSubmit={(isValid, values, validationResults, postSubmit = null, modalNavigator = null) => {
-            if (isValid === true) {
-              values.date = date
-              GiftedFormManager.reset('newReminderForm')
-              this.props.onSubmitReminder(isValid)
-            } else {
-              console.log('validationResults', validationResults)
+          <GiftedForm.TextInputWidget
+            name='amount'
+            title='Amount'
+            placeholder='Enter amount'
+            clearButtonMode='while-editing'
+            value={amount}
+            image={getIcon('ios-cash')}
+          />
+          <GiftedForm.RowDatePicker
+            name='dateRow'
+            title='Date'
+            placeholder='Enter date'
+            image={getIcon('ios-calendar')}
+            date={date}
+            onDateChange={onDateChange}
+            />
+          <GiftedForm.TextAreaWidget
+            name='notes'
+            title='Notes'
+            placeholder='Enter Notes'
+            clearButtonMode='while-editing'
+            value={notes}
+          />
+          <GiftedForm.NoticeWidget title={this.props.errors} style={{color: 'red'}}/>
+          <GiftedForm.ErrorsWidget />
+          <GiftedForm.SubmitWidget
+            title='Add new reminder'
+            widgetStyles={{
+              submitButton: {
+                backgroundColor: 'green',
+              }
+            }}
+            onSubmit={(isValid, values, validationResults, postSubmit = null, modalNavigator = null) => {
+              if (isValid === true) {
+                values.date = date
+                GiftedFormManager.reset('newReminderForm')
+                this.props.onSubmitReminder(isValid)
+              } else {
+                console.log('validationResults', validationResults)
 
-            }
-          }}
-        />
+              }
+            }}
+          />
       </GiftedForm>
     )
   }
+}
+
+NewReminderForm.PropTypes = {
+  name: PropTypes.string,
+  type: PropTypes.string,
+  amount: PropTypes.number,
+  date: PropTypes.date,
+  notes: PropTypes.string,
+  handleValueChange: PropTypes.func.isRequired,
+  onDateChange: PropTypes.func.isRequired
 }

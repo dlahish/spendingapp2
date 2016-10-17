@@ -27,7 +27,6 @@ import {
   Reminders,
   NewReminder
 } from '../components'
-import FormModal from '../components/reminders/FormModal'
 import Icon from 'react-native-vector-icons/FontAwesome'
 const plusIcon = (<Icon name='plus' size={26} color='#FFF' />)
 const plusIconBlackDisabled = (<Icon name='plus' size={26} color='#BBBBBB' />)
@@ -139,10 +138,7 @@ class Routes extends Component {
                   icon={TabIcon}
                   title='New Reminder'
                   hideNavBar={true}
-                  // backTitle='Back'
-                  // backButtonTextStyle={{color: 'white'}}
                 />
-                <Scene key='formModal' component={FormModal}/>
                 <Scene
                   key="newTransaction"
                   component={NewTransaction}
@@ -175,7 +171,6 @@ class Routes extends Component {
                   key="export"
                   title="Export to CSV"
                   component={Export}
-                  // hideNavBar={false}
                 />
               </Scene>
             </Scene>
