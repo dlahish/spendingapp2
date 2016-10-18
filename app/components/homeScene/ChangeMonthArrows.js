@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { View, Text, TouchableHighlight } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 const rightArrow = (<Icon name='angle-right' size={22} />)
 const leftArrow = (<Icon name='angle-left' size={22} />)
@@ -8,14 +8,14 @@ export default changeMonthArrows = (props) => {
   return (
     <View style={styles.container}>
         <View style={{paddingRight: 50}}>
-            <TouchableHighlight onPress={() => props.onPressLeft()}>
+            <TouchableOpacity onPress={() => props.onPressLeft()} style={{paddingHorizontal: 5}}>
                 {leftArrow}
-            </TouchableHighlight>
+            </TouchableOpacity>
         </View>
         <View>
-            <TouchableHighlight onPress={() => props.onPressRight()}>
+            <TouchableOpacity onPress={() => props.onPressRight()} style={{paddingHorizontal: 5}}>
                 {rightArrow}
-            </TouchableHighlight>
+            </TouchableOpacity>
         </View>
     </View>
   )

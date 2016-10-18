@@ -86,7 +86,7 @@ class Routes extends Component {
                       onLeft={() => Actions.viewTransactions({
                         editMode: false,
                         selectedItemIndex: false})}
-                      rightTitle={plusIconBlackDisabled}
+                      rightTitle=''
                       onRight={() => {}}
                       hideTabBar={true}
                     />

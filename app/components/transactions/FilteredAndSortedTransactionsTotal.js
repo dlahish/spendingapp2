@@ -23,18 +23,18 @@ export default FilteredAndSortedTransactionsTotal = (props) => {
 
         <View style={styles.balanceBox}>
             <View style={styles.balanceWrapper}>
-              <Text>
+              <Text style={styles.balanceText}>
                 {getTotalBalace(props.transactions, 'income')}
               </Text>
             </View>
             <View style={[styles.balanceWrapper, styles.expenseWrapper]}>
-              <Text>
+              <Text style={styles.balanceText}>
                 {getTotalBalace(props.transactions, 'expense')}
               </Text>
             </View>
         </View>
 
-        <View style={{paddingLeft: 25, paddingBottom: 2, paddingTop: 2}}>
+        <View style={{paddingLeft: 30, paddingBottom: 2, paddingTop: 2}}>
             <Text>{I18n.p(props.transactions.length, 'transactions')}</Text>
         </View>
 
@@ -49,7 +49,7 @@ FilteredAndSortedTransactionsTotal.PropTypes = {
 const styles = {
   balanceWrapper: {
     flex: 1,
-    backgroundColor: '#2ecc71',
+    backgroundColor: '#3CB371',
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 2,
@@ -58,7 +58,7 @@ const styles = {
     borderBottomLeftRadius: 5
   },
   expenseWrapper: {
-    backgroundColor: '#ff4d4d',
+    backgroundColor: '#CD5C5C',
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
     borderTopRightRadius: 5,
@@ -69,6 +69,11 @@ const styles = {
     borderWidth: 0.5,
     borderColor: 'black',
     borderRadius: 5
+  },
+  balanceText: {
+    color: '#FFF',
+    fontSize: 14,
+    fontWeight: '600'
   }
 }
 

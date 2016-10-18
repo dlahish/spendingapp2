@@ -61,16 +61,16 @@ export default class FavoriteTransaction extends Component {
       return <CustomNavBar
         onLeftPress={() => Actions.viewFavoriteTransactions({editMode: false})}
         onRightPress={() => {}}
-        title='Preset Transaction'
+        title='Favorite Transactions'
         leftButton='Done'
-        rightButton={plusIconBlackDisabled}
+        // rightButton={plusIconBlackDisabled}
       />
     } else {
       return <CustomNavBar
         onLeftPress={() => Actions.settings()}
         onSecondLeftPress={() => Actions.editFavoriteTransactions({editMode: true})}
         onRightPress={() => this.onPlusIconPress()}
-        title='Preset Transaction'
+        title='Favorite Transactions'
         leftButton='Back'
         secondLeftButton='Edit'
         rightButton={plusIcon}

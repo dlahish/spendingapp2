@@ -71,7 +71,7 @@ class Home extends Component {
           </View>
 
           <View style={styles.titleWrapper}>
-              <Text style={styles.titleText}>Preset Transactions</Text>
+              <Text style={styles.titleText}>Favorites</Text>
           </View>
 
           <ScrollView style={styles.favoriteTransactions}>

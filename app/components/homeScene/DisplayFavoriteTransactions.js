@@ -50,7 +50,7 @@ export default DisplayFavoriteTransactions = (props) => {
           })
         : <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
             <View style={styles.messageBox}>
-              <Text style={{fontSize: 15}}>Go to setting to add a new preset transaction</Text>
+              <Text style={{fontSize: 15}}>Go to setting to add favorite transactions</Text>
             </View>
           </View>}
     </View>
@@ -97,6 +97,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 3,
     borderColor: 'black',
-    padding: 15
+    padding: 10
   }
 })

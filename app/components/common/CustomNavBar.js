@@ -1,38 +1,38 @@
 import React, { PropTypes } from 'react'
-import { Text, View, StyleSheet, TouchableHighlight } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 
 export default CustomNavBar = (props) =>
   <View style={styles.container}>
     <View style={styles.leftSection}>
-      <TouchableHighlight
+      <TouchableOpacity
         style={styles.button}
         onPress={() => props.onLeftPress()}
       >
         <Text style={[styles.buttonText, {paddingRight: 10}]}>
           {props.leftButton}
         </Text>
-      </TouchableHighlight>
-      <TouchableHighlight
+      </TouchableOpacity>
+      <TouchableOpacity
         style={styles.button}
         onPress={() => props.onSecondLeftPress()}
       >
         <Text style={styles.buttonText}>
           {props.secondLeftButton}
         </Text>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </View>
     <View style={styles.titleWrapper}>
       <Text style={styles.title}>{props.title}</Text>
     </View>
     <View style={styles.rightSection}>
-      <TouchableHighlight
+      <TouchableOpacity
           style={styles.button}
           onPress={() => props.onRightPress()}
         >
           <Text style={styles.buttonText}>
             {props.rightButton}
           </Text>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </View>
   </View>
 

@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Button from 'react-native-button'
-import Icon from 'react-native-vector-icons/FontAwesome'
+// import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux'
 
 export default AddTransactionButtons = (props) => {
@@ -12,29 +13,23 @@ export default AddTransactionButtons = (props) => {
 
   return (
     <View style={styles.container}>
+        <Button
+          style={styles.btnText}
+  				containerStyle={[styles.btn, styles.bgGreen]}
+          onPress={() => this.handleButtonPress('Income')}
+        >
+            <Icon name='md-add' style={{fontSize: 15, color: '#FFF'}}/>
+            Income
+        </Button>
 
-      <View style={styles.buttonContainer}>
-          <Button
-            style={styles.btnText}
-    				containerStyle={[styles.btn, styles.bgGreen]}
-            onPress={() => this.handleButtonPress('Income')}
-          >
-              <Icon name="plus-circle" style={{fontSize: 15}}/>
-              Income
-          </Button>
-      </View>
-
-      <View style={styles.buttonContainer}>
-          <Button
-            style={styles.btnText}
-            containerStyle={[styles.btn, styles.bgRed]}
-            onPress={() => this.handleButtonPress('Expense')}
-          >
-              <Icon name="plus-circle" style={{fontSize: 15}}/>
-              Expense
-          </Button>
-      </View>
-
+        <Button
+          style={styles.btnText}
+          containerStyle={[styles.btn, styles.bgRed]}
+          onPress={() => this.handleButtonPress('Expense')}
+        >
+            <Icon name='md-add' style={{fontSize: 15, color: '#FFF'}}/>
+            Expense
+        </Button>
     </View>
   )
 }
@@ -45,7 +40,8 @@ AddTransactionButtons.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   },
   buttonContainer: {
     flex: 1,
@@ -53,23 +49,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   btnText: {
-		color: 'black',
     fontSize: 15,
+    fontWeight: '600',
+    color: 'white',
     paddingLeft: 10
 	},
 	btn: {
-    width:130,
-		padding:4,
-		borderRadius:6,
+    width: 120,
+    height: 36,
+		borderRadius: 2,
+    justifyContent: 'center',
     alignItems: 'center'
 	},
   bgDark: {
 		backgroundColor: "#333",
 	},
   bgGreen: {
-		backgroundColor: "#2ecc71",
+		// backgroundColor: "#2ecc71",
+    backgroundColor: '#3CB371'
 	},
   bgRed: {
-		backgroundColor: "#ff4d4d",
+		// backgroundColor: "#ff4d4d",
+    backgroundColor: '#CD5C5C'
 	},
 })

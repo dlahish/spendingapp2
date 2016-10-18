@@ -1,23 +1,23 @@
 import React from 'react'
-import { View, Text, TouchableHighlight } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-const rightArrow = (<Icon name='angle-right' size={22} />)
-const leftArrow = (<Icon name='angle-left' size={22} />)
+const rightArrow = (<Icon name='angle-right' size={24} />)
+const leftArrow = (<Icon name='angle-left' size={24} />)
 import { Actions } from 'react-native-router-flux'
 
 export default MonthHeader = (props) =>
   <View style={styles.monthHeaderContainer}>
     <View style={{flex: 1, alignItems: 'flex-start', paddingLeft: 10}}>
-      <TouchableHighlight onPress={() => props.onSortPress()}>
+      <TouchableOpacity onPress={() => props.onSortPress()}>
         <Text style={styles.monthText}>Sort</Text>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </View>
 
     <View style={styles.monthHeader}>
       <View style={{paddingRight: 15, justifyContent: 'center'}}>
-        <TouchableHighlight onPress={() => props.onPressLeft()}>
+        <TouchableOpacity onPress={() => props.onPressLeft()} style={{paddingHorizontal: 5}}>
           {leftArrow}
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
 
       <Text style={styles.monthText}>
@@ -25,16 +25,16 @@ export default MonthHeader = (props) =>
       </Text>
 
       <View style={{paddingLeft: 15, justifyContent: 'center'}}>
-        <TouchableHighlight onPress={() => props.onPressRight()}>
+        <TouchableOpacity onPress={() => props.onPressRight()} style={{paddingHorizontal: 5}}>
           {rightArrow}
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
     </View>
 
     <View style={{flex: 1, alignItems: 'flex-end', paddingRight: 10}}>
-      <TouchableHighlight onPress={() => Actions.export()}>
+      <TouchableOpacity onPress={() => Actions.export()}>
         <Text style={styles.monthText}>Export</Text>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </View>
   </View>
 
@@ -54,6 +54,6 @@ const styles = {
   },
   monthText: {
     alignSelf: 'center',
-    fontSize: 20
+    fontSize: 17,
   }
 }
