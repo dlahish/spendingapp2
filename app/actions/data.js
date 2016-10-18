@@ -112,18 +112,15 @@ export function updateTransaction(transaction, currentMonthIndex) {
 
 export function getVisibleTransactions(transactions, currentMonthIndex) {
   return function(dispatch) {
-    monthFilter = (transaction) => {
-      const transactionMonth = new Date(transaction.date).getMonth()
-      return transactionMonth === currentMonthIndex
-    }
-    sortDownDate = (a, b) => a.date > b.date ? 1 : a.date < b.date ? -1 : 0
-    sortUpDate = (a, b) => a.date < b.date ? 1 : a.date > b.date ? -1 : 0
-    let visibleTransactions
-    if (transactions === undefined) {
-      visibleTransactions = []
-    } else {
-      const filteredTransactions = transactions.filter(monthFilter)
-      visibleTransactions = filteredTransactions.sort((a,b) => sortUpDate(a,b))
+    let visibleTransactions = []
+    if (transactions) {
+      const filteredTransactions = transactions.filter((transaction) => {
+        const transactionMonth = new Date(transaction.date).getMonth()
+        return transactionMonth === currentMonthIndex
+      })
+      visibleTransactions = filteredTransactions.sort((a,b) => {
+        a.date < b.date ? 1 : a.date > b.date ? -1 : 0
+      })
     }
     dispatch((setVisibleTransactions(visibleTransactions)))
   }
