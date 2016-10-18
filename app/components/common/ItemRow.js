@@ -30,9 +30,8 @@ export default class ItemRow extends Component {
   getCompletedStyles = (type) => {
     if (this.props.completed) {
       switch (type) {
-        case 'container': return { opacity: 0.4 }
-        case 'amount': return { color: 'black', textDecorationLine: 'line-through' }
-        case 'mainText': return { textDecorationLine: 'line-through' }
+        case 'amount': return { color: 'black', textDecorationLine: 'line-through', opacity: 0.6 }
+        case 'text': return { textDecorationLine: 'line-through', opacity: 0.6 }
       }
     }
   }
@@ -55,7 +54,7 @@ export default class ItemRow extends Component {
 
     return(
       <View style={styles.itemRow}>
-        <View style={[styles.container, this.getCompletedStyles('container')]}>
+        <View style={[styles.container]}>
           {editMode && selected
             ? <View></View>
             : editMode ?
@@ -74,7 +73,7 @@ export default class ItemRow extends Component {
             <View>
               <View style={styles.mainAndRightText}>
                 <View>
-                  <Text style={[styles.mainText, this.getCompletedStyles('mainText')]}>{mainText}</Text>
+                  <Text style={[styles.mainText, this.getCompletedStyles('text')]}>{mainText}</Text>
                 </View>
                 <View>
                   <Text style={[styles.mainText, rightTextStyle, this.getCompletedStyles('amount')]}>{rightText}</Text>
@@ -82,7 +81,7 @@ export default class ItemRow extends Component {
               </View>
               {secondaryText
                 ? <View>
-                    <Text style={styles.secondaryText}>{secondaryText}</Text>
+                    <Text style={[styles.secondaryText, this.getCompletedStyles('text')]}>{secondaryText}</Text>
                   </View>
                 : <View style={{paddingBottom: 2}}></View>}
             </View>
