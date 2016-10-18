@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import DatePicker from 'react-native-datepicker'
 import { Actions } from 'react-native-router-flux'
 import { View, Text, Image } from 'react-native'
+import RowDatePicker from '../common/formWidgets/widgets/RowDatePicker'
 
 function getIcon(name) {
   return <Icon name={name} size={16} color='black' style={{paddingLeft: 10}}/>
@@ -78,7 +79,7 @@ export default class NewReminderForm extends Component {
             value={amount}
             image={getIcon('ios-cash')}
           />
-          <GiftedForm.RowDatePicker
+          <RowDatePicker
             name='dateRow'
             title='Date'
             placeholder='Enter date'
