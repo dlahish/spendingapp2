@@ -8,7 +8,7 @@ import ReactNativeI18n from 'react-native-i18n'
 function displayText(currentMonthTotal, type, currencySymbol) {
   if (type === 'balance') {
     let balance = currentMonthTotal.income - currentMonthTotal.expenses
-    return <Text style={styles.amount}>
+    return <Text style={styles.text}>
             {I18n.toCurrency(balance, {
               unit: getSymbol(currencySymbol),
               format: "%u %n",
@@ -17,7 +17,7 @@ function displayText(currentMonthTotal, type, currencySymbol) {
             </Text>
   }
   if (currentMonthTotal.hasOwnProperty([type])) {
-    return <Text style={styles.amount}>
+    return <Text style={styles.text}>
             {I18n.toCurrency(currentMonthTotal[type], {
               unit: getSymbol(currencySymbol),
               format: "%u %n",
@@ -37,38 +37,40 @@ export default class CurrentMonthTotal extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.titleWrapper}>
-            <Text style={styles.titleText}>Month Balance</Text>
-        </View>
-
-        <View style={styles.innerContainer}>
-          <Text style={styles.title}>
-            Income
-          </Text>
-          <View>
-            {displayText(this.props.currentMonthTotal, 'income', this.props.currencySymbol)}
+          <View style={styles.titleWrapper}>
+              <Text style={styles.titleText}>Month Balance</Text>
           </View>
-        </View>
 
-        <View style={styles.innerContainer}>
-          <Text style={styles.title}>
-            Expense
-          </Text>
-          <View>
-            {displayText(this.props.currentMonthTotal, 'expenses', this.props.currencySymbol)}
+          <View style={styles.line}></View>
+
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>
+              Income
+            </Text>
+            <View>
+              {displayText(this.props.currentMonthTotal, 'income', this.props.currencySymbol)}
+            </View>
           </View>
-        </View>
 
-        <View style={styles.line}></View>
-
-        <View style={styles.innerContainer}>
-          <Text style={styles.title}>
-            Total
-          </Text>
-          <View>
-            {displayText(this.props.currentMonthTotal, 'balance', this.props.currencySymbol)}
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>
+              Expense
+            </Text>
+            <View>
+              {displayText(this.props.currentMonthTotal, 'expenses', this.props.currencySymbol)}
+            </View>
           </View>
-        </View>
+
+          <View style={[styles.line, {marginHorizontal: 15}]}></View>
+
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>
+              Total
+            </Text>
+            <View>
+              {displayText(this.props.currentMonthTotal, 'balance', this.props.currencySymbol)}
+            </View>
+          </View>
 
       </View>
     )
@@ -81,55 +83,30 @@ CurrentMonthTotal.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 5
+    marginVertical: 15,
+    backgroundColor: '#eaeaea',
   },
-  innerContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    justifyContent: 'space-between',
-    marginBottom: 5,
-    paddingLeft: 15,
-    paddingRight: 15
+  titleWrapper: {
+    paddingHorizontal: 15,
+    paddingVertical: 5,
   },
-  title: {
-    justifyContent: 'center',
-    color: '#333',
-    fontSize: 17,
-    fontWeight: '400',
-    // color: 'rgb(0, 153, 204)',
-    paddingBottom: 5
-  },
-  amount: {
-    flex: 1,
-    color: '#333',
-    fontSize: 17,
-    fontWeight: '400'
-  },
-  loading: {
-    flex: 1,
+  titleText: {
+    color: 'black',
     fontSize: 15,
-    fontWeight: '300',
+    fontWeight: '400'
   },
   line: {
     height: 1,
-    backgroundColor: '#b3b3b3',
-    marginBottom: 10
+    backgroundColor: '#b3b3b3'
   },
-  summeryLineWrapper: {
+  textContainer: {
+    paddingHorizontal: 15,
+    paddingVertical: 6,
     flexDirection: 'row',
+    alignItems: 'stretch',
     justifyContent: 'space-between'
   },
-  titleWrapper: {
-    backgroundColor: '#eaeaea',
-    paddingLeft: 15,
-    justifyContent: 'center',
-    paddingTop: 3,
-    paddingBottom: 3,
-    marginBottom: 3
-  },
-  titleText: {
+  text: {
     color: 'black',
     fontSize: 17,
     fontWeight: '400'

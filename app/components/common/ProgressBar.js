@@ -26,7 +26,7 @@ export default ProgressBar = (props) => {
         progress={getProgress(props.currentMonthTotal.income, props.currentMonthTotal.expenses)}
         indeterminate={false}
         color='#3CB371'
-        unfilledColor='#CD5C5C'
+        unfilledColor='rgba(231,76,60,1)'
         borderWidth={0}
         height={8}
         width={250}

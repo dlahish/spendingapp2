@@ -58,7 +58,7 @@ const styles = {
     borderBottomLeftRadius: 5
   },
   expenseWrapper: {
-    backgroundColor: '#CD5C5C',
+    backgroundColor: 'rgba(231,76,60,1)',
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
     borderTopRightRadius: 5,

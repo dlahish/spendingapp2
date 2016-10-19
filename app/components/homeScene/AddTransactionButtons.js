@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#3CB371'
 	},
   bgRed: {
-		// backgroundColor: "#ff4d4d",
-    backgroundColor: '#CD5C5C'
+    backgroundColor: 'rgba(231,76,60,1)'
 	},
 })
