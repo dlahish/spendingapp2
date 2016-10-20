@@ -25,11 +25,11 @@ import {
   Loader,
   Export,
   Reminders,
-  NewReminder
+  NewReminder,
+  CategoryIcons
 } from '../components'
 import Icon from 'react-native-vector-icons/FontAwesome'
 const plusIcon = (<Icon name='plus' size={26} color='#FFF' />)
-const plusIconBlackDisabled = (<Icon name='plus' size={26} color='#BBBBBB' />)
 
 const RouterWithRedux = connect()(Router)
 
@@ -105,8 +105,6 @@ class Routes extends Component {
                       leftButtonTextStyle={{color: '#fff'}}
                       onLeft={() => Actions.viewCategoties({
                         editMode: false, deleteButtonWidth: 0, selectedCategoryIndex: null})}
-                      rightTitle={plusIconBlackDisabled}
-                      onRight={() => {}}
                       hideTabBar={true}
                     />
                   </Scene>
@@ -139,6 +137,7 @@ class Routes extends Component {
                   title='New Reminder'
                   hideNavBar={true}
                 />
+
                 <Scene
                   key="newTransaction"
                   component={NewTransaction}
@@ -149,6 +148,7 @@ class Routes extends Component {
                   <Scene key="viewNewTransaction" />
                   <Scene key="newFavoriteTransaction" />
                 </Scene>
+
                 <Scene
                   key="categoryList"
                   title="Categories"
@@ -161,16 +161,25 @@ class Routes extends Component {
                   rightTitle={plusIcon}
                   onRight={() => Actions.newCategory()}
                 />
+
                 <Scene
                   key="newCategory"
                   title="New Category"
                   component={NewCategory}
                   hideNavBar={true}
                 />
+
                 <Scene
                   key="export"
                   title="Export to CSV"
                   component={Export}
+                />
+
+                <Scene
+                  key="categoryIcons"
+                  title="Category Icons"
+                  component={CategoryIcons}
+                  // hideNavBar={true}
                 />
               </Scene>
             </Scene>

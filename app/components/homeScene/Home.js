@@ -70,7 +70,7 @@ class Home extends Component {
               />
           </View>
 
-          <View style={styles.titleWrapper}>
+          <View style={[styles.titleWrapper, {borderBottomWidth: 1, borderBottomColor: '#b3b3b3'}]}>
               <Text style={styles.titleText}>Favorites</Text>
           </View>
 
@@ -142,14 +142,12 @@ const styles = StyleSheet.create({
   },
   titleWrapper: {
     backgroundColor: '#eaeaea',
-    paddingLeft: 15,
-    justifyContent: 'center',
-    paddingTop: 3,
-    paddingBottom: 3
+    paddingHorizontal: 15,
+    paddingVertical: 5
   },
   titleText: {
     color: 'black',
-    fontSize: 17,
+    fontSize: 15,
     fontWeight: '400'
   }
 })

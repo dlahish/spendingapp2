@@ -17,6 +17,7 @@ import CategoryList from './categories/CategoryList'
 import Categories from './categories/Categories'
 import NewCategory from './categories/NewCategory'
 import NewCategoryForm from './categories/NewCategoryForm'
+import CategoryIcons from './categories/CategoryIcons'
 
 import Reminders from './reminders/Reminders'
 import NewReminder from './reminders/NewReminder'
@@ -82,5 +83,6 @@ export {
   RowDatePicker,
   RowWidgetWithTitle,
   LoadingOverlay,
-  ProgressBar
+  ProgressBar,
+  CategoryIcons
 }
