@@ -7,7 +7,8 @@ import {
   SET_YEAR_TRANSACTIONS,
   SET_FAVORITE_TRANSACTION,
   DELETE_FAVORITE_TRANSACTION,
-  SET_VISIBLE_TRANSACTIONS
+  SET_VISIBLE_TRANSACTIONS,
+  SAVE_CATEGORY_ICON
 } from './../constants'
 import {
   fetchYearTotal,
@@ -33,6 +34,15 @@ function setYearTotal(data) {
   return {
     type: SET_YEAR_TOTAL,
     data
+  }
+}
+
+function saveCategoryIcon(category) {
+  console.log('save category icon', category.iconName)
+  return {
+    type: SAVE_CATEGORY_ICON,
+    iconName: category.iconName,
+    category: category.category
   }
 }
 
@@ -245,10 +255,13 @@ export function setCurrentMonth(monthIndex = new Date().getMonth()) {
 }
 
 export function addNewCategory(category) {
+  console.log('ADD NEW CATEGORY ---', category)
   return function(dispatch, getState) {
     const token = getToken(getState())
     saveNewCategory(token, category)
       .then((response) => {
+        console.log('response ---', response)
+        dispatch(saveCategoryIcon(category))
         dispatch(getCategories(token))
       })
       .catch((err) => console.log(err))

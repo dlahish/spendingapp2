@@ -2,12 +2,19 @@ import React, { Component, PropTypes } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as formActions from '../../actions/form'
 import icons from './icons'
 import {
   CustomNavBar
 } from '../../components'
 
-export default class CategoryIcons extends Component {
+class CategoryIcons extends Component {
+  onIconPress = (icon) => {
+    this.props.setCategoryIcon(icon)
+    Actions.pop()
+  }
   render() {
     console.log('icons', icons)
     return (
@@ -23,7 +30,7 @@ export default class CategoryIcons extends Component {
           {icons.map((icon, i) => {
             return (
               <View key={i} style={styles.iconWrapper}>
-                <TouchableOpacity onPress={() => console.log('icon num', i)}>
+                <TouchableOpacity onPress={() => this.onIconPress(icon)}>
                   <Text><Icon name={icons[i]} size={36} color='black' style={{paddingLeft: 10}}/></Text>
                 </TouchableOpacity>
               </View>
@@ -34,6 +41,11 @@ export default class CategoryIcons extends Component {
     )
   }
 }
+
+export default connect(
+  (state) => ({}),
+  (dispatch) => (bindActionCreators(formActions, dispatch))
+)(CategoryIcons)
 
 const styles = StyleSheet.create({
   container: {

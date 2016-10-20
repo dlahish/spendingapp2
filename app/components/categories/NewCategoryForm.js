@@ -19,6 +19,7 @@ function getIcon(name) {
 
 export default class NewCategoryForm extends Component {
   render() {
+    console.log('new category form - props', this.props)
     let incomeSelected, expenseSelected
     if (this.props.categoryType === 'Income') { incomeSelected = true, expenseSelected = false }
     else { incomeSelected = false, expenseSelected = true }
@@ -61,9 +62,11 @@ export default class NewCategoryForm extends Component {
               disclosure={true}
               onPress={() => Actions.categoryIcons()}
               image={getIcon('ios-list-box')}
-              mainContent={getIcon()}
+              mainContent={getIcon(this.props.iconName)}
               placeholder='Select an icon'
             />
+
+            <GiftedForm.NoticeWidget title={this.props.error} style={{color: 'red'}}/>
 
         </GiftedForm>
         {/* <View style={[styles.inputWrapper]}>
@@ -131,5 +134,6 @@ var styles = StyleSheet.create({
 
 NewCategoryForm.propTypes = {
   // onInputChange: PropTypes.func.isRequired
-  categoryType: PropTypes.string.isRequired
+  categoryType: PropTypes.string.isRequired,
+  iconName: PropTypes.string
 }

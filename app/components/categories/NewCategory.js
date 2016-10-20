@@ -12,6 +12,7 @@ class NewCategory extends Component {
     this.state = {
       category: '',
       type: 'Income',
+      iconName: '',
       isValid: false,
       error: '',
       formValidateInfo: undefined
@@ -19,7 +20,11 @@ class NewCategory extends Component {
   }
 
   componentDidMount() {
-    this.setState({category: {type: this.props.categoryType }})
+    this.setState({ type: this.props.categoryType })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ iconName: nextProps.iconName })
   }
 
   // onInputChange = (field, value) => {
@@ -30,28 +35,31 @@ class NewCategory extends Component {
   // }
 
   handleValueChange = (values, formValidateInfo) => {
-    let error = this.state.error
-    if (values.category.length === 0) error = ''
+    console.log('handle value change - values', values)
+    // let error = this.state.error
+    // if (values.category.length === 0) error = ''
     this.setState({
       isValid: formValidateInfo.isValid,
-      category: values.amount,
-      error,
+      category: values.category,
+      error: '',
       formValidateInfo
     })
   }
 
-  onSaveNewCategory = (isValid) => {
+  onSaveNewCategory = () => {
     const s = this.state
-    if (s.form.isValid) {
-      this.props.actions.reminders.setNewReminder(this.state.form)
+    if (s.isValid) {
+      this.props.addNewCategory(this.state)
+      this.setState({
+        category: '',
+        type: 'Income',
+        iconName: '',
+        isValid: false,
+        error: ''
+      })
       Actions.pop()
     } else {
-      if (s.formValidateInfo === undefined) return this.setState({ errors: 'Please choose type of reminder'})
-      let errors = ''
-      if (!s.formValidateInfo.results.amount[0].isValid) errors += s.formValidateInfo.results.amount[0].message + '\n'
-      if (!s.formValidateInfo.results.name[0].isValid) errors += s.formValidateInfo.results.name[0].message + '\n'
-      if (!s.formValidateInfo.results.type[0].isValid) errors += s.formValidateInfo.results.type[0].message + '\n'
-      this.setState({ errors })
+      this.setState({ error: 'Category name is required' })
     }
   }
 
@@ -61,10 +69,11 @@ class NewCategory extends Component {
   // }
 
   onTypeChange = (type) => {
-    this.setState({ category: {type: type }})
+    this.setState({ type: type })
   }
 
   render() {
+    console.log('new category state', this.state)
     return (
       <View style={styles.container}>
         <CustomNavBar
@@ -80,6 +89,8 @@ class NewCategory extends Component {
           onTypeChange={this.onTypeChange}
           categoryType={this.state.type}
           categoryName={this.state.name}
+          iconName={this.state.iconName}
+          error={this.state.error}
         />
       </View>
     )
@@ -88,6 +99,7 @@ class NewCategory extends Component {
 
 NewCategory.PropTypes = {
   categoryType: PropTypes.string,
+  iconName: PropTypes.string,
   addNewCategory: PropTypes.func.isRequired
 }
 
@@ -98,6 +110,6 @@ const styles = {
 }
 
 export default connect(
-  (state) => ({}),
+  (state) => ({ iconName: state.form.categoryIcon }),
   (dispatch) => (bindActionCreators(dataActionCreators, dispatch))
 )(NewCategory)

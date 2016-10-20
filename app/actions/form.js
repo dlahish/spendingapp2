@@ -2,8 +2,16 @@ import {
   SET_NEW_CATEGORY,
   CLEAR_FORM,
   SET_CATEGORY_TYPE,
-  SET_TRANSACTIONS_SEARCH_VALUE
+  SET_TRANSACTIONS_SEARCH_VALUE,
+  SET_CATEGORY_ICON
 } from '../constants'
+
+export function setCategoryIcon(iconName) {
+  return {
+    type: SET_CATEGORY_ICON,
+    iconName
+  }
+}
 
 export function setNewCategory(category) {
   return {
