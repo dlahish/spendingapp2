@@ -10,7 +10,7 @@ class NewCategory extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      category: '',
+      name: '',
       type: 'Income',
       iconName: '',
       isValid: false,
@@ -40,7 +40,7 @@ class NewCategory extends Component {
     // if (values.category.length === 0) error = ''
     this.setState({
       isValid: formValidateInfo.isValid,
-      category: values.category,
+      name: values.name,
       error: '',
       formValidateInfo
     })
@@ -51,7 +51,7 @@ class NewCategory extends Component {
     if (s.isValid) {
       this.props.addNewCategory(this.state)
       this.setState({
-        category: '',
+        name: '',
         type: 'Income',
         iconName: '',
         isValid: false,

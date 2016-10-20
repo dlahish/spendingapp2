@@ -38,7 +38,7 @@ export default class NewCategoryForm extends Component {
             this.props.handleValueChange(values, GiftedFormManager.validate('newCategoryForm'))
           }}
           validators={{
-            category: {
+            name: {
               title: 'Category',
               validate: [{
                 validator: 'isLength',
@@ -49,7 +49,7 @@ export default class NewCategoryForm extends Component {
           }}
         >
             <GiftedForm.TextInputWidget
-              name='category'
+              name='name'
               title='Category'
               placeholder='Category name'
               clearButtonMode='while-editing'

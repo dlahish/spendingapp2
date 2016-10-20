@@ -6,17 +6,10 @@ const initialState = {
 }
 
 export default function accounts (state = initialState, action) {
-  let nextCategoryIconIndex = []
-  let newCategory = {}
+  let nextCategoryIconIndex = state.categoryIconIndex
   switch (action.type) {
     case SAVE_CATEGORY_ICON:
-      console.log('reducer ACTION -----', action)
-      newCategory.category = action.category
-      newCategory.iconName = action.iconName
-      console.log('state', state)
-      console.log('nextCategoryIconIndex', nextCategoryIconIndex)
-      console.log('newCategory', newCategory)
-      nextCategoryIconIndex.push(newCategory)
+      nextCategoryIconIndex.push({ name: action.name, iconName: action.iconName })
       return { ...state, categoryIconIndex: nextCategoryIconIndex }
     case REHYDRATE:
       var incoming = action.payload.myReducer

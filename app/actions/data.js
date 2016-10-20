@@ -42,7 +42,7 @@ function saveCategoryIcon(category) {
   return {
     type: SAVE_CATEGORY_ICON,
     iconName: category.iconName,
-    category: category.category
+    name: category.name
   }
 }
 
