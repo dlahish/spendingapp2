@@ -37,21 +37,21 @@ function setYearTotal(data) {
   }
 }
 
-function saveCategoryIcon(category) {
-  console.log('save category icon', category.iconName)
-  return {
-    type: SAVE_CATEGORY_ICON,
-    iconName: category.iconName,
-    name: category.name
-  }
-}
-
 function setCurrentMonthTotal(data, currentMonthIndex) {
   if (data.length > 0) {
     return {
       type: SET_CURRENT_MONTH_TOTAL,
       data: data[currentMonthIndex]
     }
+  }
+}
+
+export function saveCategoryIcon(category) {
+  console.log('save category icon', category.iconName)
+  return {
+    type: SAVE_CATEGORY_ICON,
+    iconName: category.iconName,
+    name: category.name
   }
 }
 

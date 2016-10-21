@@ -10,7 +10,8 @@ import {
 const initialState = {
   category: '',
   categoryType: 'Income',
-  transactionsSearchValue: ''
+  transactionsSearchValue: '',
+  categoryIconName: ''
 }
 
 export default function accounts (state = initialState, action) {
@@ -22,7 +23,7 @@ export default function accounts (state = initialState, action) {
     case SET_TRANSACTIONS_SEARCH_VALUE:
       return { ...state, transactionsSearchValue: action.value }
     case SET_CATEGORY_ICON:
-      return { ...state, categoryIcon: action.iconName }
+      return { ...state, categoryIconName: action.iconName }
     case CLEAR_FORM:
       return initialState
     case REHYDRATE:

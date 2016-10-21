@@ -12,8 +12,8 @@ import {
   TextInput
 } from 'react-native'
 
-function getIcon(name) {
-  if (name) return <Icon name={name} size={16} color='black' style={{paddingLeft: 10}}/>
+function getIcon(icon) {
+  if (icon) return <Icon name={icon} size={16} color='black' style={{paddingLeft: 10}}/>
   return ''
 }
 

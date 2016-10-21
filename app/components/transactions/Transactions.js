@@ -73,6 +73,11 @@ class Transactions extends Component {
 
   }
 
+  getIcon = (category) => {
+    if (!!this.props.categoryIconIndex[category]) return this.props.categoryIconIndex[category]
+    else return 'ios-pricetag'
+  }
+
   render() {
     const p = this.props
     let transactionsToRender = searchTransactions(p.visibleTransactions, this.state.searchValue)
@@ -130,6 +135,7 @@ class Transactions extends Component {
                   selected={i === this.state.selectedItemIndex ? true : false}
                   item={transaction}
                   mainText={setMainText(transaction)}
+                  icon={this.getIcon(transaction.category)}
                   rightText={I18n.toCurrency(Math.abs(transaction.amount),
                     {unit: getSymbol(p.currencySymbol),
                     format: "%u %n",
@@ -167,7 +173,8 @@ export default connect(
     currentMonthIndex: state.data.currentMonthIndex,
     yearTotal: state.data.yearTotal,
     currencySymbol: state.settings.currencySymbol,
-    transactionsSearchValue: state.form.transactionsSearchValue
+    transactionsSearchValue: state.form.transactionsSearchValue,
+    categoryIconIndex: state.categories.categoryIconIndex
   }),
   (dispatch) => ({
     actions: {

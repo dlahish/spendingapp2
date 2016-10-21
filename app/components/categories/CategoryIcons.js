@@ -15,6 +15,7 @@ class CategoryIcons extends Component {
     this.props.setCategoryIcon(icon)
     Actions.pop()
   }
+  
   render() {
     console.log('icons', icons)
     return (

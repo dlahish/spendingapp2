@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { View, Text, ScrollView, TouchableHighlight, LayoutAnimation } from 'react-native'
 import Button from 'react-native-button'
-import Icon from 'react-native-vector-icons/FontAwesome'
-const editIcon = (<Icon name='minus-circle' size={22} color='red' />)
+import Icon from 'react-native-vector-icons/Ionicons'
+const editIcon = (<Icon name='ios-remove-circle' size={22} color='red' />)
 const plusIconBlack = (<Icon name='plus' size={22} color='#CCC' />)
 import { addBorder } from '../../components'
 import CheckBox from 'react-native-checkbox'
@@ -21,7 +21,7 @@ export default class ItemRow extends Component {
         onChange={() => this.props.onCheckRow(this.props.item.id)}
       />
     } else if (this.props.icon) {
-      return <Icon name={this.props.icon} size={22} color='#CCC' />
+      return <Icon name={this.props.icon} size={22} color='black' />
     } else {
       return <View style={{width: 19}}/>
     }
