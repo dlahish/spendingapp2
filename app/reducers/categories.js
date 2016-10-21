@@ -1,4 +1,4 @@
-import { SAVE_CATEGORY_ICON } from '../constants'
+import { SAVE_CATEGORY_ICON, DELETE_CATEGORY_ICON } from '../constants'
 import {REHYDRATE} from 'redux-persist/constants'
 
 const initialState = {
@@ -12,6 +12,9 @@ export default function accounts (state = initialState, action) {
       nextCategoryIconIndex[action.name] = action.iconName
       return { ...state, categoryIconIndex: nextCategoryIconIndex }
       // return initialState
+    case DELETE_CATEGORY_ICON:
+      delete nextCategoryIconIndex[action.category.name]
+      return { ...state, categoryIconIndex: nextCategoryIconIndex }
     case REHYDRATE:
       var incoming = action.payload.myReducer
       if (incoming) return {...state, ...incoming, specialKey: processSpecial(incoming.specialKey)}

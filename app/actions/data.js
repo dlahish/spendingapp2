@@ -8,7 +8,8 @@ import {
   SET_FAVORITE_TRANSACTION,
   DELETE_FAVORITE_TRANSACTION,
   SET_VISIBLE_TRANSACTIONS,
-  SAVE_CATEGORY_ICON
+  SAVE_CATEGORY_ICON,
+  DELETE_CATEGORY_ICON
 } from './../constants'
 import {
   fetchYearTotal,
@@ -83,6 +84,13 @@ function setYearlyTransactions(response, year) {
     type: SET_YEAR_TRANSACTIONS,
     data: response.data.data,
     year
+  }
+}
+
+function deleteCategoryIcon(category) {
+  return {
+    type: DELETE_CATEGORY_ICON,
+    category
   }
 }
 
@@ -191,6 +199,7 @@ export function removeCategory(category) {
     const token = getToken(getState())
     deleteCategory(token, category)
       .then((response) => {
+        dispatch(deleteCategoryIcon(category))
         dispatch(getCategories(token))
       })
       .catch((err) => console.log(err))

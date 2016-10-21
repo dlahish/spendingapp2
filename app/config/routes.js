@@ -61,6 +61,7 @@ class Routes extends Component {
 
               <Scene key="authed">
                 <Scene key="tabbar" tabs={true} tabBarStyle={styles.tabBar}>
+
                   <Scene
                     key="home"
                     title="Home"
@@ -68,6 +69,7 @@ class Routes extends Component {
                     icon={TabIcon}
                     hideNavBar={true}
                   />
+
                   <Scene key="transactions"
                     component={Transactions}
                     removeTransaction={this.props.actions.data.removeTransaction}
@@ -91,23 +93,44 @@ class Routes extends Component {
                       hideTabBar={true}
                     />
                   </Scene>
+
                   <Scene key="reminders" component={Reminders} icon={TabIcon} title='Reminders' />
-                  <Scene key="settings" component={Settings} icon={TabIcon} title='Settings' />
-                  <Scene
-                    key="categories"
-                    component={Categories}
-                    title='Categories'
-                    hideNavBar={true}
-                  >
-                    <Scene key="viewCategoties" hideTabBar={false}/>
-                    <Scene key="editCategory"
-                      leftTitle='Done'
-                      leftButtonTextStyle={{color: '#fff'}}
-                      onLeft={() => Actions.viewCategoties({
-                        editMode: false, deleteButtonWidth: 0, selectedCategoryIndex: null})}
-                      hideTabBar={true}
-                    />
+
+                  <Scene key="settings" icon={TabIcon} title='Settings'>
+                      <Scene
+                        key="settingsPage"
+                        component={Settings}
+                        title='Settings'
+                        type={ActionConst.RESET}
+                      />
+                      <Scene
+                        key="categories"
+                        component={Categories}
+                        title='Categories'
+                        hideNavBar={true}
+                        // type={ActionConst.RESET}
+                      >
+                          <Scene key="viewCategories" hideTabBar={false}/>
+                          <Scene key="editCategory"
+                            title='Edit Categories'
+                            backTitle='Done'
+                            leftTitle='Done'
+                            leftButtonImage={false}
+                            leftButtonTextStyle={{color: '#fff'}}
+                            onBack={() => Actions.viewCategories({
+                              editMode: false, deleteButtonWidth: 0, selectedCategoryIndex: null})}
+                            hideTabBar={true}
+                          />
+                      </Scene>
+                      <Scene
+                        key="newCategory"
+                        title="New Category"
+                        component={NewCategory}
+                        hideNavBar={true}
+                        type={ActionConst.RESET}
+                      />
                   </Scene>
+
                   <Scene
                     key="presetTransactions"
                     component={connect(state =>
@@ -160,13 +183,6 @@ class Routes extends Component {
                   onBack={() => Actions.pop()}
                   rightTitle={plusIcon}
                   onRight={() => Actions.newCategory()}
-                />
-
-                <Scene
-                  key="newCategory"
-                  title="New Category"
-                  component={NewCategory}
-                  hideNavBar={true}
                 />
 
                 <Scene

@@ -69,7 +69,7 @@ class Categories extends Component {
           secondLeftButton='Edit'
           rightButton={<Icon name='md-add' size={26} color='#FFF' />}
           leftButton='Back'
-          onLeftPress={() => Actions.settings()}
+          onLeftPress={() => Actions.settingsPage()}
         />
         <CategorySelector
           incomeSelected={incomeSelected}

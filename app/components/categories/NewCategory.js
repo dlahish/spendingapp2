@@ -75,7 +75,7 @@ class NewCategory extends Component {
         isValid: false,
         error: ''
       })
-      Actions.viewCategories({type: ActionConst.RESET})
+      Actions.categories()
     } else {
       this.setState({ error: 'Category name is required' })
     }
@@ -96,7 +96,7 @@ class NewCategory extends Component {
     return (
       <View style={styles.container}>
         <CustomNavBar
-          onLeftPress={() => Actions.home()}
+          onLeftPress={() => Actions.categories()}
           onRightPress={this.onSaveNewCategory}
           title='New Category'
           leftButton='Cancel'
