@@ -199,7 +199,8 @@ Transactions.propTypes = {
 const styles = {
   container: {
     flex: 1,
-    paddingTop: 64
+    paddingTop: 64,
+    paddingBottom: 50
   },
   transactionRow: {
     borderBottomColor: 'gray',
