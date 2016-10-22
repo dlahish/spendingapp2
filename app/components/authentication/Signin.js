@@ -60,47 +60,49 @@ class Signin extends Component {
     return (
         <View style={styles.container}>
             {/* <Image style={styles.bg} source={{uri: 'http://i.imgur.com/xlQ56UK.jpg'}} /> */}
-            <View style={styles.header}>
-                <Image style={styles.mark} source={require('../../Currency_Exchange.png')} />
-            </View>
-            <View style={styles.inputs}>
-                <View style={styles.inputContainer}>
-										<Icon name='md-person' size={22} color='#FFF' style={styles.inputUsername}/>
-                    <TextInput
-                        style={[styles.input, styles.whiteFont]}
-                        placeholder="Email"
-                        placeholderTextColor="#FFF"
-                        value={this.state.email}
-												onChangeText={(value) => this.onInputChange('email', value)}
-												autoCapitalize='none'
-                    />
+            <ScrollView>
+                <View style={styles.header}>
+                    <Image style={styles.mark} source={require('../../Currency_Exchange.png')} />
                 </View>
-                <View style={styles.inputContainer}>
-                    <Icon name='md-lock' size={22} color='#FFF' style={styles.inputUsername}/>
-                    <TextInput
-                        password={true}
-                        style={[styles.input, styles.whiteFont]}
-                        placeholder="Pasword"
-                        placeholderTextColor="#FFF"
-                        value={this.state.password}
-												onChangeText={(value) => this.onInputChange('password', value)}
-												autoCapitalize='none'
-                    />
+                <View style={styles.inputs}>
+                    <View style={styles.inputContainer}>
+                        <Icon name='md-person' size={22} color='#FFF' style={styles.inputUsername}/>
+                        <TextInput
+                            style={[styles.input, styles.whiteFont]}
+                            placeholder="Email"
+                            placeholderTextColor="#FFF"
+                            value={this.state.email}
+                            onChangeText={(value) => this.onInputChange('email', value)}
+                            autoCapitalize='none'
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Icon name='md-lock' size={22} color='#FFF' style={styles.inputUsername}/>
+                        <TextInput
+                            password={true}
+                            style={[styles.input, styles.whiteFont]}
+                            placeholder="Pasword"
+                            placeholderTextColor="#FFF"
+                            value={this.state.password}
+                            onChangeText={(value) => this.onInputChange('password', value)}
+                            autoCapitalize='none'
+                        />
+                    </View>
+                    <View style={styles.forgotContainer}>
+                        <Text style={{color: 'red'}}>{this.props.authError}</Text>
+                        <Text style={styles.greyFont}>Forgot Password</Text>
+                    </View>
                 </View>
-                <View style={styles.forgotContainer}>
-										<Text style={{color: 'red'}}>{this.props.authError}</Text>
-                    <Text style={styles.greyFont}>Forgot Password</Text>
+                <View style={styles.signin}>
+                  <TouchableOpacity onPress={this.onFormSubmit}>
+                    <Text style={styles.whiteFont}>Sign In</Text>
+                  </TouchableOpacity>
                 </View>
-            </View>
-            <View style={styles.signin}>
-							<TouchableOpacity onPress={this.onFormSubmit}>
-								<Text style={styles.whiteFont}>Sign In</Text>
-							</TouchableOpacity>
-            </View>
-            <View style={styles.signup}>
-                <Text style={styles.greyFont}>Don't have an account?
-								<Text onPress={() => this.onSignupPress()} style={styles.whiteFont}>  Sign Up</Text></Text>
-            </View>
+                <View style={styles.signup}>
+                    <Text style={styles.greyFont}>Don't have an account?
+                    <Text onPress={() => this.onSignupPress()} style={styles.whiteFont}>  Sign Up</Text></Text>
+                </View>
+            </ScrollView>
             <KeyboardSpacer />
 						<LoadingOverlay isLoading={this.state.isLoading} />
         </View>
@@ -117,6 +119,7 @@ var styles = StyleSheet.create({
     container: {
       flexDirection: 'column',
       flex: 1,
+      paddingTop: 20,
       // backgroundColor: 'transparent'
 			backgroundColor: 'rgb(0, 153, 204)'
     },

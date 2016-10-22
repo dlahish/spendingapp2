@@ -47,7 +47,6 @@ class NewTransactionForm extends Component {
               }
             }}
           >
-              <GiftedForm.NoticeWidget title={error} style={{color: 'red'}}/>
               {this.props.title !== 'New Favorite Transaction'
                 ? <RowDatePicker
                     name='dateRow'
@@ -80,6 +79,7 @@ class NewTransactionForm extends Component {
                     clearButtonMode='while-editing'
                     value={notes}
                   />
+                  <GiftedForm.NoticeWidget title={error} style={{color: 'red'}}/>
           </GiftedForm>
       </View>
     )

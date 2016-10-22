@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
@@ -27,17 +27,19 @@ class CategoryIcons extends Component {
           leftButton='Cancel'
         />
 
-        <View style={styles.iconsContainer}>
-          {icons.map((icon, i) => {
-            return (
-              <View key={i} style={styles.iconWrapper}>
-                <TouchableOpacity onPress={() => this.onIconPress(icon)}>
-                  <Text><Icon name={icons[i]} size={36} color='black' style={{paddingLeft: 10}}/></Text>
-                </TouchableOpacity>
-              </View>
-            )
-          })}
-        </View>
+        <ScrollView>
+          <View style={styles.iconsContainer}>
+            {icons.map((icon, i) => {
+              return (
+                <View key={i} style={styles.iconWrapper}>
+                  <TouchableOpacity onPress={() => this.onIconPress(icon)}>
+                    <Text><Icon name={icons[i]} size={36} color='black' style={{paddingLeft: 10}}/></Text>
+                  </TouchableOpacity>
+                </View>
+              )
+            })}
+          </View>
+        </ScrollView>
       </View>
     )
   }

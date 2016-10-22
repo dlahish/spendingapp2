@@ -22,7 +22,6 @@ class NewCategory extends Component {
   componentDidMount() {
     console.log('COMPOENET DID MOUNT -----')
     if (this.props.editMode) {
-      // let iconName = this.getIcon()
       this.setState({
         name: this.props.category.name,
         type: this.props.categoryType,

@@ -101,6 +101,7 @@ class Routes extends Component {
                         key="settingsPage"
                         component={Settings}
                         title='Settings'
+                        type={ActionConst.RESET}
                       />
                       <Scene
                         key="categories"
