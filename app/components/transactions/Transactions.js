@@ -38,10 +38,12 @@ class Transactions extends Component {
   }
 
   componentDidMount() {
+    console.log('transactios, component did mount -----')
     this.refs._scrollView.scrollTo({y: this.state.scrollY})
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('transactios, component will receive props -----')
     if (!this.props.selectedItemIndex) this.setState({selectedItemIndex: null})
   }
 
@@ -190,7 +192,8 @@ Transactions.propTypes = {
   currentMonthIndex: PropTypes.number,
   yearTotal: PropTypes.array,
   currencySymbol: PropTypes.string,
-  transactionsSearchValue: PropTypes.string
+  transactionsSearchValue: PropTypes.string,
+  categoryIconIndex: PropTypes.object
 }
 
 const styles = {

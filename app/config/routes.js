@@ -101,17 +101,21 @@ class Routes extends Component {
                         key="settingsPage"
                         component={Settings}
                         title='Settings'
-                        type={ActionConst.RESET}
                       />
                       <Scene
                         key="categories"
-                        component={Categories}
-                        title='Categories'
-                        hideNavBar={true}
+                        // component={Categories}
                         // type={ActionConst.RESET}
                       >
-                          <Scene key="viewCategories" hideTabBar={false}/>
-                          <Scene key="editCategory"
+                          <Scene key="viewCategories"
+                            hideTabBar={false}
+                            title='Categories'
+                            hideNavBar={true}
+                            component={Categories}
+                          />
+                          <Scene
+                            key="editCategory"
+                            component={Categories}
                             title='Edit Categories'
                             backTitle='Done'
                             leftTitle='Done'
@@ -127,7 +131,8 @@ class Routes extends Component {
                         title="New Category"
                         component={NewCategory}
                         hideNavBar={true}
-                        type={ActionConst.RESET}
+                        type={ActionConst.POP}
+                        direction="vertical"
                       />
                   </Scene>
 

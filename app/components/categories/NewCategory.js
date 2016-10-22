@@ -35,12 +35,10 @@ class NewCategory extends Component {
     }
   }
 
-  // getIcon = () => {
-  //   return this.props.categoryIcons[categoryName]
-  //
-  // }
-
   componentWillReceiveProps(nextProps) {
+    console.log('component will receive props ----')
+    console.log('this.props', this.props)
+    console.log('nextProps', nextProps)
     this.setState({ iconName: nextProps.iconName })
   }
 
@@ -91,12 +89,13 @@ class NewCategory extends Component {
   }
 
   render() {
-    console.log('new category PROPS', this.props)
-    console.log('new category STATE', this.state)
+    // console.log('new category PROPS', this.props)
+    // console.log('new category STATE', this.state)
     return (
       <View style={styles.container}>
         <CustomNavBar
-          onLeftPress={() => Actions.categories()}
+          // onLeftPress={() => Actions.categories()}
+          onLeftPress={() => Actions.pop()}
           onRightPress={this.onSaveNewCategory}
           title='New Category'
           leftButton='Cancel'

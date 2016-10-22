@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { CustomNavBar, CategorySelector, ItemRow } from '../../components'
 import * as dataActionCreators from '../../actions/data'
+import * as formActionCreators from '../../actions/form'
 import {
   View,
   Text,
@@ -23,6 +24,7 @@ class Categories extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('component will receive props ----')
     if (!this.props.selectedItemIndex) this.setState({selectedItemIndex: null})
   }
 
@@ -31,7 +33,7 @@ class Categories extends Component {
   }
 
   componentDidMount() {
-    this.props.getCategories()
+    this.props.actions.data.getCategories()
   }
 
   onTypeChange = (type) => {
@@ -54,6 +56,11 @@ class Categories extends Component {
     else return 'ios-pricetag'
   }
 
+  onLeftPress = () => {
+    this.props.actions.form.clearForm()
+    Actions.settingsPage()
+  }
+
   render() {
     let incomeSelected, expenseSelected
     if (this.state.categoryType === 'Income') { incomeSelected = true, expenseSelected = false }
@@ -69,7 +76,7 @@ class Categories extends Component {
           secondLeftButton='Edit'
           rightButton={<Icon name='md-add' size={26} color='#FFF' />}
           leftButton='Back'
-          onLeftPress={() => Actions.settingsPage()}
+          onLeftPress={() => this.onLeftPress()}
         />
         <CategorySelector
           incomeSelected={incomeSelected}
@@ -87,7 +94,7 @@ class Categories extends Component {
               mainText={category.name}
               icon={this.getIcon(category.name)}
               onSelecetItem={this.onSelecetItem}
-              onDeleteItem={() => this.props.removeCategory(category)}
+              onDeleteItem={() => this.props.actions.data.removeCategory(category)}
             />
           )}
         </ScrollView>
@@ -136,5 +143,10 @@ export default connect(
   (state) => ({
     categories: state.data.categories,
     categoryIcons: state.categories.categoryIconIndex }),
-  (dispatch) => (bindActionCreators(dataActionCreators, dispatch))
+  (dispatch) => ({
+    actions: {
+      data: bindActionCreators(dataActionCreators, dispatch),
+      form: bindActionCreators(formActionCreators, dispatch)
+    }
+  })
 )(Categories)
