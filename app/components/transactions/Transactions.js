@@ -9,7 +9,8 @@ import {
   ItemRow,
   ChangeMonthArrows,
   MonthHeader, MenuModal,
-  FilteredAndSortedTransactionsTotal } from '../../components'
+  FilteredAndSortedTransactionsTotal,
+  LoadingOverlay } from '../../components'
 import { getTransactions } from '../../actions/data'
 import { bindActionCreators } from 'redux'
 import * as dataActions from '../../actions/data'
@@ -33,17 +34,19 @@ class Transactions extends Component {
       dateSortDirection: true,
       amountSortDirection: true,
       categorySortDirection: true,
-      scrollY: 44
+      scrollY: 44,
+      isLoading: false
     }
   }
 
   componentDidMount() {
-    console.log('transactios, component did mount -----')
     this.refs._scrollView.scrollTo({y: this.state.scrollY})
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('transactios, component will receive props -----')
+    if (this.props.visibleTransactions !== nextProps.visibleTransactions) {
+      this.setState({isLoading: false})
+    }
     if (!this.props.selectedItemIndex) this.setState({selectedItemIndex: null})
   }
 
@@ -78,6 +81,11 @@ class Transactions extends Component {
   getIcon = (category) => {
     if (!!this.props.categoryIconIndex[category]) return this.props.categoryIconIndex[category]
     else return 'ios-pricetag'
+  }
+
+  onDeleteTransaction = (transaction) => {
+    this.setState({ isLoading: true })
+    this.props.removeTransaction(transaction)
   }
 
   render() {
@@ -146,7 +154,7 @@ class Transactions extends Component {
                   rightTextStyle={setAmountColor(transaction.type)}
                   secondaryText={`${(new Date(transaction.date).toLocaleDateString('en-GB'))}, ${transaction.category}`}
                   onSelecetItem={this.onSelecetItem}
-                  onDeleteItem={p.removeTransaction}
+                  onDeleteItem={this.onDeleteTransaction}
                 />
               )}
           </ScrollView>
@@ -162,6 +170,7 @@ class Transactions extends Component {
             button3OnPress={() => this.setFilter('category')}
           />
 
+          <LoadingOverlay isLoading={this.state.isLoading} />
       </View>
     )
   }

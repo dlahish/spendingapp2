@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { NewTransactionForm, CustomNavBar, addBorder, CategorySelector } from '../../components'
+import { NewTransactionForm, CustomNavBar, addBorder, CategorySelector, LoadingOverlay } from '../../components'
 import { Actions, ActionConst } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import Button from 'react-native-button'
@@ -29,13 +29,15 @@ class NewTransaction extends Component {
       error: '',
       categoryType: '',
       isValid: false,
-      formValidateInfo: undefined
+      formValidateInfo: undefined,
+      isLoading: false,
+      visibleTransactions: null
     }
   }
 
   componentWillMount () {
     if (this.props.editMode && this.props.title === 'New Favorite Transaction' || !this.props.editMode) {
-      this.setState({ categoryType: this.props.categoryType })
+      this.setState({ categoryType: this.props.categoryType, visibleTransactions: this.props.visibleTransactions })
     } else {
       const tempDate = new Date(this.props.transaction.date),
             tempAmount = Math.abs(this.props.transaction.amount).toString()
@@ -51,12 +53,26 @@ class NewTransaction extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      ...this.state,
-      category: nextProps.newCategory,
-      categoryType: nextProps.categoryType,
-      error: ''
-    })
+    if (this.state.visibleTransactions !== nextProps.visibleTransactions) {
+      this.setState({
+        date: new Date(),
+        amount: '',
+        category: '',
+        notes: '',
+        error: '',
+        categoryType: '',
+        isLoading: false
+      })
+      this.props.actions.form.clearForm()
+      Actions.pop()
+    } else {
+      this.setState({
+        ...this.state,
+        category: nextProps.newCategory,
+        categoryType: nextProps.categoryType,
+        error: ''
+      })
+    }
   }
 
   onDateChange = (date) => {
@@ -104,21 +120,22 @@ class NewTransaction extends Component {
                 this.props.actions.data.updateTransaction(transaction)
               } else {
                 this.props.actions.data.addNewTransaction(transaction)
+                this.setState({isLoading: true})
               }
             } else {
               this.props.actions.data.addFavoriteTransaction(transaction)
             }
 
-            this.setState({
-              date: new Date(),
-              amount: '',
-              category: '',
-              notes: '',
-              error: '',
-              categoryType: ''
-            })
-            this.props.actions.form.clearForm()
-            Actions.pop()
+            // this.setState({
+            //   date: new Date(),
+            //   amount: '',
+            //   category: '',
+            //   notes: '',
+            //   error: '',
+            //   categoryType: ''
+            // })
+            // this.props.actions.form.clearForm()
+            // Actions.pop()
         }
     } else {
         let error
@@ -200,6 +217,7 @@ class NewTransaction extends Component {
             </View>
           : <View></View>}
         <KeyboardSpacer/>
+        <LoadingOverlay isLoading={this.state.isLoading} />
       </View>
     )
   }
@@ -232,7 +250,8 @@ var styles = StyleSheet.create({
 export default connect(
   (state) => ({
     newCategory: state.form.category,
-    categoryType: state.form.categoryType}),
+    categoryType: state.form.categoryType,
+    visibleTransactions: state.data.visibleTransactions }),
   (dispatch) => ({
     actions: {
       data: bindActionCreators(dataActionCreators, dispatch),
