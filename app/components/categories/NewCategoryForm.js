@@ -19,7 +19,6 @@ function getIcon(icon) {
 
 export default class NewCategoryForm extends Component {
   render() {
-    console.log('new category form - props', this.props)
     let incomeSelected, expenseSelected
     if (this.props.categoryType === 'Income') { incomeSelected = true, expenseSelected = false }
     else { incomeSelected = false, expenseSelected = true }

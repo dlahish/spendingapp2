@@ -33,7 +33,6 @@ class Signin extends Component {
 		this.setState({ isLoading: true })
 		this.props.signinAndAuthUser(this.state)
 			.then(() => {
-				console.log('autherror', this.props.authError)
 				if (!this.props.authError) {
 					this.setState({ isLoading: false })
 					Actions.home()

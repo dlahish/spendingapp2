@@ -20,7 +20,6 @@ class NewCategory extends Component {
   }
 
   componentDidMount() {
-    console.log('COMPOENET DID MOUNT -----')
     if (this.props.editMode) {
       this.setState({
         name: this.props.category.name,
@@ -35,23 +34,10 @@ class NewCategory extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('component will receive props ----')
-    console.log('this.props', this.props)
-    console.log('nextProps', nextProps)
     this.setState({ iconName: nextProps.iconName })
   }
 
-  // onInputChange = (field, value) => {
-  //   this.setState({
-  //     ...this.state,
-  //     category: {...this.state.category, [field]:value}
-  //    })
-  // }
-
   handleValueChange = (values, formValidateInfo) => {
-    console.log('handle value change - values', values)
-    // let error = this.state.error
-    // if (values.category.length === 0) error = ''
     this.setState({
       isValid: formValidateInfo.isValid,
       name: values.name,
@@ -78,22 +64,14 @@ class NewCategory extends Component {
     }
   }
 
-  // onSaveNewCategory = () => {
-  //   this.props.addNewCategory(this.state.category)
-  //   Actions.pop()
-  // }
-
   onTypeChange = (type) => {
     this.setState({ type: type })
   }
 
   render() {
-    // console.log('new category PROPS', this.props)
-    // console.log('new category STATE', this.state)
     return (
       <View style={styles.container}>
         <CustomNavBar
-          // onLeftPress={() => Actions.categories()}
           onLeftPress={() => Actions.pop()}
           onRightPress={this.onSaveNewCategory}
           title='New Category'
@@ -102,7 +80,6 @@ class NewCategory extends Component {
         />
         <NewCategoryForm
           handleValueChange={this.handleValueChange}
-          // onInputChange={this.onInputChange}
           onTypeChange={this.onTypeChange}
           categoryType={this.state.type}
           categoryName={this.state.name}

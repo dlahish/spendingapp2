@@ -264,12 +264,10 @@ export function setCurrentMonth(monthIndex = new Date().getMonth()) {
 }
 
 export function addNewCategory(category) {
-  console.log('ADD NEW CATEGORY ---', category)
   return function(dispatch, getState) {
     const token = getToken(getState())
     saveNewCategory(token, category)
       .then((response) => {
-        console.log('response ---', response)
         dispatch(saveCategoryIcon(category))
         dispatch(getCategories(token))
       })

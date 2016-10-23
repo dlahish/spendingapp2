@@ -202,7 +202,7 @@ Transactions.propTypes = {
   yearTotal: PropTypes.array,
   currencySymbol: PropTypes.string,
   transactionsSearchValue: PropTypes.string,
-  categoryIconIndex: PropTypes.object
+  categoryIconIndex: PropTypes.array
 }
 
 const styles = {

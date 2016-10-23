@@ -24,7 +24,6 @@ class Categories extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('component will receive props ----')
     if (!this.props.selectedItemIndex) this.setState({selectedItemIndex: null})
   }
 

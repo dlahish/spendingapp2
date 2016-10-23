@@ -17,7 +17,6 @@ class CategoryIcons extends Component {
   }
 
   render() {
-    // console.log('icons', icons)
     return (
       <View style={styles.container}>
         <CustomNavBar
