@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, TouchableHighlight, StyleSheet } from 'react-native'
+import { View, Text, TouchableHighlight, StyleSheet, ScrollView } from 'react-native'
 import { ListItem } from '../../components'
 import { Actions } from 'react-native-router-flux'
 
@@ -43,7 +43,7 @@ function getAddButtonColor(favTransaction) {
 export default DisplayFavoriteTransactions = (props) => {
   const p = props
   return (
-    <View>
+    <ScrollView>
       {p.favoriteTransactions.length > 0
         ? p.favoriteTransactions.map((transaction, i) => {
             return renderFavoriteTransactions(transaction, i, p.onAddNewFavortieTransaction, p.favoriteTransactions.length)
@@ -53,7 +53,7 @@ export default DisplayFavoriteTransactions = (props) => {
               <Text style={{fontSize: 15}}>Go to setting to add favorite transactions</Text>
             </View>
           </View>}
-    </View>
+    </ScrollView>
   )
 }
 

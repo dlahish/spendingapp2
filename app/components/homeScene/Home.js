@@ -74,12 +74,12 @@ class Home extends Component {
               <Text style={styles.titleText}>Favorites</Text>
           </View>
 
-          <ScrollView style={styles.favoriteTransactions}>
-            <DisplayFavoriteTransactions
-              favoriteTransactions={this.props.favoriteTransactions}
-              onAddNewFavortieTransaction={this.onAddNewFavortieTransaction}
-            />
-          </ScrollView>
+          <View style={styles.favoriteTransactions}>
+              <DisplayFavoriteTransactions
+                favoriteTransactions={this.props.favoriteTransactions}
+                onAddNewFavortieTransaction={this.onAddNewFavortieTransaction}
+              />
+          </View>
 
           <View style={styles.addTransactionButtonsWrapper}>
               <AddTransactionButtons setCategoryType={this.props.actions.form.setCategoryType}/>
@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#eaeaea'
   },
   favoriteTransactions: {
+    flex: 1,
     paddingTop: 10,
     paddingLeft: 15,
     paddingRight: 15

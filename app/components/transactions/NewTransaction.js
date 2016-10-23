@@ -118,24 +118,25 @@ class NewTransaction extends Component {
             if (this.props.title === 'New Transaction') {
               if (this.props.editMode) {
                 this.props.actions.data.updateTransaction(transaction)
+                this.setState({isLoading: true})
               } else {
                 this.props.actions.data.addNewTransaction(transaction)
                 this.setState({isLoading: true})
               }
             } else {
               this.props.actions.data.addFavoriteTransaction(transaction)
+              this.setState({
+                date: new Date(),
+                amount: '',
+                category: '',
+                notes: '',
+                error: '',
+                categoryType: ''
+              })
+              this.props.actions.form.clearForm()
+              Actions.pop()
             }
 
-            // this.setState({
-            //   date: new Date(),
-            //   amount: '',
-            //   category: '',
-            //   notes: '',
-            //   error: '',
-            //   categoryType: ''
-            // })
-            // this.props.actions.form.clearForm()
-            // Actions.pop()
         }
     } else {
         let error
