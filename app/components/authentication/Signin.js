@@ -61,7 +61,7 @@ class Signin extends Component {
             {/* <Image style={styles.bg} source={{uri: 'http://i.imgur.com/xlQ56UK.jpg'}} /> */}
             <ScrollView>
                 <View style={styles.header}>
-                    <Image style={styles.mark} source={require('../../Currency_Exchange.png')} />
+                    <Image style={styles.mark} source={require('../../assets/Currency_Exchange.png')} />
                 </View>
                 <View style={styles.inputs}>
                     <View style={styles.inputContainer}>
