@@ -47,6 +47,11 @@ class Settings extends Component {
               switchState={this.props.customFavorites}
               switchOnValueChange={() => this.props.actions.settings.setCustomFavorites()}
             />
+            <SettingsList.Item
+              title='Export'
+              hasNavArrow={true}
+              onPress={() => Actions.mailer()}
+            />
             <SettingsList.Header headerStyle={{marginTop:15}}/>
             <SettingsList.Item
               title='Log Out'

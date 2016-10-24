@@ -30,6 +30,7 @@ import {
 } from '../components'
 import Icon from 'react-native-vector-icons/FontAwesome'
 const plusIcon = (<Icon name='plus' size={26} color='#FFF' />)
+import Mailer from '../components/settings/Mailer'
 
 const RouterWithRedux = connect()(Router)
 
@@ -99,6 +100,12 @@ class Routes extends Component {
                   <Scene key="settings" component={Settings} icon={TabIcon} title='Settings' />
 
                 </Scene>
+
+                <Scene
+                  key='mailer'
+                  component={Mailer}
+                  titel='Export'
+                />
 
                 <Scene
                   key="presetTransactions"
