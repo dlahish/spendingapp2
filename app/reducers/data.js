@@ -4,7 +4,6 @@ import {
   SET_CURRENT_MONTH_TOTAL,
   REMOVE_CURRENT_USER,
   SET_CURRENT_MONTH,
-  SET_CATEGORIES,
   SET_YEAR_TRANSACTIONS,
   SET_FAVORITE_TRANSACTION,
   DELETE_FAVORITE_TRANSACTION,
@@ -14,7 +13,6 @@ import {
 const initialState = {
   currentMonthTotal: {},
   yearTotal: [],
-  categories: [],
   transactions: {},
   currentMonthName: '',
   currentMonthIndex: null,
@@ -34,8 +32,6 @@ export default function accounts (state = initialState, action) {
       return { ...state,
         currentMonthName: action.currentMonthName,
         currentMonthIndex: action.currentMonthIndex}
-    case SET_CATEGORIES:
-      return { ...state, categories: action.categories }
     case SET_YEAR_TRANSACTIONS:
       const nextTransactions = { ...state.transactions, [action.year]: action.data }
       return { ...state, transactions: nextTransactions }

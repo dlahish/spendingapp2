@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Button from 'react-native-button'
-// import Icon from 'react-native-vector-icons/FontAwesome'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux'
 
@@ -65,7 +64,6 @@ const styles = StyleSheet.create({
 		backgroundColor: "#333",
 	},
   bgGreen: {
-		// backgroundColor: "#2ecc71",
     backgroundColor: '#3CB371'
 	},
   bgRed: {

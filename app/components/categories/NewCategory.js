@@ -3,7 +3,7 @@ import { NewCategoryForm } from '../../components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Actions, ActionConst } from 'react-native-router-flux'
-import * as dataActionCreators from '../../actions/data'
+import * as categoriesActionCreators from '../../actions/categories'
 import { View, Text, StyleSheet } from 'react-native'
 
 class NewCategory extends Component {
@@ -108,5 +108,5 @@ export default connect(
   (state) => ({
     iconName: state.form.categoryIconName,
     categoryIconIndex: state.categories.categoryIconIndex }),
-  (dispatch) => (bindActionCreators(dataActionCreators, dispatch))
+  (dispatch) => (bindActionCreators(categoriesActionCreators, dispatch))
 )(NewCategory)

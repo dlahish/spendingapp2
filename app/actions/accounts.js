@@ -13,10 +13,11 @@ import {
 import {
   getTransactions,
   getYearTotal,
-  getCategories,
   getFavoriteTransactions,
   setCurrentMonth
 } from './data'
+
+import { getCategories } from './categories'
 
 function loadingActions(dispatch, token) {
   let currentYear = new Date().getFullYear()

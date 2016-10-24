@@ -132,7 +132,6 @@ var styles = StyleSheet.create({
 })
 
 NewCategoryForm.propTypes = {
-  // onInputChange: PropTypes.func.isRequired
   categoryType: PropTypes.string.isRequired,
   iconName: PropTypes.string
 }

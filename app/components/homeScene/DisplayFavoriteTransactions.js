@@ -9,7 +9,6 @@ favTransactionsLength, customFavorites) {
     if (customFavorites) {
       let customFavTransaction = favTransaction
       customFavTransaction.date = new Date()
-      console.log('new favorite transaction', customFavTransaction)
       Actions.newTransaction({editMode: true, transaction: customFavTransaction})
     } else {
       onAddNewFavortieTransaction(favTransaction)
@@ -26,7 +25,6 @@ favTransactionsLength, customFavorites) {
             info={favTransaction.amount}
             styleInfo={{color: iconColor}}
             underlayColor="#a9d9d4"
-            // onPress={() => onAddNewFavortieTransaction(favTransaction)}
             onPress={() => onItemPress(favTransaction)}
           />
 

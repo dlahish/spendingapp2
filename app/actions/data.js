@@ -3,26 +3,24 @@ import {
   SET_YEAR_TOTAL,
   SET_CURRENT_MONTH_TOTAL,
   SET_CURRENT_MONTH,
-  SET_CATEGORIES,
   SET_YEAR_TRANSACTIONS,
   SET_FAVORITE_TRANSACTION,
   DELETE_FAVORITE_TRANSACTION,
   SET_VISIBLE_TRANSACTIONS,
-  SAVE_CATEGORY_ICON,
-  DELETE_CATEGORY_ICON
 } from './../constants'
 import {
   fetchYearTotal,
   saveNewTransaction,
-  saveNewCategory,
-  fetchCategories,
   fetchTransactions,
-  deleteCategory,
   deleteTransaction,
   saveFavoriteTransaction,
   deleteFavoriteTransaction,
   sendUpdateTransaction
 } from '../api/data'
+
+function getToken(state) {
+  return state.account.token
+}
 
 function setTotalBalance(data) {
   return {
@@ -47,12 +45,26 @@ function setCurrentMonthTotal(data, currentMonthIndex) {
   }
 }
 
-export function saveCategoryIcon(category) {
-  console.log('save category icon', category.iconName)
+function setYearlyTransactions(response, year) {
   return {
-    type: SAVE_CATEGORY_ICON,
-    iconName: category.iconName,
-    name: category.name
+    type: SET_YEAR_TRANSACTIONS,
+    data: response.data.data,
+    year
+  }
+}
+
+function setFavoriteTransaction(transaction, favoriteTransactionsId) {
+  transaction.id = favoriteTransactionsId
+  return {
+    type: SET_FAVORITE_TRANSACTION,
+    transaction
+  }
+}
+
+function setVisibleTransactions(transactions) {
+  return {
+    type: SET_VISIBLE_TRANSACTIONS,
+    transactions
   }
 }
 
@@ -72,52 +84,10 @@ export function setMonth(type, currentMonthIndex, yearTotal, transactions) {
   }
 }
 
-function setCategories(categories) {
-  return {
-    type: SET_CATEGORIES,
-    categories
-  }
-}
-
-function setYearlyTransactions(response, year) {
-  return {
-    type: SET_YEAR_TRANSACTIONS,
-    data: response.data.data,
-    year
-  }
-}
-
-function deleteCategoryIcon(category) {
-  return {
-    type: DELETE_CATEGORY_ICON,
-    category
-  }
-}
-
-function setFavoriteTransaction(transaction, favoriteTransactionsId) {
-  transaction.id = favoriteTransactionsId
-  return {
-    type: SET_FAVORITE_TRANSACTION,
-    transaction
-  }
-}
-
-function setVisibleTransactions(transactions) {
-  return {
-    type: SET_VISIBLE_TRANSACTIONS,
-    transactions
-  }
-}
-
-function getToken(state) {
-  return state.account.token
-}
-
 export function updateTransaction(transaction, currentMonthIndex) {
   return function(dispatch, getState) {
     const state = getState()
-    const currentMonthIndex = state.data.currentMonthIndex,
-          token = state.account.token
+    const currentMonthIndex = state.data.currentMonthIndex, token = state.account.token
     sendUpdateTransaction(transaction, token)
       .then((res) => {
         let currentYear = new Date().getFullYear()
@@ -170,8 +140,7 @@ export function addFavoriteTransaction(transaction) {
 export function removeTransaction(transaction) {
   return function(dispatch, getState) {
     const state = getState()
-    currentMonthIndex = state.data.currentMonthIndex
-    const token = getToken(getState())
+    const currentMonthIndex = state.data.currentMonthIndex, token = state.account.token
     deleteTransaction(token, transaction)
       .then((response) => {
         let currentYear = new Date().getFullYear()
@@ -191,18 +160,6 @@ export function getTransactions(year, token, currentMonthIndex = new Date().getM
       })
       .catch((err) => console.log(err))
 
-  }
-}
-
-export function removeCategory(category) {
-  return function(dispatch, getState) {
-    const token = getToken(getState())
-    deleteCategory(token, category)
-      .then((response) => {
-        dispatch(deleteCategoryIcon(category))
-        dispatch(getCategories(token))
-      })
-      .catch((err) => console.log(err))
   }
 }
 
@@ -238,9 +195,8 @@ export function getTotalBalance() {
 
 export function addNewTransaction(transaction) {
   return function(dispatch, getState) {
-    const token = getToken(getState())
     const state = getState()
-    const currentMonthIndex = state.data.currentMonthIndex
+    const currentMonthIndex = state.data.currentMonthIndex, token = state.account.token
     saveNewTransaction(token, transaction)
       .then((response) => {
         let currentYear = new Date().getFullYear()
@@ -260,27 +216,5 @@ export function setCurrentMonth(monthIndex = new Date().getMonth()) {
     type: SET_CURRENT_MONTH,
     currentMonthName: monthNames[monthIndex],
     currentMonthIndex: monthIndex
-  }
-}
-
-export function addNewCategory(category) {
-  return function(dispatch, getState) {
-    const token = getToken(getState())
-    saveNewCategory(token, category)
-      .then((response) => {
-        dispatch(saveCategoryIcon(category))
-        dispatch(getCategories(token))
-      })
-      .catch((err) => console.log(err))
-  }
-}
-
-export function getCategories(token) {
-  return function(dispatch) {
-    fetchCategories(token)
-      .then((response) => {
-        dispatch(setCategories(response.data.categories))
-      })
-      .catch((err) => console.log(err))
   }
 }

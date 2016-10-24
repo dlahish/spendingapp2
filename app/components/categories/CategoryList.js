@@ -86,7 +86,7 @@ CategoryList.propTypes = {
 
 export default connect(
 	(state) => ({
-    categories: state.data.categories,
+    categories: state.categories.categories,
     categoryIcons: state.categories.categoryIconIndex }),
 	(dispatch) => (bindActionCreators(formActionCreators, dispatch))
 )(CategoryList)

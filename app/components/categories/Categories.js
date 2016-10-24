@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux'
 import { CustomNavBar, CategorySelector, ItemRow } from '../../components'
 import * as dataActionCreators from '../../actions/data'
 import * as formActionCreators from '../../actions/form'
+import * as categoriesActionCreators from '../../actions/categories'
+
 import {
   View,
   Text,
@@ -32,7 +34,7 @@ class Categories extends Component {
   }
 
   componentDidMount() {
-    this.props.actions.data.getCategories()
+    this.props.actions.categories.getCategories()
   }
 
   onTypeChange = (type) => {
@@ -93,7 +95,7 @@ class Categories extends Component {
               mainText={category.name}
               icon={this.getIcon(category.name)}
               onSelecetItem={this.onSelecetItem}
-              onDeleteItem={() => this.props.actions.data.removeCategory(category)}
+              onDeleteItem={() => this.props.actions.categories.removeCategory(category)}
             />
           )}
         </ScrollView>
@@ -140,12 +142,13 @@ Categories.propType = {
 
 export default connect(
   (state) => ({
-    categories: state.data.categories,
+    categories: state.categories.categories,
     categoryIcons: state.categories.categoryIconIndex }),
   (dispatch) => ({
     actions: {
       data: bindActionCreators(dataActionCreators, dispatch),
-      form: bindActionCreators(formActionCreators, dispatch)
+      form: bindActionCreators(formActionCreators, dispatch),
+      categories: bindActionCreators(categoriesActionCreators, dispatch)
     }
   })
 )(Categories)

@@ -77,7 +77,6 @@ const styles = {
     marginLeft: 40,
     marginRight: 40,
     overflow: 'hidden',
-    // borderTopRightRadius: 6,
     backgroundColor: '#FFF'
   },
   btnText: {
