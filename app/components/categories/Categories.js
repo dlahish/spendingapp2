@@ -57,7 +57,7 @@ class Categories extends Component {
 
   onLeftPress = () => {
     this.props.actions.form.clearForm()
-    Actions.settingsPage()
+    Actions.pop()
   }
 
   render() {
