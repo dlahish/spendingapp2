@@ -57,6 +57,7 @@ class Transactions extends Component {
         else if (selectedItemIndex !== null && itemIndex !== selectedItemIndex) this.setState({ selectedItemIndex: null})
         else this.setState({ selectedItemIndex: itemIndex })
     } else {
+        console.log('transaction ', transaction)
         Actions.newTransaction({editMode: true, transaction})
     }
   }

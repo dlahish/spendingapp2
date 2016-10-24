@@ -3,7 +3,18 @@ import { View, Text, TouchableHighlight, StyleSheet, ScrollView } from 'react-na
 import { ListItem } from '../../components'
 import { Actions } from 'react-native-router-flux'
 
-function renderFavoriteTransactions(favTransaction, i, onAddNewFavortieTransaction, favTransactionsLength) {
+function renderFavoriteTransactions(favTransaction, i, onAddNewFavortieTransaction,
+favTransactionsLength, customFavorites) {
+  onItemPress = (favTransaction) => {
+    if (customFavorites) {
+      let customFavTransaction = favTransaction
+      customFavTransaction.date = new Date()
+      console.log('new favorite transaction', customFavTransaction)
+      Actions.newTransaction({editMode: true, transaction: customFavTransaction})
+    } else {
+      onAddNewFavortieTransaction(favTransaction)
+    }
+  }
   const favTransactionText = getFavortieTransactionText(favTransaction),
         iconColor = getAddButtonColor(favTransaction)
   return (
@@ -15,7 +26,8 @@ function renderFavoriteTransactions(favTransaction, i, onAddNewFavortieTransacti
             info={favTransaction.amount}
             styleInfo={{color: iconColor}}
             underlayColor="#a9d9d4"
-            onPress={() => onAddNewFavortieTransaction(favTransaction)}
+            // onPress={() => onAddNewFavortieTransaction(favTransaction)}
+            onPress={() => onItemPress(favTransaction)}
           />
 
           {favTransactionsLength < 5 && i === favTransactionsLength-1 ?
@@ -46,7 +58,8 @@ export default DisplayFavoriteTransactions = (props) => {
     <ScrollView>
       {p.favoriteTransactions.length > 0
         ? p.favoriteTransactions.map((transaction, i) => {
-            return renderFavoriteTransactions(transaction, i, p.onAddNewFavortieTransaction, p.favoriteTransactions.length)
+            return renderFavoriteTransactions(transaction,
+              i, p.onAddNewFavortieTransaction, p.favoriteTransactions.length, p.customFavorites)
           })
         : <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
             <View style={styles.messageBox}>
@@ -59,6 +72,7 @@ export default DisplayFavoriteTransactions = (props) => {
 
 DisplayFavoriteTransactions.propTypes = {
   favoriteTransactions: PropTypes.array,
+  customFavorites: PropTypes.bool.isRequired,
   onAddNewFavortieTransaction: PropTypes.func.isRequired
 }
 

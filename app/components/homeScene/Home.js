@@ -78,6 +78,7 @@ class Home extends Component {
               <DisplayFavoriteTransactions
                 favoriteTransactions={this.props.favoriteTransactions}
                 onAddNewFavortieTransaction={this.onAddNewFavortieTransaction}
+                customFavorites={this.props.customFavorites}
               />
           </View>
 
@@ -110,7 +111,8 @@ export default connect(
     currencySymbol: state.settings.currencySymbol,
     favoriteTransactions: state.data.favoriteTransactions,
     yearTotal: state.data.yearTotal,
-    transactions: state.data.transactions['2016']
+    transactions: state.data.transactions['2016'],
+    customFavorites: state.settings.customFavorites
   }),
   (dispatch) => ({
     actions: {

@@ -41,6 +41,14 @@ class Settings extends Component {
             />
             <SettingsList.Header headerStyle={{marginTop:15}}/>
             <SettingsList.Item
+              title='Custom Favorites'
+              hasSwitch={true}
+              hasNavArrow={false}
+              switchState={this.props.customFavorites}
+              switchOnValueChange={() => this.props.actions.settings.setCustomFavorites()}
+            />
+            <SettingsList.Header headerStyle={{marginTop:15}}/>
+            <SettingsList.Item
               title='Log Out'
               hasNavArrow={false}
               onPress={() => this.props.actions.account.logoutAndUnauthUser()}
@@ -59,7 +67,9 @@ const styles = {
 }
 
 export default connect(
-  (state) => ({ currencySymbol: state.settings.currencySymbol }),
+  (state) => ({
+    currencySymbol: state.settings.currencySymbol,
+    customFavorites: state.settings.customFavorites }),
   (dispatch) => ({
     actions: {
       settings: bindActionCreators(settingsActionCreators, dispatch),

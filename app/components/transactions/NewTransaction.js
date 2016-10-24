@@ -116,11 +116,11 @@ class NewTransaction extends Component {
               type: this.state.categoryType
             }
             if (this.props.title === 'New Transaction') {
-              if (this.props.editMode) {
-                this.props.actions.data.updateTransaction(transaction)
+              if (!this.props.editMode || this.props.customFavorites) {
+                this.props.actions.data.addNewTransaction(transaction)
                 this.setState({isLoading: true})
               } else {
-                this.props.actions.data.addNewTransaction(transaction)
+                this.props.actions.data.updateTransaction(transaction)
                 this.setState({isLoading: true})
               }
             } else {
@@ -252,7 +252,8 @@ export default connect(
   (state) => ({
     newCategory: state.form.category,
     categoryType: state.form.categoryType,
-    visibleTransactions: state.data.visibleTransactions }),
+    visibleTransactions: state.data.visibleTransactions,
+    customFavorites: state.settings.customFavorites }),
   (dispatch) => ({
     actions: {
       data: bindActionCreators(dataActionCreators, dispatch),
