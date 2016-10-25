@@ -31,6 +31,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome'
 const plusIcon = (<Icon name='plus' size={26} color='#FFF' />)
 import Mailer from '../components/settings/Mailer'
+import Fs from '../components/settings/Fs'
 
 const RouterWithRedux = connect()(Router)
 
@@ -187,6 +188,7 @@ class Routes extends Component {
                 </Scene>
 
                 <Scene key="export" title="Export to CSV" component={Export} />
+                <Scene key="fs" title="FS" component={Fs} hideTabBar={false}/>
                 <Scene key="categoryIcons" title="Category Icons" component={CategoryIcons} />
               </Scene>
             </Scene>
