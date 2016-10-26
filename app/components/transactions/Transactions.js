@@ -30,10 +30,10 @@ class Transactions extends Component {
       searchValue: '',
       isModalOpen: false,
       swipeToClose: true,
-      sortType: '',
-      dateSortDirection: true,
-      amountSortDirection: true,
-      categorySortDirection: true,
+      sortType: 'date',
+      dateSortDirection: false,
+      amountSortDirection: false,
+      categorySortDirection: false,
       scrollY: 44,
       isLoading: false
     }
