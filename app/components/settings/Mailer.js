@@ -1,8 +1,11 @@
 import React, { PropTypes, Component } from 'react'
 import { Text, View, StyleSheet, ScrollView, TouchableHighlight, AlertIOS } from 'react-native'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as settingsActions from '../../actions/settings'
 var Mailer = require('NativeModules').RNMail;
 
-export default class MailerPage extends Component {
+class MailerPage extends Component {
   handleHelp = () => {
     Mailer.mail({
       subject: 'need help',
@@ -28,13 +31,20 @@ export default class MailerPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-      <TouchableHighlight
+        <TouchableHighlight
             onPress={this.handleHelp}
             underlayColor="#f7f7f7">
-          <View>
+          <View style={{marginBottom: 20}}>
             <Text>Send an Email</Text>
           </View>
-       </TouchableHighlight>
+        </TouchableHighlight>
+        <TouchableHighlight
+            onPress={() => this.props.actions.settings.createCsv()}
+            underlayColor="#f7f7f7">
+          <View>
+            <Text>Create CSV</Text>
+          </View>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -47,3 +57,12 @@ const styles = {
     alignItems: 'center'
   }
 }
+
+export default connect(
+  (state) => ({}),
+  (dispatch) => ({
+    actions: {
+      settings: bindActionCreators(settingsActions, dispatch)
+    }
+  })
+)(MailerPage)

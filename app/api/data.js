@@ -2,6 +2,17 @@ import axios from 'axios'
 const BASE_URI = `https://spendingapi2.herokuapp.com`
 // const BASE_URI = `http://192.168.0.104:3090`
 
+export function postCsv(data, token) {
+  if (token === null) return {}
+  return axios({
+    url: `${BASE_URI}/createcsv`,
+    method: 'post',
+    data: data,
+    contentType: 'application/json',
+    headers: { authorization: token }
+  })
+}
+
 export function sendUpdateTransaction(transaction, token) {
   if (token === null) return {}
   return axios({
