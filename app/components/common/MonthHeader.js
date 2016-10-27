@@ -32,7 +32,7 @@ export default MonthHeader = (props) =>
     </View>
 
     <View style={{flex: 1, alignItems: 'flex-end', paddingRight: 10}}>
-      <TouchableOpacity onPress={() => Actions.export()}>
+      <TouchableOpacity onPress={() => props.onExportPress()}>
         <Text style={styles.monthText}>Export</Text>
       </TouchableOpacity>
     </View>

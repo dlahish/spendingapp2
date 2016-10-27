@@ -17,6 +17,7 @@ import * as dataActions from '../../actions/data'
 import * as formActions from '../../actions/form'
 import {searchTransactions, sortTransactions} from '../../functions/transactionsSearchAndFilter'
 const upArrow = (<Icon name='angle-up' size={24} color='#FFF' />)
+import onSendEmail from '../../functions/exportToCsv'
 import {
   setAmountColor,
   setMainText,
@@ -113,6 +114,7 @@ class Transactions extends Component {
                 p.transactions)
               this.refs._scrollView.scrollTo({y: this.state.scrollY})}}
             onSortPress={() => this.openModal()}
+            onExportPress={() => onSendEmail(transactionsToRender)}
           />
 
           <ScrollView ref='_scrollView'>
