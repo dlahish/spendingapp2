@@ -58,7 +58,7 @@ class NewCategory extends Component {
         isValid: false,
         error: ''
       })
-      Actions.categories()
+      Actions.pop()
     } else {
       this.setState({ error: 'Category name is required' })
     }

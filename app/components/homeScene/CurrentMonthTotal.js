@@ -78,7 +78,7 @@ export default class CurrentMonthTotal extends Component {
 }
 
 CurrentMonthTotal.propTypes = {
-  currencySymbol: PropTypes.string,
+  currencySymbol: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   transactions: PropTypes.array
 }
 

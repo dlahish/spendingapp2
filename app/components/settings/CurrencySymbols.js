@@ -13,7 +13,7 @@ function getSymbol(symbol) {
 export default CurrencySymbols = (props) => {
   onSymbolPress = (symbol) => {
     props.setCurrancySymbol(symbol)
-    Actions.settings()
+    Actions.pop()
   }
 
   return (

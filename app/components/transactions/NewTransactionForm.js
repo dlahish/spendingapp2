@@ -59,6 +59,7 @@ class NewTransactionForm extends Component {
                   <GiftedForm.TextInputWidget
                     name='amount'
                     title='Amount'
+                    keyboardType='numeric'
                     placeholder='Enter amount'
                     clearButtonMode='while-editing'
                     value={amount}
