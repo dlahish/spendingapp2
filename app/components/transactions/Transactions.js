@@ -180,7 +180,7 @@ class Transactions extends Component {
 
 export default connect(
   (state) => ({
-    transactions: state.data.transactions['2016'],
+    transactions: state.data.transactions[state.data.currentYear],
     visibleTransactions: state.data.visibleTransactions,
     currentMonthName: state.data.currentMonthName,
     currentMonthIndex: state.data.currentMonthIndex,

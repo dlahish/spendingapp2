@@ -13,8 +13,7 @@ import {
 import {
   getTransactions,
   getYearTotal,
-  getFavoriteTransactions,
-  setCurrentMonth
+  getFavoriteTransactions
 } from './data'
 
 import { getCategories } from './categories'

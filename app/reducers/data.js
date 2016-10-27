@@ -17,7 +17,8 @@ const initialState = {
   currentMonthName: '',
   currentMonthIndex: null,
   favoriteTransactions: [],
-  visibleTransactions: []
+  visibleTransactions: [],
+  currentYear: new Date().getFullYear()
 }
 
 export default function accounts (state = initialState, action) {
@@ -31,7 +32,8 @@ export default function accounts (state = initialState, action) {
     case SET_CURRENT_MONTH:
       return { ...state,
         currentMonthName: action.currentMonthName,
-        currentMonthIndex: action.currentMonthIndex}
+        currentMonthIndex: action.currentMonthIndex,
+        currentYear: action.currentYear }
     case SET_YEAR_TRANSACTIONS:
       const nextTransactions = { ...state.transactions, [action.year]: action.data }
       return { ...state, transactions: nextTransactions }

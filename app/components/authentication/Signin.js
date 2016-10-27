@@ -59,7 +59,7 @@ class Signin extends Component {
     return (
         <View style={styles.container}>
             {/* <Image style={styles.bg} source={{uri: 'http://i.imgur.com/xlQ56UK.jpg'}} /> */}
-            <ScrollView>
+            <ScrollView keyboardShouldPersistTaps={true}>
                 <View style={styles.header}>
                     <Image style={styles.mark} source={require('../../assets/Currency_Exchange.png')} />
                 </View>
@@ -73,11 +73,14 @@ class Signin extends Component {
                             value={this.state.email}
                             onChangeText={(value) => this.onInputChange('email', value)}
                             autoCapitalize='none'
+                            returnKeyType='next'
+                            onSubmitEditing={() => this.refs.passwordInput.focus()}
                         />
                     </View>
                     <View style={styles.inputContainer}>
                         <Icon name='md-lock' size={22} color='#FFF' style={styles.inputUsername}/>
                         <TextInput
+                            ref='passwordInput'
                             password={true}
                             style={[styles.input, styles.whiteFont]}
                             placeholder="Pasword"
@@ -85,18 +88,20 @@ class Signin extends Component {
                             value={this.state.password}
                             onChangeText={(value) => this.onInputChange('password', value)}
                             autoCapitalize='none'
+                            returnKeyType='done'
+                            onSubmitEditing={this.onFormSubmit}
                         />
                     </View>
                     <View style={styles.forgotContainer}>
                         <Text style={{color: 'red'}}>{this.props.authError}</Text>
-                        <Text style={styles.greyFont}>Forgot Password</Text>
+                        {/* <Text style={styles.greyFont}>Forgot Password</Text> */}
                     </View>
                 </View>
-                <View style={styles.signin}>
-                  <TouchableOpacity onPress={this.onFormSubmit}>
-                    <Text style={styles.whiteFont}>Sign In</Text>
-                  </TouchableOpacity>
-                </View>
+                <TouchableOpacity onPress={this.onFormSubmit}>
+                  <View style={styles.signin}>
+                      <Text style={styles.whiteFont}>Sign In</Text>
+                  </View>
+                </TouchableOpacity>
                 <View style={styles.signup}>
                     <Text style={styles.greyFont}>Don't have an account?
                     <Text onPress={() => this.onSignupPress()} style={styles.whiteFont}>  Sign Up</Text></Text>
@@ -119,7 +124,6 @@ var styles = StyleSheet.create({
       flexDirection: 'column',
       flex: 1,
       paddingTop: 20,
-      // backgroundColor: 'transparent'
 			backgroundColor: 'rgb(0, 153, 204)'
     },
     bg: {
@@ -133,7 +137,7 @@ var styles = StyleSheet.create({
         marginTop: 20,
         justifyContent: 'center',
         alignItems: 'center',
-        flex: .5,
+        // flex: .5,
         backgroundColor: 'transparent'
     },
     mark: {
@@ -142,18 +146,18 @@ var styles = StyleSheet.create({
     },
     signin: {
         backgroundColor: '#7e01a8',
-        padding: 20,
+        padding: 15,
         alignItems: 'center'
     },
     signup: {
       justifyContent: 'center',
       alignItems: 'center',
-      flex: .15
+      // flex: .15
     },
     inputs: {
         marginTop: 10,
         marginBottom: 10,
-        flex: .25
+        // flex: .25
     },
     inputPassword: {
         marginLeft: 15,

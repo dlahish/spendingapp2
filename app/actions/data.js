@@ -196,12 +196,14 @@ export function getTotalBalance() {
 export function addNewTransaction(transaction) {
   return function(dispatch, getState) {
     const state = getState()
-    const currentMonthIndex = state.data.currentMonthIndex, token = state.account.token
+    const currentMonthIndex = state.data.currentMonthIndex,
+          token = state.account.token,
+          currentYear = state.data.currentYear
     saveNewTransaction(token, transaction)
       .then((response) => {
         let currentYear = new Date().getFullYear()
         dispatch(getYearTotal(currentYear, token))
-        dispatch(getTransactions('2016', token, currentMonthIndex))
+        dispatch(getTransactions(currentYear, token, currentMonthIndex))
       })
       .catch((err) => {
         console.log(err)
@@ -212,9 +214,11 @@ export function addNewTransaction(transaction) {
 export function setCurrentMonth(monthIndex = new Date().getMonth()) {
   const monthNames = ["January", "February", "March", "April", "May", "June",
                       "July", "August", "September", "October", "November", "December"]
+  const currentYear = new Date().getFullYear()
   return {
     type: SET_CURRENT_MONTH,
     currentMonthName: monthNames[monthIndex],
-    currentMonthIndex: monthIndex
+    currentMonthIndex: monthIndex,
+    currentYear
   }
 }

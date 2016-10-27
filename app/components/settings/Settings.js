@@ -18,7 +18,7 @@ class Settings extends Component {
   render() {
     var bgColor = '#DCE3F4'
     return (
-      <View style={{backgroundColor:'#EFEFF4',flex:1, paddingTop: 64}}>
+      <View style={{backgroundColor:'#EFEFF4',flex:1, paddingTop: 64, paddingBottom: 50}}>
         <View style={{backgroundColor:'#EFEFF4',flex:1}}>
           <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
             <SettingsList.Header headerStyle={{marginTop:15}}/>

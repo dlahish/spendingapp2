@@ -111,7 +111,7 @@ export default connect(
     currencySymbol: state.settings.currencySymbol,
     favoriteTransactions: state.data.favoriteTransactions,
     yearTotal: state.data.yearTotal,
-    transactions: state.data.transactions['2016'],
+    transactions: state.data.transactions[state.data.currentYear],
     customFavorites: state.settings.customFavorites
   }),
   (dispatch) => ({
