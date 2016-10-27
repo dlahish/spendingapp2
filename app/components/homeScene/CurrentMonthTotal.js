@@ -5,26 +5,20 @@ import { View, Text, StyleSheet } from 'react-native'
 import I18n from 'react-native-i18n'
 import ReactNativeI18n from 'react-native-i18n'
 
-function displayText(currentMonthTotal, type, currencySymbol) {
-  if (type === 'balance') {
-    let balance = currentMonthTotal.income - currentMonthTotal.expenses
-    return <Text style={styles.text}>
-            {I18n.toCurrency(balance, {
-              unit: getSymbol(currencySymbol),
-              format: "%u %n",
-              precision: 0,
-              sign_first: false})}
-            </Text>
-  }
-  if (currentMonthTotal.hasOwnProperty([type])) {
-    return <Text style={styles.text}>
-            {I18n.toCurrency(currentMonthTotal[type], {
-              unit: getSymbol(currencySymbol),
-              format: "%u %n",
-              precision: 0,
-              sign_first: false})}
-            </Text>
-  } else { return <Text style={styles.loading}>Loading...</Text> }
+function getTotalBalace(transactions, type, currencySymbol) {
+  let totalBalance = 0, income = 0, expense = 0
+  transactions.forEach((transaction) => {
+    if (transaction.type === 'Income') income += transaction.amount
+    else expense += Math.abs(transaction.amount)
+  })
+  if (type === 'income') totalBalance = income
+  else if (type === 'expense') totalBalance = expense
+  else totalBalance = income - expense
+  return I18n.toCurrency(Math.abs(totalBalance),
+    {unit: getSymbol(currencySymbol),
+    format: "%u %n",
+    sign_first: false,
+    precision: 0})
 }
 
 function getSymbol(symbol) {
@@ -48,7 +42,9 @@ export default class CurrentMonthTotal extends Component {
               Income
             </Text>
             <View>
-              {displayText(this.props.currentMonthTotal, 'income', this.props.currencySymbol)}
+              <Text style={styles.text}>
+                {getTotalBalace(this.props.transactions, 'income', this.props.currencySymbol)}
+              </Text>
             </View>
           </View>
 
@@ -57,7 +53,9 @@ export default class CurrentMonthTotal extends Component {
               Expense
             </Text>
             <View>
-              {displayText(this.props.currentMonthTotal, 'expenses', this.props.currencySymbol)}
+              <Text style={styles.text}>
+                {getTotalBalace(this.props.transactions, 'expense', this.props.currencySymbol)}
+              </Text>
             </View>
           </View>
 
@@ -68,7 +66,9 @@ export default class CurrentMonthTotal extends Component {
               Total
             </Text>
             <View>
-              {displayText(this.props.currentMonthTotal, 'balance', this.props.currencySymbol)}
+              <Text style={styles.text}>
+                {getTotalBalace(this.props.transactions, 'balance', this.props.currencySymbol)}
+              </Text>
             </View>
           </View>
 
@@ -78,7 +78,9 @@ export default class CurrentMonthTotal extends Component {
 }
 
 CurrentMonthTotal.propTypes = {
-  currentMonthTotal: PropTypes.object
+  currentMonthTotal: PropTypes.object,
+  currencySymbol: PropTypes.string,
+  transactions: PropTypes.array
 }
 
 const styles = StyleSheet.create({
