@@ -1,7 +1,6 @@
 import {
   SET_TOTAL_BALANCE,
   SET_YEAR_TOTAL,
-  SET_CURRENT_MONTH_TOTAL,
   SET_CURRENT_MONTH,
   SET_YEAR_TRANSACTIONS,
   SET_FAVORITE_TRANSACTION,
@@ -36,15 +35,6 @@ function setYearTotal(data) {
   }
 }
 
-function setCurrentMonthTotal(data, currentMonthIndex) {
-  if (data.length > 0) {
-    return {
-      type: SET_CURRENT_MONTH_TOTAL,
-      data: data[currentMonthIndex]
-    }
-  }
-}
-
 function setYearlyTransactions(response, year) {
   return {
     type: SET_YEAR_TRANSACTIONS,
@@ -74,11 +64,9 @@ export function setMonth(type, currentMonthIndex, yearTotal, transactions) {
     if (type === 'previous' && currentMonthIndex === 0) { return }
     if (type === 'next' && currentMonthIndex < 11) {
       dispatch(setCurrentMonth(currentMonthIndex + 1))
-      dispatch(setCurrentMonthTotal(yearTotal, currentMonthIndex + 1))
       dispatch(getVisibleTransactions(transactions, currentMonthIndex + 1))
     } else if (currentMonthIndex > 0) {
       dispatch(setCurrentMonth(currentMonthIndex - 1))
-      dispatch(setCurrentMonthTotal(yearTotal, currentMonthIndex - 1))
       dispatch(getVisibleTransactions(transactions, currentMonthIndex - 1))
     }
   }
@@ -170,7 +158,6 @@ export function getYearTotal(year, token) {
     return fetchYearTotal(token, year)
       .then((response) => {
         dispatch(setYearTotal(response.data.data))
-        dispatch(setCurrentMonthTotal(response.data.data, currentMonthIndex))
       })
       .catch((err) => {
         console.log(err)

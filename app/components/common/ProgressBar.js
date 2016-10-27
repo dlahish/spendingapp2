@@ -7,7 +7,12 @@ import {
 } from 'react-native'
 import * as Progress from 'react-native-progress'
 
-function getProgress(income, expense) {
+function getProgress(transactions) {
+  let income = 0, expense = 0
+  transactions.forEach((transaction) => {
+    if (transaction.type === 'Income') income += transaction.amount
+    else expense += Math.abs(transaction.amount)
+  })
   if (income === expense) return 0.5
   if (income === 0 && expense > 0) return 0
   if (expense === 0 && income > 0) return 1
@@ -23,7 +28,7 @@ export default ProgressBar = (props) => {
     <View style={styles.container}>
       <Progress.Bar
         style={styles.progress}
-        progress={getProgress(props.currentMonthTotal.income, props.currentMonthTotal.expenses)}
+        progress={getProgress(props.transactions)}
         indeterminate={false}
         color='#3CB371'
         unfilledColor='rgba(231,76,60,1)'

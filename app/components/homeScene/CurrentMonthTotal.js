@@ -14,7 +14,7 @@ function getTotalBalace(transactions, type, currencySymbol) {
   if (type === 'income') totalBalance = income
   else if (type === 'expense') totalBalance = expense
   else totalBalance = income - expense
-  return I18n.toCurrency(Math.abs(totalBalance),
+  return I18n.toCurrency(totalBalance,
     {unit: getSymbol(currencySymbol),
     format: "%u %n",
     sign_first: false,
@@ -78,7 +78,6 @@ export default class CurrentMonthTotal extends Component {
 }
 
 CurrentMonthTotal.propTypes = {
-  currentMonthTotal: PropTypes.object,
   currencySymbol: PropTypes.string,
   transactions: PropTypes.array
 }

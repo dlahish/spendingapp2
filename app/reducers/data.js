@@ -1,7 +1,6 @@
 import { REHYDRATE } from 'redux-persist/constants'
 import {
   SET_YEAR_TOTAL,
-  SET_CURRENT_MONTH_TOTAL,
   REMOVE_CURRENT_USER,
   SET_CURRENT_MONTH,
   SET_YEAR_TRANSACTIONS,
@@ -11,7 +10,6 @@ import {
 } from '../constants'
 
 const initialState = {
-  currentMonthTotal: {},
   yearTotal: [],
   transactions: {},
   currentMonthName: '',
@@ -23,8 +21,6 @@ const initialState = {
 
 export default function accounts (state = initialState, action) {
   switch (action.type) {
-    case SET_CURRENT_MONTH_TOTAL:
-      return { ...state, currentMonthTotal: action.data }
     case SET_YEAR_TOTAL:
       return { ...state, yearTotal: action.data }
     case REMOVE_CURRENT_USER:

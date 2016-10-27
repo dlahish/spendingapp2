@@ -62,10 +62,9 @@ class Home extends Component {
                                                                       this.props.transactions)}
               />
 
-              <ProgressBar currentMonthTotal={this.props.currentMonthTotal}/>
+              <ProgressBar transactions={this.props.visibleTransactions}/>
 
               <CurrentMonthTotal
-                currentMonthTotal={this.props.currentMonthTotal}
                 currencySymbol={this.props.currencySymbol}
                 transactions={this.props.visibleTransactions}
               />
@@ -94,7 +93,6 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  currentMonthTotal: PropTypes.object,
   currentMonthIndex: PropTypes.number,
   currentMonthName: PropTypes.string,
   yearTotal: PropTypes.array,
@@ -106,7 +104,6 @@ Home.propTypes = {
 
 export default connect(
   (state) => ({
-    currentMonthTotal: state.data.currentMonthTotal,
     currentMonthIndex: state.data.currentMonthIndex,
     currentMonthName: state.data.currentMonthName,
     currencySymbol: state.settings.currencySymbol,
