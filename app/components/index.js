@@ -11,7 +11,6 @@ import NewTransaction from './transactions/NewTransaction'
 import NewTransactionForm from './transactions/NewTransactionForm'
 import Transactions from './transactions/Transactions'
 import FilteredAndSortedTransactionsTotal from './transactions/FilteredAndSortedTransactionsTotal'
-import Export from './transactions/Export'
 
 import CategoryList from './categories/CategoryList'
 import Categories from './categories/Categories'
@@ -77,7 +76,6 @@ export {
   MonthHeader,
   MenuModal,
   FilteredAndSortedTransactionsTotal,
-  Export,
   Reminders,
   NewReminder,
   RowDatePicker,

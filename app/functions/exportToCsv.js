@@ -1,5 +1,6 @@
 import React from 'react'
 import { AlertIOS } from 'react-native'
+import moment from 'moment'
 var Mailer = require('NativeModules').RNMail
 var RNFS = require('react-native-fs')
 
