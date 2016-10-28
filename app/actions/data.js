@@ -51,7 +51,7 @@ function setFavoriteTransaction(transaction, favoriteTransactionsId) {
   }
 }
 
-function setVisibleTransactions(transactions) {
+export function setVisibleTransactions(transactions) {
   return {
     type: SET_VISIBLE_TRANSACTIONS,
     transactions
