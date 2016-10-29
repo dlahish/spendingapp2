@@ -15,6 +15,7 @@ import { getTransactions } from '../../actions/data'
 import { bindActionCreators } from 'redux'
 import * as dataActions from '../../actions/data'
 import * as formActions from '../../actions/form'
+import * as transactionsActions from '../../actions/transactions'
 import {searchTransactions, sortTransactions} from '../../functions/transactionsSearchAndFilter'
 const upArrow = (<Icon name='angle-up' size={24} color='#FFF' />)
 import onSendEmail from '../../functions/exportToCsv'
@@ -41,10 +42,13 @@ class Transactions extends Component {
   }
 
   componentDidMount() {
+    console.log('transactions, component did mount')
     this.refs._scrollView.scrollTo({y: this.state.scrollY})
   }
 
   componentWillReceiveProps(nextProps) {
+    dispatch(getVisibleTransactions(this.props.transactions, this.props.currentMonthIndex))
+    console.log('transactions, component will receive props')
     if (this.props.visibleTransactions !== nextProps.visibleTransactions) {
       this.setState({isLoading: false})
     }
@@ -90,6 +94,7 @@ class Transactions extends Component {
   }
 
   render() {
+    console.log('transactions - RENDER --')
     const p = this.props
     let transactionsToRender = searchTransactions(p.visibleTransactions, this.state.searchValue)
     transactionsToRender = sortTransactions(transactionsToRender,
@@ -193,7 +198,8 @@ export default connect(
   (dispatch) => ({
     actions: {
       data: bindActionCreators(dataActions, dispatch),
-      form: bindActionCreators(formActions, dispatch)
+      form: bindActionCreators(formActions, dispatch),
+      transactions: bindActionCreators(transactionsActions, dispatch)
     }
   }))(Transactions)
 

@@ -1,13 +1,20 @@
 import {
-  SET_NEW_TRANSACTION
+  SET_NEW_TRANSACTION, SET_VISIBLE_TRANSACTIONS
 } from './../constants'
 
-import { setVisibleTransactions } from './data'
+// import { setVisibleTransactions } from './data'
+export function setVisibleTransactions(transactions) {
+  console.log('set visible transactions')
+  return {
+    type: SET_VISIBLE_TRANSACTIONS,
+    transactions
+  }
+}
 
 function setNewTransaction(transaction) {
   const transactionToReducer = {
     date: transaction.date,
-    amount: transaction.amount,
+    amount: parseInt(transaction.amount),
     type: transaction.type,
     notes: transaction.notes,
     category: transaction.category
@@ -18,7 +25,8 @@ function setNewTransaction(transaction) {
   }
 }
 
-function getVisibleTransactions(transactions, currentMonthIndex) {
+export function getVisibleTransactions(transactions, currentMonthIndex) {
+  console.log('get visible transactions -----')
   return function(dispatch) {
     let visibleTransactions = []
     if (transactions) {
@@ -36,11 +44,12 @@ function getVisibleTransactions(transactions, currentMonthIndex) {
 
 export function addNewTransaction(transaction) {
   return function (dispatch, getState) {
-    const state = getState()
-    const transactions = state.transactions.transactions,
-          currentMonthIndex = state.data.currentMonthIndex
+    // const state = getState()
+    // const transactions = state.transactions.transactions,
+    //       currentMonthIndex = state.data.currentMonthIndex
+    // transactions.push(transaction)
     dispatch(setNewTransaction(transaction))
-    dispatch(getVisibleTransactions(transactions, currentMonthIndex))
+    // dispatch(getVisibleTransactions(transactions, currentMonthIndex))
   }
 
 }
