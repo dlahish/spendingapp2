@@ -20,6 +20,7 @@ import * as accountActions from '../../actions/accounts'
 import * as dataActions from '../../actions/data'
 import * as formActions from '../../actions/form'
 import * as settingsActions from '../../actions/settings'
+import * as transactionsActions from '../../actions/transactions'
 
 class Home extends Component {
   constructor (props) {
@@ -29,14 +30,17 @@ class Home extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.transactions.length !== nextProps.transactions.length) {
+      this.props.actions.data.getVisibleTransactions(nextProps.transactions, this.props.currentMonthIndex)
+    }
+    this.setState({ isLoading: false })
+  }
+
   onAddNewFavortieTransaction = (favTransaction) => {
     this.setState({ isLoading: true })
     delete favTransaction['id']
     this.props.actions.data.addNewFavoriteTransaction(favTransaction)
-  }
-
-  componentWillReceiveProps() {
-    this.setState({ isLoading: false })
   }
 
   render() {
@@ -109,7 +113,8 @@ export default connect(
     currencySymbol: state.settings.currencySymbol,
     favoriteTransactions: state.data.favoriteTransactions,
     yearTotal: state.data.yearTotal,
-    transactions: state.data.transactions[state.data.currentYear],
+    // transactions: state.data.transactions[state.data.currentYear],
+    transactions: state.transactions.transactions,
     visibleTransactions: state.data.visibleTransactions,
     customFavorites: state.settings.customFavorites
   }),
@@ -118,7 +123,8 @@ export default connect(
       account: bindActionCreators(accountActions, dispatch),
       data: bindActionCreators(dataActions, dispatch),
       form: bindActionCreators(formActions, dispatch),
-      settings: bindActionCreators(settingsActions, dispatch)
+      settings: bindActionCreators(settingsActions, dispatch),
+      transactions: bindActionCreators(transactionsActions, dispatch),
     }
   })
 )(Home)

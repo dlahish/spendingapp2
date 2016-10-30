@@ -34,7 +34,7 @@ class Categories extends Component {
   }
 
   componentDidMount() {
-    this.props.actions.categories.getCategories()
+    // this.props.actions.categories.getCategories()
   }
 
   onTypeChange = (type) => {

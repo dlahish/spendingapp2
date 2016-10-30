@@ -2,13 +2,13 @@ import {persistStore, autoRehydrate, purgeStoredState} from 'redux-persist'
 import {applyMiddleware, createStore, compose} from 'redux'
 import {AsyncStorage} from 'react-native'
 import thunk from 'redux-thunk'
-// import createLogger from 'redux-logger'
+import createLogger from 'redux-logger'
 import rootReducer from '../reducers'
 
-// const logger = createLogger()
+const logger = createLogger()
 
 const store = createStore(rootReducer, compose(
-	// applyMiddleware(thunk, logger),
+	applyMiddleware(thunk, logger),
 	applyMiddleware(thunk),
 	autoRehydrate()
 ));

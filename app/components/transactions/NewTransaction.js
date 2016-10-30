@@ -7,6 +7,7 @@ import KeyboardSpacer from 'react-native-keyboard-spacer'
 import { bindActionCreators } from 'redux'
 import * as dataActionCreators from '../../actions/data'
 import * as formActionCreators from '../../actions/form'
+import * as transactionsActionCreators from '../../actions/transactions'
 import {
   View,
   Text,
@@ -53,26 +54,12 @@ class NewTransaction extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.visibleTransactions !== nextProps.visibleTransactions) {
-      this.setState({
-        date: new Date(),
-        amount: '',
-        category: '',
-        notes: '',
-        error: '',
-        categoryType: '',
-        isLoading: false
-      })
-      this.props.actions.form.clearForm()
-      Actions.pop()
-    } else {
-      this.setState({
-        ...this.state,
-        category: nextProps.newCategory,
-        categoryType: nextProps.categoryType,
-        error: ''
-      })
-    }
+    this.setState({
+      ...this.state,
+      category: nextProps.newCategory,
+      categoryType: nextProps.categoryType,
+      error: ''
+    })
   }
 
   onDateChange = (date) => {
@@ -117,11 +104,15 @@ class NewTransaction extends Component {
             }
             if (this.props.title === 'New Transaction') {
               if (!this.props.editMode || this.props.customFavorites) {
-                this.props.actions.data.addNewTransaction(transaction)
+                this.props.actions.transactions.addNewTransaction(transaction)
                 this.setState({isLoading: true})
+                this.props.actions.form.clearForm()
+                Actions.pop()
               } else {
                 this.props.actions.data.updateTransaction(transaction)
                 this.setState({isLoading: true})
+                this.props.actions.form.clearForm()
+                Actions.pop()
               }
             } else {
               this.props.actions.data.addFavoriteTransaction(transaction)
@@ -170,7 +161,7 @@ class NewTransaction extends Component {
 
   onDeleteTransaction = () => {
     if (this.props.title === 'New Transaction') {
-      this.props.removeTransaction(this.props.transaction)
+      this.props.actions.transactions.removeTransaction(this.props.transaction)
       Actions.pop()
     } else {
       this.props.actions.data.removeNewFavoriteTransaction(transaction)
@@ -257,7 +248,8 @@ export default connect(
   (dispatch) => ({
     actions: {
       data: bindActionCreators(dataActionCreators, dispatch),
-      form: bindActionCreators(formActionCreators, dispatch)
+      form: bindActionCreators(formActionCreators, dispatch),
+      transactions: bindActionCreators(transactionsActionCreators, dispatch)
     }
   })
 )(NewTransaction)
