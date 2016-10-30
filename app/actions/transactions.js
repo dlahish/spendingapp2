@@ -10,7 +10,7 @@ import {
 
 function saveNewTransaction(transaction) {
   let transactionToReducer = {
-    date: transaction.date,
+    date: new Date(transaction.date).toISOString(),
     amount: parseInt(transaction.amount),
     category: transaction.category,
     notes: transaction.notes,

@@ -6,16 +6,17 @@ import {
   SET_FAVORITE_TRANSACTION,
   DELETE_FAVORITE_TRANSACTION,
   SET_VISIBLE_TRANSACTIONS,
+  SET_FETCHED_TRANSACTIONS
 } from './../constants'
-// import {
-//   fetchYearTotal,
-//   saveNewTransaction,
-//   fetchTransactions,
-//   deleteTransaction,
-//   saveFavoriteTransaction,
-//   deleteFavoriteTransaction,
-//   sendUpdateTransaction
-// } from '../api/data'
+import {
+  fetchYearTotal,
+  saveNewTransaction,
+  fetchTransactions,
+  deleteTransaction,
+  saveFavoriteTransaction,
+  deleteFavoriteTransaction,
+  sendUpdateTransaction
+} from '../api/data'
 
 // function getToken(state) {
 //   return state.account.token
@@ -139,17 +140,27 @@ export function getVisibleTransactions(transactions, currentMonthIndex) {
 //   }
 // }
 //
-// export function getTransactions(year, token, currentMonthIndex = new Date().getMonth()) {
-//   return function(dispatch) {
-//     fetchTransactions(token, year)
-//       .then((response) => {
-//         dispatch(setYearlyTransactions(response, year))
-//         dispatch(getVisibleTransactions(response.data.data, currentMonthIndex))
-//       })
-//       .catch((err) => console.log(err))
-//
-//   }
-// }
+
+function setSyncedTransactions(transactions) {
+  if (!transactions) return
+  return {
+    type: SET_FETCHED_TRANSACTIONS,
+    transactions
+  }
+}
+
+export function getTransactions(year, token, currentMonthIndex = new Date().getMonth()) {
+  return function(dispatch) {
+    fetchTransactions(token, year)
+      .then((response) => {
+        // dispatch(setYearlyTransactions(response, year))
+        // dispatch(getVisibleTransactions(response.data.data, currentMonthIndex))
+        dispatch(setSyncedTransactions(response.data.data))
+      })
+      .catch((err) => console.log(err))
+
+  }
+}
 //
 // export function getYearTotal(year, token) {
 //   return function(dispatch, getState) {
