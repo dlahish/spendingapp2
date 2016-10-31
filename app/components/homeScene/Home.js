@@ -30,8 +30,11 @@ class Home extends Component {
     }
   }
 
-  componentDidMount() {
-    this.props.actions.transactions.getVisibleTransactions(this.props.transactions, this.props.currentMonthIndex)
+  componentWillReceiveProps(nextProps) {
+    if (this.props.transactions.length !== nextProps.transactions.length) {
+      this.props.actions.data.getVisibleTransactions(nextProps.transactions, this.props.currentMonthIndex)
+    }
+    this.setState({ isLoading: false })
   }
 
   onAddNewFavortieTransaction = (favTransaction) => {
@@ -40,16 +43,7 @@ class Home extends Component {
     this.props.actions.data.addNewFavoriteTransaction(favTransaction)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.transactions !== nextProps.transactions) {
-      this.props.actions.transactions.getVisibleTransactions(this.props.transactions, this.props.currentMonthIndex)
-    }
-    this.setState({ isLoading: false })
-  }
-
   render() {
-    console.log('home - render');
-    console.log('p.transactions', this.props.transactions);
     return (
       <View style={styles.container}>
 
@@ -130,7 +124,7 @@ export default connect(
       data: bindActionCreators(dataActions, dispatch),
       form: bindActionCreators(formActions, dispatch),
       settings: bindActionCreators(settingsActions, dispatch),
-      transactions: bindActionCreators(transactionsActions, dispatch)
+      transactions: bindActionCreators(transactionsActions, dispatch),
     }
   })
 )(Home)

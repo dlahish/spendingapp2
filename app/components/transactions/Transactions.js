@@ -42,13 +42,11 @@ class Transactions extends Component {
   }
 
   componentDidMount() {
-    console.log('transactions, component did mount')
     this.refs._scrollView.scrollTo({y: this.state.scrollY})
   }
 
   componentWillReceiveProps(nextProps) {
     dispatch(getVisibleTransactions(this.props.transactions, this.props.currentMonthIndex))
-    console.log('transactions, component will receive props')
     if (this.props.visibleTransactions !== nextProps.visibleTransactions) {
       this.setState({isLoading: false})
     }
@@ -90,7 +88,7 @@ class Transactions extends Component {
 
   onDeleteTransaction = (transaction) => {
     this.setState({ isLoading: true })
-    this.props.removeTransaction(transaction)
+    this.props.actions.transactions.removeTransaction(transaction)
   }
 
   render() {
@@ -185,7 +183,6 @@ class Transactions extends Component {
 
 export default connect(
   (state) => ({
-    // transactions: state.data.transactions[state.data.currentYear],
     transactions: state.transactions.transactions,
     visibleTransactions: state.data.visibleTransactions,
     currentMonthName: state.data.currentMonthName,
@@ -198,8 +195,8 @@ export default connect(
   (dispatch) => ({
     actions: {
       data: bindActionCreators(dataActions, dispatch),
-      form: bindActionCreators(formActions, dispatch),
-      transactions: bindActionCreators(transactionsActions, dispatch)
+      transactions: bindActionCreators(transactionsActions, dispatch),
+      form: bindActionCreators(formActions, dispatch)
     }
   }))(Transactions)
 

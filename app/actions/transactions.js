@@ -1,55 +1,46 @@
 import {
-  SET_NEW_TRANSACTION, SET_VISIBLE_TRANSACTIONS
+  SAVE_NEW_TRANSACTION,
+  DELETE_TRANSACTION
 } from './../constants'
 
-// import { setVisibleTransactions } from './data'
-export function setVisibleTransactions(transactions) {
-  console.log('set visible transactions')
-  return {
-    type: SET_VISIBLE_TRANSACTIONS,
-    transactions
-  }
-}
+import {
+  setVisibleTransactions,
+  getVisibleTransactions
+} from './data'
 
-function setNewTransaction(transaction) {
-  const transactionToReducer = {
-    date: transaction.date,
+function saveNewTransaction(transaction) {
+  let transactionToReducer = {
+    date: new Date(transaction.date).toISOString(),
     amount: parseInt(transaction.amount),
-    type: transaction.type,
+    category: transaction.category,
     notes: transaction.notes,
-    category: transaction.category
+    type: transaction.type
   }
   return {
-    type: SET_NEW_TRANSACTION,
+    type: SAVE_NEW_TRANSACTION,
     transaction: transactionToReducer
   }
 }
 
-export function getVisibleTransactions(transactions, currentMonthIndex) {
-  console.log('get visible transactions -----')
-  return function(dispatch) {
-    let visibleTransactions = []
-    if (transactions) {
-      const filteredTransactions = transactions.filter((transaction) => {
-        const transactionMonth = new Date(transaction.date).getMonth()
-        return transactionMonth === currentMonthIndex
-      })
-      visibleTransactions = filteredTransactions.sort((a,b) => {
-        a.date < b.date ? 1 : a.date > b.date ? -1 : 0
-      })
-    }
-    dispatch((setVisibleTransactions(visibleTransactions)))
+function deleteTransaction(transaction) {
+  return {
+    type: DELETE_TRANSACTION,
+    transaction
   }
 }
 
 export function addNewTransaction(transaction) {
-  return function (dispatch, getState) {
-    // const state = getState()
-    // const transactions = state.transactions.transactions,
-    //       currentMonthIndex = state.data.currentMonthIndex
-    // transactions.push(transaction)
-    dispatch(setNewTransaction(transaction))
-    // dispatch(getVisibleTransactions(transactions, currentMonthIndex))
+  return function(dispatch, getState) {
+    const state = getState()
+    dispatch(saveNewTransaction(transaction))
+    // dispatch(getVisibleTransactions(state.transactions.transactions, state.data.currentMonthIndex))
   }
+}
 
+export function removeTransaction(transaction) {
+  return function(dispatch, getState) {
+    const state = getState()
+    dispatch(deleteTransaction(transaction))
+    // dispatch(setVisibleTransactions(state.transactions.transactions))
+  }
 }

@@ -6,19 +6,19 @@ import {
   SET_FAVORITE_TRANSACTION,
   DELETE_FAVORITE_TRANSACTION,
   SET_VISIBLE_TRANSACTIONS,
+  SET_FETCHED_TRANSACTIONS
 } from './../constants'
 
-import { getVisibleTransactions } from './transactions'
-// import {
-//   fetchYearTotal,
-//   saveNewTransaction,
-//   fetchTransactions,
-//   deleteTransaction,
-//   saveFavoriteTransaction,
-//   deleteFavoriteTransaction,
-//   sendUpdateTransaction
-// } from '../api/data'
-//
+import {
+  fetchYearTotal,
+  saveNewTransaction,
+  fetchTransactions,
+  deleteTransaction,
+  saveFavoriteTransaction,
+  deleteFavoriteTransaction,
+  sendUpdateTransaction
+} from '../api/data'
+
 // function getToken(state) {
 //   return state.account.token
 // }
@@ -53,13 +53,14 @@ import { getVisibleTransactions } from './transactions'
 //   }
 // }
 //
-// export function setVisibleTransactions(transactions) {
-//   console.log('set visible transactions')
-//   return {
-//     type: SET_VISIBLE_TRANSACTIONS,
-//     transactions
-//   }
-// }
+
+export function setVisibleTransactions(transactions) {
+  return {
+    type: SET_VISIBLE_TRANSACTIONS,
+    transactions
+  }
+}
+
 //
 export function setMonth(type, currentMonthIndex, yearTotal, transactions) {
   return function(dispatch) {
@@ -89,21 +90,23 @@ export function setMonth(type, currentMonthIndex, yearTotal, transactions) {
 //   }
 // }
 //
-// export function getVisibleTransactions(transactions, currentMonthIndex) {
-//   return function(dispatch) {
-//     let visibleTransactions = []
-//     if (transactions) {
-//       const filteredTransactions = transactions.filter((transaction) => {
-//         const transactionMonth = new Date(transaction.date).getMonth()
-//         return transactionMonth === currentMonthIndex
-//       })
-//       visibleTransactions = filteredTransactions.sort((a,b) => {
-//         a.date < b.date ? 1 : a.date > b.date ? -1 : 0
-//       })
-//     }
-//     dispatch((setVisibleTransactions(visibleTransactions)))
-//   }
-// }
+
+export function getVisibleTransactions(transactions, currentMonthIndex) {
+  return function(dispatch) {
+    let visibleTransactions = []
+    if (transactions) {
+      const filteredTransactions = transactions.filter((transaction) => {
+        const transactionMonth = new Date(transaction.date).getMonth()
+        return transactionMonth === currentMonthIndex
+      })
+      visibleTransactions = filteredTransactions.sort((a,b) => {
+        a.date < b.date ? 1 : a.date > b.date ? -1 : 0
+      })
+    }
+    dispatch((setVisibleTransactions(visibleTransactions)))
+  }
+}
+
 //
 // export function addNewFavoriteTransaction(favTransaction) {
 //   return function(dispatch) {
@@ -142,17 +145,28 @@ export function setMonth(type, currentMonthIndex, yearTotal, transactions) {
 //   }
 // }
 //
-// export function getTransactions(year, token, currentMonthIndex = new Date().getMonth()) {
-//   return function(dispatch) {
-//     fetchTransactions(token, year)
-//       .then((response) => {
-//         dispatch(setYearlyTransactions(response, year))
-//         dispatch(getVisibleTransactions(response.data.data, currentMonthIndex))
-//       })
-//       .catch((err) => console.log(err))
-//
-//   }
-// }
+
+function setSyncedTransactions(transactions) {
+  if (!transactions) return
+  return {
+    type: SET_FETCHED_TRANSACTIONS,
+    transactions
+  }
+}
+
+export function getTransactions(year, token, currentMonthIndex = new Date().getMonth()) {
+  return function(dispatch) {
+    fetchTransactions(token, year)
+      .then((response) => {
+        // dispatch(setYearlyTransactions(response, year))
+        // dispatch(getVisibleTransactions(response.data.data, currentMonthIndex))
+        dispatch(setSyncedTransactions(response.data.data))
+      })
+      .catch((err) => console.log(err))
+
+  }
+}
+
 //
 // export function getYearTotal(year, token) {
 //   return function(dispatch, getState) {
@@ -183,24 +197,25 @@ export function setMonth(type, currentMonthIndex, yearTotal, transactions) {
 //   }
 // }
 //
-// // export function addNewTransaction(transaction) {
-// //   return function(dispatch, getState) {
-// //     const state = getState()
-// //     const currentMonthIndex = state.data.currentMonthIndex,
-// //           token = state.account.token,
-// //           currentYear = state.data.currentYear
-// //     saveNewTransaction(token, transaction)
-// //       .then((response) => {
-// //         let currentYear = new Date().getFullYear()
-// //         dispatch(getYearTotal(currentYear, token))
-// //         dispatch(getTransactions(currentYear, token, currentMonthIndex))
-// //       })
-// //       .catch((err) => {
-// //         console.log(err)
-// //       })
-// //   }
-// // }
-//
+
+// export function addNewTransaction(transaction) {
+//   return function(dispatch, getState) {
+//     const state = getState()
+//     const currentMonthIndex = state.data.currentMonthIndex,
+//           token = state.account.token,
+//           currentYear = state.data.currentYear
+//     saveNewTransaction(token, transaction)
+//       .then((response) => {
+//         let currentYear = new Date().getFullYear()
+//         dispatch(getYearTotal(currentYear, token))
+//         dispatch(getTransactions(currentYear, token, currentMonthIndex))
+//       })
+//       .catch((err) => {
+//         console.log(err)
+//       })
+//   }
+// }
+
 export function setCurrentMonth(monthIndex = new Date().getMonth()) {
   const monthNames = ["January", "February", "March", "April", "May", "June",
                       "July", "August", "September", "October", "November", "December"]
