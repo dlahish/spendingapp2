@@ -2,13 +2,15 @@ import { REHYDRATE } from 'redux-persist/constants'
 import {
   SAVE_NEW_TRANSACTION,
   DELETE_TRANSACTION,
-  SET_FETCHED_TRANSACTIONS
+  SET_FETCHED_TRANSACTIONS,
+  FORCED_NEW_PROPS
 } from '../constants'
 
 const initialState = {
   idIndex: 0,
   transactions: [],
-  synced: false
+  synced: false,
+  forcedNewProps: false
 }
 
 export default function transactions (state = initialState, action) {
@@ -38,6 +40,8 @@ export default function transactions (state = initialState, action) {
       return { ...state, transactions: nextTransactions, synced: false }
     case SET_FETCHED_TRANSACTIONS:
       return { ...state, transactions: action.transactions, idIndex: 0, synced: true }
+    case FORCED_NEW_PROPS:
+      return { ...state, forcedNewProps: !state.forcedNewProps }
     case REHYDRATE:
       var incoming = action.payload.myReducer
       if (incoming) return {...state, ...incoming, specialKey: processSpecial(incoming.specialKey)}

@@ -33,10 +33,6 @@ class Categories extends Component {
     LayoutAnimation.easeInEaseOut();
   }
 
-  componentDidMount() {
-    // this.props.actions.categories.getCategories()
-  }
-
   onTypeChange = (type) => {
     this.setState({ categoryType: type })
   }
@@ -143,7 +139,8 @@ Categories.propType = {
 export default connect(
   (state) => ({
     categories: state.categories.categories,
-    categoryIcons: state.categories.categoryIconIndex }),
+    categoryIcons: state.categories.categoryIconIndex,
+    forcedNewProps: state.transactions.forcedNewProps }),
   (dispatch) => ({
     actions: {
       data: bindActionCreators(dataActionCreators, dispatch),

@@ -65,7 +65,6 @@ class Signin extends Component {
   }
 
   render() {
-    console.log('signup, state', this.state)
     return (
         <View style={styles.container}>
             <ScrollView keyboardShouldPersistTaps={true}>
@@ -164,7 +163,6 @@ var styles = StyleSheet.create({
     header: {
 				paddingTop: 54,
         alignItems: 'flex-start',
-        // flex: .3,
         backgroundColor: 'transparent',
 				marginLeft: 25
     },
@@ -180,7 +178,6 @@ var styles = StyleSheet.create({
     signin: {
 			justifyContent: 'center',
 			alignItems: 'center',
-			// flex: .15
     },
     signup: {
 			backgroundColor: '#7e01a8',

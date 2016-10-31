@@ -29,7 +29,6 @@ function getSymbol(symbol) {
 
 export default class CurrentMonthTotal extends Component {
   render() {
-    console.log('current month index - render')
     return (
       <View style={styles.container}>
           <View style={styles.titleWrapper}>

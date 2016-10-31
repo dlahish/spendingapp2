@@ -33,7 +33,6 @@ export function addNewTransaction(transaction) {
   return function(dispatch, getState) {
     const state = getState()
     dispatch(saveNewTransaction(transaction))
-    // dispatch(getVisibleTransactions(state.transactions.transactions, state.data.currentMonthIndex))
   }
 }
 
@@ -41,6 +40,5 @@ export function removeTransaction(transaction) {
   return function(dispatch, getState) {
     const state = getState()
     dispatch(deleteTransaction(transaction))
-    // dispatch(setVisibleTransactions(state.transactions.transactions))
   }
 }

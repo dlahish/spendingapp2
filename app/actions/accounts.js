@@ -23,7 +23,6 @@ function loadingActions(dispatch, token) {
   dispatch(setToken(token))
   dispatch(getTransactions(currentYear, token))
   dispatch(getCategories(token))
-  // dispatch(getYearTotal(currentYear, token))
 }
 
 function removeCurrentUser () {

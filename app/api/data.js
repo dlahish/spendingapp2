@@ -1,6 +1,5 @@
 import axios from 'axios'
 const BASE_URI = `https://spendingapi2.herokuapp.com`
-// const BASE_URI = `http://192.168.0.104:3090`
 
 export function updateCollection(transactions, token) {
   if (token === null) return {}

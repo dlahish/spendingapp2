@@ -1,6 +1,10 @@
-import { SAVE_CATEGORY_ICON, SET_CATEGORIES, DELETE_CATEGORY_ICON, SAVE_NEW_CATEGORY } from './../constants'
 import {
-  // saveNewCategory,
+  SAVE_CATEGORY_ICON,
+  SET_CATEGORIES,
+  DELETE_CATEGORY_ICON,
+  SAVE_NEW_CATEGORY,
+  FORCED_NEW_PROPS } from './../constants'
+import {
   fetchCategories,
   deleteCategory
 } from '../api/data'
@@ -23,17 +27,11 @@ export function deleteCategoryIcon(category) {
   }
 }
 
-// export function addNewCategory(category) {
-//   return function(dispatch, getState) {
-//     const token = getToken(getState())
-//     saveNewCategory(token, category)
-//       .then((response) => {
-//         dispatch(saveCategoryIcon(category))
-//         dispatch(getCategories(token))
-//       })
-//       .catch((err) => console.log(err))
-//   }
-// }
+export function forcedNewProps() {
+  return {
+    type: FORCED_NEW_PROPS
+  }
+}
 
 export function saveCategoryIcon(category) {
   return {
