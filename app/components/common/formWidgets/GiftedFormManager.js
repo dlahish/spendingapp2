@@ -284,7 +284,6 @@ class Manager {
     for (var key in this.stores[obj.formName].values) {
       if (this.stores[obj.formName].values.hasOwnProperty(key)) {
         if (key.indexOf(obj.name) === 0) {
-          // console.log('CLEARING '+key);
           delete this.stores[obj.formName].values[key];
         }
       }

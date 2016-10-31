@@ -1,4 +1,4 @@
-import { SAVE_CATEGORY_ICON, DELETE_CATEGORY_ICON, SET_CATEGORIES } from '../constants'
+import { SAVE_CATEGORY_ICON, DELETE_CATEGORY_ICON, SET_CATEGORIES, SAVE_NEW_CATEGORY } from '../constants'
 import {REHYDRATE} from 'redux-persist/constants'
 
 const initialState = {
@@ -9,6 +9,8 @@ const initialState = {
 export default function accounts (state = initialState, action) {
   let nextCategoryIconIndex = state.categoryIconIndex
   switch (action.type) {
+    case SAVE_NEW_CATEGORY:
+      return { ...state, categories: state.categories.concat(action.category) }
     case SET_CATEGORIES:
       return { ...state, categories: action.categories }
     case SAVE_CATEGORY_ICON:

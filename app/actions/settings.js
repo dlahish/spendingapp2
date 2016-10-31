@@ -1,31 +1,34 @@
-import { SET_CURRENCY_SYMBOL, SET_CUSTOM_FAVORITES } from '../constants'
-import { postCsv } from '../api/data'
+import { SET_CURRENCY_SYMBOL, SET_CUSTOM_FAVORITES, SET_FETCHED_TRANSACTIONS } from '../constants'
+import { updateCollection } from '../api/data'
 
-export function createCsv() {
+function updateSyncedTransactions(transactions) {
+  return {
+    type: SET_FETCHED_TRANSACTIONS,
+    transactions
+  }
+}
+
+export function syncData() {
   return function(dispatch, getState) {
     const state = getState()
     const token = state.account.token,
-          data = state.data.visibleTransactions,
-          dataToFile = []
-    console.log('create csv action ----')
-    console.log('visibleTransactions', data)
-    for (var i=0; i < data.length; i++) {
-      dataToFile.push({
-         date: data[i].date,
-         category: data[i].category,
-         amount: data[i].amount,
-         notes: data[i].notes,
-         type: data[i].type
-      })
-    }
-    console.log('dataToFile', dataToFile)
-    postCsv(dataToFile, token)
+          data = state.transactions.transactions
+    let dataToServer = []
+    data.forEach((d) => {
+      let tempData = {
+        date: d.date,
+        category: d.category,
+        amount: d.amount,
+        notes: d.notes,
+        type: d.type
+      }
+      dataToServer.push(tempData)
+    })
+    updateCollection(dataToServer, token)
       .then((res) => {
-        console.log('response', res)
+        dispatch(updateSyncedTransactions(res.data.transactions))
       })
-      .catch((err) => {
-        console.log('error', err)
-      })
+      .catch((err)=> console.log('error', err))
   }
 }
 

@@ -22,7 +22,6 @@ function loadingActions(dispatch, token) {
   let currentYear = new Date().getFullYear()
   dispatch(setToken(token))
   dispatch(getTransactions(currentYear, token))
-  dispatch(getYearTotal(currentYear, token))
   dispatch(getCategories(token))
 }
 

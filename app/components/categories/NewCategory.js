@@ -58,6 +58,7 @@ class NewCategory extends Component {
         isValid: false,
         error: ''
       })
+      this.props.forcedNewProps()
       Actions.pop()
     } else {
       this.setState({ error: 'Category name is required' })

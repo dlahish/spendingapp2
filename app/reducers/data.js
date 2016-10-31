@@ -19,7 +19,7 @@ const initialState = {
   currentYear: new Date().getFullYear()
 }
 
-export default function accounts (state = initialState, action) {
+export default function data (state = initialState, action) {
   switch (action.type) {
     case SET_YEAR_TOTAL:
       return { ...state, yearTotal: action.data }

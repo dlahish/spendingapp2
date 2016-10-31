@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-// import { View, Text, ScrollView, TouchableHighlight } from 'react-native'
 import Modal from 'react-native-modalbox'
 import {VibrancyView} from 'react-native-blur'
 import Spinner from 'react-native-loading-spinner-overlay'

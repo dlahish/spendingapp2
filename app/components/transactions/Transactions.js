@@ -15,6 +15,7 @@ import { getTransactions } from '../../actions/data'
 import { bindActionCreators } from 'redux'
 import * as dataActions from '../../actions/data'
 import * as formActions from '../../actions/form'
+import * as transactionsActions from '../../actions/transactions'
 import {searchTransactions, sortTransactions} from '../../functions/transactionsSearchAndFilter'
 const upArrow = (<Icon name='angle-up' size={24} color='#FFF' />)
 import onSendEmail from '../../functions/exportToCsv'
@@ -86,7 +87,7 @@ class Transactions extends Component {
 
   onDeleteTransaction = (transaction) => {
     this.setState({ isLoading: true })
-    this.props.removeTransaction(transaction)
+    this.props.actions.transactions.removeTransaction(transaction)
   }
 
   render() {
@@ -180,7 +181,7 @@ class Transactions extends Component {
 
 export default connect(
   (state) => ({
-    transactions: state.data.transactions[state.data.currentYear],
+    transactions: state.transactions.transactions,
     visibleTransactions: state.data.visibleTransactions,
     currentMonthName: state.data.currentMonthName,
     currentMonthIndex: state.data.currentMonthIndex,
@@ -192,6 +193,7 @@ export default connect(
   (dispatch) => ({
     actions: {
       data: bindActionCreators(dataActions, dispatch),
+      transactions: bindActionCreators(transactionsActions, dispatch),
       form: bindActionCreators(formActions, dispatch)
     }
   }))(Transactions)

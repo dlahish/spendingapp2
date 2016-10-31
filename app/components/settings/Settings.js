@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, ScrollView, TouchableHighlight } from 'react-na
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { MessageModal } from '../../components'
 import * as settingsActionCreators from '../../actions/settings'
 import * as accountActions from '../../actions/accounts'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -15,6 +16,25 @@ function getSymbol(symbol) {
 }
 
 class Settings extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      modalVisible: false,
+      modaltext: ''
+    }
+  }
+
+  onSyncPress = () => {
+    if (!this.props.synced) {
+      this.setModalVisible(true, 'Data synced with the server')
+      this.props.actions.settings.syncData()
+    } else { this.setModalVisible(true, 'Data already synced') }
+  }
+
+  setModalVisible = (visible, text) => {
+    this.setState({ modalVisible: visible, modaltext: text })
+  }
+
   render() {
     var bgColor = '#DCE3F4'
     return (
@@ -29,23 +49,25 @@ class Settings extends Component {
               onPress={() =>
                 Actions.currencySymbols()}
             />
-            <SettingsList.Header headerStyle={{marginTop:15}}/>
             <SettingsList.Item
               title='Edit Favorite Transaction'
               onPress={() => Actions.presetTransactions({editMode: false})}
             />
-            <SettingsList.Header headerStyle={{marginTop:15}}/>
             <SettingsList.Item
               title='Categories'
               onPress={() => Actions.categories({editMode: false})}
             />
-            <SettingsList.Header headerStyle={{marginTop:15}}/>
             <SettingsList.Item
               title='Custom Favorites'
               hasSwitch={true}
               hasNavArrow={false}
               switchState={this.props.customFavorites}
               switchOnValueChange={() => this.props.actions.settings.setCustomFavorites()}
+            />
+            <SettingsList.Item
+              title='Sync Data'
+              hasNavArrow={false}
+              onPress={() => this.onSyncPress()}
             />
             <SettingsList.Header headerStyle={{marginTop:15}}/>
             <SettingsList.Item
@@ -55,6 +77,12 @@ class Settings extends Component {
             />
           </SettingsList>
         </View>
+
+        <MessageModal
+          setModalVisible={this.setModalVisible}
+          modalVisible={this.state.modalVisible}
+          text={this.state.modaltext}
+        />
       </View>
     )
   }
@@ -69,7 +97,8 @@ const styles = {
 export default connect(
   (state) => ({
     currencySymbol: state.settings.currencySymbol,
-    customFavorites: state.settings.customFavorites }),
+    customFavorites: state.settings.customFavorites,
+    synced: state.transactions.synced }),
   (dispatch) => ({
     actions: {
       settings: bindActionCreators(settingsActionCreators, dispatch),
