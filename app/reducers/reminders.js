@@ -16,7 +16,9 @@ export default function accounts (state = initialState, action) {
     case SET_CHECKED_REMINDER:
       nextReminders = state.reminders.map((reminder) => {
         if (reminder.id === action.reminderId) {
-          return reminder.completed = { ...reminder, completed: !reminder.completed}
+          let completionDate = new Date().toISOString()
+          if (reminder.completed) completionDate = null
+          return reminder = { ...reminder, completed: !reminder.completed, completionDate }
         } else return reminder
       })
       return { ...state, reminders: nextReminders }

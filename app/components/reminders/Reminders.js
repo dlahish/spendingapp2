@@ -17,18 +17,32 @@ import {
   ScrollView
 } from 'react-native'
 
-function filterReminders(reminders, title) {
+function filterReminders(reminders, filter) {
   let filteredReminders
-  if (title === 'Reminders') filteredReminders = reminders.filter((reminder) => !reminder.completed)
+  if (filter === 'active') filteredReminders = reminders.filter((reminder) => !reminder.completed)
   else filteredReminders = reminders.filter((reminder) => reminder.completed)
   return filteredReminders
+}
+
+function getSecondaryText(reminder) {
+  const date = new Date(reminder.date).toLocaleDateString('en-GB')
+        completed = new Date(reminder.completionDate).toLocaleDateString('en-GB')
+  if (reminder.completed) {
+    if (reminder.notes.length > 0) return `${date}, ${reminder.notes}, ${reminder.type}, completed: ${completed}`
+    else return `${date}, ${reminder.notes}, completed: ${completed}`
+  }
+  else {
+    if (reminder.notes.length > 0) return `${date}, ${reminder.notes}, ${reminder.type}`
+    else return `${date}, ${reminder.type}`
+  }
 }
 
 class Reminders extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      modalVisible: false
+      modalVisible: false,
+      filter: 'active'
     }
   }
 
@@ -49,13 +63,17 @@ class Reminders extends Component {
     this.setModalVisible(true)
   }
 
+  setRemindersFilter = (type) => {
+    this.setState({ filter: type })
+  }
+
   render() {
     const p = this.props
-    const filteredReminders = filterReminders(p.reminders, p.title)
+    const filteredReminders = filterReminders(p.reminders, this.state.filter)
     return (
       <View style={styles.container}>
           <ScrollView style={{flex: 1}}>
-            {p.reminders.map((reminder,i) =>
+            {filteredReminders.map((reminder,i) =>
               <ItemRow
                 key={i}
                 itemIndex={i}
@@ -70,28 +88,45 @@ class Reminders extends Component {
                   sign_first: false,
                   precision: 0})}
                 rightTextStyle={setAmountColor(reminder.type[0])}
-                secondaryText={
-                  `${(new Date(reminder.date).toLocaleDateString('en-GB'))}, ${reminder.notes}, ${reminder.type[0]}`}
+                secondaryText={getSecondaryText(reminder)}
                 onSelecetItem={() => {}}
               />
             )}
           </ScrollView>
 
-          <ActionButton buttonColor="rgba(231,76,60,1)" offsetY={40} offsetX={15}>
-              <ActionButton.Item
-                buttonColor='#9b59b6'
-                title="New Reminder"
-                onPress={() => Actions.newReminder()}>
-                <Icon name="md-create" style={styles.actionButtonIcon} />
-              </ActionButton.Item>
 
-              <ActionButton.Item
-                buttonColor='#1abc9c'
-                title="Clear all completed reminders"
-                onPress={() => this.onClearCompletedPress()}>
-                <Icon name="md-warning" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
-              </ActionButton.Item>
-          </ActionButton>
+              {this.state.filter === 'active'
+                ? <ActionButton buttonColor="rgba(231,76,60,1)" offsetY={40} offsetX={15}>
+                    <ActionButton.Item
+                      buttonColor='#9b59b6'
+                      title="New Reminder"
+                      onPress={() => Actions.newReminder()}>
+                      <Icon name="md-create" style={styles.actionButtonIcon} />
+                    </ActionButton.Item>
+
+                    <ActionButton.Item
+                      buttonColor='#1abc9c'
+                      title="Completed reminders"
+                      onPress={() => this.setRemindersFilter('completed')}>
+                      <Icon name="md-warning" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
+                    </ActionButton.Item>
+                  </ActionButton>
+                : <ActionButton buttonColor="rgba(231,76,60,1)" offsetY={40} offsetX={15}>
+                    <ActionButton.Item
+                      buttonColor='#9b59b6'
+                      title="Clear all completed reminders"
+                      onPress={() => this.onClearCompletedPress()}>
+                      <Icon name="md-warning" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
+                    </ActionButton.Item>
+
+                    <ActionButton.Item
+                      buttonColor='#1abc9c'
+                      title="Active reminders"
+                      onPress={() => this.setRemindersFilter('active')}>
+                      <Icon name="md-list" style={[styles.actionButtonIcon, {fontSize: 20}]}/>
+                    </ActionButton.Item>
+                  </ActionButton>
+                }
 
           <MessageModal
             setModalVisible={this.setModalVisible}
