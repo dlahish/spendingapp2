@@ -9,6 +9,8 @@ import {
   SET_FETCHED_TRANSACTIONS
 } from './../constants'
 
+import { addNewTransaction } from './transactions'
+
 import {
   fetchYearTotal,
   saveNewTransaction,
@@ -84,5 +86,36 @@ export function setCurrentMonth(monthIndex = new Date().getMonth()) {
     currentMonthName: monthNames[monthIndex],
     currentMonthIndex: monthIndex,
     currentYear
+  }
+}
+
+function setFavoriteTransaction(transaction, favoriteTransactionsId) {
+  transaction.id = favoriteTransactionsId
+  return {
+    type: SET_FAVORITE_TRANSACTION,
+    transaction
+  }
+}
+
+export function addNewFavoriteTransaction(favTransaction) {
+  return function(dispatch) {
+    const date = new Date()
+    favTransaction = { ...favTransaction, date: date }
+    dispatch(addNewTransaction(favTransaction))
+  }
+}
+
+export function removeFavoriteTransaction(transaction) {
+  return {
+    type: DELETE_FAVORITE_TRANSACTION,
+    transaction
+  }
+}
+
+export function addFavoriteTransaction(transaction) {
+  return function(dispatch, getState) {
+    const state = getState()
+    favoriteTransactionsId = state.data.favoriteTransactions.length + 1
+    dispatch(setFavoriteTransaction(transaction, favoriteTransactionsId))
   }
 }
