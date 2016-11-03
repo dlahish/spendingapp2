@@ -3,7 +3,8 @@ import {
   SAVE_NEW_TRANSACTION,
   DELETE_TRANSACTION,
   SET_FETCHED_TRANSACTIONS,
-  FORCED_NEW_PROPS
+  FORCED_NEW_PROPS,
+  UPDATE_TRANSACTION
 } from '../constants'
 
 const initialState = {
@@ -40,6 +41,17 @@ export default function transactions (state = initialState, action) {
       return { ...state, transactions: nextTransactions, synced: false }
     case SET_FETCHED_TRANSACTIONS:
       return { ...state, transactions: action.transactions, idIndex: 0, synced: true }
+    case UPDATE_TRANSACTION:
+      nextTransactions = state.transactions.map((transaction) => {
+        if (!!transaction.id === false) {
+          if (transaction._id === action.transaction._id) return action.transaction
+          else return transaction
+        } else {
+          if (transaction.id === action.transaction.id) return action.transaction
+          else return transaction
+        }
+      })
+      return { ...state, transactions: nextTransactions, forcedNewProps: !state.forcedNewProps }
     case FORCED_NEW_PROPS:
       return { ...state, forcedNewProps: !state.forcedNewProps }
     case REHYDRATE:

@@ -107,7 +107,7 @@ class NewTransaction extends Component {
                 this.props.actions.form.clearForm()
                 Actions.pop()
               } else {
-                this.props.actions.data.updateTransaction(transaction)
+                this.props.actions.transactions.updateTransaction(transaction)
                 this.setState({isLoading: true})
                 this.props.actions.form.clearForm()
                 Actions.pop()

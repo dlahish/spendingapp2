@@ -1,6 +1,7 @@
 import {
   SAVE_NEW_TRANSACTION,
-  DELETE_TRANSACTION
+  DELETE_TRANSACTION,
+  UPDATE_TRANSACTION
 } from './../constants'
 
 import {
@@ -40,5 +41,12 @@ export function removeTransaction(transaction) {
   return function(dispatch, getState) {
     const state = getState()
     dispatch(deleteTransaction(transaction))
+  }
+}
+
+export function updateTransaction(transaction, currentMonthIndex) {
+  return {
+    type: UPDATE_TRANSACTION,
+    transaction
   }
 }

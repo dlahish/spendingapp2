@@ -86,6 +86,7 @@ class Signin extends Component {
                             autoCapitalize='none'
                             returnKeyType='next'
                             onSubmitEditing={() => this.refs.passwordInput.focus()}
+                            keyboardType='email-address'
                         />
                     </View>
                     <View style={styles.inputContainer}>
