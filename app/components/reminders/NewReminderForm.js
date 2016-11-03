@@ -3,7 +3,7 @@ import { GiftedForm, GiftedFormManager } from 'react-native-gifted-form'
 import Icon from 'react-native-vector-icons/Ionicons'
 import DatePicker from 'react-native-datepicker'
 import { Actions } from 'react-native-router-flux'
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, ScrollView } from 'react-native'
 import RowDatePicker from '../common/formWidgets/widgets/RowDatePicker'
 
 function getIcon(name) {
@@ -14,6 +14,7 @@ export default class NewReminderForm extends Component {
   render() {
     const { name, type, amount, date, notes, handleValueChange, onDateChange } = this.props
     return (
+      <ScrollView>
       <GiftedForm
         formName='newReminderForm'
         onValueChange={(values) => {
@@ -115,6 +116,7 @@ export default class NewReminderForm extends Component {
             }}
           />
       </GiftedForm>
+      </ScrollView>
     )
   }
 }

@@ -5,6 +5,7 @@ import { GiftedForm, GiftedFormManager } from 'react-native-gifted-form'
 import { addBorder, CategorySelector, RowWidgetWithTitle } from '../../components'
 import { Actions } from 'react-native-router-flux'
 import Icon from 'react-native-vector-icons/Ionicons'
+import { ScrollView } from 'react-native'
 import {
   View,
   Text,
@@ -30,7 +31,7 @@ export default class NewCategoryForm extends Component {
           expenseSelected={expenseSelected}
           onTypeChange={this.props.onTypeChange}
         />
-
+        <ScrollView>
         <GiftedForm
           formName='newCategoryForm'
           onValueChange={(values) => {
@@ -68,19 +69,7 @@ export default class NewCategoryForm extends Component {
             <GiftedForm.NoticeWidget title={this.props.error} style={{color: 'red'}}/>
 
         </GiftedForm>
-        {/* <View style={[styles.inputWrapper]}>
-          <Text style={styles.inputTitle}>
-            Name:
-          </Text>
-          <TextInput style={styles.input}
-            placeholder='Name'
-            onChangeText={(value) => this.props.onInputChange('name', value)}
-            value={this.props.amount}
-            maxLength = {10}
-            multiline={true}
-            numberOfLines = {1}
-          />
-        </View> */}
+        </ScrollView>
       </View>
     )
   }

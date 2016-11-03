@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import Button from 'react-native-button'
 import { addBorder, DatePicker, DatePickerModal, RowDatePicker, RowWidgetWithTitle } from '../../components'
-import { View, Text, StyleSheet, TextInput, TouchableHighlight, ListView } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableHighlight, ListView, ScrollView } from 'react-native'
 
 function getIcon(name) {
   return <Icon name={name} size={16} color='black' style={{paddingLeft: 10}}/>
@@ -32,6 +32,7 @@ class NewTransactionForm extends Component {
     const { name, category, categoryType, amount, date, notes, handleValueChange, onDateChange, error } = this.props
     return (
       <View style={[styles.container]}>
+          <ScrollView>
           <GiftedForm
             formName='newTransactionForm'
             onValueChange={(values) => {
@@ -82,6 +83,7 @@ class NewTransactionForm extends Component {
                   />
                   <GiftedForm.NoticeWidget title={error} style={{color: 'red'}}/>
           </GiftedForm>
+          </ScrollView>
       </View>
     )
   }
